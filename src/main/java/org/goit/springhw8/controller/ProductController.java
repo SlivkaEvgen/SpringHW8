@@ -60,7 +60,7 @@ public class ProductController {
         if (id == null) {
             return new ModelAndView("product/deleteProduct", model);
         }
-        productService.deleteProduct(Long.parseLong(id));
+        productService.deleteProduct(id);
         return new ModelAndView("product/product", model);
     }
 

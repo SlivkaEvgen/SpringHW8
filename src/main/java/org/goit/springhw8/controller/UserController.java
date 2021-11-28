@@ -40,7 +40,7 @@ public class UserController {
         if (!Validator.validId(id)) {
             return new ModelAndView("user/userById", model);
         }
-        Optional<User> optionalUser = userService.findUserById(Long.valueOf(id));
+        Optional<User> optionalUser = userService.findUserById(id);
         if (!optionalUser.isPresent()) {
             return new ModelAndView("user/userById", model);
         }
@@ -67,12 +67,12 @@ public class UserController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("user/deleteUser", model);
         }
-        if (!userService.findUserById(Long.parseLong(id)).isPresent()) {
+        if (!userService.findUserById(id).isPresent()) {
             model.addAttribute("error", "User With ID = " + id + " Is Empty");
             model.addAttribute("error2", "Try again");
             return new ModelAndView("user/deleteUser", model);
         }
-        userService.deleteUser(Long.parseLong(id));
+        userService.deleteUser(id);
         return new ModelAndView("redirect:/user", model);
     }
 

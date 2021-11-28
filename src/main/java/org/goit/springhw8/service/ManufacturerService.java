@@ -18,16 +18,16 @@ public class ManufacturerService {
         this.manufacturerRepository = manufacturerRepository1;
     }
 
-    public Iterable<Manufacturer> getAllManufacturers() {
+    public List<Manufacturer> getAllManufacturers() {
         return manufacturerRepository.findAll();
     }
 
-    public Optional<Manufacturer> findManufacturerById(Long id) {
-        return manufacturerRepository.findById(id);
+    public Optional<Manufacturer> findManufacturerById(String id) {
+        return manufacturerRepository.findById(Long.parseLong(id));
     }
 
     public List<Manufacturer> findByManufacturerName(String name) {
-        return (List<Manufacturer>) manufacturerRepository.findByName(name);
+        return manufacturerRepository.findByName(name);
     }
 
     public void deleteManufacturer(String id) {

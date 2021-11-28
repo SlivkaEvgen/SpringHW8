@@ -4,6 +4,7 @@ import org.goit.springhw8.model.Product;
 import org.goit.springhw8.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,7 +16,7 @@ public class ProductService {
         this.productRepository=productRepository;
     }
 
-    public Iterable<Product> getAllProducts() {
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
@@ -23,27 +24,18 @@ public class ProductService {
         return productRepository.findById(Long.parseLong(id));
     }
 
-    public Iterable<Product> findProductByName(String name) {
+    public List<Product> findProductByName(String name) {
         return productRepository.findByName(name);
     }
 
-    public void deleteProduct(Long id) {
-        if (productRepository.findById(id).isPresent()) {
-            productRepository.deleteById(id);
+    public void deleteProduct(String id) {
+        if (productRepository.findById(Long.parseLong(id)).isPresent()) {
+            productRepository.deleteById(Long.parseLong(id));
         }
     }
 
     public void saveProduct(Product product) {
         productRepository.save(product);
     }
-
-//    public List<Product> byManufacturerId(String id){
-//        System.out.println(id);
-//
-//        return productRepository.findAll()
-//                .stream()
-//                .filter(product -> product.getManufacturer().getId() == Long.parseLong(id))
-//                .collect(Collectors.toList());
-//    }
 
 }

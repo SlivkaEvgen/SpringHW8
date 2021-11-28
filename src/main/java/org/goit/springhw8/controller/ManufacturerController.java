@@ -48,7 +48,7 @@ public class ManufacturerController {
         if (!Validator.validId(id)) {
             return new ModelAndView("manufacturer/manufacturerById", model);
         }
-        Optional<Manufacturer> optionalManufacturer = manufacturerService.findManufacturerById(Long.parseLong(id));
+        Optional<Manufacturer> optionalManufacturer = manufacturerService.findManufacturerById(id);
         if (!optionalManufacturer.isPresent()) {
             return new ModelAndView("manufacturer/manufacturerById", model);
         }
@@ -66,7 +66,7 @@ public class ManufacturerController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("manufacturer/deleteManufacturer", model);
         }
-        if (!manufacturerService.findManufacturerById(Long.parseLong(id)).isPresent()) {
+        if (!manufacturerService.findManufacturerById(id).isPresent()) {
             model.addAttribute("error", "Role With ID = " + id + " Is Empty");
             model.addAttribute("error2", "Try again");
             return new ModelAndView("manufacturer/deleteManufacturer", model);
