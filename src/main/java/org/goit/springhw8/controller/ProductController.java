@@ -1,6 +1,7 @@
 package org.goit.springhw8.controller;
 
 import lombok.NonNull;
+import org.goit.springhw8.model.Manufacturer;
 import org.goit.springhw8.model.Product;
 import org.goit.springhw8.service.ProductService;
 import org.goit.springhw8.util.Validator;
@@ -71,21 +72,24 @@ public class ProductController {
 
     @GetMapping("new/**")
     public ModelAndView addNew(ModelMap model) {
-
-        if (model.isEmpty()) {
-            return new ModelAndView("product/newProduct", model);
-        }
-//        productService.saveProduct(new Product(product.getId(), product.getName(),product.getPrice(),product.getManufacturer()));
         return new ModelAndView("product/newProduct", model);
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewPost(ModelMap model,Product product) {
-        if (product.getId() == null) {
+    public ModelAndView addNewPost(ModelMap model, String id, String name, String price, Manufacturer manufacturer) {
+        if (id == null) {
             return new ModelAndView("product/newProduct", model);
         }
-        model.addAttribute("product", product);
-        productService.saveProduct(product);
+        if (name == null) {
+            return new ModelAndView("product/newProduct", model);
+        }
+        if (price == null) {
+            return new ModelAndView("product/newProduct", model);
+        }
+        if (manufacturer == null) {
+            return new ModelAndView("product/newProduct", model);
+        }
+        productService.saveProduct(new Product(Long.parseLong(id),name,Double.parseDouble(price),manufacturer));
         return new ModelAndView("product/product", model);
     }
 
@@ -111,23 +115,33 @@ public class ProductController {
 //    }
 
     @GetMapping("update/**")
-    public ModelAndView update(@NonNull ModelMap model, Product product) {
-//        model.addAttribute("error", message);
+    public ModelAndView update(ModelMap model, Product product) {
+        model.addAttribute("product",product);
         return new ModelAndView("product/updateProduct", model);
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(@NonNull Product product, ModelMap model) {
-        if (!Validator.validId(product.getId().toString())) {
+    public ModelAndView updatePost(String id, String name,String price,Manufacturer manufacturer, ModelMap model) {
+        if (id==null){
+            return new ModelAndView("product/updateProduct", model);
+        }
+        if (name==null){
+            return new ModelAndView("product/updateProduct", model);
+        }
+        if (price==null){
+            return new ModelAndView("product/updateProduct", model);
+        }
+        if (manufacturer==null){
+            return new ModelAndView("product/updateProduct", model);
+        }
+        if (!Validator.validId(id)) {
             model.addAttribute("error2", "Try Again");
             model.addAttribute("error", "Wrong ID");
-            return new ModelAndView("product/product", model);
+            return new ModelAndView("product/updateProduct", model);
         }
-       productService.saveProduct(product);
-//        if (role1.getId()!=null) {
-////            this.message = "User With ID = " + role.getId() + " Updated";
-////            model.addAttribute("error2", this.message);
-//        }
+        Product product = new Product(Long.parseLong(id), name, Double.parseDouble(price), manufacturer);
+        productService.saveProduct(product);
+        model.addAttribute("product",product);
         return new ModelAndView("product/product", model);
     }
 

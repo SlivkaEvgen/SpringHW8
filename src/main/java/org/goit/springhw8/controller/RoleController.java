@@ -97,8 +97,7 @@ public class RoleController {
     }
 
     @GetMapping("update/**")
-    public ModelAndView update(ModelMap model, Role role) {
-        System.out.println("RoleController update");
+    public ModelAndView update(ModelMap model,Role role) {
         model.addAttribute("role",role);
         return new ModelAndView("role/updateRole", model);
     }
@@ -111,6 +110,7 @@ public class RoleController {
             model.addAttribute("error", "Wrong ID");
             return new ModelAndView("role/role", model);
         }
+        roleService.saveRole(role);
         model.addAttribute("error2",   role + "\n Updated ");
         return new ModelAndView("role/role", model);
     }
@@ -124,22 +124,29 @@ public class RoleController {
     public ModelAndView addNewPost(ModelMap model,String id,String name) {
         System.out.println("RoleController addNewPost "+id);
         System.out.println("RoleController addNewPost "+name);
-//        System.out.println(role.getId());
-//        if (role == null) {
-//            return new ModelAndView("role/newRole", model);
-//        }
-//        if (!Validator.validId(role.getId().toString())){
-//            model.addAttribute("error", "Wrong ID");
-//            model.addAttribute("error2", "Please,Try Again");
-//            return new ModelAndView("role/newRole", model);
-//        }
-//        if (Objects.equals(role.getId(), roleService.findById(role.getId().toString()).get().getId())){
-//            model.addAttribute("error", "Role With ID "+role.getId()+" Is Used");
-//            model.addAttribute("error2", "Please,Try Again");
-//            return new ModelAndView("role/newRole", model);
-//        }
-//        roleService.saveRole(role);
-//        model.addAttribute("error2", "Role "+role+" Added");
+        if (id == null) {
+            return new ModelAndView("role/newRole", model);
+        }
+        if (name == null) {
+            return new ModelAndView("role/newRole", model);
+        }
+        if (!Validator.validId(id)){
+            model.addAttribute("error", "Wrong ID");
+            model.addAttribute("error2", "Please,Try Again");
+            return new ModelAndView("role/newRole", model);
+        }
+        if (!Validator.validName(name)){
+            model.addAttribute("error", "Wrong ID");
+            model.addAttribute("error2", "Please,Try Again");
+            return new ModelAndView("role/newRole", model);
+        }
+        if (roleService.findById(id).isPresent()){
+            model.addAttribute("error", "Role With ID "+id+" Is Used");
+            model.addAttribute("error2", "Please,Try Again");
+            return new ModelAndView("role/newRole", model);
+        }
+        Role role = roleService.saveRole(new Role(Long.parseLong(id), name));
+        model.addAttribute("error2", "Role "+role+" Added");
         return new ModelAndView("role/role", model);
     }
 }
