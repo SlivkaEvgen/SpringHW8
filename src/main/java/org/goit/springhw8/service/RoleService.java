@@ -13,26 +13,32 @@ public class RoleService {
     private final RoleRepository roleRepository;
 
     public RoleService(RoleRepository roleRepository) {
+        System.out.println("RoleService");
         this.roleRepository = roleRepository;
     }
 
     public List<Role> getAllRoles() {
+        System.out.println("getAllRoles");
         return roleRepository.findAll();
     }
 
     public Optional<Role> findById(String id) {
+        System.out.println("findById");
         return roleRepository.findById(Long.parseLong(id));
     }
 
     public List<Role> findByRoleName(String name) {
+        System.out.println("findByRoleName");
         return roleRepository.findByName(name);
     }
 
     public void deleteRole(String id) {
+        System.out.println("deleteRole");
         roleRepository.deleteById(Long.parseLong(id));
     }
 
     public Role saveRole(Role role) {
+        System.out.println("saveRole");
         return roleRepository.save(role);
     }
 }
