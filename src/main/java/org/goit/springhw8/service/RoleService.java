@@ -34,7 +34,9 @@ public class RoleService {
 
     public void deleteRole(String id) {
         System.out.println("deleteRole");
-        roleRepository.deleteById(Long.parseLong(id));
+        if (roleRepository.findById(Long.parseLong(id)).isPresent()) {
+            roleRepository.deleteById(Long.parseLong(id));
+        }
     }
 
     public Role saveRole(Role role) {

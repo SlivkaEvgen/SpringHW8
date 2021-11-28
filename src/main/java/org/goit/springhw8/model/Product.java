@@ -29,21 +29,4 @@ public class Product implements BaseModel<Long> {
 
     @ManyToOne
     private Manufacturer manufacturer;
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-//        Product product = (Product) o;
-//        return id != null && Objects.equals(id, product.id);
-//    }
-
-//    @Override
-//    public int hashCode() {
-//        int result = getId().hashCode();
-//        result = 31 * result + getName().hashCode();
-//        result = 31 * result + (getPrice() != null ? getPrice().hashCode() : 0);
-//        result = 31 * result + (getManufacturer() != null ? getManufacturer().hashCode() : 0);
-//        return result;
-//    }
 }

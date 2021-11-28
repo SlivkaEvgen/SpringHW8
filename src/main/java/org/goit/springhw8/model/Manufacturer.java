@@ -34,25 +34,4 @@ public class Manufacturer implements BaseModel<Long> {
 
     public Manufacturer(long id, String name) {
     }
-
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof Manufacturer)) return false;
-//
-//        Manufacturer that = (Manufacturer) o;
-//
-//        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-//        if (!getName().equals(that.getName())) return false;
-//        return getProducts() != null ? getProducts().equals(that.getProducts()) : that.getProducts() == null;
-//    }
-
-//    @Override
-//    public int hashCode() {
-//        int result = getId() != null ? getId().hashCode() : 0;
-//        result = 31 * result + getName().hashCode();
-//        result = 31 * result + (getProducts() != null ? getProducts().hashCode() : 0);
-//        return result;
-//    }
 }

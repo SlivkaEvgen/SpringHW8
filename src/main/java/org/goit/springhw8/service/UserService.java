@@ -24,29 +24,29 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<User> userList = findUserByName(username.toUpperCase());
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        List<User> userList = findUserByName(name.toUpperCase());
         if (userList == null) {
             throw new UsernameNotFoundException("User not found");
         }
         return userList.get(0);
     }
 
-    public Iterable<User> getAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<User> findUserById(Long userId) {
-        return userRepository.findById(userId);
+    public Optional<User> findUserById(String id) {
+        return userRepository.findById(Long.parseLong(id));
     }
 
-    public List<User> findUserByName(String userName) {
-        return userRepository.findByName(userName);
+    public List<User> findUserByName(String name) {
+        return userRepository.findByName(name);
     }
 
-    public void deleteUser(Long id) {
-        if (userRepository.findById(id).isPresent()) {
-            userRepository.deleteById(id);
+    public void deleteUser(String id) {
+        if (userRepository.findById(Long.parseLong(id)).isPresent()) {
+            userRepository.deleteById(Long.parseLong(id));
         }
     }
 
