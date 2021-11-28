@@ -1,7 +1,9 @@
 package org.goit.springhw8.controller;
 
+import lombok.NonNull;
 import org.goit.springhw8.model.Product;
 import org.goit.springhw8.service.ProductService;
+import org.goit.springhw8.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,25 +89,46 @@ public class ProductController {
         return new ModelAndView("product/product", model);
     }
 
-    @GetMapping("update/**")
-    public ModelAndView update(ModelMap model, Product product) {
-//        System.out.println("update  "+product);
-//        if (product.getId()==null){
+//    @GetMapping("update/**")
+//    public ModelAndView update(ModelMap model, Product product) {
+////        System.out.println("update  "+product);
+////        if (product.getId()==null){
+////            return new ModelAndView("product/updateProduct", model);
+////        }
+//////        productService.saveProduct(product);
+//        return new ModelAndView("product/updateProduct", model);
+//    }
+//
+//    @RequestMapping(value = "update/**", method = RequestMethod.POST)
+//    public ModelAndView updatePost(ModelMap model, Product product) {
+////        System.out.println("updatePost "+product);
+//        if (product.getId() == null) {
 //            return new ModelAndView("product/updateProduct", model);
 //        }
-////        productService.saveProduct(product);
+//        model.addAttribute("product", product);
+//        productService.saveProduct(product);
+//        return new ModelAndView("product/updateProduct", model);
+//    }
+
+    @GetMapping("update/**")
+    public ModelAndView update(@NonNull ModelMap model, Product product) {
+//        model.addAttribute("error", message);
         return new ModelAndView("product/updateProduct", model);
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(ModelMap model, Product product) {
-//        System.out.println("updatePost "+product);
-        if (product.getId() == null) {
-            return new ModelAndView("product/updateProduct", model);
+    public ModelAndView updatePost(@NonNull Product product, ModelMap model) {
+        if (!Validator.validId(product.getId().toString())) {
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Wrong ID");
+            return new ModelAndView("product/product", model);
         }
-        model.addAttribute("product", product);
-        productService.saveProduct(product);
-        return new ModelAndView("product/updateProduct", model);
+       productService.saveProduct(product);
+//        if (role1.getId()!=null) {
+////            this.message = "User With ID = " + role.getId() + " Updated";
+////            model.addAttribute("error2", this.message);
+//        }
+        return new ModelAndView("product/product", model);
     }
 
 }

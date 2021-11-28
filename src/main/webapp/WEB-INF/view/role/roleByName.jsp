@@ -25,7 +25,7 @@
     <meta name='DC.Language' scheme='rfc1766' content='ru'/>
 
     <title>Role By Name</title>
-    <jsp:include page="roleTestEnum.jsp"></jsp:include>
+    <jsp:include page="role.jsp"></jsp:include>
 </head>
 
 <body>
@@ -46,7 +46,7 @@
                     <td>
                         <label>
                             <input class="w3-input w3-center w3-border w3-small w3-round-xlarge w3-hover-light-blue"
-                                   type="text" name="name" placeholder=" Enter Role Name " value="${roleTestEnum.name}"/>
+                                   type="text" name="name" placeholder=" Enter Role Name " value="${role.name}"/>
                         </label>
                     </td>
                     <td colspan="1">
@@ -63,16 +63,16 @@
                         <th>UPDATE</th>
                         <th>DELETE</th>
                     </tr>
-                    <c:forEach items="${list}" var="roleTestEnum">
+                    <c:forEach items="${list}" var="role">
                         <tr>
-                            <td>${roleTestEnum.id}</td>
-                            <td>${roleTestEnum.name}</td>
+                            <td>${role.id}</td>
+                            <td>${role.name}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}update/?id=${roleTestEnum.id}"
+                                <a href="${pageContext.request.contextPath}update/?id=${role.id}"
                                    class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
                             </td>
                             <td>
-                                <a href="${pageContext.request.contextPath}delete/?id=${roleTestEnum.id}"
+                                <a href="${pageContext.request.contextPath}delete/?id=${role.id}"
                                    class="w3-btn w3-hover-red w3-round-xlarge">Delete</a>
                             </td>
                         </tr>

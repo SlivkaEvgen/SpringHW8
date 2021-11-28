@@ -27,7 +27,7 @@
     <meta name='DC.Language' scheme='rfc1766' content='ru'/>
 
     <title>Roles List</title>
-    <jsp:include page="roleTestEnum.jsp"></jsp:include>
+    <jsp:include page="role.jsp"></jsp:include>
 </head>
 
 <body>
@@ -46,16 +46,16 @@
                 <th>UPDATE</th>
                 <th>DELETE</th>
             </tr>
-            <c:forEach items="${list}" var="roleTestEnum">
+            <c:forEach items="${list}" var="role">
                 <tr>
-                    <td>${roleTestEnum.id}</td>
-                    <td>${roleTestEnum.name}</td>
+                    <td>${role.id}</td>
+                    <td>${role.name}</td>
                     <td>
-                        <a href="${pageContext.request.contextPath}update/?id=${roleTestEnum.id}"
+                        <a href="${pageContext.request.contextPath}update/?id=${role.id}"
                            class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}delete/?id=${roleTestEnum.id}"
+                        <a href="${pageContext.request.contextPath}delete/?id=${role.id}"
                            class="w3-btn w3-hover-red w3-round-xlarge">Delete</a>
                     </td>
                 </tr>

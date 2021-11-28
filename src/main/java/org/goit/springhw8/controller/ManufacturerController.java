@@ -1,5 +1,6 @@
 package org.goit.springhw8.controller;
 
+import lombok.NonNull;
 import org.goit.springhw8.model.Manufacturer;
 import org.goit.springhw8.service.ManufacturerService;
 import org.goit.springhw8.util.Validator;
@@ -78,22 +79,43 @@ public class ManufacturerController {
         return new ModelAndView("redirect:/role", model);
     }
 
+//    @GetMapping("update/**")
+//    public ModelAndView update(ModelMap model) {
+//        return new ModelAndView("manufacturer/updateManufacturer", model);
+//    }
+//
+//    @RequestMapping(value = "update/**", method = RequestMethod.POST)
+//    public ModelAndView updatePost(Manufacturer manufacturer, ModelMap model) {
+//        if (!Validator.validId(manufacturer.getId().toString())) {
+//            model.addAttribute("error2", "Try Again");
+//            model.addAttribute("error", "Wrong ID");
+//            return new ModelAndView("manufacturer/updateManufacturer", model);
+//        }
+//        manufacturerService.saveManufacturer(manufacturer);
+////        this.message = "User With ID = " + role.getId() + " Updated";
+////        model.addAttribute("error", this.message);
+//        return new ModelAndView("manufacturer/updateManufacturer", model);
+//    }
+
     @GetMapping("update/**")
-    public ModelAndView update(ModelMap model) {
+    public ModelAndView update(@NonNull ModelMap model, Manufacturer manufacturer) {
+//        model.addAttribute("error", message);
         return new ModelAndView("manufacturer/updateManufacturer", model);
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(Manufacturer manufacturer, ModelMap model) {
+    public ModelAndView updatePost(@NonNull Manufacturer manufacturer, ModelMap model) {
         if (!Validator.validId(manufacturer.getId().toString())) {
             model.addAttribute("error2", "Try Again");
             model.addAttribute("error", "Wrong ID");
-            return new ModelAndView("manufacturer/updateManufacturer", model);
+            return new ModelAndView("manufacturer/manufacturer", model);
         }
         manufacturerService.saveManufacturer(manufacturer);
-//        this.message = "User With ID = " + role.getId() + " Updated";
-//        model.addAttribute("error", this.message);
-        return new ModelAndView("manufacturer/updateManufacturer", model);
+//        if (role1.getId()!=null) {
+////            this.message = "User With ID = " + role.getId() + " Updated";
+////            model.addAttribute("error2", this.message);
+//        }
+        return new ModelAndView("manufacturer/manufacturer", model);
     }
 
     @GetMapping("new")

@@ -58,7 +58,7 @@
                     <td>${user.gender}</td>
                     <td>${user.email}</td>
                     <td>${user.password}</td>
-                    <td>${user.roleTestEnum}</td>
+                    <td>${user.role}</td>
 <%--                    <td>${user.active}</td>--%>
 
                     <td>

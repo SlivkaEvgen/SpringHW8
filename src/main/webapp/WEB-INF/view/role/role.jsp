@@ -25,22 +25,22 @@
     </div>
 
     <div class="w3-container w3-center w3-large" style="color:steelblue">
-        <a href="${pageContext.request.contextPath}/roleTestEnum"
+        <a href="${pageContext.request.contextPath}/role"
            class="w3-btn  w3-wide w3-hover-light-blue w3-round-xlarge " style="text-align-all: center ">ROLE PAGE</a>
     </div>
     <p></p>
 
-    <a href="${pageContext.request.contextPath}/roleTestEnum/list"
+    <a href="${pageContext.request.contextPath}/role/list"
        class="w3-btn w3-hover-light-blue w3-round-xlarge">Roles List</a>
-    <a href="${pageContext.request.contextPath}/roleTestEnum/id"
+    <a href="${pageContext.request.contextPath}/role/id"
        class="w3-btn w3-hover-light-blue w3-round-xlarge">Find By ID</a>
-    <a href="${pageContext.request.contextPath}/roleTestEnum/name"
+    <a href="${pageContext.request.contextPath}/role/name"
        class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By Name</a>
-    <a href="${pageContext.request.contextPath}/roleTestEnum/new"
+    <a href="${pageContext.request.contextPath}/role/new"
        class="w3-btn w3-hover-light-blue w3-round-xlarge">Add New</a>
-    <a href="${pageContext.request.contextPath}/roleTestEnum/update"
+    <a href="${pageContext.request.contextPath}/role/update"
        class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
-    <a href="${pageContext.request.contextPath}/roleTestEnum/delete"
+    <a href="${pageContext.request.contextPath}/role/delete"
        class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
 
     <div>

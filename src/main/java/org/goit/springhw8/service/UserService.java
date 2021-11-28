@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> findUserByName(String userName) {
-        return (List<User>) userRepository.findByName(userName);
+        return userRepository.findByName(userName);
     }
 
     public void deleteUser(Long id) {

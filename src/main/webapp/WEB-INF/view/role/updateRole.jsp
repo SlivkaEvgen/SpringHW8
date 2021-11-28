@@ -25,7 +25,7 @@
     <meta name='DC.Language' scheme='rfc1766' content='ru'/>
 
     <title>Update Role</title>
-    <jsp:include page="roleTestEnum.jsp"></jsp:include>
+    <jsp:include page="role.jsp"></jsp:include>
 </head>
 
 <body>
@@ -44,7 +44,7 @@
                         <label>
                             <input
                                     class="w3-input w3-center w3-border w3-small w3-round-xlarge w3-hover-light-blue"
-                                    type="text" name="id" placeholder=" Enter ID " value="${roleTestEnum.id}"/>
+                                    type="text" name="id" placeholder=" Enter ID " value="${role.id}"/>
                         </label>
                     </td>
                 </tr>
@@ -64,7 +64,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><a href="${pageContext.request.contextPath}/roleTestEnum"
+                    <th><a href="${pageContext.request.contextPath}/role"
                            class="w3-btn w3-hover-red w3-round-xlarge">CANCEL</a>
                     </th>
                     <td colspan="1">

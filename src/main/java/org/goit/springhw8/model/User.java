@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
+
 @Data
 @ToString
 @Getter
@@ -18,7 +19,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User implements BaseEntity<Long> ,UserDetails{
+public class User implements BaseModel<Long> ,UserDetails{
 
     private static final long serialVersionUID = -558_820_640_269_434_517L;
 
@@ -45,7 +46,7 @@ public class User implements BaseEntity<Long> ,UserDetails{
     private String password;
 
     @ManyToOne
-//    @ToString.Exclude
+    @ToString.Exclude
     @JoinColumn(name = "role_id")
     private Role role;
 

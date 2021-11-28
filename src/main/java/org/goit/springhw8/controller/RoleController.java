@@ -1,10 +1,8 @@
 package org.goit.springhw8.controller;
 
-import lombok.NonNull;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.service.RoleService;
 import org.goit.springhw8.util.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,26 +10,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("role")
 public class RoleController {
 
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
 
-    private String message = "";
+    public RoleController(RoleService roleService){
+        this.roleService=roleService;
+    }
 
-    //  DONE
     @GetMapping("role")
-    public ModelAndView entity( ModelMap model) {
-        model.addAttribute("error", this.message);
-        this.message = "";
+    public ModelAndView entity(ModelMap model) {
         return new ModelAndView("role/role", model);
     }
 
-    //  DONE
     @GetMapping("list")
     public ModelAndView getAllRoles( ModelMap model) {
         return new ModelAndView("role/list", model.addAttribute("list", roleService.getAllRoles()));
@@ -39,9 +36,16 @@ public class RoleController {
 
     @GetMapping("name")
     public ModelAndView findByRoleName(String name, ModelMap model) {
+        System.out.println("findByRoleName "+name);
         if (name == null) {
             return new ModelAndView("role/roleByName", model);
         }
+        List<Role> byRoleName = roleService.findByRoleName(name);
+        if (byRoleName.size()==0){
+            model.addAttribute("error","Not Found Role With Name = "+name);
+            model.addAttribute("error2"," Please, Try Again ");
+        }
+        System.out.println("roleService.findByRoleName(name)");
         model.addAttribute("list", roleService.findByRoleName(name));
         return new ModelAndView("role/roleByName", model);
     }
@@ -52,10 +56,14 @@ public class RoleController {
             return new ModelAndView("role/roleById", model);
         }
         if (!Validator.validId(id)) {
+            model.addAttribute("error","Wrong ID");
+            model.addAttribute("error2"," Please, Try Again ");
             return new ModelAndView("role/roleById", model);
         }
         Optional<Role> optionalRole = roleService.findById(id);
         if (!optionalRole.isPresent()) {
+            model.addAttribute("error"," No Found Role By ID = "+ id);
+            model.addAttribute("error2"," Please, Try Again ");
             return new ModelAndView("role/roleById", model);
         }
         model.addAttribute("role", optionalRole.get());
@@ -78,28 +86,25 @@ public class RoleController {
             return new ModelAndView("role/deleteRole", model);
         }
         roleService.deleteRole(id);
-        this.message = "Role With ID = " + id + "\n Removed ";
-        model.addAttribute("error2", message);
-        return new ModelAndView("redirect:/role", model);
+        model.addAttribute("error2", "Role With ID = " + id + "\n Removed ");
+        return new ModelAndView("role/role", model);
     }
 
     @GetMapping("update/**")
-    public ModelAndView update(@NonNull ModelMap model, Role role) {
-        model.addAttribute("error", message);
+    public ModelAndView update(ModelMap model, Role role) {
+        model.addAttribute("role",role);
         return new ModelAndView("role/updateRole", model);
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(@NonNull Role role, ModelMap model) {
+    public ModelAndView updatePost(Role role, ModelMap model) {
         if (!Validator.validId(role.getId().toString())) {
             model.addAttribute("error2", "Try Again");
             model.addAttribute("error", "Wrong ID");
-            return new ModelAndView("role/updateUser", model);
+            return new ModelAndView("role/role", model);
         }
-        roleService.saveRole(role);
-        this.message = "User With ID = " + role.getId() + " Updated";
-        model.addAttribute("error", this.message);
-        return new ModelAndView("role/updateRole", model);
+        model.addAttribute("error2",   role + "\n Updated ");
+        return new ModelAndView("role/role", model);
     }
 
     @GetMapping("new")
@@ -113,11 +118,22 @@ public class RoleController {
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
     public ModelAndView addNewPost(ModelMap model, Role role) {
+        System.out.println(role.getId());
         if (role == null) {
             return new ModelAndView("role/newRole", model);
         }
-        model.addAttribute("role", role);
+        if (!Validator.validId(role.getId().toString())){
+            model.addAttribute("error", "Wrong ID");
+            model.addAttribute("error2", "Please,Try Again");
+            return new ModelAndView("role/newRole", model);
+        }
+        if (Objects.equals(role.getId(), roleService.findById(role.getId().toString()).get().getId())){
+            model.addAttribute("error", "Role With ID "+role.getId()+" Is Used");
+            model.addAttribute("error2", "Please,Try Again");
+            return new ModelAndView("role/newRole", model);
+        }
         roleService.saveRole(role);
+        model.addAttribute("error2", "Role "+role+" Added");
         return new ModelAndView("role/role", model);
     }
 }

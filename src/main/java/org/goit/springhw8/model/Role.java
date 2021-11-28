@@ -1,6 +1,5 @@
 package org.goit.springhw8.model;
 
-
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -17,7 +16,7 @@ import java.util.Set;
 @Entity
 @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
 @Table(name = "role")
-public class Role implements BaseEntity<Long>, GrantedAuthority {
+public class Role implements BaseModel<Long>, GrantedAuthority {
 
     private static final long serialVersionUID = 1909791726526791370L;
 
@@ -29,7 +28,7 @@ public class Role implements BaseEntity<Long>, GrantedAuthority {
     @Column(name = "name", length = 15, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<User> users;
 

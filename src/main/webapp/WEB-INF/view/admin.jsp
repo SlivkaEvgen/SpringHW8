@@ -33,7 +33,7 @@
 <%--                <td>${user.username}</td>--%>
 <%--                <td>${user.password}</td>--%>
 <%--                <td>--%>
-<%--                    <c:forEach items="${user.roleTestEnum}" var="roleTestEnum">${roleTestEnum.name}; </c:forEach>--%>
+<%--                    <c:forEach items="${user.role}" var="role">${role.name}; </c:forEach>--%>
 <%--                </td>--%>
 <%--                <td>--%>
 <%--                    <form action="${pageContext.request.contextPath}admin" method="post">--%>

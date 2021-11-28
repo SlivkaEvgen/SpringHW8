@@ -98,20 +98,20 @@
                     </label>
                 </td>
             </tr>
-            <%--            <tr>--%>
-            <%--                <td>Role</td>--%>
-            <%--                <td>--%>
-            <%--                    <label>--%>
-            <%--                        <select class="w3-select w3-round-xlarge" name="roleId">--%>
-            <%--                            <option value="" disabled selected> Choose Role</option>--%>
-            <%--                            <option value="1">Admin</option>--%>
-            <%--                            <option value="2">User</option>--%>
-            <%--                            <option value="3">Moderator</option>--%>
-            <%--                            <option value="4">Owner</option>--%>
-            <%--                        </select>--%>
-            <%--                    </label>--%>
-            <%--                </td>--%>
-            <%--            </tr>--%>
+                        <tr>
+                            <td>Role</td>
+                            <td>
+                                <label>
+                                    <select class="w3-select w3-round-xlarge" name="role">
+                                        <option value="" disabled selected> Choose Role</option>
+                                        <option value="1">Admin</option>
+                                        <option value="2">User</option>
+                                        <option value="3">Moderator</option>
+                                        <option value="4">Owner</option>
+                                    </select>
+                                </label>
+                            </td>
+                        </tr>
             <tr>
                 <th>
                     <a href="${pageContext.request.contextPath}/user"

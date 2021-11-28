@@ -25,7 +25,7 @@
     <meta name='DC.Language' scheme='rfc1766' content='ru'/>
 
     <title>Role By ID</title>
-    <jsp:include page="roleTestEnum.jsp"></jsp:include>
+    <jsp:include page="role.jsp"></jsp:include>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
                 <tr>
                     <td><label>
                         <input class="w3-input w3-center w3-border w3-small w3-round-xlarge w3-hover-light-blue"
-                               type="text" name="id" placeholder=" Enter Manufacturer ID " value="${roleTestEnum.id}"/>
+                               type="text" name="id" placeholder=" Enter Manufacturer ID " value="${role.id}"/>
                     </label></td>
                     <td colspan="1">
                         <input type="submit"
@@ -57,14 +57,14 @@
                         <th>DELETE</th>
                     </tr>
                     <tr>
-                        <td>${roleTestEnum.id}</td>
-                        <td>${roleTestEnum.name}</td>
+                        <td>${role.id}</td>
+                        <td>${role.name}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}update/?id=${roleTestEnum.id}"
+                            <a href="${pageContext.request.contextPath}update/?id=${role.id}"
                                class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
                         </td>
                         <td>
-                            <a href="${pageContext.request.contextPath}delete/?id=${roleTestEnum.id}"
+                            <a href="${pageContext.request.contextPath}delete/?id=${role.id}"
                                class="w3-btn w3-hover-red w3-round-xlarge">Delete</a>
                         </td>
                     </tr>
@@ -117,7 +117,7 @@
 <%--    <meta name='DC.Language' scheme='rfc1766' content='ru'/>--%>
 
 <%--    <title>Role By ID</title>--%>
-<%--    <jsp:include page="roleTestEnum.jsp"></jsp:include>--%>
+<%--    <jsp:include page="role.jsp"></jsp:include>--%>
 <%--</head>--%>
 
 <%--<body>--%>
@@ -140,7 +140,7 @@
 <%--                    <td>--%>
 <%--                        <label>--%>
 <%--                            <input class="w3-input w3-center w3-border w3-small w3-round-xlarge w3-hover-light-blue"--%>
-<%--                                   type="text" name="id" placeholder=" Enter Role ID " value="${roleTestEnum.id}"/>--%>
+<%--                                   type="text" name="id" placeholder=" Enter Role ID " value="${role.id}"/>--%>
 <%--                        </label>--%>
 <%--                    </td>--%>
 <%--                </tr>--%>
@@ -160,14 +160,14 @@
 <%--                        <th>DELETE</th>--%>
 <%--                    </tr>--%>
 <%--                    <tr>--%>
-<%--                        <td>${roleTestEnum.id}</td>--%>
-<%--                        <td>${roleTestEnum.name}</td>--%>
+<%--                        <td>${role.id}</td>--%>
+<%--                        <td>${role.name}</td>--%>
 <%--                        <td>--%>
-<%--                            <a href="${pageContext.request.contextPath}update/?id=${roleTestEnum.id}"--%>
+<%--                            <a href="${pageContext.request.contextPath}update/?id=${role.id}"--%>
 <%--                               class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>--%>
 <%--                        </td>--%>
 <%--                        <td>--%>
-<%--                            <a href="${pageContext.request.contextPath}delete/?id=${roleTestEnum.id}"--%>
+<%--                            <a href="${pageContext.request.contextPath}delete/?id=${role.id}"--%>
 <%--                               class="w3-btn w3-hover-red w3-round-xlarge">Delete</a>--%>
 <%--                        </td>--%>
 <%--                    </tr>--%>

@@ -52,7 +52,7 @@
 <%--    <p></p>--%>
 
 <%--    <div class="w3-container w3-center w3-round-xlarge " style="color:indianred">--%>
-<%--        <a href="${pageContext.request.contextPath}roleTestEnum" class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Role</a>--%>
+<%--        <a href="${pageContext.request.contextPath}role" class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Role</a>--%>
 <%--        <a href="${pageContext.request.contextPath}user" class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">User</a>--%>
 <%--        <a href="${pageContext.request.contextPath}product"--%>
 <%--           class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Product</a>--%>
@@ -154,7 +154,7 @@
 <%--    </div>--%>
 <%--</nav>--%>
 
-<%--<div roleTestEnum="main" class="container">--%>
+<%--<div role="main" class="container">--%>
 <%--    <div class="jumbotron">--%>
 <%--        <h1><spring:message code="app.page.header"/></h1>--%>
 <%--        <p class="lead"><spring:message code="app.page.body"/></p>--%>

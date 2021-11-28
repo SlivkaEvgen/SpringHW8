@@ -4,6 +4,7 @@ import org.goit.springhw8.model.Role;
 import org.goit.springhw8.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -11,11 +12,11 @@ public class RoleService {
 
     private final RoleRepository roleRepository;
 
-    public RoleService(RoleRepository roleRepository){
-        this.roleRepository=roleRepository;
+    public RoleService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
 
-    public Iterable<Role> getAllRoles() {
+    public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }
 
@@ -23,7 +24,7 @@ public class RoleService {
         return roleRepository.findById(Long.parseLong(id));
     }
 
-    public Iterable<Role> findByRoleName(String name) {
+    public List<Role> findByRoleName(String name) {
         return roleRepository.findByName(name);
     }
 
@@ -31,7 +32,7 @@ public class RoleService {
         roleRepository.deleteById(Long.parseLong(id));
     }
 
-    public void saveRole(Role role) {
-        roleRepository.save(role);
+    public Role saveRole(Role role) {
+        return roleRepository.save(role);
     }
 }
