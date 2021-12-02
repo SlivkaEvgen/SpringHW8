@@ -33,15 +33,17 @@ public class ManufacturerService {
     public void deleteManufacturer(String id) {
         System.out.println("SERVICE MANUFACTURER");
         if (id == null) {
-            Optional.of("ID == null");
+            return;
+//            Optional.of("ID == null");
         }
         if (!Validator.validId(id)) {
-            Optional.of(" NO VALID ID");
+            return;
+//            Optional.of(" NO VALID ID");
         }
         if (manufacturerRepository.findById(Long.parseLong(id)).isPresent()) {
             manufacturerRepository.deleteById(Long.parseLong(id));
         }
-        Optional.of("ID request completed");
+//        Optional.of("ID request completed");
     }
 
     public Optional<Object> saveManufacturer(Manufacturer manufacturer) {

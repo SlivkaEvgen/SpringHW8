@@ -19,8 +19,8 @@ public class ProductController {
 
     private final ProductService productService;
 
-    public ProductController(ProductService productService){
-        this.productService=productService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping("product")
@@ -83,28 +83,28 @@ public class ProductController {
         if (manufacturer == null) {
             return new ModelAndView("product/newProduct", model);
         }
-        productService.saveProduct(new Product(Long.parseLong(id),name,Double.parseDouble(price),manufacturer));
+        productService.saveProduct(new Product(Long.parseLong(id), name, Double.parseDouble(price), manufacturer));
         return new ModelAndView("product/product", model);
     }
 
     @GetMapping("update/**")
     public ModelAndView update(ModelMap model, Product product) {
-        model.addAttribute("product",product);
+        model.addAttribute("product", product);
         return new ModelAndView("product/updateProduct", model);
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(String id, String name,String price,Manufacturer manufacturer, ModelMap model) {
-        if (id==null){
+    public ModelAndView updatePost(String id, String name, String price, Manufacturer manufacturer, ModelMap model) {
+        if (id == null) {
             return new ModelAndView("product/updateProduct", model);
         }
-        if (name==null){
+        if (name == null) {
             return new ModelAndView("product/updateProduct", model);
         }
-        if (price==null){
+        if (price == null) {
             return new ModelAndView("product/updateProduct", model);
         }
-        if (manufacturer==null){
+        if (manufacturer == null) {
             return new ModelAndView("product/updateProduct", model);
         }
         if (!Validator.validId(id)) {
@@ -114,8 +114,7 @@ public class ProductController {
         }
         Product product = new Product(Long.parseLong(id), name, Double.parseDouble(price), manufacturer);
         productService.saveProduct(product);
-        model.addAttribute("product",product);
+        model.addAttribute("product", product);
         return new ModelAndView("product/product", model);
     }
-
 }

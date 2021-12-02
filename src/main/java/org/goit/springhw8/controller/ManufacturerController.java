@@ -18,9 +18,10 @@ public class ManufacturerController {
 
     private final ManufacturerService manufacturerService;
 
-    public ManufacturerController(ManufacturerService manufacturerService){
-        this.manufacturerService=manufacturerService;
+    public ManufacturerController(ManufacturerService manufacturerService) {
+        this.manufacturerService = manufacturerService;
     }
+
     @GetMapping("manufacturer")
     public ModelAndView entity(ModelMap model) {
         return new ModelAndView("manufacturer/manufacturer", model);
@@ -77,7 +78,7 @@ public class ManufacturerController {
 
     @GetMapping("update/**")
     public ModelAndView update(ModelMap model, Manufacturer manufacturer) {
-        model.addAttribute("manufacturer",manufacturer);
+        model.addAttribute("manufacturer", manufacturer);
         return new ModelAndView("manufacturer/updateManufacturer", model);
     }
 
@@ -110,5 +111,4 @@ public class ManufacturerController {
         manufacturerService.saveManufacturer(manufacturer);
         return new ModelAndView("manufacturer/manufacturer", model);
     }
-
 }
