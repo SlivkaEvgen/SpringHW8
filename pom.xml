@@ -11,7 +11,7 @@
     <groupId>org.goit</groupId>
     <artifactId>SpringHW8</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>SpringHW8</name>
     <description>SpringHW8</description>
     <properties>
