@@ -1,7 +1,7 @@
 package org.goit.springhw8.service;
 
 import org.goit.springhw8.model.Manufacturer;
-import org.goit.springhw8.repository.ManufacturerRepository;
+import org.goit.springhw8.repository.RepositoryI;
 import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Service;
 
@@ -9,44 +9,49 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ManufacturerService {
+public class ManufacturerService extends ServiceI<Manufacturer, Long> {
 
-    private final ManufacturerRepository manufacturerRepository;
+    private final RepositoryI<Manufacturer, Long> manufacturerRepository;
 
-    public ManufacturerService(ManufacturerRepository manufacturerRepository1){
-
-        this.manufacturerRepository = manufacturerRepository1;
+    public ManufacturerService(RepositoryI<Manufacturer, Long> manufacturerRepository) {
+        super(manufacturerRepository);
+        this.manufacturerRepository = manufacturerRepository;
     }
 
-    public List<Manufacturer> getAllManufacturers() {
+    @Override
+    public List<Manufacturer> getAll() {
         return manufacturerRepository.findAll();
     }
 
-    public Optional<Manufacturer> findManufacturerById(String id) {
-        return manufacturerRepository.findById(Long.parseLong(id));
+    @Override
+    public Optional<Manufacturer> findById(Long id) {
+        return manufacturerRepository.findById(Long.parseLong(String.valueOf(id)));
     }
 
-    public List<Manufacturer> findByManufacturerName(String name) {
+    @Override
+    public List<Manufacturer> findByName(String name) {
         return manufacturerRepository.findByName(name);
     }
 
-    public void deleteManufacturer(String id) {
+    @Override
+    public void delete(Long id) {
         System.out.println("SERVICE MANUFACTURER");
         if (id == null) {
             return;
 //            Optional.of("ID == null");
         }
-        if (!Validator.validId(id)) {
+        if (!Validator.validId(String.valueOf(id))) {
             return;
 //            Optional.of(" NO VALID ID");
         }
-        if (manufacturerRepository.findById(Long.parseLong(id)).isPresent()) {
-            manufacturerRepository.deleteById(Long.parseLong(id));
+        if (manufacturerRepository.findById(Long.parseLong(String.valueOf(id))).isPresent()) {
+            manufacturerRepository.deleteById(Long.parseLong(String.valueOf(id)));
         }
 //        Optional.of("ID request completed");
     }
 
-    public Optional<Object> saveManufacturer(Manufacturer manufacturer) {
-        return Optional.of(manufacturerRepository.save(manufacturer));
+    @Override
+    public void save(Manufacturer manufacturer) {
+        manufacturerRepository.save(manufacturer);
     }
 }

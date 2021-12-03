@@ -3,17 +3,17 @@ package org.goit.springhw8.controller;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.service.RoleService;
 import org.goit.springhw8.util.Validator;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("role")
 public class RoleController {
 
@@ -33,7 +33,7 @@ public class RoleController {
     @GetMapping("list")
     public ModelAndView getAllRoles(ModelMap model) {
         System.out.println("RoleController getAllRoles");
-        return new ModelAndView("role/list", model.addAttribute("list", roleService.getAllRoles()));
+        return new ModelAndView("role/list", model.addAttribute("list", roleService.getAll()));
     }
 
     @GetMapping("name")
@@ -43,13 +43,13 @@ public class RoleController {
         if (name == null) {
             return new ModelAndView("role/roleByName", model);
         }
-        List<Role> byRoleName = roleService.findByRoleName(name);
+        List<Role> byRoleName = roleService.findByName(name);
         if (byRoleName.size() == 0) {
             model.addAttribute("error", "Not Found Role With Name = " + name);
             model.addAttribute("error2", " Please, Try Again ");
         }
         System.out.println("roleService.findByRoleName(name)");
-        model.addAttribute("list", roleService.findByRoleName(name));
+        model.addAttribute("list", roleService.findByName(name));
         return new ModelAndView("role/roleByName", model);
     }
 
@@ -64,7 +64,7 @@ public class RoleController {
             model.addAttribute("error2", " Please, Try Again ");
             return new ModelAndView("role/roleById", model);
         }
-        Optional<Role> optionalRole = roleService.findById(id);
+        Optional<Role> optionalRole = roleService.findById(Long.valueOf(id));
         if (!optionalRole.isPresent()) {
             model.addAttribute("error", " No Found Role By ID = " + id);
             model.addAttribute("error2", " Please, Try Again ");
@@ -85,12 +85,12 @@ public class RoleController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("role/deleteRole", model);
         }
-        if (!roleService.findById(id).isPresent()) {
+        if (!roleService.findById(Long.valueOf(id)).isPresent()) {
             model.addAttribute("error", "Role With ID = " + id + " Is Empty");
             model.addAttribute("error2", "Try again");
             return new ModelAndView("role/deleteRole", model);
         }
-        roleService.deleteRole(id);
+        roleService.delete(Long.valueOf(id));
         model.addAttribute("error2", "Role With ID = " + id + "\n Removed ");
         return new ModelAndView("role/role", model);
     }
@@ -109,7 +109,7 @@ public class RoleController {
             model.addAttribute("error", "Wrong ID");
             return new ModelAndView("role/role", model);
         }
-        roleService.saveRole(role);
+        roleService.save(role);
         model.addAttribute("error2", role + "\n Updated ");
         return new ModelAndView("role/role", model);
     }
@@ -139,13 +139,13 @@ public class RoleController {
             model.addAttribute("error2", "Please,Try Again");
             return new ModelAndView("role/newRole", model);
         }
-        if (roleService.findById(id).isPresent()) {
+        if (roleService.findById(Long.valueOf(id)).isPresent()) {
             model.addAttribute("error", "Role With ID " + id + " Is Used");
             model.addAttribute("error2", "Please,Try Again");
             return new ModelAndView("role/newRole", model);
         }
-        Role role = roleService.saveRole(new Role(Long.parseLong(id), name));
-        model.addAttribute("error2", "Role " + role + " Added");
+        roleService.save(new Role(Long.parseLong(id), name));
+        model.addAttribute("error2", "Role " + " Added");
         return new ModelAndView("role/role", model);
     }
 }

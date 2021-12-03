@@ -1,46 +1,56 @@
 package org.goit.springhw8.service;
 
 import org.goit.springhw8.model.Role;
-import org.goit.springhw8.repository.RoleRepository;
+import org.goit.springhw8.repository.RepositoryI;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RoleService {
+public class RoleService extends ServiceI<Role, Long> {
 
-    private final RoleRepository roleRepository;
+    private final RepositoryI<Role, Long> roleRepository;
 
-    public RoleService(RoleRepository roleRepository) {
-        System.out.println("RoleService");
+    public RoleService(RepositoryI<Role, Long> roleRepository) {
+        super(roleRepository);
         this.roleRepository = roleRepository;
     }
 
-    public List<Role> getAllRoles() {
+    @Override
+    public List<Role> getAll() {
         System.out.println("getAllRoles");
         return roleRepository.findAll();
     }
 
-    public Optional<Role> findById(String id) {
+    @Override
+    public Optional<Role> findById(Long id) {
         System.out.println("findById");
-        return roleRepository.findById(Long.parseLong(id));
+        return roleRepository.findById(Long.parseLong(String.valueOf(id)));
     }
 
-    public List<Role> findByRoleName(String name) {
+    @Override
+    public List<Role> findByName(String name) {
         System.out.println("findByRoleName");
         return roleRepository.findByName(name);
     }
 
-    public void deleteRole(String id) {
+    @Override
+    public void delete(Long id) {
         System.out.println("deleteRole");
-        if (roleRepository.findById(Long.parseLong(id)).isPresent()) {
-            roleRepository.deleteById(Long.parseLong(id));
+        if (roleRepository.findById(Long.parseLong(String.valueOf(id))).isPresent()) {
+            roleRepository.deleteById(Long.parseLong(String.valueOf(id)));
         }
     }
 
-    public Role saveRole(Role role) {
+    @Override
+    public void save(Role role) {
         System.out.println("saveRole");
-        return roleRepository.save(role);
+         roleRepository.save(role);
     }
+
+//    @Override
+//    List<Role> getAll() {
+//        return roleRepository.findAll();
+//    }
 }

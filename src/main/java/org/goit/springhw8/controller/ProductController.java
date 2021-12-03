@@ -4,16 +4,16 @@ import org.goit.springhw8.model.Manufacturer;
 import org.goit.springhw8.model.Product;
 import org.goit.springhw8.service.ProductService;
 import org.goit.springhw8.util.Validator;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("product")
 public class ProductController {
 
@@ -30,7 +30,7 @@ public class ProductController {
 
     @GetMapping("list")
     public ModelAndView getAllProducts(ModelMap model) {
-        return new ModelAndView("product/list", model.addAttribute("list", productService.getAllProducts()));
+        return new ModelAndView("product/list", model.addAttribute("list", productService.getAll()));
     }
 
     @GetMapping("id")
@@ -38,7 +38,7 @@ public class ProductController {
         if (id == null) {
             return new ModelAndView("product/productById", model);
         }
-        Optional<Product> productById = productService.findProductById(id);
+        Optional<Product> productById = productService.findById(Long.valueOf(id));
         if (!productById.isPresent()) {
             return new ModelAndView("product/productById", model);
         }
@@ -51,7 +51,7 @@ public class ProductController {
         if (name == null) {
             return new ModelAndView("product/productByName", model);
         }
-        model.addAttribute("list", productService.findProductByName(name));
+        model.addAttribute("list", productService.findByName(name));
         return new ModelAndView("product/productByName", model);
     }
 
@@ -60,7 +60,7 @@ public class ProductController {
         if (id == null) {
             return new ModelAndView("product/deleteProduct", model);
         }
-        productService.deleteProduct(id);
+        productService.delete(Long.valueOf(id));
         return new ModelAndView("product/product", model);
     }
 
@@ -83,7 +83,7 @@ public class ProductController {
         if (manufacturer == null) {
             return new ModelAndView("product/newProduct", model);
         }
-        productService.saveProduct(new Product(Long.parseLong(id), name, Double.parseDouble(price), manufacturer));
+        productService.save(new Product(Long.parseLong(id), name, Double.parseDouble(price), manufacturer));
         return new ModelAndView("product/product", model);
     }
 
@@ -113,7 +113,7 @@ public class ProductController {
             return new ModelAndView("product/updateProduct", model);
         }
         Product product = new Product(Long.parseLong(id), name, Double.parseDouble(price), manufacturer);
-        productService.saveProduct(product);
+        productService.save(product);
         model.addAttribute("product", product);
         return new ModelAndView("product/product", model);
     }

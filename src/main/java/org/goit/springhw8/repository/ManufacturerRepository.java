@@ -1,12 +1,9 @@
 package org.goit.springhw8.repository;
 
 import org.goit.springhw8.model.Manufacturer;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-public interface ManufacturerRepository extends JpaRepository<Manufacturer, Long> {
-
-    List<Manufacturer> findByName(String name);
+@Repository
+public interface ManufacturerRepository extends RepositoryI<Manufacturer,Long>{
 
 }
