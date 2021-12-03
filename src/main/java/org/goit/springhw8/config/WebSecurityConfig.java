@@ -1,7 +1,6 @@
 package org.goit.springhw8.config;
 
-import lombok.NonNull;
-import org.goit.springhw8.service.UserService;
+import org.goit.springhw8.service.UserDtoUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserService userService;
+    private final UserDtoUserDetails userDtoUserDetails;
+
+    public WebSecurityConfig(UserDtoUserDetails userDtoUserDetails) {
+        this.userDtoUserDetails = userDtoUserDetails;
+    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -25,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(@NonNull HttpSecurity httpSecurity) throws Exception {
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
                 .disable()
@@ -57,8 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    protected void configureGlobal(@NonNull AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
+    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDtoUserDetails).passwordEncoder(bCryptPasswordEncoder());
     }
 
 }

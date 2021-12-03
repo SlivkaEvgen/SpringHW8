@@ -3,16 +3,16 @@ package org.goit.springhw8.controller;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserService;
 import org.goit.springhw8.util.Validator;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("user")
 public class UserController {
 
@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("list")
     public ModelAndView getAllUsers(ModelMap model) {
-        return new ModelAndView("user/list", model.addAttribute("list", userService.getAllUsers()));
+        return new ModelAndView("user/list", model.addAttribute("list", userService.getAll()));
     }
 
     @GetMapping("id")
@@ -40,7 +40,7 @@ public class UserController {
         if (!Validator.validId(id)) {
             return new ModelAndView("user/userById", model);
         }
-        Optional<User> optionalUser = userService.findUserById(id);
+        Optional<User> optionalUser = userService.findById(Long.valueOf(id));
         if (!optionalUser.isPresent()) {
             return new ModelAndView("user/userById", model);
         }
@@ -53,7 +53,7 @@ public class UserController {
         if (name == null) {
             return new ModelAndView("user/userByName", model);
         }
-        model.addAttribute("list", userService.findUserByName(name.toUpperCase()));
+        model.addAttribute("list", userService.findByName(name.toUpperCase()));
         return new ModelAndView("user/userByName", model);
     }
 
@@ -67,12 +67,12 @@ public class UserController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("user/deleteUser", model);
         }
-        if (!userService.findUserById(id).isPresent()) {
+        if (!userService.findById(Long.valueOf(id)).isPresent()) {
             model.addAttribute("error", "User With ID = " + id + " Is Empty");
             model.addAttribute("error2", "Try again");
             return new ModelAndView("user/deleteUser", model);
         }
-        userService.deleteUser(id);
+        userService.delete(Long.valueOf(id));
         return new ModelAndView("redirect:/user", model);
     }
 
@@ -92,7 +92,7 @@ public class UserController {
         if (user.getId() == null) {
             return new ModelAndView("user/newUser", model);
         }
-        userService.saveUser(user);
+        userService.save(user);
         model.addAttribute("user", user);
         return new ModelAndView("user/user", model);
     }
@@ -110,7 +110,7 @@ public class UserController {
             model.addAttribute("error", "Wrong ID");
             return new ModelAndView("user/updateUser", model);
         }
-        userService.saveUser(user);
+        userService.save(user);
         return new ModelAndView("user/user", model);
     }
 }

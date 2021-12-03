@@ -1,26 +1,27 @@
 package org.goit.springhw8.model;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+//@RequiredArgsConstructor
 @NoArgsConstructor
 @ToString
 @Getter
 @Setter
-@AllArgsConstructor
+//@AllArgsConstructor
 @Entity
-@RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
+//@RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
 @Table(name = "role")
-public class Role implements BaseModel<Long>, GrantedAuthority {
+public class Role implements BaseModel<Long> {
 
     private static final long serialVersionUID = 1909791726526791370L;
 
-    //  @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id", unique = true, nullable = false, length = 15)
     private Long id;
@@ -32,22 +33,29 @@ public class Role implements BaseModel<Long>, GrantedAuthority {
     @ToString.Exclude
     private Set<User> users;
 
-    public Role(Long id) {
-        this.id = id;
-    }
-
     public Role(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
     @Override
-    public String getAuthority() {
-        return getName();
+    public Long getId() {
+        return id;
     }
 
     @Override
-    public Long getId() {
-        return id;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Role role = (Role) o;
+        return id != null && Objects.equals(id, role.id);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getUsers() != null ? getUsers().hashCode() : 0);
+        return result;
     }
 }
