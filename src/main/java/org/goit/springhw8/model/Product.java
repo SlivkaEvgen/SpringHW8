@@ -16,9 +16,9 @@ public class Product implements BaseModel<Long> {
 
     private static final long serialVersionUID = 6007665773823540856L;
 
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id", unique = true, nullable = false,length = 15)
+    @Column(name = "id", unique = true, nullable = false, length = 15)
     private Long id;
 
     @Column(name = "name", length = 15)

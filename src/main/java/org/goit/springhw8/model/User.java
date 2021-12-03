@@ -16,6 +16,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements BaseModel<Long>, UserDetails {
@@ -101,9 +102,5 @@ public class User implements BaseModel<Long>, UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public User() {
-
     }
 }

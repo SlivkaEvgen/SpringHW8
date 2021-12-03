@@ -18,9 +18,9 @@ public class UserService implements UserDetailsService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository,BCryptPasswordEncoder bCryptPasswordEncoder){
-        this.userRepository=userRepository;
-        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
