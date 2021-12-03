@@ -72,7 +72,7 @@
 </div>
 
 <div class="w3-container w3-center w3-rodoto w3-text-dark-gray">
-    <p> &copy;Copyright <a href="https://github.com/SlivkaEvgen/JpaServletsMVChw6" target="_blank">Slivka</a>
+    <p> &copy;Copyright <a href="https://github.com/SlivkaEvgen/SpringHW8" target="_blank">Slivka</a>
     <p><a class="font-menu-button w3-center w3-red w3-round-xlarge">GO-IT</a></p>
 </div>
 
