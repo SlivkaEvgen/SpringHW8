@@ -1,6 +1,5 @@
-![](/Users/evgen/IDEAProjects/Рабочие/SpringHW8/WebMarket.png)
-
-[SpringWebmarket](https://spring-webmarket.herokuapp.com)
+![](WebMarket.png)
+[SpringWebMarket](https://spring-webmarket.herokuapp.com)
 
 [//]: # ([]&#40;WebMarket.png&#41;)
 
