@@ -2,7 +2,6 @@ package org.goit.springhw8.controller;
 
 import org.goit.springhw8.model.Manufacturer;
 import org.goit.springhw8.service.ManufacturerService;
-import org.goit.springhw8.service.ServiceI;
 import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -38,13 +38,41 @@ public class ManufacturerController {
         if (name == null) {
             return new ModelAndView("manufacturer/manufacturerByName", model);
         }
-        model.addAttribute("list", manufacturerService.getByName(name));
+        if (name.length()<1|name.length()>25){
+            model.addAttribute("error", "Wrong Name Length");
+            model.addAttribute("error2", "Try Again");
+            return new ModelAndView("manufacturer/manufacturerByName", model);
+        }
+        if (name.isEmpty()){
+            model.addAttribute("error", "Name Is Empty");
+            model.addAttribute("error2", "Try Again");
+            return new ModelAndView("manufacturer/manufacturerByName", model);
+        }
+        if (!Validator.validName(name)){
+            model.addAttribute("error", "WRONG NAME");
+            model.addAttribute("error2", "Try Again");
+            return new ModelAndView("manufacturer/manufacturerByName", model);
+        }
+        List<Manufacturer> byName = manufacturerService.getByName(name);
+        if (byName.isEmpty()){
+            model.addAttribute("error", "Cannot Found By Name "+name);
+            model.addAttribute("error2", "Try Again");
+            return new ModelAndView("manufacturer/manufacturerByName", model);
+        }
+        model.addAttribute("list", byName);
         return new ModelAndView("manufacturer/manufacturerByName", model);
     }
 
+
+//
     @GetMapping("id")
     public ModelAndView findById(ModelMap model, String id) {
         if (id == null) {
+            return new ModelAndView("manufacturer/manufacturerById", model);
+        }
+        if (id.isEmpty()){
+            model.addAttribute("error", "Wrong Empty ID");
+            model.addAttribute("error2", "Try again");
             return new ModelAndView("manufacturer/manufacturerById", model);
         }
         if (!Validator.validId(id)) {

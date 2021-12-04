@@ -1,7 +1,6 @@
 package org.goit.springhw8.controller;
 
 import org.goit.springhw8.model.User;
-import org.goit.springhw8.service.ServiceI;
 import org.goit.springhw8.service.UserService;
 import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Controller;
