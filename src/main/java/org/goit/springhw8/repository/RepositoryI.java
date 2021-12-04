@@ -12,4 +12,5 @@ public interface RepositoryI<T extends BaseModel<ID>,ID> extends JpaRepository<T
 
     @Query("SELECT u FROM #{#entityName} u WHERE u.name=?1")
     List<T> findByName(String name);
+
 }

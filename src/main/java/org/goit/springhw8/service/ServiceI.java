@@ -14,14 +14,24 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
 
     private final RepositoryI<T, ID> repositoryI;
 
-    abstract List<T> getAll();
+    public List<T> getList(){
+        return repositoryI.findAll();
+    };
 
-    abstract Optional<T> findById(ID id);
+    public Optional<T> getById(ID id){
+        return repositoryI.findById(id);
+    };
 
-    abstract List<T> findByName(String name);
+    public List<T> getByName(String name){
+        return repositoryI.findByName(name);
+    };
 
-    abstract void delete(ID id);
+    public void deleteById(ID id){
+        repositoryI.deleteById(id);
+    };
 
-    abstract void save(T t);
+    public void saveEntity(T t){
+         repositoryI.save(t);
+    };
 
 }

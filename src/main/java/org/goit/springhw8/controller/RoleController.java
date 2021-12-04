@@ -2,6 +2,7 @@ package org.goit.springhw8.controller;
 
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.service.RoleService;
+import org.goit.springhw8.service.ServiceI;
 import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,9 +20,8 @@ public class RoleController {
 
     private final RoleService roleService;
 
-    public RoleController(RoleService roleService) {
-        System.out.println("RoleController");
-        this.roleService = roleService;
+    public RoleController(RoleService roleService){
+        this.roleService=roleService;
     }
 
     @GetMapping("role")
@@ -33,7 +33,7 @@ public class RoleController {
     @GetMapping("list")
     public ModelAndView getAllRoles(ModelMap model) {
         System.out.println("RoleController getAllRoles");
-        return new ModelAndView("role/list", model.addAttribute("list", roleService.getAll()));
+        return new ModelAndView("role/list", model.addAttribute("list", roleService.getList()));
     }
 
     @GetMapping("name")
@@ -43,13 +43,13 @@ public class RoleController {
         if (name == null) {
             return new ModelAndView("role/roleByName", model);
         }
-        List<Role> byRoleName = roleService.findByName(name);
+        List<Role> byRoleName = roleService.getByName(name);
         if (byRoleName.size() == 0) {
             model.addAttribute("error", "Not Found Role With Name = " + name);
             model.addAttribute("error2", " Please, Try Again ");
         }
         System.out.println("roleService.findByRoleName(name)");
-        model.addAttribute("list", roleService.findByName(name));
+        model.addAttribute("list", roleService.getByName(name));
         return new ModelAndView("role/roleByName", model);
     }
 
@@ -64,7 +64,7 @@ public class RoleController {
             model.addAttribute("error2", " Please, Try Again ");
             return new ModelAndView("role/roleById", model);
         }
-        Optional<Role> optionalRole = roleService.findById(id);
+        Optional<Role> optionalRole = roleService.getById(id);
         if (!optionalRole.isPresent()) {
             model.addAttribute("error", " No Found Role By ID = " + id);
             model.addAttribute("error2", " Please, Try Again ");
@@ -85,12 +85,12 @@ public class RoleController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("role/deleteRole", model);
         }
-        if (!roleService.findById(id).isPresent()) {
+        if (!roleService.getById(id).isPresent()) {
             model.addAttribute("error", "Role With ID = " + id + " Is Empty");
             model.addAttribute("error2", "Try again");
             return new ModelAndView("role/deleteRole", model);
         }
-        roleService.delete(id);
+        roleService.deleteById(id);
         model.addAttribute("error2", "Role With ID = " + id + "\n Removed ");
         return new ModelAndView("role/role", model);
     }
@@ -109,7 +109,7 @@ public class RoleController {
             model.addAttribute("error", "Wrong ID");
             return new ModelAndView("role/role", model);
         }
-        roleService.save(role);
+        roleService.saveEntity(role);
         model.addAttribute("error2", role + "\n Updated ");
         return new ModelAndView("role/role", model);
     }
@@ -139,12 +139,12 @@ public class RoleController {
             model.addAttribute("error2", "Please,Try Again");
             return new ModelAndView("role/newRole", model);
         }
-        if (roleService.findById(id).isPresent()) {
+        if (roleService.getById(id).isPresent()) {
             model.addAttribute("error", "Role With ID " + id + " Is Used");
             model.addAttribute("error2", "Please,Try Again");
             return new ModelAndView("role/newRole", model);
         }
-        roleService.save(new Role(id, name));
+        roleService.saveEntity(new Role(id, name));
         model.addAttribute("error2", "Role " + " Added");
         return new ModelAndView("role/role", model);
     }

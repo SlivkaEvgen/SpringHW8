@@ -2,6 +2,7 @@ package org.goit.springhw8.controller;
 
 import org.goit.springhw8.model.Manufacturer;
 import org.goit.springhw8.service.ManufacturerService;
+import org.goit.springhw8.service.ServiceI;
 import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,11 +19,8 @@ public class ManufacturerController {
 
     private final ManufacturerService manufacturerService;
 
-    private final ManufacturerMessages manufacturerMessages;
-
-    public ManufacturerController(ManufacturerService manufacturerService, ManufacturerMessages manufacturerMessages) {
-        this.manufacturerService = manufacturerService;
-        this.manufacturerMessages = manufacturerMessages;
+    public ManufacturerController(ManufacturerService manufacturerService){
+        this.manufacturerService=manufacturerService;
     }
 
     @GetMapping("manufacturer")
@@ -32,7 +30,7 @@ public class ManufacturerController {
 
     @GetMapping("list")
     public ModelAndView getAllManufacturers(ModelMap model) {
-        return new ModelAndView("manufacturer/list", model.addAttribute("list", manufacturerService.getAll()));
+        return new ModelAndView("manufacturer/list", model.addAttribute("list", manufacturerService.getList()));
     }
 
     @GetMapping("name")
@@ -40,7 +38,7 @@ public class ManufacturerController {
         if (name == null) {
             return new ModelAndView("manufacturer/manufacturerByName", model);
         }
-        model.addAttribute("list", manufacturerService.findByName(name));
+        model.addAttribute("list", manufacturerService.getByName(name));
         return new ModelAndView("manufacturer/manufacturerByName", model);
     }
 
@@ -54,7 +52,7 @@ public class ManufacturerController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("manufacturer/manufacturerById", model);
         }
-        Optional<Manufacturer> optionalManufacturer = manufacturerService.findById(id);
+        Optional<Manufacturer> optionalManufacturer = manufacturerService.getById(id);
         if (!optionalManufacturer.isPresent()) {
             model.addAttribute("error", "Not Found");
             model.addAttribute("error2", "Try again");
@@ -74,12 +72,12 @@ public class ManufacturerController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("manufacturer/deleteManufacturer", model);
         }
-        if (!manufacturerService.findById(id).isPresent()) {
+        if (!manufacturerService.getById(id).isPresent()) {
             model.addAttribute("error", "Role With ID = " + id + " Is Empty");
             model.addAttribute("error2", "Try again");
             return new ModelAndView("manufacturer/deleteManufacturer", model);
         }
-        manufacturerService.delete(id);
+        manufacturerService.deleteById(id);
         return new ModelAndView("redirect:/role", model);
     }
 
@@ -96,7 +94,7 @@ public class ManufacturerController {
             model.addAttribute("error", "Manufacturer is Null");
             return new ModelAndView("manufacturer/manufacturer", model);
         }
-        if (!Validator.validId(manufacturer.getId().toString())) {
+        if (!Validator.validId(manufacturer.getId())) {
             model.addAttribute("error2", "Try Again");
             model.addAttribute("error", "Wrong ID");
             return new ModelAndView("manufacturer/manufacturer", model);
@@ -106,25 +104,12 @@ public class ManufacturerController {
             model.addAttribute("error", "Wrong Name");
             return new ModelAndView("manufacturer/manufacturer", model);
         }
-        manufacturerService.save(manufacturer);
+        manufacturerService.saveEntity(manufacturer);
         return new ModelAndView("manufacturer/manufacturer", model);
     }
 
     @GetMapping("new")
-    public ModelAndView addNew(ModelMap model, Manufacturer manufacturer, String id, String name) {
-//        System.out.println("ManufacturerController addNew, id = " + id);
-//        manufacturerMessages.newManufacturer(id, manufacturer, model);
-//        if (id.equalsIgnoreCase(null)) {
-//            model.addAttribute("error", "ID = Null");
-//            model.addAttribute("error2", "");
-//            return new ModelAndView("manufacturer/newManufacturer", model);
-//        }
-//        if (id.isEmpty()) {
-//            model.addAttribute("error", "ID Is Empty");
-//            model.addAttribute("error2", "");
-//            return new ModelAndView("manufacturer/newManufacturer", model);
-//        }
-//        manufacturerService.save(new Manufacturer(Long.parseLong(id), name));
+    public ModelAndView addNew(ModelMap model) {
         return new ModelAndView("manufacturer/newManufacturer", model);
     }
 
@@ -143,10 +128,6 @@ public class ManufacturerController {
         if (manufacturer.getName().equalsIgnoreCase("null")){
             return new ModelAndView("manufacturer/newManufacturer", model);
         }
-//        manufacturerMessages.newManufacturer(manufacturer.getId().toString(), manufacturer, model);
-        if (manufacturer == null) {
-            return new ModelAndView("manufacturer/newManufacturer", model);
-        }
         if (!Validator.validId(String.valueOf(manufacturer.getId()))) {
             model.addAttribute("error2", "Try Again");
             model.addAttribute("error", "Wrong ID");
@@ -157,14 +138,14 @@ public class ManufacturerController {
             model.addAttribute("error", "Wrong Name");
             return new ModelAndView("manufacturer/newManufacturer", model);
         }
-        if (manufacturerService.findById(manufacturer.getId()).isPresent()){
+        if (manufacturerService.getById(manufacturer.getId()).isPresent()){
             model.addAttribute("error2", "Try Again");
             model.addAttribute("error", "Wrong ID. Manufacturer With ID = "+ manufacturer.getId()+" Is Used");
             return new ModelAndView("manufacturer/newManufacturer", model);
         }
         model.addAttribute("manufacturer", manufacturer);
-        if (!manufacturerService.findById(manufacturer.getId()).isPresent()) {
-            manufacturerService.save(manufacturer);
+        if (!manufacturerService.getById(manufacturer.getId()).isPresent()) {
+            manufacturerService.saveEntity(manufacturer);
         }
         return new ModelAndView("manufacturer/manufacturer", model);
     }

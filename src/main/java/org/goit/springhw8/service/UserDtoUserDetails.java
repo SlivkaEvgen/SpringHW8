@@ -1,8 +1,10 @@
 package org.goit.springhw8.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.goit.springhw8.model.User;
-import org.goit.springhw8.repository.UserRepository;
+import org.goit.springhw8.repository.RepositoryI;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,18 +16,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserDtoUserDetails implements UserDetailsService {
 
-    private  UserRepository userRepository;
+    private RepositoryI<User,String> repositoryI;
 
-    public UserDtoUserDetails(UserRepository userRepository){
+    public UserDtoUserDetails(RepositoryI<User,String> repositoryI){
         System.out.println("UserDtoUserDetails ");
-        this.userRepository=userRepository;
+        this.repositoryI=repositoryI;
     }
 
+    @SneakyThrows
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(@NotNull String name) throws UsernameNotFoundException {
         System.out.println("UserDtoUserDetails loadUserByUsername name= "+name);
 
-        List<User> userList = userRepository.findByName(name.toUpperCase());
+        List<User> userList = repositoryI.findByName(name.toUpperCase());
         if (userList == null) {
             throw new UsernameNotFoundException("User not found");
         }
