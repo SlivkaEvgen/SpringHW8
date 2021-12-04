@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @SneakyThrows
     @Override
-    protected void configure(HttpSecurity http) {
+    protected void configure(@NotNull HttpSecurity http) {
         // включаем защиту от CSRF атак
         http.csrf()
                 .disable()
@@ -79,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
         @Override
-        public void init(AuthenticationManagerBuilder auth) throws Exception {
+        public void init(@NotNull AuthenticationManagerBuilder auth) throws Exception {
             auth
                     .inMemoryAuthentication()
                     .withUser("user").password("password").roles("USER");

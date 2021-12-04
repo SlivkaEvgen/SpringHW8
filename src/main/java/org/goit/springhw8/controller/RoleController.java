@@ -3,6 +3,7 @@ package org.goit.springhw8.controller;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.service.RoleService;
 import org.goit.springhw8.util.Validator;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,13 +32,13 @@ public class RoleController {
     }
 
     @GetMapping("list")
-    public ModelAndView getAllRoles(ModelMap model) {
+    public ModelAndView getAllRoles(@NotNull ModelMap model) {
         System.out.println("RoleController getAllRoles");
         return new ModelAndView("role/list", model.addAttribute("list", roleService.getList()));
     }
 
     @GetMapping("name")
-    public ModelAndView findByRoleName(@ModelAttribute String name, ModelMap model) {
+    public ModelAndView findByRoleName(String name, ModelMap model) {
         System.out.println("RoleController findByRoleName");
         System.out.println("findByRoleName " + name);
         if (name == null) {
@@ -54,7 +55,7 @@ public class RoleController {
     }
 
     @GetMapping("id")
-    public ModelAndView findById(ModelMap model,@ModelAttribute String id) {
+    public ModelAndView findById(ModelMap model, String id) {
         System.out.println("RoleController findById");
         if (id == null) {
             return new ModelAndView("role/roleById", model);
@@ -75,7 +76,7 @@ public class RoleController {
     }
 
     @GetMapping("delete")
-    public ModelAndView delete(ModelMap model,@ModelAttribute String id) {
+    public ModelAndView delete(ModelMap model, String id) {
         System.out.println("RoleController delete");
         if (id == null) {
             return new ModelAndView("role/deleteRole", model);
@@ -92,25 +93,6 @@ public class RoleController {
         }
         roleService.deleteById(id);
         model.addAttribute("error2", "Role With ID = " + id + "\n Removed ");
-        return new ModelAndView("role/role", model);
-    }
-
-    @GetMapping("update/**")
-    public ModelAndView update(ModelMap model, Role role) {
-        model.addAttribute("role", role);
-        return new ModelAndView("role/updateRole", model);
-    }
-
-    @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(Role role, ModelMap model) {
-        System.out.println("RoleController updatePost");
-        if (!Validator.validId(role.getId())) {
-            model.addAttribute("error2", "Try Again");
-            model.addAttribute("error", "Wrong ID");
-            return new ModelAndView("role/role", model);
-        }
-        roleService.saveEntity(role);
-        model.addAttribute("error2", role + "\n Updated ");
         return new ModelAndView("role/role", model);
     }
 
@@ -146,6 +128,25 @@ public class RoleController {
         }
         roleService.saveEntity(new Role(id, name));
         model.addAttribute("error2", "Role " + " Added");
+        return new ModelAndView("role/role", model);
+    }
+
+    @GetMapping("update/**")
+    public ModelAndView update(@NotNull ModelMap model, Role role) {
+        model.addAttribute("role", role);
+        return new ModelAndView("role/updateRole", model);
+    }
+
+    @RequestMapping(value = "update/**", method = RequestMethod.POST)
+    public ModelAndView updatePost(@NotNull @ModelAttribute Role role, ModelMap model) {
+        System.out.println("RoleController updatePost");
+        if (!Validator.validId(role.getId())) {
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Wrong ID");
+            return new ModelAndView("role/updateRole", model);
+        }
+        roleService.saveEntity(role);
+        model.addAttribute("error2", role + "\n Updated ");
         return new ModelAndView("role/role", model);
     }
 }

@@ -3,6 +3,7 @@ package org.goit.springhw8.controller;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserService;
 import org.goit.springhw8.util.Validator;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,12 +30,12 @@ public class UserController {
     }
 
     @GetMapping("list")
-    public ModelAndView getAllUsers(ModelMap model) {
+    public ModelAndView getAllUsers(@NotNull ModelMap model) {
         return new ModelAndView("user/list", model.addAttribute("list", userService.getList()));
     }
 
     @GetMapping("id")
-    public ModelAndView findById(ModelMap model,@ModelAttribute String id) {
+    public ModelAndView findById(ModelMap model, String id) {
         if (id == null) {
             return new ModelAndView("user/userById", model);
         }
@@ -50,7 +51,7 @@ public class UserController {
     }
 
     @GetMapping("name")
-    public ModelAndView findByUserName(ModelMap model,@ModelAttribute String name) {
+    public ModelAndView findByUserName(ModelMap model, String name) {
         if (name == null) {
             return new ModelAndView("user/userByName", model);
         }
@@ -59,7 +60,7 @@ public class UserController {
     }
 
     @GetMapping("delete")
-    public ModelAndView delete(ModelMap model,@ModelAttribute String id) {
+    public ModelAndView delete(ModelMap model, String id) {
         if (id == null) {
             return new ModelAndView("user/deleteUser", model);
         }
@@ -83,7 +84,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewPost(ModelMap model, User user) {
+    public ModelAndView addNewPost(@NotNull @ModelAttribute User user, ModelMap model) {
         if (user.getId() == null) {
             return new ModelAndView("user/newUser", model);
         }
@@ -97,7 +98,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(User user, ModelMap model) {
+    public ModelAndView updatePost(@NotNull @ModelAttribute User user, ModelMap model) {
         if (!Validator.validId(user.getId())) {
             model.addAttribute("error2", "Try Again");
             model.addAttribute("error", "Wrong ID");

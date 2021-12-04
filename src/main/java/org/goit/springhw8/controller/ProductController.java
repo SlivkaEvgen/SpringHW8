@@ -3,6 +3,7 @@ package org.goit.springhw8.controller;
 import org.goit.springhw8.model.Product;
 import org.goit.springhw8.service.ProductService;
 import org.goit.springhw8.util.Validator;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +28,12 @@ public class ProductController {
     }
 
     @GetMapping("list")
-    public ModelAndView getAllProducts(ModelMap model) {
+    public ModelAndView getAllProducts(@NotNull ModelMap model) {
         return new ModelAndView("product/list", model.addAttribute("list", productService.getList()));
     }
 
     @GetMapping("id")
-    public ModelAndView findById(ModelMap model,@ModelAttribute String id) {
+    public ModelAndView findById(ModelMap model,String id) {
         if (id == null) {
             return new ModelAndView("product/productById", model);
         }
@@ -60,7 +61,7 @@ public class ProductController {
     }
 
     @GetMapping("name")
-    public ModelAndView findByName(ModelMap model,@ModelAttribute String name) {
+    public ModelAndView findByName(ModelMap model, String name) {
         if (name == null) {
             return new ModelAndView("product/productByName", model);
         }
@@ -88,7 +89,7 @@ public class ProductController {
     }
 
     @GetMapping("delete")
-    public ModelAndView delete(ModelMap model,@ModelAttribute String id) {
+    public ModelAndView delete(ModelMap model, String id) {
         if (id == null) {
             return new ModelAndView("product/deleteProduct", model);
         }
@@ -123,7 +124,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewPost(ModelMap model, Product product) {
+    public ModelAndView addNewPost(@ModelAttribute Product product,ModelMap model) {
         if (product == null) {
             model.addAttribute("error", "Product Is Null");
             model.addAttribute("error2", "Please, Try Again");
@@ -197,7 +198,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(Product product, ModelMap model) {
+    public ModelAndView updatePost(@NotNull @ModelAttribute Product product, ModelMap model) {
         if (product.getId() == null) {
             return new ModelAndView("product/updateProduct", model.addAttribute("product", product));
         }

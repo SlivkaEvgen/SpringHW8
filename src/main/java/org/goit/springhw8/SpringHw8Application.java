@@ -1,5 +1,6 @@
 package org.goit.springhw8;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -20,7 +21,7 @@ public class SpringHw8Application extends SpringBootServletInitializer {
     }
 
     @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+    protected SpringApplicationBuilder configure(@NotNull SpringApplicationBuilder application) {
         return application.sources(SpringHw8Application.class);
     }
 }

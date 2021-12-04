@@ -3,6 +3,7 @@ package org.goit.springhw8.controller;
 import org.goit.springhw8.model.Manufacturer;
 import org.goit.springhw8.service.ManufacturerService;
 import org.goit.springhw8.util.Validator;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,12 +31,12 @@ public class ManufacturerController {
     }
 
     @GetMapping("list")
-    public ModelAndView getAllManufacturers(ModelMap model) {
+    public ModelAndView getAllManufacturers(@NotNull ModelMap model) {
         return new ModelAndView("manufacturer/list", model.addAttribute("list", manufacturerService.getList()));
     }
 
     @GetMapping("name")
-    public ModelAndView findByManufacturerName(@ModelAttribute String name, ModelMap model) {
+    public ModelAndView findByManufacturerName(String name, ModelMap model) {
         if (name == null) {
             return new ModelAndView("manufacturer/manufacturerByName", model);
         }
@@ -60,7 +61,7 @@ public class ManufacturerController {
     }
 
     @GetMapping("id")
-    public ModelAndView findById(ModelMap model, @ModelAttribute String id) {
+    public ModelAndView findById(ModelMap model, String id) {
         if (id == null) {
             return new ModelAndView("manufacturer/manufacturerById", model);
         }
@@ -85,7 +86,7 @@ public class ManufacturerController {
     }
 
     @GetMapping("delete")
-    public ModelAndView delete(ModelMap model, @ModelAttribute String id) {
+    public ModelAndView delete(ModelMap model, String id) {
         if (id == null) {
             return new ModelAndView("manufacturer/deleteManufacturer", model);
         }
@@ -106,13 +107,13 @@ public class ManufacturerController {
     }
 
     @GetMapping("update/**")
-    public ModelAndView update(ModelMap model, Manufacturer manufacturer) {
+    public ModelAndView update(@NotNull ModelMap model, Manufacturer manufacturer) {
         model.addAttribute("manufacturer", manufacturer);
         return new ModelAndView("manufacturer/updateManufacturer", model);
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(Manufacturer manufacturer, ModelMap model) {
+    public ModelAndView updatePost(@ModelAttribute Manufacturer manufacturer, ModelMap model) {
         if (manufacturer == null) {
             model.addAttribute("error2", "Try Again");
             model.addAttribute("error", "Manufacturer is Null");
@@ -160,13 +161,13 @@ public class ManufacturerController {
     }
 
     @GetMapping("new")
-    public ModelAndView addNew(ModelMap model, Manufacturer manufacturer) {
+    public ModelAndView addNew(@NotNull ModelMap model, Manufacturer manufacturer) {
         model.addAttribute("manufacturer", manufacturer);
         return new ModelAndView("manufacturer/newManufacturer", model);
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewPost(ModelMap model, Manufacturer manufacturer) {
+    public ModelAndView addNewPost(@NotNull @ModelAttribute Manufacturer manufacturer, ModelMap model) {
         System.out.println("ManufacturerController addNewPost " + manufacturer);
         if (manufacturer.getId() == null) {
             model.addAttribute("error2", "Try Again");
