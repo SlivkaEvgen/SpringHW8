@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RoleService extends ServiceI<Role,String>{
+public class RoleService extends ServiceI<Role, String> {
 
     public RoleService(RoleRepository roleRepository) {
         super(roleRepository);
@@ -14,7 +14,7 @@ public class RoleService extends ServiceI<Role,String>{
 
     @Override
     public void deleteById(String id) {
-        if (super.getById(id).get().getName().equalsIgnoreCase("ADMIN")){
+        if (super.getById(id).get().getName().equalsIgnoreCase("ADMIN")) {
             return;
         }
         super.deleteById(id);
@@ -22,10 +22,10 @@ public class RoleService extends ServiceI<Role,String>{
 
     @Override
     public void saveEntity(@NotNull Role role) {
-        if (role.getName().equalsIgnoreCase("ADMIN")){
+        if (role.getName().equalsIgnoreCase("ADMIN")) {
             return;
         }
-        if (role.getId().equalsIgnoreCase("1")){
+        if (role.getId().equalsIgnoreCase("1")) {
             return;
         }
         super.saveEntity(role);

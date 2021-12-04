@@ -7,11 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.stream.Collectors;
 
 @Service
-public class UserService extends ServiceI<User,String> implements UserDetails {
+public class UserService extends ServiceI<User, String> implements UserDetails {
 
     public UserService(UserRepository userRepository) {
         super(userRepository);
