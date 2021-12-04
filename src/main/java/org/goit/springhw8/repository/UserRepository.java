@@ -4,7 +4,7 @@ import org.goit.springhw8.model.User;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends RepositoryI<User,Long>{
+public interface UserRepository extends RepositoryI<User,String>{
 
 
 }

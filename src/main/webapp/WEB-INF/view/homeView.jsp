@@ -5,12 +5,14 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%--<%@ page contentType="text/html;charset=UTF-8" %>--%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <!DOCTYPE HTML>
 <html>
 
 <head>
-        <meta charset = "ISO-8859-1"/>
+<%--        <meta charset = "ISO-8859-1"/>--%>
         <title>Internationalization</title>
     <meta name='DC.Language' scheme='rfc1766' content='ru'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,16 +29,16 @@
 </sec:authorize>
 
 
-
+<sec:authorize access="isAuthenticated()">
         <a href="${pageContext.request.contextPath}logout"
-
            class="w3-btn w3-hover-red w3-round-xlarge w3-ios-background w3-display-topright">Logout</a>
+</sec:authorize>
 
 <%--<div lang="ru" autocapitalize="on" style="language: RU"></div>--%>
 
 <%--Select Language : <a href="?lang=en">English</a> | <a href="?lang=de">German</a> | <a href="?lang=it">Italian</a>--%>
 
-    <div class="w3-container w3-center w3-round-xlarge w3-padding-48">
+    <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
         <div class="w3-container w3-center w3-round-xlarge w3-ios">
             <a href="${pageContext.request.contextPath}home"
                class="w3-btn w3-wide w3-hover-red w3-round-xlarge w3-ios-background">HOME</a>

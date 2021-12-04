@@ -2,6 +2,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +13,7 @@
         font-family: "Tangerine", serif;
     }
 </style>
-<h3>Registr</h3>
+
 <head>
 <%--    <meta charset = "ISO-8859-1"/>--%>
 <%--    <title>Internationalization</title>--%>
@@ -25,7 +27,7 @@
     <jsp:include page="_menu.jsp"></jsp:include>
 
 </head>
-<h3 class="w3-center">Welcome, ${pageContext.request.userPrincipal.name}!</h3>
+<%--<h3 class="w3-center">Welcome, ${pageContext.request.userPrincipal.name}!</h3>--%>
 
 <a href="${pageContext.request.contextPath}logout"
    class="w3-btn w3-hover-red w3-round-xlarge w3-ios-background w3-display-topright">Logout</a>
@@ -33,10 +35,10 @@
 <body>
 
 <sec:authorize access="!isAuthenticated()">
-<a href="${pageContext.request.contextPath}login" class="w3-btn w3-hover-red w3-circle w3-round-xlarge">Login</a>
+<%--<a href="${pageContext.request.contextPath}login" class="w3-btn w3-hover-red w3-circle w3-round-xlarge">Login</a>--%>
 
 </sec:authorize>
-<sec:authorize access="isAuthenticated()">
+<%--<sec:authorize access="isAuthenticated()">--%>
 
 <div class="w3-container w3-center w3-round-xlarge w3-padding-48">
     <a href="${pageContext.request.contextPath}home"
@@ -45,6 +47,7 @@
     <div onclick="document.getElementById('id01').style.display='block'"
          class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge " style="text-align-all: center ">Registration</a>
     </div>
+<sec:authorize access="isAuthenticated()">
 
     <p></p>
     <div class="w3-container w3-center w3-round-xlarge " style="color:indianred">

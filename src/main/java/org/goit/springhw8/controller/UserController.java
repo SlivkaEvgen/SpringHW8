@@ -18,8 +18,8 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+        public UserController(UserService userService) {
+        this.userService=userService;
     }
 
     @GetMapping("user")
@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("list")
     public ModelAndView getAllUsers(ModelMap model) {
-        return new ModelAndView("user/list", model.addAttribute("list", userService.getAll()));
+        return new ModelAndView("user/list", model.addAttribute("list", userService.getList()));
     }
 
     @GetMapping("id")
@@ -40,7 +40,7 @@ public class UserController {
         if (!Validator.validId(id)) {
             return new ModelAndView("user/userById", model);
         }
-        Optional<User> optionalUser = userService.findById(Long.valueOf(id));
+        Optional<User> optionalUser = userService.getById(id);
         if (!optionalUser.isPresent()) {
             return new ModelAndView("user/userById", model);
         }
@@ -53,7 +53,7 @@ public class UserController {
         if (name == null) {
             return new ModelAndView("user/userByName", model);
         }
-        model.addAttribute("list", userService.findByName(name.toUpperCase()));
+        model.addAttribute("list", userService.getByName(name.toUpperCase()));
         return new ModelAndView("user/userByName", model);
     }
 
@@ -67,12 +67,12 @@ public class UserController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("user/deleteUser", model);
         }
-        if (!userService.findById(Long.valueOf(id)).isPresent()) {
+        if (!userService.getById(id).isPresent()) {
             model.addAttribute("error", "User With ID = " + id + " Is Empty");
             model.addAttribute("error2", "Try again");
             return new ModelAndView("user/deleteUser", model);
         }
-        userService.delete(Long.valueOf(id));
+        userService.deleteById(id);
         return new ModelAndView("redirect:/user", model);
     }
 
@@ -92,7 +92,7 @@ public class UserController {
         if (user.getId() == null) {
             return new ModelAndView("user/newUser", model);
         }
-        userService.save(user);
+        userService.saveEntity(user);
         model.addAttribute("user", user);
         return new ModelAndView("user/user", model);
     }
@@ -110,7 +110,7 @@ public class UserController {
             model.addAttribute("error", "Wrong ID");
             return new ModelAndView("user/updateUser", model);
         }
-        userService.save(user);
+        userService.saveEntity(user);
         return new ModelAndView("user/user", model);
     }
 }

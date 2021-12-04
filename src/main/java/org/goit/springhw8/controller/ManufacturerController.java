@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("manufacturer")
+@RequestMapping("manufacturer") // добавить сообщения об ошибке по длине
 public class ManufacturerController {
 
     private final ManufacturerService manufacturerService;
 
-    public ManufacturerController(ManufacturerService manufacturerService) {
-        this.manufacturerService = manufacturerService;
+    public ManufacturerController(ManufacturerService manufacturerService){
+        this.manufacturerService=manufacturerService;
     }
 
     @GetMapping("manufacturer")
@@ -29,7 +30,7 @@ public class ManufacturerController {
 
     @GetMapping("list")
     public ModelAndView getAllManufacturers(ModelMap model) {
-        return new ModelAndView("manufacturer/list", model.addAttribute("list", manufacturerService.getAll()));
+        return new ModelAndView("manufacturer/list", model.addAttribute("list", manufacturerService.getList()));
     }
 
     @GetMapping("name")
@@ -37,7 +38,23 @@ public class ManufacturerController {
         if (name == null) {
             return new ModelAndView("manufacturer/manufacturerByName", model);
         }
-        model.addAttribute("list", manufacturerService.findByName(name));
+        if (name.length()<1|name.length()>25){
+            model.addAttribute("error", "Wrong Name Length");
+            model.addAttribute("error2", "Try Again");
+            return new ModelAndView("manufacturer/manufacturerByName", model);
+        }
+        if (!Validator.validName(name)){
+            model.addAttribute("error", "WRONG NAME");
+            model.addAttribute("error2", "Try Again");
+            return new ModelAndView("manufacturer/manufacturerByName", model);
+        }
+        List<Manufacturer> byName = manufacturerService.getByName(name);
+        if (byName.isEmpty()){
+            model.addAttribute("error", "Could Not Find By Name "+name);
+            model.addAttribute("error2", "Try Again");
+            return new ModelAndView("manufacturer/manufacturerByName", model);
+        }
+        model.addAttribute("list", byName);
         return new ModelAndView("manufacturer/manufacturerByName", model);
     }
 
@@ -46,11 +63,20 @@ public class ManufacturerController {
         if (id == null) {
             return new ModelAndView("manufacturer/manufacturerById", model);
         }
-        if (!Validator.validId(id)) {
+        if (id.isEmpty()){
+            model.addAttribute("error", "Wrong Empty ID");
+            model.addAttribute("error2", "Try again");
             return new ModelAndView("manufacturer/manufacturerById", model);
         }
-        Optional<Manufacturer> optionalManufacturer = manufacturerService.findById(Long.valueOf(id));
+        if (!Validator.validId(id)) {
+            model.addAttribute("error", "Wrong ID");
+            model.addAttribute("error2", "Try again");
+            return new ModelAndView("manufacturer/manufacturerById", model);
+        }
+        Optional<Manufacturer> optionalManufacturer = manufacturerService.getById(id);
         if (!optionalManufacturer.isPresent()) {
+            model.addAttribute("error", "Could Not Find By ID "+id);
+            model.addAttribute("error2", "Try again");
             return new ModelAndView("manufacturer/manufacturerById", model);
         }
         model.addAttribute("manufacturer", optionalManufacturer.get());
@@ -67,13 +93,15 @@ public class ManufacturerController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("manufacturer/deleteManufacturer", model);
         }
-        if (!manufacturerService.findById(Long.valueOf(id)).isPresent()) {
-            model.addAttribute("error", "Role With ID = " + id + " Is Empty");
+        if (!manufacturerService.getById(id).isPresent()) {
+            model.addAttribute("error", "Manufacturer With ID = " + id + " Not Found");
             model.addAttribute("error2", "Try again");
             return new ModelAndView("manufacturer/deleteManufacturer", model);
         }
-        manufacturerService.delete(Long.valueOf(id));
-        return new ModelAndView("redirect:/role", model);
+        model.addAttribute("error2", "Manufacturer Deleted");
+        model.addAttribute("error", "SUCCESSFULLY");
+        manufacturerService.deleteById(id);
+        return new ModelAndView("redirect:/manufacturer", model);
     }
 
     @GetMapping("update/**")
@@ -84,31 +112,107 @@ public class ManufacturerController {
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
     public ModelAndView updatePost(Manufacturer manufacturer, ModelMap model) {
-        if (!Validator.validId(manufacturer.getId().toString())) {
+        if (manufacturer == null) {
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Manufacturer is Null");
+            return new ModelAndView("manufacturer/updateManufacturer", model);
+        }
+        if (manufacturer.getId() == null) {
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Manufacturer ID Is Null");
+            return new ModelAndView("manufacturer/updateManufacturer", model);
+        }
+        if (manufacturer.getName() == null) {
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Manufacturer Name Is Null");
+            return new ModelAndView("manufacturer/updateManufacturer", model);
+        }
+        if (manufacturer.getId().isEmpty()){
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Manufacturer ID Is Empty");
+            return new ModelAndView("manufacturer/updateManufacturer", model);
+        }
+        if (manufacturer.getName().isEmpty()){
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Manufacturer Name Is Empty");
+            return new ModelAndView("manufacturer/updateManufacturer", model);
+        }
+        if (!Validator.validId(manufacturer.getId())) {
             model.addAttribute("error2", "Try Again");
             model.addAttribute("error", "Wrong ID");
-            return new ModelAndView("manufacturer/manufacturer", model);
+            return new ModelAndView("manufacturer/updateManufacturer", model);
         }
-        manufacturerService.save(manufacturer);
+        if (!Validator.validName(manufacturer.getName())) {
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Wrong Name");
+            return new ModelAndView("manufacturer/updateManufacturer", model);
+        }
+        if (!manufacturerService.getById(manufacturer.getId()).isPresent()){
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Manufacturer With ID "+manufacturer.getId()+" Not Found");
+            return new ModelAndView("manufacturer/updateManufacturer", model);
+        }
+        model.addAttribute("error2", "Manufacturer Updated");
+        model.addAttribute("error", "SUCCESSFULLY");
+        manufacturerService.saveEntity(manufacturer);
         return new ModelAndView("manufacturer/manufacturer", model);
     }
 
     @GetMapping("new")
-    public ModelAndView addNew(ModelMap model, String id, String name) {
-        if (id == null) {
-            return new ModelAndView("manufacturer/newManufacturer", model);
-        }
-        manufacturerService.save(new Manufacturer(Long.parseLong(id), name));
-        return new ModelAndView("manufacturer/manufacturer", model);
+    public ModelAndView addNew(ModelMap model,Manufacturer manufacturer) {
+        model.addAttribute("manufacturer", manufacturer);
+        return new ModelAndView("manufacturer/newManufacturer", model);
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
     public ModelAndView addNewPost(ModelMap model, Manufacturer manufacturer) {
-        if (manufacturer == null) {
+        System.out.println("ManufacturerController addNewPost " + manufacturer);
+        if (manufacturer.getId() == null) {
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Manufacturer ID Is Null");
             return new ModelAndView("manufacturer/newManufacturer", model);
         }
-        model.addAttribute("manufacturer", manufacturer);
-        manufacturerService.save(manufacturer);
+        if (manufacturer.getName() == null) {
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Manufacturer Name Is Null");
+            return new ModelAndView("manufacturer/newManufacturer", model);
+        }
+        if (manufacturer.getId().isEmpty()){
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Manufacturer ID Is Empty");
+            return new ModelAndView("manufacturer/newManufacturer", model);
+        }
+        if (manufacturer.getName().isEmpty()){
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Manufacturer Name Is Empty");
+            return new ModelAndView("manufacturer/newManufacturer", model);
+        }
+        if (manufacturer.getName().equalsIgnoreCase("null")){
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Manufacturer Name Is Null");
+            return new ModelAndView("manufacturer/newManufacturer", model);
+        }
+        if (!Validator.validId(String.valueOf(manufacturer.getId()))) {
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Wrong Manufacturer ID");
+            return new ModelAndView("manufacturer/newManufacturer", model);
+        }
+        if (!Validator.validName(manufacturer.getName())) {
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Wrong Manufacturer Name");
+            return new ModelAndView("manufacturer/newManufacturer", model);
+        }
+        if (manufacturerService.getById(manufacturer.getId()).isPresent()){
+            model.addAttribute("error2", "Try Again");
+            model.addAttribute("error", "Wrong ID. Manufacturer With ID = "+ manufacturer.getId()+" Is Used");
+            return new ModelAndView("manufacturer/newManufacturer", model);
+        }
+        if (!manufacturerService.getById(manufacturer.getId()).isPresent()) {
+            model.addAttribute("manufacturer", manufacturer);
+            model.addAttribute("error2", "New Manufacturer Added");
+            model.addAttribute("error", "SUCCESSFULLY");
+            manufacturerService.saveEntity(manufacturer);
+        }
         return new ModelAndView("manufacturer/manufacturer", model);
     }
 }

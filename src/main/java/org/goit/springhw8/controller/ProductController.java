@@ -19,8 +19,8 @@ public class ProductController {
 
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
-        this.productService = productService;
+    public ProductController(ProductService productService){
+        this.productService=productService;
     }
 
     @GetMapping("product")
@@ -30,7 +30,7 @@ public class ProductController {
 
     @GetMapping("list")
     public ModelAndView getAllProducts(ModelMap model) {
-        return new ModelAndView("product/list", model.addAttribute("list", productService.getAll()));
+        return new ModelAndView("product/list", model.addAttribute("list", productService.getList()));
     }
 
     @GetMapping("id")
@@ -38,7 +38,7 @@ public class ProductController {
         if (id == null) {
             return new ModelAndView("product/productById", model);
         }
-        Optional<Product> productById = productService.findById(Long.valueOf(id));
+        Optional<Product> productById = productService.getById(id);
         if (!productById.isPresent()) {
             return new ModelAndView("product/productById", model);
         }
@@ -51,7 +51,7 @@ public class ProductController {
         if (name == null) {
             return new ModelAndView("product/productByName", model);
         }
-        model.addAttribute("list", productService.findByName(name));
+        model.addAttribute("list", productService.getByName(name));
         return new ModelAndView("product/productByName", model);
     }
 
@@ -60,7 +60,7 @@ public class ProductController {
         if (id == null) {
             return new ModelAndView("product/deleteProduct", model);
         }
-        productService.delete(Long.valueOf(id));
+        productService.deleteById(id);
         return new ModelAndView("product/product", model);
     }
 
@@ -83,7 +83,7 @@ public class ProductController {
         if (manufacturer == null) {
             return new ModelAndView("product/newProduct", model);
         }
-        productService.save(new Product(Long.parseLong(id), name, Double.parseDouble(price), manufacturer));
+        productService.saveEntity(new Product(id, name, Double.parseDouble(price), manufacturer));
         return new ModelAndView("product/product", model);
     }
 
@@ -112,8 +112,8 @@ public class ProductController {
             model.addAttribute("error", "Wrong ID");
             return new ModelAndView("product/updateProduct", model);
         }
-        Product product = new Product(Long.parseLong(id), name, Double.parseDouble(price), manufacturer);
-        productService.save(product);
+        Product product = new Product(id, name, Double.parseDouble(price), manufacturer);
+        productService.saveEntity(product);
         model.addAttribute("product", product);
         return new ModelAndView("product/product", model);
     }
