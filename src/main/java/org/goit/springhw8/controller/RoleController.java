@@ -6,6 +6,7 @@ import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,8 +20,8 @@ public class RoleController {
 
     private final RoleService roleService;
 
-    public RoleController(RoleService roleService){
-        this.roleService=roleService;
+    public RoleController(RoleService roleService) {
+        this.roleService = roleService;
     }
 
     @GetMapping("role")
@@ -36,7 +37,7 @@ public class RoleController {
     }
 
     @GetMapping("name")
-    public ModelAndView findByRoleName(String name, ModelMap model) {
+    public ModelAndView findByRoleName(@ModelAttribute String name, ModelMap model) {
         System.out.println("RoleController findByRoleName");
         System.out.println("findByRoleName " + name);
         if (name == null) {
@@ -53,7 +54,7 @@ public class RoleController {
     }
 
     @GetMapping("id")
-    public ModelAndView findById(ModelMap model, String id) {
+    public ModelAndView findById(ModelMap model,@ModelAttribute String id) {
         System.out.println("RoleController findById");
         if (id == null) {
             return new ModelAndView("role/roleById", model);
@@ -74,7 +75,7 @@ public class RoleController {
     }
 
     @GetMapping("delete")
-    public ModelAndView delete(ModelMap model, String id) {
+    public ModelAndView delete(ModelMap model,@ModelAttribute String id) {
         System.out.println("RoleController delete");
         if (id == null) {
             return new ModelAndView("role/deleteRole", model);
@@ -103,7 +104,7 @@ public class RoleController {
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
     public ModelAndView updatePost(Role role, ModelMap model) {
         System.out.println("RoleController updatePost");
-        if (!Validator.validId(role.getId().toString())) {
+        if (!Validator.validId(role.getId())) {
             model.addAttribute("error2", "Try Again");
             model.addAttribute("error", "Wrong ID");
             return new ModelAndView("role/role", model);
@@ -119,7 +120,7 @@ public class RoleController {
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewPost(ModelMap model, String id, String name) {
+    public ModelAndView addNewPost(ModelMap model, @ModelAttribute String id,@ModelAttribute String name) {
         System.out.println("RoleController addNewPost " + id);
         System.out.println("RoleController addNewPost " + name);
         if (id == null) {

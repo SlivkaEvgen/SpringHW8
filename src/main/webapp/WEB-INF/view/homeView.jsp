@@ -29,7 +29,7 @@
 </sec:authorize>
 
 
-<sec:authorize access="isAuthenticated()">
+<sec:authorize access="!isAuthenticated()">
         <a href="${pageContext.request.contextPath}logout"
            class="w3-btn w3-hover-red w3-round-xlarge w3-ios-background w3-display-topright">Logout</a>
 </sec:authorize>

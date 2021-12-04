@@ -16,6 +16,11 @@
 <title>Role</title>
 <jsp:include page="../_menu.jsp"></jsp:include>
 </head>
+<sec:authorize access="!isAuthenticated()">
+    <a href="${pageContext.request.contextPath}logout"
+       class="w3-btn w3-hover-red w3-round-xlarge w3-ios-background w3-display-topright">Logout</a>
+</sec:authorize>
+
 
 <body>
 <div class="w3-container w3-center w3-round-xlarge">

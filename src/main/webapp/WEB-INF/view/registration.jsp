@@ -29,8 +29,8 @@
 </head>
 <%--<h3 class="w3-center">Welcome, ${pageContext.request.userPrincipal.name}!</h3>--%>
 
-<a href="${pageContext.request.contextPath}logout"
-   class="w3-btn w3-hover-red w3-round-xlarge w3-ios-background w3-display-topright">Logout</a>
+<a href="${pageContext.request.contextPath}login"
+   class="w3-btn w3-hover-red w3-round-xlarge w3-ios-background w3-display-topright">Login</a>
 
 <body>
 
@@ -45,7 +45,7 @@
        class="w3-btn w3-wide w3-hover-red w3-round-xlarge w3-ios-background">HOME</a>
     <p></p>
     <div onclick="document.getElementById('id01').style.display='block'"
-         class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge " style="text-align-all: center ">Registration</a>
+         class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge " style="text-align-all: center ">Registration
     </div>
 <sec:authorize access="isAuthenticated()">
 
