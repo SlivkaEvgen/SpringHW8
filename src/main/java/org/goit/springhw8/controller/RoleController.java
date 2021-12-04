@@ -64,7 +64,7 @@ public class RoleController {
             model.addAttribute("error2", " Please, Try Again ");
             return new ModelAndView("role/roleById", model);
         }
-        Optional<Role> optionalRole = roleService.findById(Long.valueOf(id));
+        Optional<Role> optionalRole = roleService.findById(id);
         if (!optionalRole.isPresent()) {
             model.addAttribute("error", " No Found Role By ID = " + id);
             model.addAttribute("error2", " Please, Try Again ");
@@ -85,12 +85,12 @@ public class RoleController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("role/deleteRole", model);
         }
-        if (!roleService.findById(Long.valueOf(id)).isPresent()) {
+        if (!roleService.findById(id).isPresent()) {
             model.addAttribute("error", "Role With ID = " + id + " Is Empty");
             model.addAttribute("error2", "Try again");
             return new ModelAndView("role/deleteRole", model);
         }
-        roleService.delete(Long.valueOf(id));
+        roleService.delete(id);
         model.addAttribute("error2", "Role With ID = " + id + "\n Removed ");
         return new ModelAndView("role/role", model);
     }
@@ -139,12 +139,12 @@ public class RoleController {
             model.addAttribute("error2", "Please,Try Again");
             return new ModelAndView("role/newRole", model);
         }
-        if (roleService.findById(Long.valueOf(id)).isPresent()) {
+        if (roleService.findById(id).isPresent()) {
             model.addAttribute("error", "Role With ID " + id + " Is Used");
             model.addAttribute("error2", "Please,Try Again");
             return new ModelAndView("role/newRole", model);
         }
-        roleService.save(new Role(Long.parseLong(id), name));
+        roleService.save(new Role(id, name));
         model.addAttribute("error2", "Role " + " Added");
         return new ModelAndView("role/role", model);
     }

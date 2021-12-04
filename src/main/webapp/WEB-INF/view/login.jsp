@@ -2,14 +2,17 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+
 <!DOCTYPE HTML>
 <html>
 
-<%--<style>--%>
-<%--    .w3-tangerine {--%>
-<%--        font-family: "Tangerine", serif;--%>
-<%--    }--%>
-<%--</style>--%>
+<style>
+    .w3-tangerine {
+        font-family: "Tangerine", serif;
+    }
+</style>
 
 <head>
 <%--    <meta charset = "ISO-8859-1"/>--%>
@@ -27,22 +30,35 @@
 
 <body>
 <%--NO AUTORISATION--%>
-<sec:authorize access="!isAuthenticated()">
-    <div style="animation-duration: initial" class="w3-container w3-center w3-round-xlarge w3-padding-48">
+
+<sec:authorize access="isAuthenticated()">
+    <p class="w3-center w3-ios-light-blue">Login OK</p>
+    <h3 class="w3-center">Welcome, ${pageContext.request.userPrincipal.name}!</h3>
+</sec:authorize>
+    <div style="animation-duration: initial" class="w3-container w3-center w3-round-xlarge w3-padding-50">
         <div class="w3-container w3-center w3-round-xlarge w3-ios">
             <a href="${pageContext.request.contextPath}home"
-               class="w3-btn w3-wide w3-hover-red w3-round-xlarge w3-ios-background">HOME</a>
+<%--            <sec:authorize access="isAuthenticated()">--%>
+               class="w3-btn w3-wide w3-hover-red w3-round-xlarge">HOME</a>
+<%--            </sec:authorize>--%>
             <p></p>
         <p></p>
-<%--  o1-login      --%>
-        <div onclick="document.getElementById('id02').style.display='block'"
-             class="w3-btn  w3-wide w3-hover-light-blue  w3-round-xlarge" style="text-align-all: right "> Login </div><?</a>
-        </div>
         <p></p>
+
+        <%--  o1-login      --%>
+        <div onclick="document.getElementById('id02').style.display='block'"
+             class="w3-btn  w3-wide w3-hover-light-blue  w3-round-xlarge " style="text-align-all: right "> Login </div><?</a>
+        </div>
+<%--        <div onclick="document.getElementById('id03').style.display='block'"--%>
+<%--             class="w3-btn  w3-wide w3-hover-light-blue  w3-round-xlarge " style="text-align-all: right "> Login 3</div><?</a>--%>
+<%--    </div>--%>
+
+        <p></p>
+        <p> </p>
 <%--     w3-ios-light-grey       --%>
-            <%--    <a href="${pageContext.request.contextPath}registration" class="w3-btn w3-hover-red w3-round-xlarge w3-ios">Registration</a>--%><%--       --%>
+<%--                <a href="${pageContext.request.contextPath}registration" class="w3-btn w3-hover-red w3-round-xlarge w3-ios">Registration</a>--%>
         <div onclick="document.getElementById('id01').style.display='block'"
-             class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge " style="text-align-all: center ">Registration</a>
+             class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge " style="text-align-all: center ">Sign Up</a>
         </div>
     </div>
 <p></p>
@@ -87,7 +103,7 @@
                                        name="password" required>
                             </label>
                             <button class="w3-btn w3-block w3-blue w3-hover-light-blue w3-section w3-padding w3-round-xlarge"
-                                    type="submit">Login
+                                    type="submit">Sign Up
                             </button>
                             <label>
                                 <input class="w3-check w3-margin-top w3-round-xlarge" type="checkbox" checked="checked">
@@ -98,6 +114,7 @@
                         <button onclick="document.getElementById('id01').style.display='none'" type="button"
                                 class="w3-btn w3-red w3-hover-red w3-round-xlarge w3-left">Cancel
                         </button>
+<%--         придумать форму забытого пароля               --%>
                         <span class="w3-btn w3-right w3-padding w3-high-small w3-round-xlarge">Forgot <a href="#">password?</a></span>
                     </div>
 
@@ -114,14 +131,14 @@
                 <span onclick="document.getElementById('id02').style.display='none'"
                       class="w3-btn w3-round-xlarge w3-small w3-hover-red w3-display-topright"
                       title="Close Modal">&times;</span>
-                <form class="w3-container w3-round-xlarge" method="post"
+                <form class="w3-container w3-round-xlarge" method="POST"
                       action="${pageContext.request.contextPath}login">
                     <div class="w3-section w3-round">
                         <label><b>Username</b></label>
                         <label>
                             <input class="w3-input w3-small w3-border w3-margin-bottom w3-round-xlarge" type="text"
                                    placeholder="Enter Username"
-                                   name="username" required>
+                                   name="name" required>
                         </label>
                         <label><b>Password</b></label>
                         <label>
@@ -149,7 +166,7 @@
     </div>
 
 <%--    --%>
-</sec:authorize>
+<%--</sec:authorize>--%>
 
 <%--AUTORISATION OK--%>
 
@@ -158,32 +175,29 @@
 <a href="${pageContext.request.contextPath}logout"
    class="w3-btn w3-hover-red w3-circle w3-round-xlarge w3-display-topright">Logout</a>
 
-<h3 class="w3-center">Welcome, ${pageContext.request.userPrincipal.name}!</h3>
-<p class="w3-center w3-ios-light-blue">Login OK</p>
-
 <div class="w3-container w3-center w3-round-xlarge w3-padding-48">
-    <a href="${pageContext.request.contextPath}home"
-       class="w3-btn w3-wide w3-hover-red w3-round-xlarge w3-ios">Home</a>
-    <p></p>
-    <a href="${pageContext.request.contextPath}login"
-       class="w3-btn w3-wide w3-hover-red w3-round-xlarge w3-ios">LOGIN PAGE</a>
-    <p></p>
+<%--    <a href="${pageContext.request.contextPath}home"--%>
+<%--       class="w3-btn w3-wide w3-hover-red w3-round-xlarge w3-ios">Home</a>--%>
+<%--    <p></p>--%>
+<%--    <a href="${pageContext.request.contextPath}login"--%>
+<%--       class="w3-btn w3-wide w3-hover-red w3-round-xlarge w3-ios">LOGIN PAGE</a>--%>
+<%--    <p></p>--%>
 
     <p></p>
-    <div id="id03" class="w3-modal">
+    <div id="id02" class="w3-modal">
         <div class="w3-modal-content w3-round-xlarge w3-card-4 w3-animate-zoom" style="max-width:500px">
             <div class="w3-center w3-round-xlarge"><br>
                 <span onclick="document.getElementById('id02').style.display='none'"
                       class="w3-btn w3-round-xlarge w3-small w3-hover-red w3-display-topright"
                       title="Close Modal">&times;</span>
-                <form class="w3-container w3-round-xlarge" method="post"
+                <form class="w3-container w3-round-xlarge" method="POST"
                       action="${pageContext.request.contextPath}login">
                     <div class="w3-section w3-round">
                         <label><b>Username</b></label>
                         <label>
                             <input class="w3-input w3-small w3-border w3-margin-bottom w3-round-xlarge" type="text"
                                    placeholder="Enter Username"
-                                   name="username" required>
+                                   name="name" required>
                         </label>
                         <label><b>Password</b></label>
                         <label>
@@ -225,4 +239,14 @@
     <p> &copy;Copyright <a href="https://github.com/SlivkaEvgen/SpringHW8" target="_blank">Slivka</a>
     <p><a class="font-menu-button w3-center w3-red w3-round-xlarge">GO-IT</a></p>
 </footer>
+
+
+<%--<div class="w3-container w3-center w3-tangerine w3-text-dark-gray ">--%>
+<%--    <p class="w3-xxlarge">"Make it as simple as possible, but not simpler."</p>--%>
+<%--</div>--%>
+
+<%--<footer class="w3-container w3-center w3-rodoto w3-text-dark-gray w3-display-bottommiddle">--%>
+<%--    <p> &copy;Copyright <a href="https://github.com/SlivkaEvgen/SpringHW8" target="_blank">Slivka</a>--%>
+<%--    <p><a class="font-menu-button w3-center w3-red w3-round-xlarge">GO-IT</a></p>--%>
+<%--</footer>--%>
 </html>

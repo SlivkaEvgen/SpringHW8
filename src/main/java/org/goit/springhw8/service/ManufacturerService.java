@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ManufacturerService extends ServiceI<Manufacturer, Long> {
+public class ManufacturerService extends ServiceI<Manufacturer, String> {
 
-    private final RepositoryI<Manufacturer, Long> manufacturerRepository;
+    private final RepositoryI<Manufacturer, String> manufacturerRepository;
 
-    public ManufacturerService(RepositoryI<Manufacturer, Long> manufacturerRepository) {
+    public ManufacturerService(RepositoryI<Manufacturer, String> manufacturerRepository) {
         super(manufacturerRepository);
         this.manufacturerRepository = manufacturerRepository;
     }
@@ -24,8 +24,8 @@ public class ManufacturerService extends ServiceI<Manufacturer, Long> {
     }
 
     @Override
-    public Optional<Manufacturer> findById(Long id) {
-        return manufacturerRepository.findById(Long.parseLong(String.valueOf(id)));
+    public Optional<Manufacturer> findById(String id) {
+        return manufacturerRepository.findById(id);
     }
 
     @Override
@@ -34,24 +34,22 @@ public class ManufacturerService extends ServiceI<Manufacturer, Long> {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         System.out.println("SERVICE MANUFACTURER");
         if (id == null) {
             return;
-//            Optional.of("ID == null");
         }
-        if (!Validator.validId(String.valueOf(id))) {
+        if (!Validator.validId(id)) {
             return;
-//            Optional.of(" NO VALID ID");
         }
-        if (manufacturerRepository.findById(Long.parseLong(String.valueOf(id))).isPresent()) {
-            manufacturerRepository.deleteById(Long.parseLong(String.valueOf(id)));
+        if (manufacturerRepository.findById(id).isPresent()) {
+            manufacturerRepository.deleteById(id);
         }
-//        Optional.of("ID request completed");
     }
 
     @Override
     public void save(Manufacturer manufacturer) {
+        System.out.println("ManufacturerService save "+ manufacturer);
         manufacturerRepository.save(manufacturer);
     }
 }

@@ -4,19 +4,24 @@ import org.goit.springhw8.model.User;
 import org.goit.springhw8.repository.RepositoryI;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class UserService extends ServiceI<User, Long> implements UserDetails {
+@Controller
+@RequestMapping("login")
+public class UserService extends ServiceI<User, String> implements UserDetails {
 
-    private final RepositoryI<User, Long> userRepository;
+    private final RepositoryI<User, String> userRepository;
 
-    public UserService(RepositoryI<User, Long> userRepository) {
+    public UserService(RepositoryI<User, String> userRepository) {
         super(userRepository);
+        System.out.println(";3m3;mk");
+
         this.userRepository = userRepository;
     }
 
@@ -26,8 +31,8 @@ public class UserService extends ServiceI<User, Long> implements UserDetails {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(Long.parseLong(String.valueOf(id)));
+    public Optional<User> findById(String id) {
+        return userRepository.findById(id);
     }
 
     @Override
@@ -36,9 +41,9 @@ public class UserService extends ServiceI<User, Long> implements UserDetails {
     }
 
     @Override
-    public void delete(Long id) {
-        if (userRepository.findById(Long.parseLong(String.valueOf(id))).isPresent()) {
-            userRepository.deleteById(Long.parseLong(String.valueOf(id)));
+    public void delete(String id) {
+        if (userRepository.findById(id).isPresent()) {
+            userRepository.deleteById(id);
         }
     }
 
@@ -49,16 +54,19 @@ public class UserService extends ServiceI<User, Long> implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        System.out.println(" getAuthorities ");
         return null;
     }
 
     @Override
     public String getPassword() {
+        System.out.println("getUsername");
         return new User().getPassword();
     }
 
     @Override
     public String getUsername() {
+        System.out.println("getUsername");
         return new User().getName();
     }
 

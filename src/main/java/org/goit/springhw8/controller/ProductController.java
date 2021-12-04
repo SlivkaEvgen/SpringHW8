@@ -38,7 +38,7 @@ public class ProductController {
         if (id == null) {
             return new ModelAndView("product/productById", model);
         }
-        Optional<Product> productById = productService.findById(Long.valueOf(id));
+        Optional<Product> productById = productService.findById(id);
         if (!productById.isPresent()) {
             return new ModelAndView("product/productById", model);
         }
@@ -60,7 +60,7 @@ public class ProductController {
         if (id == null) {
             return new ModelAndView("product/deleteProduct", model);
         }
-        productService.delete(Long.valueOf(id));
+        productService.delete(id);
         return new ModelAndView("product/product", model);
     }
 
@@ -83,7 +83,7 @@ public class ProductController {
         if (manufacturer == null) {
             return new ModelAndView("product/newProduct", model);
         }
-        productService.save(new Product(Long.parseLong(id), name, Double.parseDouble(price), manufacturer));
+        productService.save(new Product(id, name, Double.parseDouble(price), manufacturer));
         return new ModelAndView("product/product", model);
     }
 
@@ -112,7 +112,7 @@ public class ProductController {
             model.addAttribute("error", "Wrong ID");
             return new ModelAndView("product/updateProduct", model);
         }
-        Product product = new Product(Long.parseLong(id), name, Double.parseDouble(price), manufacturer);
+        Product product = new Product(id, name, Double.parseDouble(price), manufacturer);
         productService.save(product);
         model.addAttribute("product", product);
         return new ModelAndView("product/product", model);

@@ -4,39 +4,35 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
-//@RequiredArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Getter
 @Setter
-//@AllArgsConstructor
 @Entity
 @Table(name = "product")
-public class Product implements BaseModel<Long> {
+public class Product implements BaseModel<String> {
 
     private static final long serialVersionUID = 6007665773823540856L;
 
     @Id
-    @Column(name = "id", unique = true, nullable = false, length = 15)
-    private Long id;
+    @Column(name = "id", unique = true, nullable = false)
+    @Size(min = 1,max = 50,message = "min = 1, max = 50")
+    private String id;
 
-    @Column(name = "name", length = 15)
+    @Column(name = "name")
+    @Size(min = 2,max = 25,message = "min = 2, max = 25")
     private String name;
 
-    @Column(name = "price", length = 15)
+    @Column(name = "price")
+    @Size(max = 20,message = "max = 20")
     private Double price;
 
     @ManyToOne
     private Manufacturer manufacturer;
-
-    public Product(Long id, String name, Double price, Manufacturer manufacturer) {
-        this.id=id;
-        this.name=name;
-        this.price=price;
-        this.manufacturer=manufacturer;
-    }
 
     @Override
     public boolean equals(Object o) {

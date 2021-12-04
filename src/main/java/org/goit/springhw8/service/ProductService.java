@@ -8,23 +8,23 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService extends ServiceI<Product, Long> {
+public class ProductService extends ServiceI<Product, String> {
 
-    private final RepositoryI<Product, Long> productRepository;
+    private final RepositoryI<Product, String> productRepository;
 
-    public ProductService(RepositoryI<Product, Long> productRepository) {
+    public ProductService(RepositoryI<Product, String> productRepository) {
         super(productRepository);
         this.productRepository = productRepository;
     }
 
     @Override
-     public List<Product> getAll() {
+    public List<Product> getAll() {
         return productRepository.findAll();
     }
 
     @Override
-     public Optional<Product> findById(Long id) {
-        return productRepository.findById(Long.parseLong(String.valueOf(id)));
+    public Optional<Product> findById(String id) {
+        return productRepository.findById(id);
     }
 
     @Override
@@ -33,9 +33,9 @@ public class ProductService extends ServiceI<Product, Long> {
     }
 
     @Override
-    public void delete(Long id) {
-        if (productRepository.findById(Long.parseLong(String.valueOf(id))).isPresent()) {
-            productRepository.deleteById(Long.parseLong(String.valueOf(id)));
+    public void delete(String id) {
+        if (productRepository.findById(id).isPresent()) {
+            productRepository.deleteById(id);
         }
     }
 

@@ -2,9 +2,10 @@ package org.goit.springhw8.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
-import org.hibernate.validator.constraints.Length;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @ToString
@@ -14,35 +15,41 @@ import java.util.Objects;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User implements BaseModel<Long>  {
+public class User implements BaseModel<String>  {
 
     private static final long serialVersionUID = -558_820_640_269_434_517L;
 
     //  @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id", unique = true, nullable = false, length = 15)
-    private Long id;
+    @Column(name = "id", unique = true, nullable = false)
+    @Size(min = 1,max = 50,message = "min = 1, max = 50")
+    private String id;
 
-    @Length(min = 2)
-    @Column(name = "name", length = 15)
+    @Column(name = "name")
+    @Size(min = 2,max = 25,message = "min = 2, max = 25")
     private String name;
 
-    @Column(name = "last_name", length = 15)
+    @Column(name = "last_name")
+    @Size(min = 2,max = 25,message = "min = 2, max = 25")
     private String lastName;
 
-    @Column(name = "gender", length = 15, insertable = false)
+    @Column(name = "gender", insertable = false)
     @Enumerated(EnumType.STRING)
+    @Size(min = 4,max = 10,message = "min = 4, max = 10")
     private Gender gender;
 
-    @Column(name = "email", length = 20)
+    @Column(name = "email")
+    @Size(min = 6,max = 35,message = "min = 6, max = 35")
     private String email;
 
-    @Column(name = "password", length = 100)
+    @Column(name = "password")
+    @Size(min = 6,max = 100,message = "min = 6, max = 100")
     private String password;
 
     @ManyToOne
     @ToString.Exclude
     @JoinColumn(name = "role_id")
+    @Size(min = 2,max = 20,message = "min = 2, max = 20")
     private Role role;
 
     @Transient
@@ -72,5 +79,4 @@ public class User implements BaseModel<Long>  {
         result = 31 * result + (getPasswordConfirm() != null ? getPasswordConfirm().hashCode() : 0);
         return result;
     }
-
 }

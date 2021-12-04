@@ -1,5 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
@@ -17,14 +17,16 @@
 </head>
 
 <body>
-<<div class="w3-container w3-center w3-round-xlarge">
+<
+<div class="w3-container w3-center w3-round-xlarge">
     <div class="w3-container w3-center w3-large" style="color:indianred">
         <a href="${pageContext.request.contextPath}/home"
            class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge " style="text-align-all: center ">Home</a>
     </div>
     <div class="w3-container w3-center w3-round-xlarge" style="color:steelblue">
         <a href="${pageContext.request.contextPath}/manufacturer"
-           class="w3-btn w3-hover-light-blue w3-round-xlarge w3-wide" style="text-align-all: center ">MANUFACTURER PAGE</a>
+           class="w3-btn w3-hover-light-blue w3-round-xlarge w3-wide" style="text-align-all: center ">MANUFACTURER
+            PAGE</a>
     </div>
 
     <a href="${pageContext.request.contextPath}/manufacturer/list"
@@ -48,7 +50,8 @@
     </h4>
 </div>
 <div>
-    <h4 style="text-align-all: center; background-color:skyblue" class="text w3-blue w3-round-xlarge w3-margin-top w3-center">
+    <h4 style="text-align-all: center; background-color:skyblue"
+        class="text w3-blue w3-round-xlarge w3-margin-top w3-center">
         <c:out value="${error2}" default=""></c:out>
     </h4>
 </div>
@@ -63,7 +66,7 @@
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[0];
             if (td) {
-                txtValue = td.textContent || td.innerText;
+                textValue = td.textContent || td.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
                 } else {
@@ -77,7 +80,6 @@
 <jsp:include page="/WEB-INF/view/_footer.jsp"></jsp:include>
 
 </body>
-
 
 
 </html>

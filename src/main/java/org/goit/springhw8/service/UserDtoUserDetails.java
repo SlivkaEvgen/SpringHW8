@@ -17,11 +17,14 @@ public class UserDtoUserDetails implements UserDetailsService {
     private  UserRepository userRepository;
 
     public UserDtoUserDetails(UserRepository userRepository){
+        System.out.println("UserDtoUserDetails ");
         this.userRepository=userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        System.out.println("UserDtoUserDetails loadUserByUsername name= "+name);
+
         List<User> userList = userRepository.findByName(name.toUpperCase());
         if (userList == null) {
             throw new UsernameNotFoundException("User not found");
