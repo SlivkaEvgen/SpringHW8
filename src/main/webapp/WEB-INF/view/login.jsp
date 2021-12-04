@@ -69,7 +69,7 @@
                     <span onclick="document.getElementById('id01').style.display='none'"
                           class="w3-btn w3-round-xlarge w3-small w3-hover-red w3-display-topright"
                           title="Close Modal">&times;</span>
-                    <form class="w3-container w3-round-xlarge" method="GET"
+                    <form class="w3-container w3-round-xlarge" method="POST"
                           action="${pageContext.request.contextPath}/registration">
                         <div class="w3-section w3-round">
                             <label><b>Username</b></label>

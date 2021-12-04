@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<
+
 <div class="w3-container w3-center w3-round-xlarge">
     <div class="w3-container w3-center w3-large" style="color:indianred">
         <a href="${pageContext.request.contextPath}/home"

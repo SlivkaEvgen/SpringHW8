@@ -1,10 +1,7 @@
 package org.goit.springhw8.service;
 
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.goit.springhw8.model.User;
-import org.goit.springhw8.repository.RepositoryI;
-import org.jetbrains.annotations.NotNull;
+import org.goit.springhw8.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,23 +10,27 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class UserDtoUserDetails implements UserDetailsService {
 
-    private RepositoryI<User,String> repositoryI;
+    private final UserRepository userRepository;
 
-    public UserDtoUserDetails(RepositoryI<User,String> repositoryI){
+    public UserDtoUserDetails(UserRepository userRepository) {
         System.out.println("UserDtoUserDetails ");
-        this.repositoryI=repositoryI;
+        this.userRepository = userRepository;
     }
 
-    @SneakyThrows
     @Override
-    public UserDetails loadUserByUsername(@NotNull String name) throws UsernameNotFoundException {
-        System.out.println("UserDtoUserDetails loadUserByUsername name= "+name);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("UserDtoUserDetails loadUserByUsername name= " + username);
+        if (username == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        if (username.isEmpty()) {
+            throw new UsernameNotFoundException("User not found");
+        }
 
-        List<User> userList = repositoryI.findByName(name.toUpperCase());
-        if (userList == null) {
+        List<User> userList = userRepository.findByName(username);
+        if (userList.isEmpty()) {
             throw new UsernameNotFoundException("User not found");
         }
         return (UserDetails) userList.get(0);
