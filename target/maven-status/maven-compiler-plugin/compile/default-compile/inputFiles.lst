@@ -1,4 +1,3 @@
-/Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/service/UserDtoUserDetails.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/controller/ManufacturerController.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/model/Role.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/model/Product.java
@@ -22,6 +21,7 @@
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/config/WebSecurityConfig.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/model/Manufacturer.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/util/Validator.java
+/Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/controller/AdminController.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/model/User.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/weather/dto/Wind.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/service/ProductService.java
@@ -31,7 +31,6 @@
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/service/ServiceI.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/weather/dto/Root.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/config/MvcConfig.java
-/Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/config/UserDetailsServiceImpl.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/weather/dto/Main.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/weather/dto/Sys.java
 /Users/evgen/IDEAProjects/Рабочие/SpringHW8/src/main/java/org/goit/springhw8/weather/dto/Coord.java
