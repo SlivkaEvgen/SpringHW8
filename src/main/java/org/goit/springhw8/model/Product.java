@@ -31,5 +31,4 @@ public class Product implements BaseModel<String> {
 
     @ManyToOne
     private Manufacturer manufacturer;
-
 }

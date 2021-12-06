@@ -30,11 +30,6 @@ public class Role implements BaseModel<String> {
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<User> users;
 
-    @Override
-    public String getId() {
-        return id;
-    }
-
     public Role(String id, String name) {
         this.id = id;
         this.name = name;

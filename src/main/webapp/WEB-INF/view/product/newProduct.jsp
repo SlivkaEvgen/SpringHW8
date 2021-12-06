@@ -35,7 +35,7 @@
 <%--        <table class="w3-table-all w3-small w3-centered w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"--%>
 <%--               id="myTable">--%>
         <table class="w3-table-all w3-small w3-centered "
-               class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
+               class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity">
             <tr>
                 <td>ID</td>
                 <td><label>
@@ -82,7 +82,7 @@
     </nav>
 </form>
 
-</body>
+<%--</body>--%>
 
 <div class="w3-container w3-center w3-tangerine w3-text-dark-gray ">
     <p class="w3-xxlarge">"Make it as simple as possible, but not simpler."</p>

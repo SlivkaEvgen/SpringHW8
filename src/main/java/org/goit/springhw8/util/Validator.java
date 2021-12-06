@@ -51,16 +51,12 @@ public class Validator {
         return validString(name);
     }
 
-//    public boolean validUniqueId(String id) {
-//        return false;
-//    }
+    public static boolean validGender(@NonNull String gender) {
+        return (gender.equalsIgnoreCase("Male")
+                | gender.equalsIgnoreCase("Female"));
+    }
 
-//    public static boolean validGender(@NonNull String gender) {
-//        return (gender.equalsIgnoreCase("Male")
-//                | gender.equalsIgnoreCase("Female"));
-//    }
-
-//    public static boolean validEmail(@NonNull String email) {
-//        return email.contains("@");
-//    }
+    public static boolean validEmail(@NonNull String email) {
+        return email.contains("@");
+    }
 }

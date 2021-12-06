@@ -1,83 +1,68 @@
-
 -- create sequence hibernate_sequence start 1 increment 1;
 create type gender as enum ('SEX_MALE','SEX_FEMALE');
 
-CREATE TABLE if not exists role
+create table if not exists role
 (
-    id   varchar(20) NOT NULL primary key,
-    name VARCHAR(255)
-);
-CREATE TABLE if not exists manufacturer
-(
-    id   varchar(20) NOT NULL primary key,
-    name VARCHAR(15)
+    id   varchar(20) not null primary key,
+    name varchar(20)
 );
 
-CREATE TABLE if not exists users
+create table if not exists manufacturer
 (
-    id        varchar(20) primary key NOT NULL,
-    name      VARCHAR(15),
-    last_name VARCHAR(15),
-    gender    gender             NOT NULL,
-    email     VARCHAR(20),
-    password  VARCHAR(100),
+    id   varchar(20) not null primary key,
+    name varchar(15)
+);
+
+create table if not exists users
+(
+    id        varchar(20) primary key not null,
+    name      varchar(15),
+    last_name varchar(15),
+    gender    gender                  not null,
+    email     varchar(20),
+    password  varchar(100),
     role_id   varchar(20)
---     active    BOOLEAN
 );
 
-CREATE TABLE if not exists product
+create table if not exists product
 (
-    id              varchar(20) NOT NULL primary key,
-    name            VARCHAR(15),
-    price           DOUBLE PRECISION,
+    id              varchar(20) not null primary key,
+    name            varchar(15),
+    price           double precision,
     manufacturer_id varchar(20)
 );
--- create table if not exists user_roles
--- (
---     user_id  bigint,
---     roles_id bigint
--- );
 
+-- create roles
 insert into role(id, name)
-VALUES ('1', 'ADMIN');
-insert into role(id, name)
-VALUES ('2', 'USER');
-insert into role(id, name)
-VALUES ('3', 'PROD');
-insert into role(id, name)
-VALUES ('4', 'DEV');
-
+values ('1', 'ADMIN'),
+       ('2', 'USER'),
+       ('3', 'MODERATOR'),
+       ('4', 'PRODUCTION'),
+       ('5', 'DEVELOPER'),
+       ('6', 'OWNER'),
+       ('7', 'MY');
 
 -- create users
-INSERT INTO users (id, name, last_name, gender, email, password,role_id)
-VALUES ('1', 'USER', 'USER', 'SEX_MALE', 'yyy@oi', '123','1');
-INSERT INTO users (id, name, last_name, gender, email, password,role_id)
-VALUES ('2', 'ADMIN', 'ADMIN', 'SEX_MALE', 'admin@ua', '123','2');
-INSERT INTO users (id, name, last_name, gender, email, password,role_id)
-VALUES ('3', 'VOVA', 'Ivanov', 'SEX_MALE', 'hhh@ua', '123','3');
+insert into users (id, name, last_name, gender, email, password, role_id)
+values ('1', 'USER', 'USER', 'SEX_MALE', 'yyy@oi', '123', '1'),
+       ('2', 'ADMIN', 'ADMIN', 'SEX_MALE', 'admin@ua', '123', '2'),
+       ('3', 'VOVA', 'Ivanov', 'SEX_MALE', 'hhh@ua', '123', '3');
+
 -- create manufacturers
-INSERT INTO manufacturer (id, name)
-VALUES ('1', 'Apple');
-INSERT INTO manufacturer (id, name)
-VALUES ('2', 'Samsung');
-INSERT INTO manufacturer (id, name)
-VALUES ('3', 'LG');
-INSERT INTO manufacturer (id, name)
-VALUES ('4', 'Motorola');
+insert into manufacturer (id, name)
+values ('1', 'APPLE'),
+       ('2', 'SAMSUNG'),
+       ('3', 'LG'),
+       ('4', 'MOTOROLA');
+
 -- create products
-INSERT INTO product (id, name, price, manufacturer_id)
-VALUES ('1', 'Iphone', 1799.9, '1');
-INSERT INTO product (id, name, price, manufacturer_id)
-VALUES ('2', 'lii', 890.99, '2');
-INSERT INTO product (id, name, price, manufacturer_id)
-VALUES ('3', 'ljkbn', 1890.99, '3');
-INSERT INTO product (id, name, price, manufacturer_id)
-VALUES ('4', 'kkn', 2290.99, '4');
-INSERT INTO product (id, name, price, manufacturer_id)
-VALUES ('5', 'ggg', 290.99, '1');
--- CREATE USER_ROLES
--- insert into user_roles(user_id, roles_id)
--- VALUES (1, 1),
---        (2, 1),
---        (3, 2);
+insert into product (id, name, price, manufacturer_id)
+values ('1', 'IPHONE X', 1099.9, '1'),
+       ('2', 'TV 52', 1290.99, '2'),
+       ('3', 'MICROWAVE', 490.99, '3'),
+       ('4', 'PHONE XR', 1190.99, '4'),
+       ('5', 'IPOD', 1290.99, '1'),
+       ('6', 'MAC AIR', 2290.99, '1'),
+       ('7', 'MAC PRO', 2490.99, '1');
+
 

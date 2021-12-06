@@ -13,16 +13,28 @@
     <meta name='DC.Language' scheme='rfc1766' content='ru'/>
 
     <title>Manufacturer</title>
-    <jsp:include page="../_menu.jsp"></jsp:include>
+    <jsp:include page="../_header.jsp"></jsp:include>
 </head>
+
+<sec:authorize access="!isAuthenticated()">
+    <a href="${pageContext.request.contextPath}logout"
+       class="w3-btn w3-hover-red w3-round-xlarge w3-ios-background w3-display-topright">Logout</a>
+</sec:authorize>
 
 <body>
 
-<div class="w3-container w3-center w3-round-xlarge">
-    <div class="w3-container w3-center w3-large" style="color:indianred">
+<%--<div class="w3-container w3-center w3-round-xlarge">--%>
+<%--    <div class="w3-container w3-center w3-large" style="color:indianred">--%>
+<%--        <a href="${pageContext.request.contextPath}/home"--%>
+<%--           class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge " style="text-align-all: center ">Home</a>--%>
+<%--    </div>--%>
+
+<div class="w3-container w3-center w3-round-xlarge w3-padding-50">
+    <div class="w3-container w3-center w3-round-xlarge w3-ios">
         <a href="${pageContext.request.contextPath}/home"
-           class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge " style="text-align-all: center ">Home</a>
-    </div>
+           class="w3-btn w3-wide w3-hover-red w3-round-xlarge w3-ios-background">HOME</a>
+        <p></p>
+
     <div class="w3-container w3-center w3-round-xlarge" style="color:steelblue">
         <a href="${pageContext.request.contextPath}/manufacturer"
            class="w3-btn w3-hover-light-blue w3-round-xlarge w3-wide" style="text-align-all: center ">MANUFACTURER
@@ -66,7 +78,7 @@
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[0];
             if (td) {
-                textValue = td.textContent || td.innerText;
+                txtValue = td.textContent || td.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
                 } else {
@@ -77,8 +89,7 @@
     }
 </script>
 
-<jsp:include page="/WEB-INF/view/_footer.jsp"></jsp:include>
-
+</div>
 </body>
 
 

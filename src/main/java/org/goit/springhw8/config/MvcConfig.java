@@ -10,11 +10,11 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(@NotNull ViewControllerRegistry registry) {
-        System.out.println("MvcConfig ");
-
-        registry.addViewController("/login").setViewName("login");
+        registry.addRedirectViewController("**/logout", "/login");
+        registry.addViewController("/login/**").setViewName("login");
+        registry.addViewController(";/logout/**").setViewName("homeView");
         registry.addViewController("/home").setViewName("homeView");
-        registry.addViewController("/news").setViewName("news");
+        registry.addViewController("/news").setViewName("myPack/news");
         registry.addViewController("/").setViewName("homeView");
         //////////////////////////////////////////___USER____/////////////////////////////////
         registry.addViewController("/user").setViewName("user/user");
@@ -49,6 +49,5 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/manufacturer/delete").setViewName("manufacturer/deleteManufacturer");
         registry.addViewController("/manufacturer/update/**").setViewName("manufacturer/updateManufacturer");
         registry.addViewController("/manufacturer/new").setViewName("manufacturer/newManufacturer");
-
     }
 }

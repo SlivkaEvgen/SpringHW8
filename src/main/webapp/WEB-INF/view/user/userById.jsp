@@ -1,7 +1,4 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -13,30 +10,27 @@
 
     .w3-display-bottommiddle {
         z-index: 2;
-        width: 1000px;
+        width: 900px;
         line-height: initial;
     }
 </style>
 
 <head>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name='DC.Language' scheme='rfc1766' content='ru'/>
 
     <title>User By ID</title>
     <jsp:include page="user.jsp"></jsp:include>
+
 </head>
 
 <body>
+
 <div class="w3-container w3-center w3-round-xlarge">
-    <nav class="w3-bar-block  w3-light-grey w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
-        <h5 style="color:steelblue" class="text w3-animate-fading w3-round-xlarge">User By ID</h5>
-        <form class="container m3-center w3-round-xlarge" method="GET"
+    <nav class="w3-bar-block w3-center w3-light-grey w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
+        <h5 style="color:steelblue" class="text w3-center w3-high-small w3-animate-fading">User By ID</h5>
+        <form class="container w3-center w3-round-xlarge" method="GET"
               action="${pageContext.request.contextPath}id">
             <table class="w3-table-all w3-small w3-centered "
-                   class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
-                   id="myTable1">
+                   class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity">
                 <tr>
                     <td>
                         <label>
@@ -44,14 +38,12 @@
                                    type="text" name="id" placeholder=" Enter User ID " value="${user.id}"/>
                         </label>
                     </td>
-                    <td>
+                    <td colspan="1">
                         <input type="submit"
-                               class="w3-input w3-btn w3-border  w3-hover-green w3-round-xlarge w3-light-blue"
+                               class="w3-input w3-center w3-high-small w3-btn w3-border w3-hover-green w3-round-xlarge w3-light-blue"
                                value="SEARCH"/>
                     </td>
-
                 </tr>
-                <%--                        <table class="w3-hoverable w3-padding-small w3-table-all w3-card-4 w3-tiny w3-margin-bottom w3-round-xlarge w3-centered w3-animate-opacity">--%>
                 <table class="w3-table-all w3-small w3-centered "
                        class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
                        id="myTable">
@@ -62,30 +54,32 @@
                         <th>GENDER</th>
                         <th>EMAIL</th>
                         <th>PASSWORD</th>
-                        <%--                                <th>ROLE</th>--%>
+                        <th>ROLE</th>
                         <th>UPDATE</th>
                         <th>DELETE</th>
                     </tr>
-                    <tr>
-                        <td>${user.id}</td>
-                        <td>${user.name}</td>
-                        <td>${user.lastName}</td>
-                        <td>${user.gender}</td>
-                        <td>${user.email}</td>
-                        <td>${user.password}</td>
-                        <%--                                <td>${user.roleId}</td>--%>
-                        <td>
-                            <a href="${pageContext.request.contextPath}update/?id=${user.id}"
-                               class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
-                        </td>
-                        <td>
-                            <a href="${pageContext.request.contextPath}delete/?id=${user.id}"
-                               class="w3-btn w3-hover-red w3-round-xlarge">Delete</a>
-                        </td>
-                    </tr>
+                    <c:forEach items="${list}" var="user">
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.lastName}</td>
+                            <td>${user.gender}</td>
+                            <td>${user.email}</td>
+                            <td>${user.password}</td>
+                            <td>${user.role}</td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}update/?id=${user.id}"
+                                   class="w3-btn w3-hover-light-blue w3-round-xlarge">UPDATE</a>
+                            </td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}delete/?id=${user.id}"
+                                   class="w3-btn w3-hover-red w3-round-xlarge">DELETE</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
                 </table>
             </table>
-            <h5 style="color:steelblue" class="text w3-round-xlarge w3-animate-bottom">USER BY ID</h5>
+            <h5 style="color:steelblue" class="text w3-center w3-round-xlarge w3-animate-bottom">USER BY ID</h5>
         </form>
     </nav>
 </div>
@@ -94,7 +88,6 @@
 
 <div class="w3-container w3-center w3-tangerine w3-text-dark-gray ">
     <p class="w3-xxlarge">"Make it as simple as possible, but not simpler."</p>
-
 </div>
 
 <div class="w3-container w3-center w3-rodoto w3-text-dark-gray">
