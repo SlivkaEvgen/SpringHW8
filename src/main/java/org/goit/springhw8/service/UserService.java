@@ -3,6 +3,7 @@ package org.goit.springhw8.service;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.repository.UserRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,7 +26,7 @@ public class UserService extends ServiceI<User, String> implements UserDetailsSe
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(@NotNull String username) throws UsernameNotFoundException {
         System.out.println(" UserService loadUserByUsername "+username);
         User user = userRepository.findByName(username.toUpperCase()).get(0);
         if (user == null) {

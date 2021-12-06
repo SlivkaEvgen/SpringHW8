@@ -1,5 +1,5 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -10,16 +10,9 @@
     <jsp:include page="_header.jsp"></jsp:include>
 
 </head>
-
 <%--<sec:authorize access="!isAuthenticated()">--%>
 <%--    <h3 class="w3-center">Welcome, ${pageContext.request.userPrincipal.name} !</h3>--%>
 <%--</sec:authorize>--%>
-
-
-<%--<div lang="ru" autocapitalize="on" style="language: RU"></div>--%>
-
-<%--Select Language : <a href="?lang=en">English</a> | <a href="?lang=de">German</a> | <a href="?lang=it">Italian</a>--%>
-
 <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
     <div class="w3-container w3-center w3-round-xlarge w3-ios">
         <a href="${pageContext.request.contextPath}home"

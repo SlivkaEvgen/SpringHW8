@@ -21,7 +21,6 @@ create table if not exists users
     gender    gender,
     email     varchar(20),
     password  varchar(100)
---     role_id   varchar(20)
 );
 
 create table if not exists product
@@ -39,30 +38,6 @@ create table users_roles
     primary key (user_id, roles_id)
 );
 
--- alter table users_roles
---     owner to postgres;
-
--- create roles
-insert into role(id, name)
-values ('1', 'ROLE_ADMIN'),
-       ('2', 'ROLE_USER'),
-       ('3', 'ROLE_MODERATOR'),
-       ('4', 'ROLE_PRODUCTION'),
-       ('5', 'ROLE_DEVELOPER'),
-       ('6', 'ROLE_OWNER'),
-       ('7', 'ROLE_MY');
-
--- create users
--- insert into users (id, name, last_name, gender, email, password, role_id)
--- values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG', '1'),
---        ('2', 'USER', 'USER', 'MALE', 'user@ua', '$2a$10$/5aMIjIbWnFOUgdVHoFGpOkcjubz8wOXYy8hzbKoyQVFcIiYY7z7i', '2'),
---        ('3', 'VOVA', 'VOVA', 'MALE', 'vova@ua', '$2a$10$e4laZ8QwdzYzKmsWgLMM8.kl6soxQkRvkjQgGXm4r4OLDhXL1ekJO', '2');
-
-insert into users (id, name, last_name, gender, email, password)
-values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG'),
-       ('2','USER', 'USER', 'MALE', 'user@ua', '$2a$10$/5aMIjIbWnFOUgdVHoFGpOkcjubz8wOXYy8hzbKoyQVFcIiYY7z7i'),
-       ('3','VOVA', 'VOVA', 'MALE', 'vova@ua', '$2a$10$e4laZ8QwdzYzKmsWgLMM8.kl6soxQkRvkjQgGXm4r4OLDhXL1ekJO');
-
 -- create manufacturers
 insert into manufacturer (id, name)
 values ('1', 'APPLE'),
@@ -79,6 +54,21 @@ values ('1', 'IPHONE X', 1099.9, '1'),
        ('5', 'IPOD', 1290.99, '1'),
        ('6', 'MAC AIR', 2290.99, '1'),
        ('7', 'MAC PRO', 2490.99, '1');
+
+-- create roles
+insert into role(id, name)
+values ('1', 'ROLE_ADMIN'),
+       ('2', 'ROLE_USER'),
+       ('3', 'ROLE_MODERATOR'),
+       ('4', 'ROLE_PRODUCTION'),
+       ('5', 'ROLE_DEVELOPER'),
+       ('6', 'ROLE_OWNER'),
+       ('7', 'ROLE_MY');
+
+insert into users (id, name, last_name, gender, email, password)
+values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG'),
+       ('2','USER', 'USER', 'MALE', 'user@ua', '$2a$10$/5aMIjIbWnFOUgdVHoFGpOkcjubz8wOXYy8hzbKoyQVFcIiYY7z7i'),
+       ('3','VOVA', 'VOVA', 'MALE', 'vova@ua', '$2a$10$e4laZ8QwdzYzKmsWgLMM8.kl6soxQkRvkjQgGXm4r4OLDhXL1ekJO');
 
 insert into users_roles(user_id, roles_id)
  values ('1','1'),('2','2'),('3','2');

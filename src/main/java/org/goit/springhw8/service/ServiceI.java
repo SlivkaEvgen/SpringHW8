@@ -3,6 +3,7 @@ package org.goit.springhw8.service;
 import lombok.RequiredArgsConstructor;
 import org.goit.springhw8.model.BaseModel;
 import org.goit.springhw8.repository.RepositoryI;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
         return repositoryI.findById(id);
     }
 
-    public List<T> getByName(String name) {
+    public List<T> getByName(@NotNull String name) {
         return repositoryI.findByName(name.toUpperCase());
     }
 

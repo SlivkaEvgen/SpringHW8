@@ -1,5 +1,5 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
 <!DOCTYPE html>
 
@@ -24,28 +24,22 @@
     <div style="animation-duration: initial" class="w3-container w3-center w3-round-xlarge w3-padding-50">
         <div class="w3-container w3-center w3-round-xlarge w3-ios">
             <h2>Log In</h2>
-            <%--                <a href="${pageContext.request.contextPath}home"--%>
-            <%--            <sec:authorize access="isAuthenticated()">--%>
-            <%--                   class="w3-btn w3-wide w3-hover-red w3-round-xlarge">HOME</a>--%>
-            <%--            </sec:authorize>--%>
             <p></p>
             <p></p>
             <p></p>
 
             <form method="POST" action="${pageContext.request.contextPath}/login">
 
-                <%--        <h2>Вход в систему</h2>--%>
-
                 <div>
-
-                    <input name="username" type="text" placeholder="Username" autofocus="true"/>
+                    <label>
+                        <input name="username" type="text" placeholder="Username" autofocus="true"/>
+                    </label>
                     <p></p>
-
-                    <input name="password" type="password" placeholder="Password"/>
+                    <label>
+                        <input name="password" type="password" placeholder="Password"/>
+                    </label>
                     <p></p>
-
                     <button type="submit" class="w3-btn w3-hover-red w3-round-xlarge w3-ios-background">Sign In</button>
-
 
                     <h4><a href="${pageContext.request.contextPath}/registration" class="w3-btn  w3-hover-red w3-round-xlarge w3-ios-background">Sign
                         Up</a></h4>

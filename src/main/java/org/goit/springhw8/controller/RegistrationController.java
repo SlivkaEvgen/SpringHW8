@@ -3,7 +3,7 @@ package org.goit.springhw8.controller;
 import jakarta.validation.Valid;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,17 +14,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RegistrationController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public RegistrationController(UserService userService){
+        this.userService=userService;
+    }
 
     @GetMapping("registration")
-    public String registration(Model model) {
+    public String registration(@NotNull Model model) {
         model.addAttribute("userForm", new User());
         return "registration";
     }
 
     @PostMapping("registration")
-    public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
+    public String addUser(@ModelAttribute("userForm") @Valid User userForm, @NotNull BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             System.out.println("RegistrationController addUser hasErrors");
             return "registration";

@@ -1,7 +1,7 @@
 package org.goit.springhw8.controller;
 
 import org.goit.springhw8.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,21 +12,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AdminController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public AdminController(UserService userService) {
+        this.userService=userService;
+    }
 
     @GetMapping("admin")
-    public String userList(Model model) {
+    public String userList(@NotNull Model model) {
         System.out.println("AdminController userList");
         model.addAttribute("allUsers", userService.getList());
         return "admin";
     }
 
     @PostMapping("admin")
-    public String  deleteUser(@RequestParam(required = true, defaultValue = "" ) String userId,
-                              @RequestParam(required = true, defaultValue = "" ) String action,
+    public String  deleteUser(@RequestParam(defaultValue = "" ) String userId,
+                              @NotNull @RequestParam(defaultValue = "" ) String action,
                               Model model) {
-        System.out.println("AdminController deleteUser");
+        System.out.println("AdminController deleteUser "+model);
 
         if (action.equals("delete")){
             userService.deleteById(userId);
@@ -35,7 +38,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/gt/{userId}")
-    public String  gtUser(@PathVariable("userId") String userId, Model model) {
+    public String  gtUser(@PathVariable("userId") String userId, @NotNull Model model) {
         System.out.println("AdminController gtUser");
         model.addAttribute("allUsers", userService.getById(userId));
         return "admin";

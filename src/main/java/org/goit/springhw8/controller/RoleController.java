@@ -1,5 +1,6 @@
 package org.goit.springhw8.controller;
 
+import lombok.extern.log4j.Log4j2;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.service.RoleService;
 import org.goit.springhw8.util.Validator;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-//@Log4j2
+@Log4j2
 //@Validated
 @Controller
 @RequestMapping("role")
