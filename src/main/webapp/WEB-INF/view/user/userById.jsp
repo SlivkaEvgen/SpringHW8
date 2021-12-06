@@ -1,4 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -10,7 +14,7 @@
 
     .w3-display-bottommiddle {
         z-index: 2;
-        width: 900px;
+        width: 1200px;
         line-height: initial;
     }
 </style>
@@ -55,8 +59,10 @@
                         <th>EMAIL</th>
                         <th>PASSWORD</th>
                         <th>ROLE</th>
-                        <th>UPDATE</th>
-                        <th>DELETE</th>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <th>UPDATE</th>
+                            <th>DELETE</th>
+                        </sec:authorize>
                     </tr>
                     <c:forEach items="${list}" var="user">
                         <tr>
@@ -66,7 +72,8 @@
                             <td>${user.gender}</td>
                             <td>${user.email}</td>
                             <td>${user.password}</td>
-                            <td>${user.role}</td>
+                            <td>${user.roles}</td>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
                             <td>
                                 <a href="${pageContext.request.contextPath}update/?id=${user.id}"
                                    class="w3-btn w3-hover-light-blue w3-round-xlarge">UPDATE</a>
@@ -75,6 +82,7 @@
                                 <a href="${pageContext.request.contextPath}delete/?id=${user.id}"
                                    class="w3-btn w3-hover-red w3-round-xlarge">DELETE</a>
                             </td>
+                            </sec:authorize>
                         </tr>
                     </c:forEach>
                 </table>

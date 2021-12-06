@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
+//@Log4j2
+//@Validated
 @Controller
 @RequestMapping("role")
 public class RoleController {
@@ -93,12 +96,17 @@ public class RoleController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("role/deleteRole", model);
         }
+        if (Objects.equals(model.getAttribute("role"), "USER")){
+            model.addAttribute("error", "Sorry, Only Admin Can Delete");
+            model.addAttribute("error2", "Try again");
+            return new ModelAndView("role/deleteRole", model);
+        }
         roleService.deleteById(id);
         return new ModelAndView("role/role", model.addAttribute("error2", "Role With ID = " + id + "\n Deleted "));
     }
 
     @GetMapping("new")
-    public ModelAndView addNew(Role role, @NotNull ModelMap model) {
+    public ModelAndView addNew(Role role, ModelMap model) {
         return new ModelAndView("role/newRole", model.addAttribute("role", role));
     }
 
@@ -137,12 +145,12 @@ public class RoleController {
     }
 
     @GetMapping("update/**")
-    public ModelAndView update(Role role, @NotNull ModelMap model) {
+    public ModelAndView update(Role role, ModelMap model) {
         return new ModelAndView("role/updateRole", model.addAttribute("role", role));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(@NotNull Role role, ModelMap model) {
+    public ModelAndView updatePost(@NotNull Role role,  ModelMap model) {
         System.out.println("RoleController updatePost");
         if (!Validator.validId(role.getId())) {
             model.addAttribute("error2", "Try Again");

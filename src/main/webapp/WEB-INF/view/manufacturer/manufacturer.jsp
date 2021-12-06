@@ -35,61 +35,66 @@
            class="w3-btn w3-wide w3-hover-red w3-round-xlarge w3-ios-background">HOME</a>
         <p></p>
 
-    <div class="w3-container w3-center w3-round-xlarge" style="color:steelblue">
-        <a href="${pageContext.request.contextPath}/manufacturer"
-           class="w3-btn w3-hover-light-blue w3-round-xlarge w3-wide" style="text-align-all: center ">MANUFACTURER
-            PAGE</a>
+        <div class="w3-container w3-center w3-round-xlarge" style="color:steelblue">
+            <a href="${pageContext.request.contextPath}/manufacturer"
+               class="w3-btn w3-hover-light-blue w3-round-xlarge w3-wide" style="text-align-all: center ">MANUFACTURER
+                PAGE</a>
+        </div>
+
+        <a href="${pageContext.request.contextPath}/manufacturer/list"
+           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Manufacturers List</a>
+        <a href="${pageContext.request.contextPath}/manufacturer/id"
+           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By ID</a>
+        <a href="${pageContext.request.contextPath}/manufacturer/name"
+           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By Name</a>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <a href="${pageContext.request.contextPath}/manufacturer/new"
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Add New</a>
+            <a href="${pageContext.request.contextPath}/manufacturer/update"
+               class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
+            <a href="${pageContext.request.contextPath}/manufacturer/delete"
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
+        </sec:authorize>
+
+        <p></p>
     </div>
 
-    <a href="${pageContext.request.contextPath}/manufacturer/list"
-       class="w3-btn  w3-hover-light-blue w3-round-xlarge">Manufacturers List</a>
-    <a href="${pageContext.request.contextPath}/manufacturer/id"
-       class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By ID</a>
-    <a href="${pageContext.request.contextPath}/manufacturer/name"
-       class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By Name</a>
-    <a href="${pageContext.request.contextPath}/manufacturer/new"
-       class="w3-btn  w3-hover-light-blue w3-round-xlarge">Add New</a>
-    <a href="${pageContext.request.contextPath}/manufacturer/update"
-       class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
-    <a href="${pageContext.request.contextPath}/manufacturer/delete"
-       class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
-    <p></p>
-</div>
+    <div>
+        <h4 style="text-align-all: center" class="text w3-blue w3-round-xlarge w3-margin-top w3-center">
+            <c:out value="${error}" default=""></c:out>
+        </h4>
+    </div>
+    <div>
+        <h4 style="text-align-all: center; background-color:skyblue"
+            class="text w3-blue w3-round-xlarge w3-margin-top w3-center">
+            <c:out value="${error2}" default=""></c:out>
+        </h4>
+    </div>
 
-<div>
-    <h4 style="text-align-all: center" class="text w3-blue w3-round-xlarge w3-margin-top w3-center">
-        <c:out value="${error}" default=""></c:out>
-    </h4>
-</div>
-<div>
-    <h4 style="text-align-all: center; background-color:skyblue"
-        class="text w3-blue w3-round-xlarge w3-margin-top w3-center">
-        <c:out value="${error2}" default=""></c:out>
-    </h4>
-</div>
-
-<script>
-    function myFunction() {
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
                 }
             }
         }
-    }
-</script>
+    </script>
 
 </div>
+
 </body>
 
 

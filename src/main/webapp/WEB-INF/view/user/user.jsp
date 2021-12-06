@@ -1,3 +1,8 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+
 <!DOCTYPE HTML>
 <html>
 
@@ -27,12 +32,16 @@
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By ID</a>
         <a href="${pageContext.request.contextPath}/user/name"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By Name</a>
-        <a href="${pageContext.request.contextPath}/user/new"
-           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Add New</a>
-        <a href="${pageContext.request.contextPath}/user/update"
-           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
-        <a href="${pageContext.request.contextPath}/user/delete"
-           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <a href="${pageContext.request.contextPath}/user/new"
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Add New</a>
+            <a href="${pageContext.request.contextPath}/user/update"
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
+            <a href="${pageContext.request.contextPath}/user/delete"
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
+        </sec:authorize>
+
         <p></p>
     </div>
 

@@ -11,10 +11,10 @@ public class SpringHw8Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringHw8Application.class, args);
-//        System.out.println(" \n START LOGIN = ADMIN ; PASSWORD = 123 \n запретить удаление / редактирование админа");
+        System.out.println(" \n START LOGIN = ADMIN ; PASSWORD = 123 \n запретить удаление / редактирование админа");
 //        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 //        System.out.println(passwordEncoder);
-//        String[] password = {"Password1", "Password2", "Password3"};
+//        String[] password = {"123", "Password2", "Password3"};
 //        for (String s : password) {
 //            System.out.println("Some Password  encoder = " + passwordEncoder.encode(s) + "\n");
 //        }

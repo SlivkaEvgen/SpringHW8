@@ -157,7 +157,7 @@ public class ManufacturerController {
     }
 
     @GetMapping("new")
-    public ModelAndView addNew(@NotNull ModelMap model, Manufacturer manufacturer) {
+    public ModelAndView addNew(Manufacturer manufacturer, @NotNull ModelMap model) {
         return new ModelAndView("manufacturer/newManufacturer", model.addAttribute("manufacturer", manufacturer));
     }
 

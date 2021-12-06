@@ -1,3 +1,8 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+
 <!DOCTYPE HTML>
 <html>
 
@@ -93,7 +98,7 @@
                     <td>Role</td>
                     <td>
                         <label>
-                            <select class="w3-select w3-round-xlarge" name="role">
+                            <select class="w3-select w3-round-xlarge" name="roles">
                                 <option value="" disabled selected> Choose Role</option>
                                 <option value="2">User</option>
                                 <option value="3">Moderator</option>

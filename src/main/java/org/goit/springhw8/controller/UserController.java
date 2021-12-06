@@ -57,7 +57,7 @@ public class UserController {
         return new ModelAndView("user/userByName", model);
     }
 
-    @GetMapping("delete")
+    @GetMapping("admin/delete")
     public ModelAndView delete(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("user/deleteUser", model);
@@ -81,12 +81,12 @@ public class UserController {
         return new ModelAndView("redirect:/user", model);
     }
 
-    @GetMapping("new")
+    @GetMapping("admin/new")
     public ModelAndView addNew(User user, @NotNull ModelMap model) {
         return new ModelAndView("user/newUser", model.addAttribute("user", user));
     }
 
-    @RequestMapping(value = "new", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/new", method = RequestMethod.POST)
     public ModelAndView addNewPost(@NotNull User user, ModelMap model) {
         if (user.getId() == null) {
             return new ModelAndView("user/newUser", model);
@@ -95,12 +95,12 @@ public class UserController {
         return new ModelAndView("user/user", model.addAttribute("user", user));
     }
 
-    @GetMapping("update/**")
+    @GetMapping("admin/update/**")
     public ModelAndView update(User user, @NotNull ModelMap model) {
         return new ModelAndView("user/updateUser", model.addAttribute("user", user));
     }
 
-    @RequestMapping(value = "update/**", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/update/**", method = RequestMethod.POST)
     public ModelAndView updatePost(@NotNull User user, ModelMap model) {
         if (!Validator.validId(user.getId())) {
             model.addAttribute("error2", "Try Again");

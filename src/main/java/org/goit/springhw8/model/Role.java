@@ -2,6 +2,7 @@ package org.goit.springhw8.model;
 
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "role")
-public class Role implements BaseModel<String> {
+public class Role implements BaseModel<String>, GrantedAuthority {
 
     private static final long serialVersionUID = 1909791726526791370L;
 
@@ -26,13 +27,19 @@ public class Role implements BaseModel<String> {
     @Size(min = 2, max = 25, message = "min = 2, max = 25")
     private String name;
 
+    @Transient
+    @ManyToMany(mappedBy = "roles")
     @ToString.Exclude
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<User> users;
 
     public Role(String id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    @Override
+    public String getAuthority() {
+        return getName();
     }
 
 }

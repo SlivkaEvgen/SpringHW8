@@ -9,10 +9,13 @@
 <!DOCTYPE HTML>
 
 <html>
-<sec:authorize access="!isAuthenticated()">
-    <a href="${pageContext.request.contextPath}logout"
+<sec:authorize access="isAuthenticated()">
+<%--    <p class="w3-center w3-ios-light-blue"></p>--%>
+    <a class="w3-text w3-round-xlarge w3-display-topleft">${pageContext.request.userPrincipal.name}</a>
+    <a href="${pageContext.request.contextPath}/logout"
        class="w3-btn w3-hover-red w3-round-xlarge w3-ios-background w3-display-topright">Logout</a>
 </sec:authorize>
+
 <header class="w3-container w3-center w3-padding w3-animate w3-ios-grey">
 
     <h1><b>Web Market</b></h1>

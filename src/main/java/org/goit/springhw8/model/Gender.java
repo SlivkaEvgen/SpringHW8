@@ -5,8 +5,8 @@ import org.jetbrains.annotations.NotNull;
 
 public enum Gender {
 
-    SEX_MALE,
-    SEX_FEMALE;
+    MALE,
+    FEMALE;
 
     @NotNull
     @Contract(pure = true)

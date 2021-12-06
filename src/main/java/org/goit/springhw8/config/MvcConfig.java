@@ -1,6 +1,5 @@
 package org.goit.springhw8.config;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -9,13 +8,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfig implements WebMvcConfigurer {
 
     @Override
-    public void addViewControllers(@NotNull ViewControllerRegistry registry) {
-        registry.addRedirectViewController("**/logout", "/login");
-        registry.addViewController("/login/**").setViewName("login");
-        registry.addViewController(";/logout/**").setViewName("homeView");
-        registry.addViewController("/home").setViewName("homeView");
-        registry.addViewController("/news").setViewName("myPack/news");
-        registry.addViewController("/").setViewName("homeView");
+    public void addViewControllers(ViewControllerRegistry registry) {
+        System.out.println("MvcConfig addViewControllers ");
+        registry.addViewController("**/login").setViewName("login");
+        registry.addRedirectViewController("**/logout","/");
+        registry.addViewController("**/home").setViewName("index");
         //////////////////////////////////////////___USER____/////////////////////////////////
         registry.addViewController("/user").setViewName("user/user");
         registry.addViewController("/user/id").setViewName("user/userById");

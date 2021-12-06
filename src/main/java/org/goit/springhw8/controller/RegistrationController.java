@@ -1,31 +1,44 @@
 package org.goit.springhw8.controller;
 
+import jakarta.validation.Valid;
+import org.goit.springhw8.model.User;
+import org.goit.springhw8.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-@RequestMapping("registration")
 public class RegistrationController {
 
-    @GetMapping
-    public ModelAndView registrationGet(ModelMap modelMap, @ModelAttribute String name, @ModelAttribute String password) {
-        System.out.println("Lo0gin get " + modelMap);
-        System.out.println("username " + name);
-        System.out.println("password " + password);
-        return new ModelAndView("registration", modelMap);
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("registration")
+    public String registration(Model model) {
+        model.addAttribute("userForm", new User());
+        return "registration";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView registrationPost(ModelMap modelMap, @ModelAttribute String name, @ModelAttribute String password) {
-        System.out.println("RequestMapping get modelMap = " + modelMap);
-        System.out.println("username " + name);
-        System.out.println("password " + password);
-        return new ModelAndView("registration", modelMap);
+    @PostMapping("registration")
+    public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("RegistrationController addUser hasErrors");
+            return "registration";
+        }
+        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())) {
+            System.out.println("RegistrationController addUser : userForm.getPassword().equals(userForm.getPasswordConfirm())");
+            model.addAttribute("passwordError", "Пароли не совпадают");
+            return "registration";
+        }
+        if (!userService.saveUser(userForm)) {
+            System.out.println("RegistrationController addUser : !userService.saveUser(userForm)");
+            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+            return "registration";
+        }
+        return "redirect:/";
     }
-
 }

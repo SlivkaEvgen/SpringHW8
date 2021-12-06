@@ -1,4 +1,7 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -10,7 +13,7 @@
 
     .w3-display-bottommiddle {
         z-index: 2;
-        width: 900px;
+        width: 1200px;
         line-height: initial;
     }
 </style>
@@ -52,7 +55,7 @@
                     <td>${user.gender}</td>
                     <td>${user.email}</td>
                     <td>${user.password}</td>
-                    <td>${user.role}</td>
+                    <td>${user.roles}</td>
                     <td>
                         <a href="${pageContext.request.contextPath}update/?id=${user.id}"
                            class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>

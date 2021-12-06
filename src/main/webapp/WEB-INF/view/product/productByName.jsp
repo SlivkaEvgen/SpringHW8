@@ -34,9 +34,9 @@
         <h5 style="color:steelblue" class="text w3-center w3-high-small w3-animate-fading">Product By Name</h5>
         <form class="container w3-center w3-round-xlarge" method="GET"
               action="${pageContext.request.contextPath}name">
-<%--            <table class="w3-table-all w3-center w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered">--%>
-    <table class="w3-table-all w3-small w3-centered "
-           class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity">
+            <%--            <table class="w3-table-all w3-center w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered">--%>
+            <table class="w3-table-all w3-small w3-centered "
+                   class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity">
                 <tr>
                     <td>
                         <label>
@@ -45,20 +45,24 @@
                         </label>
                     </td>
                     <td colspan="1">
-                        <input type="submit" class="w3-input w3-center w3-high-small w3-btn w3-border w3-hover-green w3-round-xlarge w3-light-blue"
+                        <input type="submit"
+                               class="w3-input w3-center w3-high-small w3-btn w3-border w3-hover-green w3-round-xlarge w3-light-blue"
                                value="SEARCH"/>
                     </td>
                 </tr>
 
-                <table class="w3-table-all w3-small w3-centered " class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
+                <table class="w3-table-all w3-small w3-centered "
+                       class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
                        id="myTable">
                     <tr class="w3-hover-light-blue">
                         <th>ID</th>
                         <th>NAME</th>
                         <th>PRICE</th>
                         <th>MANUFACTURER</th>
-                        <th>UPDATE</th>
-                        <th>DELETE</th>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <th>UPDATE</th>
+                            <th>DELETE</th>
+                        </sec:authorize>
                     </tr>
                     <c:forEach items="${list}" var="product">
                         <tr>
@@ -66,14 +70,16 @@
                             <td>${product.name}</td>
                             <td>${product.price}</td>
                             <td>${product.manufacturer}</td>
-                            <td>
-                                <a href="${pageContext.request.contextPath}update/?id=${product.id}"
-                                   class="w3-btn w3-hover-light-blue w3-round-xlarge">UPDATE</a>
-                            </td>
-                            <td>
-                                <a href="${pageContext.request.contextPath}delete/?id=${product.id}"
-                                   class="w3-btn w3-hover-red w3-round-xlarge">DELETE</a>
-                            </td>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <td>
+                                    <a href="${pageContext.request.contextPath}update/?id=${product.id}"
+                                       class="w3-btn w3-hover-light-blue w3-round-xlarge">UPDATE</a>
+                                </td>
+                                <td>
+                                    <a href="${pageContext.request.contextPath}delete/?id=${product.id}"
+                                       class="w3-btn w3-hover-red w3-round-xlarge">DELETE</a>
+                                </td>
+                            </sec:authorize>
                         </tr>
                     </c:forEach>
                 </table>
@@ -83,7 +89,8 @@
     </nav>
 </div>
 
-<</body>
+<
+</body>
 
 <div class="w3-container w3-center w3-tangerine w3-text-dark-gray ">
     <p class="w3-xxlarge">"Make it as simple as possible, but not simpler."</p>
