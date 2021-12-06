@@ -1,9 +1,9 @@
 package org.goit.springhw8.model;
 
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 
 @ToString
 @Getter
