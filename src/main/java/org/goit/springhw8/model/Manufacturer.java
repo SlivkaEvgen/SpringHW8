@@ -29,5 +29,4 @@ public class Manufacturer implements BaseModel<String> {
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<Product> products;
-
 }

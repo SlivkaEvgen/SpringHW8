@@ -7,7 +7,6 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,12 +55,11 @@ public class ManufacturerController {
             model.addAttribute("error2", "Try Again");
             return new ModelAndView("manufacturer/manufacturerByName", model);
         }
-        model.addAttribute("list", byName);
-        return new ModelAndView("manufacturer/manufacturerByName", model);
+        return new ModelAndView("manufacturer/manufacturerByName", model.addAttribute("list", byName));
     }
 
     @GetMapping("id")
-    public ModelAndView findById(ModelMap model, String id) {
+    public ModelAndView findById(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("manufacturer/manufacturerById", model);
         }
@@ -81,12 +79,11 @@ public class ManufacturerController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("manufacturer/manufacturerById", model);
         }
-        model.addAttribute("manufacturer", optionalManufacturer.get());
-        return new ModelAndView("manufacturer/manufacturerById", model);
+        return new ModelAndView("manufacturer/manufacturerById", model.addAttribute("list", manufacturerService.findListById(id)));
     }
 
     @GetMapping("delete")
-    public ModelAndView delete(ModelMap model, String id) {
+    public ModelAndView delete(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("manufacturer/deleteManufacturer", model);
         }
@@ -107,13 +104,12 @@ public class ManufacturerController {
     }
 
     @GetMapping("update/**")
-    public ModelAndView update(@NotNull ModelMap model, Manufacturer manufacturer) {
-        model.addAttribute("manufacturer", manufacturer);
-        return new ModelAndView("manufacturer/updateManufacturer", model);
+    public ModelAndView update(Manufacturer manufacturer, @NotNull ModelMap model) {
+        return new ModelAndView("manufacturer/updateManufacturer", model.addAttribute("manufacturer", manufacturer));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(@ModelAttribute Manufacturer manufacturer, ModelMap model) {
+    public ModelAndView updatePost(Manufacturer manufacturer, ModelMap model) {
         if (manufacturer == null) {
             model.addAttribute("error2", "Try Again");
             model.addAttribute("error", "Manufacturer is Null");
@@ -162,12 +158,11 @@ public class ManufacturerController {
 
     @GetMapping("new")
     public ModelAndView addNew(@NotNull ModelMap model, Manufacturer manufacturer) {
-        model.addAttribute("manufacturer", manufacturer);
-        return new ModelAndView("manufacturer/newManufacturer", model);
+        return new ModelAndView("manufacturer/newManufacturer", model.addAttribute("manufacturer", manufacturer));
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewPost(@NotNull @ModelAttribute Manufacturer manufacturer, ModelMap model) {
+    public ModelAndView addNewPost(@NotNull Manufacturer manufacturer, ModelMap model) {
         System.out.println("ManufacturerController addNewPost " + manufacturer);
         if (manufacturer.getId() == null) {
             model.addAttribute("error2", "Try Again");

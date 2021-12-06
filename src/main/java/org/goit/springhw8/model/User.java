@@ -16,7 +16,6 @@ public class User implements BaseModel<String> {     //, GrantedAuthority {
 
     private static final long serialVersionUID = -558_820_640_269_434_517L;
 
-    //  @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", unique = true, nullable = false)
     @Size(min = 1, max = 50, message = "min = 1, max = 50")

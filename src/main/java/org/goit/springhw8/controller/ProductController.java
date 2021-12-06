@@ -7,7 +7,6 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,7 +32,7 @@ public class ProductController {
     }
 
     @GetMapping("id")
-    public ModelAndView findById(ModelMap model,String id) {
+    public ModelAndView findById(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("product/productById", model);
         }
@@ -57,11 +56,11 @@ public class ProductController {
         }
         model.addAttribute("id", id);
         model.addAttribute("error2", "SUCCESSFULLY");
-        return new ModelAndView("product/productById", model.addAttribute("product", productService.getById(id).get()));
+        return new ModelAndView("product/productById", model.addAttribute("list", productService.findListById(id)));
     }
 
     @GetMapping("name")
-    public ModelAndView findByName(ModelMap model, String name) {
+    public ModelAndView findByName(String name, ModelMap model) {
         if (name == null) {
             return new ModelAndView("product/productByName", model);
         }
@@ -89,7 +88,7 @@ public class ProductController {
     }
 
     @GetMapping("delete")
-    public ModelAndView delete(ModelMap model, String id) {
+    public ModelAndView delete(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("product/deleteProduct", model);
         }
@@ -119,12 +118,12 @@ public class ProductController {
     }
 
     @GetMapping("new/**")
-    public ModelAndView addNew(ModelMap model) {
-        return new ModelAndView("product/newProduct", model);
+    public ModelAndView addNew(Product product, @NotNull ModelMap model) {
+        return new ModelAndView("product/newProduct", model.addAttribute("product", product));
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewPost(@ModelAttribute Product product,ModelMap model) {
+    public ModelAndView addNewPost(Product product, ModelMap model) {
         if (product == null) {
             model.addAttribute("error", "Product Is Null");
             model.addAttribute("error2", "Please, Try Again");
@@ -188,17 +187,17 @@ public class ProductController {
         }
         model.addAttribute("error", "New Product Added");
         model.addAttribute("error2", "SUCCESSFULLY");
-        productService.saveEntity(new Product(product.getId(), product.getName(), product.getPrice(), product.getManufacturer()));
+        productService.saveEntity(product);
         return new ModelAndView("product/product", model);
     }
 
     @GetMapping("update/**")
-    public ModelAndView update(ModelMap model) {
-        return new ModelAndView("product/updateProduct", model);
+    public ModelAndView update(Product product, @NotNull ModelMap model) {
+        return new ModelAndView("product/updateProduct", model.addAttribute("product", product));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(@NotNull @ModelAttribute Product product, ModelMap model) {
+    public ModelAndView updatePost(@NotNull Product product, ModelMap model) {
         if (product.getId() == null) {
             return new ModelAndView("product/updateProduct", model.addAttribute("product", product));
         }
@@ -246,7 +245,7 @@ public class ProductController {
         }
         model.addAttribute("error", " Product Updated");
         model.addAttribute("error2", "SUCCESSFULLY");
-        productService.saveEntity(new Product(product.getId(), product.getName(), product.getPrice(), product.getManufacturer()));
+        productService.saveEntity(product);
         return new ModelAndView("product/product", model.addAttribute("product", product));
     }
 }

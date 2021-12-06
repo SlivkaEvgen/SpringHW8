@@ -1,9 +1,3 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
-
 <!DOCTYPE HTML>
 <html>
 
@@ -20,23 +14,20 @@
 </style>
 
 <head>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name='DC.Language' scheme='rfc1766' content='ru'/>
 
     <title>Delete Role</title>
     <jsp:include page="role.jsp"></jsp:include>
+
 </head>
 
 <body>
+
 <div class="w3-container w3-center w3-round-xlarge">
     <form class="container m3-center" method="GET" action="${pageContext.request.contextPath}delete">
         <nav class="w3-bar-block  w3-light-grey w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
             <h5 style="color:steelblue" class="text w3-animate-fading w3-round-xlarge">Delete Role</h5>
-<%--            <table class="w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered" id="myTable">--%>
             <table class="w3-table-all w3-small w3-centered "
-                   class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
+                   class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity">
                 <tr>
                     <td>ID</td>
                     <td>
@@ -56,10 +47,8 @@
                                value="DELETE"/>
                     </td>
                 </tr>
-
             </table>
             <h5 style="color:steelblue" class="text w3-round-xlarge w3-animate-bottom">DELETE ROLE</h5>
-
         </nav>
     </form>
 </div>

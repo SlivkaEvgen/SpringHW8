@@ -4,10 +4,9 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<%--<meta charset = "ISO-8859-1"/>--%>
-<%--<title>Internationalization</title>--%>
 <!DOCTYPE HTML>
 <html>
+
 <style>
     .w3-tangerine {
         font-family: "Tangerine", serif;
@@ -24,6 +23,5 @@
     <title>Footer</title>
 </head>
 
-<body>
-</body>
+
 </html>

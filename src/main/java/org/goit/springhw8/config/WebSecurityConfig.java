@@ -1,9 +1,7 @@
 package org.goit.springhw8.config;
 
 import lombok.SneakyThrows;
-import org.goit.springhw8.service.UserDtoUserDetails;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,18 +9,21 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDtoUserDetails userDtoUserDetails;
-
-    public WebSecurityConfig(UserDtoUserDetails userDtoUserDetails) {
-        System.out.println("WebSecurityConfig ");
-        this.userDtoUserDetails = userDtoUserDetails;
-    }
+//    private final UserDtoUserDetails userDtoUserDetails;
+//
+//    public WebSecurityConfig(UserDtoUserDetails userDtoUserDetails) {
+//        System.out.println("WebSecurityConfig ");
+//        this.userDtoUserDetails = userDtoUserDetails;
+//    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -30,16 +31,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @SneakyThrows
-    @Autowired
-    protected void configureGlobal(@NotNull AuthenticationManagerBuilder auth) {
-        System.out.println("configureGlobal ");
-        auth.userDetailsService(userDtoUserDetails).passwordEncoder(bCryptPasswordEncoder());
+    @Bean
+    public UserDetailsService userDetailsService() {
+        System.out.println("WebSecurityConfig ");
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withDefaultPasswordEncoder()
+                .username("irfan").password("khan").roles("ADMIN").build());
+        return manager;
     }
+
+//    @SneakyThrows
+//    @Autowired
+//    protected void configureGlobal(@NotNull AuthenticationManagerBuilder auth) {
+//        System.out.println("configureGlobal ");
+//        auth.userDetailsService(userDtoUserDetails).passwordEncoder(bCryptPasswordEncoder());
+//    }
 
     @SneakyThrows
     @Override
     protected void configure(@NotNull HttpSecurity http) {
+        System.out.println("WebSecurityConfig configure");
+
         // включаем защиту от CSRF атак
         http.csrf()
                 .disable()
@@ -67,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // разрешаем делать логаут всем
                 .permitAll()
                 // указываем URL логаута
-                .logoutUrl("/logout")
+                .logoutUrl("/j_spring_security_logout")
                 // указываем URL при удачном логауте
                 .logoutSuccessUrl("/login?logout")
                 // делаем не валидной текущую сессию
@@ -80,9 +92,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
         public void init(@NotNull AuthenticationManagerBuilder auth) throws Exception {
+            System.out.println("WebSecurityConfig init");
+
             auth
                     .inMemoryAuthentication()
-                    .withUser("user").password("password").roles("USER");
+                    .withUser("ADMIN").password("123").roles("ADMIN");
         }
 
     }

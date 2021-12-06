@@ -7,7 +7,6 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("id")
-    public ModelAndView findById(ModelMap model, String id) {
+    public ModelAndView findById(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("user/userById", model);
         }
@@ -46,12 +45,11 @@ public class UserController {
         if (!optionalUser.isPresent()) {
             return new ModelAndView("user/userById", model);
         }
-        model.addAttribute("user", optionalUser.get());
-        return new ModelAndView("user/userById", model);
+        return new ModelAndView("user/userById", model.addAttribute("list", userService.findListById(id)));
     }
 
     @GetMapping("name")
-    public ModelAndView findByUserName(ModelMap model, String name) {
+    public ModelAndView findByUserName(String name, ModelMap model) {
         if (name == null) {
             return new ModelAndView("user/userByName", model);
         }
@@ -60,7 +58,7 @@ public class UserController {
     }
 
     @GetMapping("delete")
-    public ModelAndView delete(ModelMap model, String id) {
+    public ModelAndView delete(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("user/deleteUser", model);
         }
@@ -74,17 +72,22 @@ public class UserController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("user/deleteUser", model);
         }
+        if (userService.getById(id).get().getName().equalsIgnoreCase("admin")) {
+            model.addAttribute("error", "Sorry, You Cannot Delete The Administrator");
+            model.addAttribute("error2", "Try again");
+            return new ModelAndView("user/deleteUser", model);
+        }
         userService.deleteById(id);
         return new ModelAndView("redirect:/user", model);
     }
 
     @GetMapping("new")
-    public ModelAndView addNew(ModelMap model) {
-        return new ModelAndView("user/newUser", model);
+    public ModelAndView addNew(User user, @NotNull ModelMap model) {
+        return new ModelAndView("user/newUser", model.addAttribute("user", user));
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewPost(@NotNull @ModelAttribute User user, ModelMap model) {
+    public ModelAndView addNewPost(@NotNull User user, ModelMap model) {
         if (user.getId() == null) {
             return new ModelAndView("user/newUser", model);
         }
@@ -93,15 +96,20 @@ public class UserController {
     }
 
     @GetMapping("update/**")
-    public ModelAndView update(ModelMap model) {
-        return new ModelAndView("user/updateUser", model);
+    public ModelAndView update(User user, @NotNull ModelMap model) {
+        return new ModelAndView("user/updateUser", model.addAttribute("user", user));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(@NotNull @ModelAttribute User user, ModelMap model) {
+    public ModelAndView updatePost(@NotNull User user, ModelMap model) {
         if (!Validator.validId(user.getId())) {
             model.addAttribute("error2", "Try Again");
             model.addAttribute("error", "Wrong ID");
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (user.getName().equalsIgnoreCase("admin")) {
+            model.addAttribute("error", "Sorry, You Cannot Update The Administrator");
+            model.addAttribute("error2", "Try again");
             return new ModelAndView("user/updateUser", model);
         }
         userService.saveEntity(user);

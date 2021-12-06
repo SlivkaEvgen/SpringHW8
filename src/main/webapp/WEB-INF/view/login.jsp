@@ -1,35 +1,14 @@
-<%@ page import="java.util.Date" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
-
 <!DOCTYPE HTML>
 <html>
 
-<style>
-    .w3-tangerine {
-        font-family: "Tangerine", serif;
-    }
-</style>
-
 <head>
-<%--    <meta charset = "ISO-8859-1"/>--%>
-<%--    <title>Internationalization</title>--%>
-    <meta name='DC.Language' scheme='rfc1766' content='ru'/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
 
     <title>Login</title>
-    <jsp:include page="_menu.jsp"></jsp:include>
+    <jsp:include page="_header.jsp"></jsp:include>
 
 </head>
 
 <body>
-<%--NO AUTORISATION--%>
 
 <sec:authorize access="isAuthenticated()">
     <p class="w3-center w3-ios-light-blue">Login OK</p>

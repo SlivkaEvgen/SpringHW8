@@ -14,7 +14,7 @@
     <meta name='DC.Language' scheme='rfc1766' content='ru'/>
 
     <title>Role</title>
-    <jsp:include page="../_menu.jsp"></jsp:include>
+    <jsp:include page="../_header.jsp"></jsp:include>
 </head>
 
 <sec:authorize access="!isAuthenticated()">
@@ -23,11 +23,18 @@
 </sec:authorize>
 
 <body>
-<div class="w3-container w3-center w3-round-xlarge">
-    <div class="w3-container w3-center w3-large" style="color:indianred">
+<%--<div class="w3-container w3-center w3-round-xlarge">--%>
+<%--    <div class="w3-container w3-center w3-large" style="color:indianred">--%>
+<%--        <a href="${pageContext.request.contextPath}/home"--%>
+<%--           class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge " style="text-align-all: center ">Home</a>--%>
+<%--    </div>--%>
+
+<div class="w3-container w3-center w3-round-xlarge w3-padding-50">
+    <div class="w3-container w3-center w3-round-xlarge w3-ios">
         <a href="${pageContext.request.contextPath}/home"
-           class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge " style="text-align-all: center ">Home</a>
-    </div>
+           class="w3-btn w3-wide w3-hover-red w3-round-xlarge w3-ios-background">HOME</a>
+        <p></p>
+
     <div class="w3-container w3-center w3-round-xlarge" style="color:steelblue">
         <a href="${pageContext.request.contextPath}/product"
            class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge " style="text-align-all: center ">PRODUCT PAGE</a>
@@ -82,8 +89,7 @@
     }
 </script>
 
-<jsp:include page="/WEB-INF/view/_footer.jsp"></jsp:include>
-
+</div>
 </body>
 
 

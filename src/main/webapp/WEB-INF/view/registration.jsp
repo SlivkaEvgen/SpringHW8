@@ -1,10 +1,3 @@
-<%@ page import="java.util.Date" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
-
 <!DOCTYPE html>
 <html>
 
@@ -15,19 +8,11 @@
 </style>
 
 <head>
-<%--    <meta charset = "ISO-8859-1"/>--%>
-<%--    <title>Internationalization</title>--%>
-    <meta name='DC.Language' scheme='rfc1766' content='ru'/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
 
     <title>Registration</title>
-    <jsp:include page="_menu.jsp"></jsp:include>
+    <jsp:include page="_header.jsp"></jsp:include>
 
 </head>
-<%--<h3 class="w3-center">Welcome, ${pageContext.request.userPrincipal.name}!</h3>--%>
 
 <a href="${pageContext.request.contextPath}login"
    class="w3-btn w3-hover-red w3-round-xlarge w3-ios-background w3-display-topright">Login</a>
@@ -135,6 +120,5 @@
     <p><a class="font-menu-button w3-center w3-red w3-round-xlarge">GO-IT</a></p>
 </footer>
 
-<jsp:include page="/WEB-INF/view/_footer.jsp"></jsp:include>
 
 </html>
