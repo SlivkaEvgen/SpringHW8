@@ -2,6 +2,7 @@ package org.goit.springhw8.controller;
 
 import jakarta.validation.Valid;
 import org.goit.springhw8.model.User;
+import org.goit.springhw8.model.dto.UserDto;
 import org.goit.springhw8.service.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class RegistrationController {
     }
 
     @PostMapping("registration")
-    public String addUser(@ModelAttribute("userForm") @Valid User userForm, @NotNull BindingResult bindingResult, Model model) {
+    public String addUser(@ModelAttribute("userForm") @Valid UserDto userForm, @NotNull BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             System.out.println("RegistrationController addUser hasErrors");
             return "registration";

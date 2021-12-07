@@ -48,19 +48,19 @@
        class="w3-btn w3-hover-light-blue w3-round-xlarge">Find By Name</a>
 <%--        <a href="${pageContext.request.contextPath}/product/manufacturerId"--%>
 <%--           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Product By Manufacturer ID</a>--%>
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<%--<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
 <a href="${pageContext.request.contextPath}/product/new"
        class="w3-btn w3-hover-light-blue w3-round-xlarge">Add New</a>
     <a href="${pageContext.request.contextPath}/product/update"
        class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
     <a href="${pageContext.request.contextPath}/product/delete"
        class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
-</sec:authorize>
+<%--</sec:authorize>--%>
     <p></p>
 </div>
 
 <div>
-    <h4 style="text-align-all: center" class="text w3-blue w3-round-xlarge w3-margin-top w3-center">
+    <h4 style="text-align-all: center" class="text w3-red w3-round-xlarge w3-margin-top w3-center">
         <c:out value="${error}" default=""></c:out>
     </h4>
 </div>

@@ -1,7 +1,11 @@
 package org.goit.springhw8.service;
 
+import jakarta.validation.Valid;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
+import org.goit.springhw8.model.dto.MappingUtils;
+import org.goit.springhw8.model.dto.RoleDto;
+import org.goit.springhw8.model.dto.UserDto;
 import org.goit.springhw8.repository.UserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +14,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserService extends ServiceI<User, String> implements UserDetailsService {
@@ -19,23 +26,37 @@ public class UserService extends ServiceI<User, String> implements UserDetailsSe
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository,BCryptPasswordEncoder bCryptPasswordEncoder) {
+    private final MappingUtils mappingUtils;
+
+    public UserService(UserRepository userRepository,BCryptPasswordEncoder bCryptPasswordEncoder,MappingUtils mappingUtils) {
         super(userRepository);
         this.userRepository=userRepository;
         this.bCryptPasswordEncoder=bCryptPasswordEncoder;
+        this.mappingUtils=mappingUtils;
+    }
+
+    public List<UserDto> getDtoByName( String name) {
+        List<UserDto> users = new ArrayList<>();
+        List<User> userList = userRepository.findByName(name.toUpperCase());
+
+        UserDto userDto = mappingUtils.mapToUserDto(userList.get(0));
+//        User user = mappingUtils.mapToUserEntity((UserDto) userList.get(0));
+        users.add(userDto);
+        return users;
     }
 
     @Override
     public UserDetails loadUserByUsername(@NotNull String username) throws UsernameNotFoundException {
         System.out.println(" UserService loadUserByUsername "+username);
-        User user = userRepository.findByName(username.toUpperCase()).get(0);
+        UserDto user = getDtoByName(username.toUpperCase()).get(0);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return user;
+        return  user;
     }
 
-    public boolean saveUser(User user) {
+    public boolean saveUser(@Valid UserDto user) {
+//        User user1 = new User(user);
         System.out.println(" UserService saveUser "+user);
         if (user==null){
             return false;
@@ -46,7 +67,8 @@ public class UserService extends ServiceI<User, String> implements UserDetailsSe
         if (user.getPassword()==null){
             return false;
         }
-        user.setRoles(Collections.singleton(new Role("2","ROLE_USER")));
+
+        user.setRoleDtoSet(Collections.singleton(new RoleDto("2","ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;

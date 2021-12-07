@@ -23,12 +23,12 @@
     </sec:authorize>
 
     <sec:authorize access="!isAuthenticated()">
-        <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
+    <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
         <h4><a href="${pageContext.request.contextPath}login" class="w3-btn  w3-hover-red w3-round-xlarge w3-ios-background">Log In</a></h4>
         <h4><a href="${pageContext.request.contextPath}registration" class="w3-btn  w3-hover-red w3-round-xlarge w3-ios-background">Sign Up</a></h4>
-    </sec:authorize>
+        </sec:authorize>
 
-            <sec:authorize access="isAuthenticated()">
+        <sec:authorize access="isAuthenticated()">
 
         <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
             <div class="w3-container w3-center w3-round-xlarge w3-ios">
@@ -39,12 +39,12 @@
                 <p></p>
                 <div class="w3-container w3-center w3-round-xlarge " style="color:indianred">
 
-                    <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <a href="${pageContext.request.contextPath}role"
-                       class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Role</a>
-                    <a href="${pageContext.request.contextPath}user"
-                       class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">User</a>
-                    </sec:authorize>
+<%--                    <sec:authorize access="hasAuthority('ROLE_ADMIN')">--%>
+                        <a href="${pageContext.request.contextPath}role"
+                           class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Role</a>
+                        <a href="${pageContext.request.contextPath}user"
+                           class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">User</a>
+<%--                    </sec:authorize>--%>
 
                     <a href="${pageContext.request.contextPath}product"
                        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Product</a>
@@ -54,9 +54,9 @@
             </div>
             </sec:authorize>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </body>
 
