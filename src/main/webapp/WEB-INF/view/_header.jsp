@@ -11,11 +11,9 @@
 <html>
 
 <style>
-
     .w3-tangerine {
         font-family: "Tangerine", serif;
     }
-
 </style>
 
 <sec:authorize access="isAuthenticated()">
@@ -40,7 +38,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name='DC.Language' scheme='rfc1766' content='ru'/>
 
-    <a class="w3-display-buttommiddle w3-center w3-round-xlarge w3-ios-light-grey">
+    <a class="w3-display-buttommiddle w3-center w3-round-xlarge w3-ios-grey">
         <h6 class="date-cell w3-center w3-round-xlarge"
             style="color: darkslateblue; animation-iteration-count: revert; animation-timing-function: ease-in-out"><% out.println(new Date().toString()); %></h6>
     </a>

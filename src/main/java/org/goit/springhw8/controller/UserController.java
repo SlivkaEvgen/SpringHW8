@@ -45,6 +45,7 @@ public class UserController {
         if (!optionalUser.isPresent()) {
             return new ModelAndView("user/userById", model);
         }
+        model.addAttribute("error", "SUCCESSFULLY");
         return new ModelAndView("user/userById", model.addAttribute("list", userService.findListById(id)));
     }
 
@@ -53,6 +54,7 @@ public class UserController {
         if (name == null) {
             return new ModelAndView("user/userByName", model);
         }
+        model.addAttribute("error", "SUCCESSFULLY");
         model.addAttribute("list", userService.getByName(name.toUpperCase()));
         return new ModelAndView("user/userByName", model);
     }
@@ -77,6 +79,8 @@ public class UserController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("user/deleteUser", model);
         }
+        model.addAttribute("error2", "User Deleted");
+        model.addAttribute("error", "SUCCESSFULLY");
         userService.deleteById(id);
         return new ModelAndView("redirect:/user", model);
     }
@@ -91,6 +95,9 @@ public class UserController {
         if (user.getId() == null) {
             return new ModelAndView("user/newUser", model);
         }
+        model.addAttribute("error2", "User Added");
+        model.addAttribute("error", "SUCCESSFULLY");
+        user.setName(user.getName().toUpperCase());
         userService.saveEntity(user);
         return new ModelAndView("user/user", model.addAttribute("user", user));
     }
@@ -112,6 +119,9 @@ public class UserController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("user/updateUser", model);
         }
+        model.addAttribute("error2", "User Updated");
+        model.addAttribute("error", "SUCCESSFULLY");
+        user.setName(user.getName().toUpperCase());
         userService.saveEntity(user);
         return new ModelAndView("user/user", model);
     }

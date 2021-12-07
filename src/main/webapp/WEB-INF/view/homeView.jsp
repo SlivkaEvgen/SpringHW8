@@ -10,9 +10,11 @@
     <jsp:include page="_header.jsp"></jsp:include>
 
 </head>
-<%--<sec:authorize access="!isAuthenticated()">--%>
-<%--    <h3 class="w3-center">Welcome, ${pageContext.request.userPrincipal.name} !</h3>--%>
-<%--</sec:authorize>--%>
+
+<sec:authorize access="!isAuthenticated()">
+    <h3 class="w3-center">Welcome, ${pageContext.request.userPrincipal.name} !</h3>
+</sec:authorize>
+
 <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
     <div class="w3-container w3-center w3-round-xlarge w3-ios">
         <a href="${pageContext.request.contextPath}home"
@@ -22,12 +24,12 @@
         <p></p>
         <div class="w3-container w3-center w3-round-xlarge " style="color:indianred">
 
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
+<%--            <sec:authorize access="hasAuthority('ROLE_ADMIN')">--%>
                 <a href="${pageContext.request.contextPath}role"
                    class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Role</a>
-            <a href="${pageContext.request.contextPath}user"
-               class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">User</a>
-            </sec:authorize>
+                <a href="${pageContext.request.contextPath}user"
+                   class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">User</a>
+<%--            </sec:authorize>--%>
 
             <a href="${pageContext.request.contextPath}product"
                class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Product</a>
@@ -49,4 +51,3 @@
 <%--  Фраза --%>
 
 </html>
-

@@ -187,6 +187,7 @@ public class ProductController {
         }
         model.addAttribute("error", "New Product Added");
         model.addAttribute("error2", "SUCCESSFULLY");
+        product.setName(product.getName().toUpperCase());
         productService.saveEntity(product);
         return new ModelAndView("product/product", model);
     }
@@ -245,6 +246,7 @@ public class ProductController {
         }
         model.addAttribute("error", " Product Updated");
         model.addAttribute("error2", "SUCCESSFULLY");
+        product.setName(product.getName().toUpperCase());
         productService.saveEntity(product);
         return new ModelAndView("product/product", model.addAttribute("product", product));
     }

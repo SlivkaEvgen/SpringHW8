@@ -33,14 +33,26 @@
         <a href="${pageContext.request.contextPath}/user/name"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By Name</a>
 
-        <sec:authorize access="hasRole('ROLE_ADMIN')">
+<%--        <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
             <a href="${pageContext.request.contextPath}/user/new"
                class="w3-btn  w3-hover-light-blue w3-round-xlarge">Add New</a>
             <a href="${pageContext.request.contextPath}/user/update"
                class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
             <a href="${pageContext.request.contextPath}/user/delete"
                class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
-        </sec:authorize>
+<%--        </sec:authorize>--%>
+
+        <div>
+            <h4 style="text-align-all: center" class="text w3-red w3-round w3-margin-top w3-center">
+                <c:out value="${error}" default=""></c:out>
+            </h4>
+        </div>
+        <div>
+            <h4 style="text-align-all: center; background-color:skyblue"
+                class="text w3-blue w3-round w3-margin-top w3-center">
+                <c:out value="${error2}" default=""></c:out>
+            </h4>
+        </div>
 
         <p></p>
     </div>

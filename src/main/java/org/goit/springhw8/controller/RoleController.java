@@ -52,7 +52,7 @@ public class RoleController {
             model.addAttribute("error", "Not Found Role With Name = " + name);
             model.addAttribute("error2", " Please, Try Again ");
         }
-        System.out.println("roleService.findByRoleName(name)");
+        model.addAttribute("error", "SUCCESSFULLY");
         return new ModelAndView("role/roleByName", model.addAttribute("list", roleService.getByName(name)));
     }
 
@@ -73,6 +73,7 @@ public class RoleController {
             model.addAttribute("error2", " Please, Try Again ");
             return new ModelAndView("role/roleById", model);
         }
+        model.addAttribute("error", "SUCCESSFULLY");
         return new ModelAndView("role/roleById", model.addAttribute("list", roleService.findListById(id)));
     }
 
@@ -102,12 +103,13 @@ public class RoleController {
             model.addAttribute("error2", "Try again");
             return new ModelAndView("role/deleteRole", model);
         }
+        model.addAttribute("error", "SUCCESSFULLY");
         roleService.deleteById(id);
         return new ModelAndView("role/role", model.addAttribute("error2", "Role With ID = " + id + "\n Deleted "));
     }
 
     @GetMapping("new")
-    public ModelAndView addNew(Role role, ModelMap model) {
+    public ModelAndView addNew(Role role, @NotNull ModelMap model) {
         return new ModelAndView("role/newRole", model.addAttribute("role", role));
     }
 
@@ -141,12 +143,14 @@ public class RoleController {
             model.addAttribute("error2", "Please,Try Again");
             return new ModelAndView("role/newRole", model);
         }
-        roleService.saveEntity(new Role(role.getId(), role.getName().toUpperCase()));
-        return new ModelAndView("role/role", model.addAttribute("error2", "Role " + " Added"));
+        model.addAttribute("error", "SUCCESSFULLY");
+        role.setName(role.getName().toUpperCase());
+        roleService.saveEntity(role);
+        return new ModelAndView("role/role", model.addAttribute("error2", "New Role Added"));
     }
 
     @GetMapping("update/**")
-    public ModelAndView update(Role role, ModelMap model) {
+    public ModelAndView update(Role role, @NotNull ModelMap model) {
         return new ModelAndView("role/updateRole", model.addAttribute("role", role));
     }
 
@@ -173,6 +177,8 @@ public class RoleController {
             model.addAttribute("error2", "Please,Try Again");
             return new ModelAndView("role/updateRole", model);
         }
+        model.addAttribute("error", "SUCCESSFULLY");
+        role.setName(role.getName().toUpperCase());
         roleService.saveEntity(new Role(role.getId(), role.getName().toUpperCase()));
         return new ModelAndView("role/role", model.addAttribute("error2", role + "\n Updated "));
     }

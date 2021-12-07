@@ -24,7 +24,7 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
         return repositoryI.findById(id);
     }
 
-    public List<T> getByName(@NotNull String name) {
+    public List<T> getByName(String name) {
         return repositoryI.findByName(name.toUpperCase());
     }
 
