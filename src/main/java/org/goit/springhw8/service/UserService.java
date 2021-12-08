@@ -3,8 +3,6 @@ package org.goit.springhw8.service;
 import jakarta.validation.constraints.NotNull;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.repository.UserRepository;
-import org.springframework.security.access.prepost.PostFilter;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,14 +18,14 @@ public class UserService extends ServiceI<User, String> {
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(@AuthenticationPrincipal UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) { //AuthenticationPrincipal
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) { //AuthenticationPrincipal
         super(userRepository);
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @PreAuthorize("hasRole('USER')")
-    @PostFilter("hasPermission(filterObject, 'read') or hasPermission(filterObject, 'ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_USER')")
+//    @PostFilter("hasPermission(filterObject, 'read') or hasPermission(filterObject, 'USER')")
     public List<User> getAll() {
         System.out.println("UserService getAll");
         return userRepository.findAll();
@@ -40,8 +38,10 @@ public class UserService extends ServiceI<User, String> {
     }
 
     @Override
-    public List<User> getByName(@NotNull String name) {
+    public List<User> getByName(@org.jetbrains.annotations.NotNull @NotNull @AuthenticationPrincipal String name) {
         System.out.println("UserService getByName " + name);
         return super.getByName(name);
     }
+
+
 }

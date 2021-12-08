@@ -1,6 +1,5 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%--<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>--%>
+<%--<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>--%>
 
 <!DOCTYPE HTML>
 

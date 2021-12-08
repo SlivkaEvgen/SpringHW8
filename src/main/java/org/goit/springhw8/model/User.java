@@ -5,8 +5,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @ToString
@@ -57,4 +61,19 @@ public class User implements BaseModel<String> {
     @ToString.Exclude
     private String passwordConfirm;
 
+    public User(String firstName, String lastName, String gender, String email, String password) {
+        this.name=firstName;
+        this.lastName=lastName;
+        this.gender= Gender.valueOf(gender);
+        this.email=email;
+        this.password=password;
+    }
+
+    public Collection<GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> permissions = new ArrayList<GrantedAuthority>();
+        for (GrantedAuthority role: roles) {
+            permissions.addAll(roles);
+        }
+        return permissions;
+    }
 }

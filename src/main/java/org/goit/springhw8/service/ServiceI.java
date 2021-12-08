@@ -25,7 +25,7 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
         return repositoryI.findById(id);
     }
 
-    public List<T> getByName(@Valid String name) {
+    public List<T> getByName(@NotNull @Valid String name) {
         return repositoryI.findByName(name.toUpperCase());
     }
 
@@ -33,8 +33,9 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
         repositoryI.deleteById(id);
     }
 
-    public void saveEntity(@Valid T t) {
+    public boolean saveEntity(@Valid T t) {
         repositoryI.save(t);
+        return true;
     }
 
     public List<T> findListById(@Valid ID id) {

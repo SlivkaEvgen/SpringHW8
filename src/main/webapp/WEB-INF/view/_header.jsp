@@ -36,13 +36,16 @@
     </div>
     <p></p>
 
-    <a href="${pageContext.request.contextPath}role"
+    <a href="${pageContext.request.contextPath}/role"
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Role</a>
-    <a href="${pageContext.request.contextPath}user"
+<%--<sec:authentication property="name" htmlEscape="true" var="users" scope="application">--%>
+
+<a href="${pageContext.request.contextPath}/user"
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">User</a>
-    <a href="${pageContext.request.contextPath}product"
+<%--</sec:authentication>--%>
+    <a href="${pageContext.request.contextPath}/product"
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Product</a>
-    <a href="${pageContext.request.contextPath}manufacturer"
+    <a href="${pageContext.request.contextPath}/manufacturer"
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Manufacturer</a>
 
 </div>

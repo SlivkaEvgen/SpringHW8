@@ -1,7 +1,6 @@
 package org.goit.springhw8.config;
 
 import lombok.SneakyThrows;
-import lombok.extern.java.Log;
 import org.goit.springhw8.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Log
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -28,11 +26,67 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/admin/**").hasRole( "ADMIN")
+        http
+                .csrf()
+                .disable()
+                .authorizeRequests()
+                //Доступ только для не зарегистрированных пользователей
+                .antMatchers("/registration").not().fullyAuthenticated()
+                //Доступ только для пользователей с ролью Администратор
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/news").hasRole("USER")
+                //Доступ разрешен всем пользователей
+                .antMatchers("/", "/resources/**").permitAll()
+                //Все остальные страницы требуют аутентификации
+                .anyRequest().authenticated()
+                .and()
+                //Настройка для входа в систему
+                .formLogin()
+                .loginPage("/login")
+                //Перенарпавление на главную страницу после успешного входа
+                .defaultSuccessUrl("/")
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll()
+                .logoutSuccessUrl("/");
+//                .regexMatcher("/registration").authorizeRequests().anyRequest().permitAll().and()
+//                .formLogin().loginPage("/login/**").permitAll()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/admin/**").hasRole( "ADMIN")
+////                .antMatchers("/new/**").hasRole( "ADMIN")
+////                .antMatchers("/update/**").hasRole( "ADMIN")
+////                .antMatchers("/delete/**").hasRole( "ADMIN")
 //                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/**").permitAll()
-                .and().formLogin();
+//                .antMatchers("/home/**").hasAnyRole("USER", "ADMIN")
+//
+////                .antMatchers("/user/delete/**").denyAll().and().formLogin().and().authorizeRequests().anyRequest().hasRole("ADMIN")
+////                .anyRequest().hasAuthority("ROLE_ADMIN")
+//                .antMatchers("/user/update/**").hasRole("ADMIN")
+//                .antMatchers("/user/new/**").hasRole("ADMIN")
+//                .antMatchers("/user/delete/**").hasRole("ADMIN")
+//////
+//                .antMatchers("/role/delete/**").hasRole("ADMIN")
+//                .antMatchers("/role/update/**").hasRole("ADMIN")
+//                .antMatchers("/role/new/**").hasRole("ADMIN")
+//////
+//                .antMatchers("/product/delete/**").hasRole("ADMIN")
+//                .antMatchers("/product/update/**").hasRole("ADMIN")
+//                .antMatchers("/product/new/**").hasRole("ADMIN")
+//////
+//                .antMatchers("/manufacturer/delete/**").hasRole("ADMIN")
+//                .antMatchers("/manufacturer/update/**").hasRole("ADMIN")
+//                .antMatchers("/manufacturer/new/**").hasRole("ADMIN")
+//
+//                .antMatchers("/**").permitAll()
+//                .antMatchers("/home/**").permitAll()
+//                .antMatchers("/login/**").permitAll()
+//                .antMatchers("/registration/**").permitAll()
+//                .and()
+//                .formLogin()
+//                .and()
+//                .logout().permitAll();
     }
 
 //    @Override
@@ -70,13 +124,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) {
         System.out.println("configure");
         auth.inMemoryAuthentication()
-                .withUser("user")
+                .withUser("USER")
                 .password("$2a$10$5f2eKX7uI9sDDQrcP6zr4O9wvFbdHx6toINMlJlVxOtRThOZgih7u")
 //                .password("123")
                 .authorities("USER")
+                .roles("USER")
                 .and()
-                .withUser("admin")
-                .password(userService.getByName("admin".toUpperCase()).get(0).getPassword())
+                .withUser("ADMIN")
+                .password(userService.getByName("ADMIN").get(0).getPassword())
 //                .password("$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG")
 //                .authorities("ADMIN");
                 .roles("ADMIN")

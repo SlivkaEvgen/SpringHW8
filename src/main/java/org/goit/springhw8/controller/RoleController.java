@@ -6,7 +6,6 @@ import org.goit.springhw8.util.Validator;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Objects;
 
-@Validated
 @Controller
 @RequestMapping("role")
 public class RoleController {

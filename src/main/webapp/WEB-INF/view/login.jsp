@@ -1,5 +1,6 @@
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="secu" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%@ taglib prefix="sec" uri="http://www.springframework.org/tags/form" %>--%>
 
 <!DOCTYPE html>
 <html>
@@ -8,9 +9,9 @@
     <title>Log In</title>
 
     <jsp:include page="_header.jsp"></jsp:include>
-    <jsp:include page="metaLink.jsp"></jsp:include>
-    <jsp:include page="welcome.jsp"></jsp:include>
-    <jsp:include page="logout.jsp"></jsp:include>
+<%--    <jsp:include page="metaLink.jsp"></jsp:include>--%>
+<%--    <jsp:include page="welcome.jsp"></jsp:include>--%>
+<%--    <jsp:include page="logout.jsp"></jsp:include>--%>
 </head>
 
 <body>
@@ -29,7 +30,7 @@
                     <p></p>
                     <button type="submit" class="w3-btn w3-hover-red w3-round-xlarge w3-ios-background">Sign In</button>
                     <h4>
-                        <a href="${pageContext.request.contextPath}/registration"
+                        <a href="${pageContext.request.contextPath}registration"
                            class="w3-btn  w3-hover-red w3-round-xlarge w3-ios-background">Sign Up</a></h4>
                 </div>
             </form>
