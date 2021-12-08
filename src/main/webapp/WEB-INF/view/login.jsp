@@ -1,3 +1,6 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -35,6 +38,6 @@
 </div>
 </body>
 
-<jsp:include page="frase.jsp"></jsp:include>
+<jsp:include page="catchPhrase.jsp"></jsp:include>
 
 </html>

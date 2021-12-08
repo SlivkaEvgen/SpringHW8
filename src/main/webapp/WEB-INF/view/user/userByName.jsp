@@ -1,4 +1,3 @@
-<%--<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>--%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -9,7 +8,6 @@
     html, body, h1, h2, h3, h4, h5, h6 {
         font-family: "Roboto", sans-serif;
     }
-
     .w3-display-bottommiddle {
         z-index: 2;
         width: 1200px;
@@ -90,7 +88,7 @@
 </div>
 </body>
 
-<jsp:include page="/WEB-INF/view/frase.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
 <jsp:include page="../error.jsp"></jsp:include>
 
 </html>

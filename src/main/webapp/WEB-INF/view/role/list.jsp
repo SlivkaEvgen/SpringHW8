@@ -60,7 +60,7 @@
 
 </body>
 
-<jsp:include page="/WEB-INF/view/frase.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
 <jsp:include page="../error.jsp"></jsp:include>
 
 </html>

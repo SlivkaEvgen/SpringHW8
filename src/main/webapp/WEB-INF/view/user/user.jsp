@@ -8,8 +8,7 @@
     <title>User</title>
 
     <jsp:include page="../_header.jsp"></jsp:include>
-    <jsp:include page="../function.jsp"></jsp:include>
-    <jsp:include page="../metaLink.jsp"></jsp:include>
+    <jsp:include page="../error.jsp"></jsp:include>
 </head>
 
 <body>

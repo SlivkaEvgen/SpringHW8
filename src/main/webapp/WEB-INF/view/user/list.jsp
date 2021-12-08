@@ -6,9 +6,8 @@
 
 <style>
     html, body, h1, h2, h3, h4, h5, h6 {
-        font-family: "Roboto", sans-serif;
+        font-family: "Tangerine", "Roboto", sans-serif;
     }
-
     .w3-display-bottommiddle {
         z-index: 2;
         width: 1200px;
@@ -69,7 +68,7 @@
 
 </body>
 
-<jsp:include page="/WEB-INF/view/frase.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
 <jsp:include page="../error.jsp"></jsp:include>
 
 </html>

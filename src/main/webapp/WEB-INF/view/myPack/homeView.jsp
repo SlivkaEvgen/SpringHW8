@@ -50,6 +50,6 @@
 <%--        &lt;%&ndash;            </sec:authorize>&ndash;%&gt;--%>
 <%--    </div>--%>
 <%--</div>--%>
-<%--<jsp:include page="frase.jsp"></jsp:include>--%>
+<%--<jsp:include page="catchPhrase.jsp"></jsp:include>--%>
 
 <%--</html>--%>
