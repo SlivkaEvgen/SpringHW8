@@ -8,6 +8,5 @@ import java.util.List;
 @Repository
 public interface UserRepository extends RepositoryI<User,String>{
 
-    List<User> findByName(String name);
 
 }

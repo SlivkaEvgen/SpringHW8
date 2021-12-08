@@ -1,5 +1,6 @@
 package org.goit.springhw8.model;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class Manufacturer implements BaseModel<String> {
     @Size(min = 1, max = 50, message = "min = 1, max = 50")
     private String id;
 
+    @NotBlank
     @Column(name = "name")
     @Size(min = 2, max = 25, message = "min = 2, max = 25")
     private String name;

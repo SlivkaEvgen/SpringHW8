@@ -1,19 +1,21 @@
 package org.goit.springhw8.config;
 
+import lombok.extern.java.Log;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@Log
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(@NotNull ViewControllerRegistry registry) {
         System.out.println("MvcConfig addViewControllers ");
-        registry.addViewController("**/login").setViewName("login");
-        registry.addRedirectViewController("**/logout","/");
-        registry.addViewController("**/home").setViewName("index");
+        registry.addViewController("/login").setViewName("login");
+        registry.addRedirectViewController("/logout","/");
+        registry.addViewController("/home").setViewName("index");
         //////////////////////////////////////////___USER____/////////////////////////////////
         registry.addViewController("/user").setViewName("user/user");
         registry.addViewController("/user/id").setViewName("user/userById");

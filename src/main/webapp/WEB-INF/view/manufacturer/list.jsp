@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -17,7 +18,6 @@
 </head>
 
 <body>
-
 <div class="w3-container w3-center w3-round-xlarge">
     <nav class="w3-bar-block  w3-light-grey w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
         <h5 style="color:steelblue" class="text w3-animate-fading">All Manufacturers</h5>
@@ -54,9 +54,6 @@
 
 </body>
 
-<jsp:include page="/WEB-INF/view/frase.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
 
 </html>
-<%--                    <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
-
-<%--                    </sec:authorize>--%>

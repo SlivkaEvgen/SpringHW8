@@ -1,7 +1,5 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -19,10 +17,10 @@
 </style>
 
 <head>
-
     <title>Roles List</title>
-    <jsp:include page="role.jsp"></jsp:include>
 
+    <jsp:include page="role.jsp"></jsp:include>
+    <jsp:include page="../function.jsp"></jsp:include>
 </head>
 
 <body>
@@ -62,14 +60,7 @@
 
 </body>
 
-<div class="w3-container w3-center w3-tangerine w3-text-dark-gray ">
-    <p class="w3-xxlarge">"Make it as simple as possible, but not simpler."</p>
-
-</div>
-
-<div class="w3-container w3-center w3-rodoto w3-text-dark-gray">
-    <p> &copy;Copyright <a href="https://github.com/SlivkaEvgen/SpringHW8" target="_blank">Slivka</a>
-    <p><a class="font-menu-button w3-center w3-red w3-round-xlarge">GO-IT</a></p>
-</div>
+<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<jsp:include page="../error.jsp"></jsp:include>
 
 </html>

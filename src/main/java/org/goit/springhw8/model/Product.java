@@ -1,5 +1,8 @@
 package org.goit.springhw8.model;
 
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -25,6 +28,9 @@ public class Product implements BaseModel<String> {
     @Size(min = 2, max = 25, message = "min = 2, max = 25")
     private String name;
 
+    @Digits(integer=6, fraction=2)
+    @NotBlank
+    @PositiveOrZero
     @Column(name = "price")
     @Size(max = 20, message = "max = 20")
     private Double price;
