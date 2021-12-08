@@ -5,10 +5,6 @@
 <html>
 
 <style>
-    html, body, h1, h2, h3, h4, h5, h6 {
-        font-family: "Tangerine", "Roboto", sans-serif;
-    }
-
     .w3-display-bottommiddle {
         z-index: 2;
         width: 450px;
@@ -20,7 +16,6 @@
     <title>Roles List</title>
 
     <jsp:include page="role.jsp"></jsp:include>
-    <jsp:include page="../function.jsp"></jsp:include>
 </head>
 
 <body>
@@ -57,10 +52,8 @@
         <h5 style="color:steelblue" class="text w3-center w3-round-xlarge w3-animate-bottom">ROLES LIST</h5>
     </nav>
 </div>
-
 </body>
 
 <jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
-<jsp:include page="../error.jsp"></jsp:include>
 
 </html>

@@ -13,14 +13,12 @@
 </style>
 
 <head>
-
     <title>Role By ID</title>
-    <jsp:include page="role.jsp"></jsp:include>
 
+    <jsp:include page="role.jsp"></jsp:include>
 </head>
 
 <body>
-
 <div class="w3-container w3-center w3-round-xlarge">
     <nav class="w3-bar-block  w3-light-grey w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
         <h5 style="color:steelblue" class="text w3-animate-fading w3-center">Role By ID</h5>
@@ -70,7 +68,6 @@
         </form>
     </nav>
 </div>
-
 </body>
 
 <jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
