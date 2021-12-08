@@ -1,7 +1,5 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -19,14 +17,12 @@
 </style>
 
 <head>
-
     <title>Update Role</title>
-    <jsp:include page="role.jsp"></jsp:include>
 
+    <jsp:include page="role.jsp"></jsp:include>
 </head>
 
 <body>
-
 <div class="w3-container w3-center w3-round-xlarge">
     <form class="container m3-center w3-round-xlarge" method="POST" action="${pageContext.request.contextPath}update">
         <nav class="w3-bar-block  w3-light-grey w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
@@ -77,14 +73,7 @@
 
 </body>
 
-<div class="w3-container w3-center w3-tangerine w3-text-dark-gray ">
-    <p class="w3-xxlarge">"Make it as simple as possible, but not simpler."</p>
-
-</div>
-
-<div class="w3-container w3-center w3-rodoto w3-text-dark-gray">
-    <p> &copy;Copyright <a href="https://github.com/SlivkaEvgen/SpringHW8" target="_blank">Slivka</a>
-    <p><a class="font-menu-button w3-center w3-red w3-round-xlarge">GO-IT</a></p>
-</div>
+<jsp:include page="/WEB-INF/view/frase.jsp"></jsp:include>
+<jsp:include page="../error.jsp"></jsp:include>
 
 </html>

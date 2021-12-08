@@ -1,3 +1,5 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE HTML>
 <html>
 
@@ -10,7 +12,7 @@
     <title>Role</title>
 
     <jsp:include page="../_header.jsp"></jsp:include>
-    <jsp:include page="error.jsp"></jsp:include>
+    <jsp:include page="../error.jsp"></jsp:include>
 </head>
 
 <body>

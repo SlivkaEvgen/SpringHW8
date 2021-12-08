@@ -1,18 +1,10 @@
-<%--<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>--%>
-<%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%--<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>--%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE HTML>
 <html>
 
 <style>
-    /*html, body, h1, h2, h3, h4, h5, h6 {*/
-    /*    font-family: "Tangerine", "Roboto", sans-serif;*/
-    /*}*/
-
     .w3-display-bottommiddle {
         z-index: 2;
         width: 550px;
@@ -21,14 +13,8 @@
 </style>
 
 <head>
-<%--    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">--%>
-<%--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">--%>
-<%--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">--%>
-
-<%--    <meta name="viewport" content="width=device-width, initial-scale=1">--%>
-<%--    <meta name='DC.Language' scheme='rfc1766' content='ru'/>--%>
-
     <title>Products List</title>
+
     <jsp:include page="product.jsp"></jsp:include>
 </head>
 
@@ -77,14 +63,7 @@
 
 </body>
 
-<div class="w3-container w3-center w3-tangerine w3-text-dark-gray ">
-    <p class="w3-xxlarge">"Make it as simple as possible, but not simpler."</p>
+<jsp:include page="/WEB-INF/view/frase.jsp"></jsp:include>
 
-</div>
-
-<div class="w3-container w3-center w3-rodoto w3-text-dark-gray">
-    <p> &copy;Copyright <a href="https://github.com/SlivkaEvgen/SpringHW8" target="_blank">Slivka</a>
-    <p><a class="font-menu-button w3-center w3-red w3-round-xlarge">GO-IT</a></p>
-</div>
 
 </html>
