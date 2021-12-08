@@ -29,7 +29,6 @@ public class ManufacturerController {
         return new ModelAndView("manufacturer/manufacturer", model);
     }
 
-
     @GetMapping("list") //OK
     public ModelAndView getAllManufacturers(@NotNull ModelMap model) {
         return new ModelAndView("manufacturer/list", model.addAttribute("list", manufacturerService.getList()));

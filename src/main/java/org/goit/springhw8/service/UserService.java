@@ -22,8 +22,8 @@ public class UserService extends ServiceI<User, String> {
 
     public UserService(@AuthenticationPrincipal UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) { //AuthenticationPrincipal
         super(userRepository);
-        this.userRepository=userRepository;
-        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @PreAuthorize("hasRole('USER')")

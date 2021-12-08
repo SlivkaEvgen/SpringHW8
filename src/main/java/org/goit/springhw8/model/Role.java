@@ -36,7 +36,6 @@ public class Role implements BaseModel<String> , GrantedAuthority {//GrantedAuth
         this.name = name;
     }
 
-
     @Override
     public String getAuthority() {
         return getName();

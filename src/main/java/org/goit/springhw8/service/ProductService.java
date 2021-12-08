@@ -9,8 +9,6 @@ public class ProductService extends ServiceI<Product,String> {
 
     public ProductService(ProductRepository productRepository) {
         super(productRepository);
-        System.out.println("ProductService");
     }
-
 
 }
