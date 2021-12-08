@@ -5,20 +5,16 @@
 
 <html>
 
-<head>
+<title>Log In</title>
+<h2>Log In</h2>
 
-    <meta charset="utf-8">
-
-    <title>Log in with your account</title>
-    <jsp:include page="_header.jsp"></jsp:include>
-
-</head>
+<jsp:include page="_header.jsp"></jsp:include>
 
 <body>
 
-<sec:authorize access="isAuthenticated()">
-    <% response.sendRedirect("/"); %>
-</sec:authorize>
+<%--<sec:authorize access="!isAuthenticated()">--%>
+<%--    <% response.sendRedirect("/"); %>--%>
+<%--</sec:authorize>--%>
 
 <div>
     <div style="animation-duration: initial" class="w3-container w3-center w3-round-xlarge w3-padding-50">
@@ -27,7 +23,7 @@
             <p></p>
             <p></p>
             <p></p>
-
+            <%--            <sec:authorize access="isAuthenticated()">--%>
             <form method="POST" action="${pageContext.request.contextPath}/login">
 
                 <div>
@@ -41,31 +37,54 @@
                     <p></p>
                     <button type="submit" class="w3-btn w3-hover-red w3-round-xlarge w3-ios-background">Sign In</button>
 
-                    <h4><a href="${pageContext.request.contextPath}/registration" class="w3-btn  w3-hover-red w3-round-xlarge w3-ios-background">Sign
+                    <h4><a href="${pageContext.request.contextPath}/registration"
+                           class="w3-btn  w3-hover-red w3-round-xlarge w3-ios-background">Sign
                         Up</a></h4>
                 </div>
-
             </form>
-
         </div>
     </div>
 </div>
-
+<%--</sec:authorize>--%>
 
 </body>
 
-<%--  Фраза --%>
-<div class="w3-container w3-center w3-tangerine w3-text-dark-gray ">
-    <p class="w3-xxlarge">"Make it as simple as possible, but not simpler."</p>
-</div>
-
-<footer class="w3-container w3-center w3-rodoto w3-text-dark-gray w3-display-bottommiddle">
-    <p> &copy;Copyright <a href="https://github.com/SlivkaEvgen/SpringHW8" target="_blank">Slivka</a>
-    <p><a class="font-menu-button w3-center w3-red w3-round-xlarge">GO-IT</a></p>
-</footer>
-<%--  Фраза --%>
+<jsp:include page="frase.jsp"></jsp:include>
 
 </html>
+
+
+<%--ex--%>
+<%--<c:url value="/login" var="loginUrl"/>--%>
+<%--<form action="${loginUrl}" method="post">1--%>
+<%--    <c:if test="${param.error ! = null}"> 2 <p> Недопустимое имя пользователя и пароль.--%>
+<%--    </p></c:if>--%>
+<%--    <c:if test="${param.logout! = null}"> 3 <p> Вы вышли из системы.--%>
+<%--    </p></c:if>     <p><label for="имя пользователя">имя пользователя</label>--%>
+<%--        <input type="text" id="username" name="username"/> 4 </p>--%>
+<%--    <p>--%>
+<%--        <label for="password">Пароль</label>--%>
+<%--        <input type="password" id="password" name="password"/> 5 </p>--%>
+<%--    <input type="hidden"--%>
+<%--           6 name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+<%--    <button type="submit" class="btn">Войти</button>--%>
+<%--</form>--%>
+<%--ex--%>
+<%--<head>--%>
+
+
+<%--&lt;%&ndash;  Фраза &ndash;%&gt;--%>
+<%--<div class="w3-container w3-center w3-tangerine w3-text-dark-gray ">--%>
+<%--    <p class="w3-xxlarge">"Make it as simple as possible, but not simpler."</p>--%>
+<%--</div>--%>
+
+<%--<footer class="w3-container w3-center w3-rodoto w3-text-dark-gray w3-display-bottommiddle">--%>
+<%--    <p> &copy;Copyright <a href="https://github.com/SlivkaEvgen/SpringHW8" target="_blank">Slivka</a>--%>
+<%--    <p><a class="font-menu-button w3-center w3-red w3-round-xlarge">GO-IT</a></p>--%>
+<%--</footer>--%>
+<%--&lt;%&ndash;  Фраза &ndash;%&gt;--%>
+
+<%--</html>--%>
 
 
 <%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>

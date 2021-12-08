@@ -1,5 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
@@ -39,7 +39,7 @@
                         <label>
                             <input
                                     class="w3-input w3-center w3-border w3-small w3-round-xlarge w3-hover-light-blue"
-                                    type="text" name="id" placeholder=" Enter ID " value="${role.id}"/>
+                                    type="text" name="id" placeholder=" Enter Role ID " value="${role.id}"/>
                         </label>
                     </td>
                 </tr>
@@ -49,13 +49,13 @@
                         <label>
                             <select class="w3-select" name="name">
                                 <option value="" disabled selected>Choose Role</option>
-                                <option value="ADMIN">ADMIN</option>
-                                <option value="USER">USER</option>
-                                <option value="MODERATOR">MODERATOR</option>
-                                <option value="DEVELOPER">DEVELOPER</option>
-                                <option value="PRODUCTION">PRODUCTION</option>
-                                <option value="OWNER">OWNER</option>
-                                <option value="MY">MY</option>
+                                <option value="ROLE_ADMIN">ADMIN</option>
+                                <option value="ROLE_USER">USER</option>
+                                <option value="ROLE_MODERATOR">MODERATOR</option>
+                                <option value="ROLE_DEVELOPER">DEVELOPER</option>
+                                <option value="ROLE_PRODUCTION">PRODUCTION</option>
+                                <option value="ROLE_OWNER">OWNER</option>
+                                <option value="ROLE_MY">MY</option>
                             </select>
                         </label>
                     </td>

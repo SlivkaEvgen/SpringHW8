@@ -1,6 +1,9 @@
 package org.goit.springhw8.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -12,7 +15,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "role")
-public class Role implements BaseModel<String>, GrantedAuthority {
+public class Role implements BaseModel<String> , GrantedAuthority {//GrantedAuthority
 
     private static final long serialVersionUID = 1909791726526791370L;
 

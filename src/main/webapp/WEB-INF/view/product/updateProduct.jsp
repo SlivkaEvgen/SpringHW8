@@ -63,9 +63,10 @@
                     <td><label>
                         <select class="w3-select w3-center w3-round-xlarge" name="manufacturer">
                             <option value="" disabled selected>Choose Manufacturer</option>
-                            <option value="1">Apple</option>
-                            <option value="2">Samsung</option>
+                            <option value="1">APPLE</option>
+                            <option value="2">SAMSUNG</option>
                             <option value="3">LG</option>
+                            <option value="4">MOTOROLA</option>
                         </select>
                     </label></td>
                 </tr>
@@ -84,7 +85,7 @@
     </form>
 </div>
 
-</body>
+<%--</body>--%>
 
 <div class="w3-container w3-center w3-tangerine w3-text-dark-gray ">
     <p class="w3-xxlarge">"Make it as simple as possible, but not simpler."</p>

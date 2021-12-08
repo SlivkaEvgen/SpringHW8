@@ -8,7 +8,7 @@
 
 <head>
 
-    <title>Role</title>
+    <title>User</title>
     <jsp:include page="../_header.jsp"></jsp:include>
 
 </head>

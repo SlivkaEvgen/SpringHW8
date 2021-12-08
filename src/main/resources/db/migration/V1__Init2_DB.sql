@@ -3,24 +3,25 @@ create type gender as enum ('MALE','FEMALE');
 
 create table if not exists role
 (
-    id   varchar(20) primary key ,
+    id   varchar(20) primary key,
     name varchar(20)
 );
 
 create table if not exists manufacturer
 (
-    id   varchar(20) primary key ,
+    id   varchar(20) primary key,
     name varchar(15)
 );
 
 create table if not exists users
 (
-    id        varchar primary key ,
+    id        varchar primary key,
     name      varchar(15),
     last_name varchar(15),
     gender    gender,
     email     varchar(20),
-    password  varchar(100)
+    password  varchar(100),
+    active    boolean
 );
 
 create table if not exists product
@@ -65,10 +66,22 @@ values ('1', 'ROLE_ADMIN'),
        ('6', 'ROLE_OWNER'),
        ('7', 'ROLE_MY');
 
-insert into users (id, name, last_name, gender, email, password)
-values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG'),
-       ('2','USER', 'USER', 'MALE', 'user@ua', '$2a$10$/5aMIjIbWnFOUgdVHoFGpOkcjubz8wOXYy8hzbKoyQVFcIiYY7z7i'),
-       ('3','VOVA', 'VOVA', 'MALE', 'vova@ua', '$2a$10$e4laZ8QwdzYzKmsWgLMM8.kl6soxQkRvkjQgGXm4r4OLDhXL1ekJO');
+insert into users (id, name, last_name, gender, email, password, active)
+values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG',
+        true),
+       ('2', 'USER', 'USER', 'MALE', 'user@ua', '$2a$10$/5aMIjIbWnFOUgdVHoFGpOkcjubz8wOXYy8hzbKoyQVFcIiYY7z7i', true),
+       ('3', 'VOVA', 'VOVA', 'MALE', 'vova@ua', '$2a$10$e4laZ8QwdzYzKmsWgLMM8.kl6soxQkRvkjQgGXm4r4OLDhXL1ekJO', true),
+       ('4', 'GEKA', 'GK', 'MALE', 'geka@ua', '$2a$10$EuHVHqfXs.AqDfmlos9AfuOSs2DsHIhJ2t74CZxyJ95h1gOVkolD6', true);
 
 insert into users_roles(user_id, roles_id)
- values ('1','1'),('2','2'),('3','2');
+values ('1', '1'),
+       ('2', '2'),
+       ('3', '2');
+
+
+create table persistent_logins (
+                                   username varchar(64) not null,
+                                   series varchar(64) primary key,
+                                   token varchar(64) not null,
+                                   last_used timestamp not null
+);

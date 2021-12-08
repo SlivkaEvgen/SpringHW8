@@ -1,12 +1,18 @@
 package org.goit.springhw8.util;
 
 import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.SmartValidator;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
 @Component
-public class Validator {
+public class Validator implements SmartValidator {
+
+//    public Validator(SmartValidator smartValidator) {
+//    }
 
     public static boolean validNumber(String hasNumbers) {
         if (!validString(hasNumbers)) {
@@ -58,5 +64,31 @@ public class Validator {
 
     public static boolean validEmail(@NonNull String email) {
         return email.contains("@");
+    }
+
+    @Override
+    public void validate(@NotNull Object target, @NotNull Errors errors, @NotNull Object... validationHints) {
+        System.out.println("Validator validate");
+
+    }
+
+    @Override
+    public void validateValue(@NotNull Class<?> targetType, @NotNull String fieldName, Object value, @NotNull Errors errors, @NotNull Object... validationHints) {
+        System.out.println("Validator validateValue");
+
+        SmartValidator.super.validateValue(targetType, fieldName, value, errors, validationHints);
+    }
+
+    @Override
+    public boolean supports(@NotNull Class<?> clazz) {
+        System.out.println("Validator supports");
+
+        return false;
+    }
+
+    @Override
+    public void validate(@NotNull Object target, @NotNull Errors errors) {
+        System.out.println("Validator validate");
+
     }
 }

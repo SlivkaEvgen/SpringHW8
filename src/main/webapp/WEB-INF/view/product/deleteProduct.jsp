@@ -52,7 +52,7 @@
             </tr>
             <tr>
                 <th>
-                    <a href="${pageContext.request.contextPath}/user"
+                    <a href="${pageContext.request.contextPath}/product"
                        class="w3-btn w3-hover-red w3-small w3-round-xlarge">CANCEL</a>
                 </th>
                 <td>

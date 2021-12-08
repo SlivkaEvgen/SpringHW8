@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+
 <html>
 
 <head>
@@ -13,3 +14,17 @@
 
 
 </html>
+
+<%--  <div class="w3-display-bottomleft">
+            <h2>Displaying Rounded Signs</h2>
+            <span class="w3-tag w3-padding w3-round-large w3-red w3-center">
+  DO NOT<br>
+  BREATHE<br>
+  UNDER WATER
+  </span>
+        </div>
+        <div class="w3-tag w3-round w3-green" style="padding:3px">
+            <div class="w3-tag w3-round w3-green w3-border w3-border-white">
+                Falcon Ridge Parkway
+            </div>
+        </div>--%>
