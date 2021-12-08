@@ -22,6 +22,7 @@
 
     <title>Roles List</title>
     <jsp:include page="role.jsp"></jsp:include>
+    <jsp:include page="function.jsp"></jsp:include>
 
 </head>
 

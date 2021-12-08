@@ -1,7 +1,13 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+<%--<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>--%>
+<%--<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>--%>
+
 <!DOCTYPE HTML>
 
 <html>
-
 <head>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
@@ -11,20 +17,4 @@
 
     <title>Footer</title>
 </head>
-
-
 </html>
-
-<%--  <div class="w3-display-bottomleft">
-            <h2>Displaying Rounded Signs</h2>
-            <span class="w3-tag w3-padding w3-round-large w3-red w3-center">
-  DO NOT<br>
-  BREATHE<br>
-  UNDER WATER
-  </span>
-        </div>
-        <div class="w3-tag w3-round w3-green" style="padding:3px">
-            <div class="w3-tag w3-round w3-green w3-border w3-border-white">
-                Falcon Ridge Parkway
-            </div>
-        </div>--%>
