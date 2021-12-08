@@ -7,7 +7,7 @@
 <style>
     .w3-display-bottommiddle {
         z-index: 2;
-        width: 450px;
+        width: 550px;
         line-height: initial;
     }
 </style>

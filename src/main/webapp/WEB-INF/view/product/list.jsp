@@ -33,10 +33,10 @@
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>MANUFACTURER</th>
-                <sec:authorize access="hasRole('ROLE_ADMIN')">
+<%--                <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
                     <th>UPDATE</th>
                     <th>DELETE</th>
-                </sec:authorize>
+<%--                </sec:authorize>--%>
             </tr>
             <c:forEach items="${list}" var="product">
                 <tr>
@@ -44,7 +44,7 @@
                     <td>${product.name}</td>
                     <td>${product.price}</td>
                     <td>${product.manufacturer}</td>
-                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+<%--                    <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
                         <td>
                             <a href="${pageContext.request.contextPath}update/?id=${product.id}"
                                class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
@@ -53,7 +53,7 @@
                             <a href="${pageContext.request.contextPath}delete/?id=${product.id}"
                                class="w3-btn w3-hover-red w3-round-xlarge">Delete</a>
                         </td>
-                    </sec:authorize>
+<%--                    </sec:authorize>--%>
                 </tr>
             </c:forEach>
         </table>

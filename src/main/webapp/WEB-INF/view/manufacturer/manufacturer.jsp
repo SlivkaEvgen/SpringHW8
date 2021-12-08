@@ -8,8 +8,8 @@
     <title>Manufacturer</title>
 
     <jsp:include page="../_header.jsp"></jsp:include>
+    <jsp:include page="../function.jsp"></jsp:include>
     <jsp:include page="../error2.jsp"></jsp:include>
-    <jsp:include page="/WEB-INF/view/function.jsp"></jsp:include>
 </head>
 
 <body>

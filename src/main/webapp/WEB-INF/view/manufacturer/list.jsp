@@ -14,6 +14,7 @@
 
 <head>
     <title>Manufacturers List</title>
+
     <jsp:include page="manufacturer.jsp"></jsp:include>
 </head>
 

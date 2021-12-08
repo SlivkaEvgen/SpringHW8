@@ -9,6 +9,7 @@
 
     <jsp:include page="../_header.jsp"></jsp:include>
     <jsp:include page="../function.jsp"></jsp:include>
+    <jsp:include page="../error2.jsp"></jsp:include>
 </head>
 
 <body>
@@ -36,7 +37,6 @@
 </div>
 </body>
 
-<jsp:include page="/WEB-INF/view/error2.jsp"></jsp:include>
 
 </html>
 
