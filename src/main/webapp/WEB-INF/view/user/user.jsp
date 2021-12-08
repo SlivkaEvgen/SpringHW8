@@ -8,7 +8,8 @@
     <title>User</title>
 
     <jsp:include page="../_header.jsp"></jsp:include>
-    <jsp:include page="../error.jsp"></jsp:include>
+    <jsp:include page="../function.jsp"></jsp:include>
+    <jsp:include page="../error2.jsp"></jsp:include>
 </head>
 
 <body>

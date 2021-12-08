@@ -2,7 +2,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE HTML>
-
 <html>
 
 <style>
@@ -15,11 +14,11 @@
 
 <head>
     <title>Update Manufacturer</title>
+
     <jsp:include page="manufacturer.jsp"></jsp:include>
 </head>
 
 <body>
-
 <div class="w3-container w3-center w3-round-xlarge">
     <form class="container m3-center w3-round-xlarge" method="POST" action="${pageContext.request.contextPath}update">
         <nav class="w3-bar-block  w3-light-grey w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">

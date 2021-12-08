@@ -9,6 +9,7 @@
 
     <jsp:include page="../_header.jsp"></jsp:include>
     <jsp:include page="../function.jsp"></jsp:include>
+    <jsp:include page="../error2.jsp"></jsp:include>
 </head>
 
 <body>
@@ -23,7 +24,6 @@
         <%--        <a href="${pageContext.request.contextPath}/product/manufacturerId"--%>
         <%--           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Product By Manufacturer ID</a>--%>
         <%--<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
-
         <a href="${pageContext.request.contextPath}/product/new"
            class="w3-btn w3-hover-light-blue w3-round-xlarge">Add New</a>
         <a href="${pageContext.request.contextPath}/product/update"
@@ -36,7 +36,6 @@
 </div>
 </body>
 
-<jsp:include page="/WEB-INF/view/error2.jsp"></jsp:include>
 
 </html>
 
