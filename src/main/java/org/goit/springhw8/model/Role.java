@@ -40,4 +40,5 @@ public class Role implements BaseModel<String> , GrantedAuthority {//GrantedAuth
     public String getAuthority() {
         return getName();
     }
+
 }

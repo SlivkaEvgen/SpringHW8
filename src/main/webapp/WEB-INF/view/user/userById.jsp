@@ -64,7 +64,7 @@
                             <td>${user.email}</td>
                             <td>${user.password}</td>
                             <td>${user.roles}</td>
-                                <%--                            <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
+                                                            <sec:accesscontrollist hasPermission="ROLE_ADMIN" domainObject="ADMIN">
                             <td>
                                 <a href="${pageContext.request.contextPath}update/?id=${user.id}"
                                    class="w3-btn w3-hover-light-blue w3-round-xlarge">UPDATE</a>
@@ -73,7 +73,7 @@
                                 <a href="${pageContext.request.contextPath}delete/?id=${user.id}"
                                    class="w3-btn w3-hover-red w3-round-xlarge">DELETE</a>
                             </td>
-                                <%--                            </sec:authorize>--%>
+                                                            </sec:accesscontrollist>
                         </tr>
                     </c:forEach>
                 </table>

@@ -1,19 +1,17 @@
 package org.goit.springhw8.controller;
 
+import jakarta.validation.Valid;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserService;
 import org.goit.springhw8.util.Validator;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Optional;
-
-//@Validated
 @Controller
 @RequestMapping("user")
 public class UserController {
@@ -24,112 +22,228 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("user")
+    @GetMapping("user") //OK
     public ModelAndView entity(ModelMap model) {
         return new ModelAndView("user/user", model);
     }
 
-    @GetMapping("list")
-    public ModelAndView getAllUsers( ModelMap model) {
+    @GetMapping("list") //OK
+    public ModelAndView getAllUsers(@NotNull ModelMap model) {
         return new ModelAndView("user/list", model.addAttribute("list", userService.getList()));
     }
 
-    @GetMapping("id")
+    @GetMapping("id") //OK
     public ModelAndView findById(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("user/userById", model);
         }
+        if (id.isEmpty()){
+            return new ModelAndView("user/userById", model.addAttribute("id",id).addAttribute("error", " User ID Is Empty").addAttribute("error2", "Please, Try Again"));
+        }
         if (!Validator.validId(id)) {
-            return new ModelAndView("user/userById", model);
+            return new ModelAndView("user/userById", model.addAttribute("id",id).addAttribute("model", model).addAttribute("error", "Wrong User ID "+id).addAttribute("error2", "Please, Try Again"));
         }
-        Optional<User> optionalUser = userService.getById(id);
-        if (!optionalUser.isPresent()) {
-            return new ModelAndView("user/userById", model);
+        if (!userService.getById(id).isPresent()) {
+            return new ModelAndView("user/userById", model.addAttribute("id",id).addAttribute("model", model).addAttribute("error", "Could Not Find By ID "+id).addAttribute("error2", "Please, Try Again"));
         }
-        model.addAttribute("error", "SUCCESSFULLY");
-        return new ModelAndView("user/userById", model.addAttribute("list", userService.findListById(id)));
+        return new ModelAndView("user/userById", model.addAttribute("error2", "SUCCESSFULLY").addAttribute("list", userService.findListById(id)));
     }
 
-    @GetMapping("name")
-    public ModelAndView findByUserName(String name, ModelMap model) {
+    @GetMapping("name") // OK
+    public ModelAndView findByUserName(@AuthenticationPrincipal String name, ModelMap model) {
         if (name == null) {
             return new ModelAndView("user/userByName", model);
         }
-        model.addAttribute("error", "SUCCESSFULLY");
-        model.addAttribute("list", userService.getByName(name.toUpperCase()));
-        return new ModelAndView("user/userByName", model);
+        if (name.isEmpty()) {
+            return new ModelAndView("user/userByName", model.addAttribute("name",name).addAttribute("model", model).addAttribute("error", " User Name Is Empty").addAttribute("error2", "Please, Try Again"));
+        }
+        if (!Validator.validName(name)){
+            return new ModelAndView("user/userByName", model.addAttribute("name",name).addAttribute("model", model).addAttribute("error", " Wrong User Name ").addAttribute("error2", "Please, Try Again"));
+        }
+        if (userService.getByName(name).isEmpty()){
+            return new ModelAndView("user/userByName", model.addAttribute("name",name).addAttribute("model", model).addAttribute("error", "Could Not Find By Name "+name).addAttribute("error2", "Please, Try Again"));
+        }
+        return new ModelAndView("user/userByName", model.addAttribute("error2", "SUCCESSFULLY").addAttribute("list", userService.getByName(name.toUpperCase())));
     }
 
-//    @Secured({ "ROLE_ADMIN" })
-    @GetMapping("delete")
-    public ModelAndView delete(String id, ModelMap model) {
+//    @Secured({"ROLE_ADMIN"})
+    @Secured({"ADMIN"})
+    @GetMapping("delete") //OK  //добавить логику, если у мануфактурера есть товары
+    public ModelAndView delete( String id,@AuthenticationPrincipal ModelMap model) {
         if (id == null) {
             return new ModelAndView("user/deleteUser", model);
         }
+        if (id.isEmpty()){
+            return new ModelAndView("user/deleteUser", model.addAttribute("error", " User ID Is Empty").addAttribute("error2", "Please, Try Again"));
+        }
         if (!Validator.validId(id)) {
-            model.addAttribute("error", "Wrong ID");
-            model.addAttribute("error2", "Try again");
-            return new ModelAndView("user/deleteUser", model);
+            return new ModelAndView("user/deleteUser", model.addAttribute("id",id).addAttribute("error", "Wrong User ID").addAttribute("error2", "Please, Try Again"));
         }
         if (!userService.getById(id).isPresent()) {
-            model.addAttribute("error", "User With ID = " + id + " Is Empty");
-            model.addAttribute("error2", "Try again");
-            return new ModelAndView("user/deleteUser", model);
+            return new ModelAndView("user/deleteUser", model.addAttribute("id",id).addAttribute("error", "User With ID = " + id + " Is Empty").addAttribute("error2", "Please, Try Again"));
         }
         if (userService.getById(id).get().getName().equalsIgnoreCase("admin")) {
-            model.addAttribute("error", "Sorry, You Cannot Delete The Administrator");
-            model.addAttribute("error2", "Try again");
-            return new ModelAndView("user/deleteUser", model);
+            return new ModelAndView("user/deleteUser", model.addAttribute("id",id).addAttribute("error", "Sorry, You Cannot Delete The Administrator").addAttribute("error2", "Please, Try Again"));
         }
-        model.addAttribute("error2", "User Deleted");
-        model.addAttribute("error", "SUCCESSFULLY");
         userService.deleteById(id);
-        return new ModelAndView("redirect:/user", model);
+        return new ModelAndView("redirect:/user", model.addAttribute("error", "User Deleted").addAttribute("error2", "SUCCESSFULLY"));
     }
 
-//    @Secured({ "ROLE_ADMIN" })
-    @GetMapping("new")
-    public ModelAndView addNew( User user,  ModelMap model) {
+    @Secured({ "ROLE_ADMIN" })
+    @GetMapping("new/**") //OK
+    public ModelAndView addNew(@AuthenticationPrincipal User user,
+                               @RequestParam(value = "bCryptPasswordEncoder", required = true) String password,
+                               @NotNull ModelMap model) {
         return new ModelAndView("user/newUser", model.addAttribute("user", user));
     }
 
-//    @Secured({ "ROLE_ADMIN" })
-    @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewPost( User user, ModelMap model) {
+    @Secured({ "ROLE_ADMIN" }) //OK
+    @RequestMapping(value = "new/**", method = RequestMethod.POST)
+    public ModelAndView addNewPost(@Valid @ModelAttribute User user, ModelMap model) {
         if (user.getId() == null) {
             return new ModelAndView("user/newUser", model);
         }
-        model.addAttribute("error2", "User Added");
-        model.addAttribute("error", "SUCCESSFULLY");
+        if (user.getName()==null){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (user.getPassword()==null){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (user.getGender()==null){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (user.getEmail()==null){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (user.getLastName()==null){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (user.getRoles()==null){
+            return new ModelAndView("user/newUser", model);
+        }
+
+        if (user.getId().isEmpty()) {
+            return new ModelAndView("user/newUser", model);
+        }
+        if (user.getName().isEmpty()){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (user.getPassword().isEmpty()){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (user.getGender().name().isEmpty()){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (user.getEmail().isEmpty()){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (user.getLastName().isEmpty()){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (user.getRoles().isEmpty()){
+            return new ModelAndView("user/newUser", model);
+        }
+
+        if (!Validator.validId(user.getId())){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (!Validator.validName(user.getName())){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (!Validator.validName(user.getLastName())){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (!Validator.validEmail(user.getEmail())){
+            return new ModelAndView("user/newUser", model);
+        }
+        if (!Validator.validGender(user.getGender().name())){
+            return new ModelAndView("user/newUser", model);
+        }
+
         user.setName(user.getName().toUpperCase());
         userService.saveEntity(user);
-        return new ModelAndView("user/user", model.addAttribute("user", user));
+        return new ModelAndView("user/user", model.addAttribute("user", model.addAttribute("error", "User Added").addAttribute("error2", "SUCCESSFULLY")));
     }
 
-//    @Secured({ "ROLE_ADMIN" })
-    @GetMapping("update/**")
-    public ModelAndView update( User user, ModelMap model) {
+    @Secured({ "ROLE_ADMIN" })
+    @GetMapping("update/**") //OK
+    public ModelAndView update(@AuthenticationPrincipal User user,
+                               @NotNull ModelMap model) {
         return new ModelAndView("user/updateUser", model.addAttribute("user", user));
     }
 
-//    @Secured({ "ROLE_ADMIN" })
-    @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(  @NotNull User user, ModelMap model) {
-        if (!Validator.validId(user.getId())) {
-            model.addAttribute("error2", "Try Again");
-            model.addAttribute("error", "Wrong ID");
+    @Secured({ "ROLE_ADMIN" })
+    @RequestMapping(value = "update/**", method = RequestMethod.POST) //OK
+    public ModelAndView updatePost(@AuthenticationPrincipal User user,
+                                   @RequestParam(value = "bCryptPasswordEncoder", required = true) String password,
+                                   @NotNull ModelMap model) {
+        if (user.getId() == null) {
             return new ModelAndView("user/updateUser", model);
         }
-        if (user.getName().equalsIgnoreCase("admin")) {
-            model.addAttribute("error", "Sorry, You Cannot Update The Administrator");
-            model.addAttribute("error2", "Try again");
+        if (user.getName()==null){
             return new ModelAndView("user/updateUser", model);
         }
-        model.addAttribute("error2", "User Updated");
-        model.addAttribute("error", "SUCCESSFULLY");
+        if (user.getPassword()==null){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (user.getGender()==null){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (user.getEmail()==null){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (user.getLastName()==null){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (user.getRoles()==null){
+            return new ModelAndView("user/updateUser", model);
+        }
+
+        if (user.getId().isEmpty()) {
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (user.getName().isEmpty()){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (user.getPassword().isEmpty()){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (user.getGender().name().isEmpty()){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (user.getEmail().isEmpty()){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (user.getLastName().isEmpty()){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (user.getRoles().isEmpty()){
+            return new ModelAndView("user/updateUser", model);
+        }
+
+        if (!Validator.validId(user.getId())){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (!Validator.validName(user.getName())){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (!Validator.validName(user.getLastName())){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (!Validator.validEmail(user.getEmail())){
+            return new ModelAndView("user/updateUser", model);
+        }
+        if (!Validator.validGender(user.getGender().name())){
+            return new ModelAndView("user/updateUser", model);
+        }
+
+        if (user.getName().equalsIgnoreCase("role_admin")) {
+            return new ModelAndView("user/updateUser", model.addAttribute("error", "Sorry, You Cannot Update The Administrator").addAttribute("error2", "Please,Try again"));
+        }
+
         user.setName(user.getName().toUpperCase());
         userService.saveEntity(user);
-        return new ModelAndView("user/user", model);
+        return new ModelAndView("user/user", model.addAttribute("user",user).addAttribute("error", "User Updated").addAttribute("error2", "SUCCESSFULLY"));
     }
 }
 
