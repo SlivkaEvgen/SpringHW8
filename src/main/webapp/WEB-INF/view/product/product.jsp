@@ -24,7 +24,6 @@
         <%--        <a href="${pageContext.request.contextPath}/product/manufacturerId"--%>
         <%--           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Product By Manufacturer ID</a>--%>
         <%--<sec:authorize access="hasRole('ROLE_ADMIN')">--%>
-
         <a href="${pageContext.request.contextPath}/product/new"
            class="w3-btn w3-hover-light-blue w3-round-xlarge">Add New</a>
         <a href="${pageContext.request.contextPath}/product/update"
