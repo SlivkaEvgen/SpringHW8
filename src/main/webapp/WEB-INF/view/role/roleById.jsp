@@ -5,11 +5,11 @@
 <html>
 
 <style>
-     .w3-display-bottommiddle {
-         z-index: 2;
-         width: 550px;
-         line-height: initial;
-     }
+    .w3-display-bottommiddle {
+        z-index: 2;
+        width: 550px;
+        line-height: initial;
+    }
 </style>
 
 <head>
@@ -70,6 +70,6 @@
 </div>
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<%@include file="/WEB-INF/view/catchPhrase.jsp" %>
 
 </html>

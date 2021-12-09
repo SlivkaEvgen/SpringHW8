@@ -1,6 +1,8 @@
 <%@ page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@include file="logout.jsp"%>
+<%@include file="metaLink.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -13,10 +15,7 @@
 </style>
 
 <header>
-
-    <jsp:include page="metaLink.jsp"></jsp:include>
-    <jsp:include page="logout.jsp"></jsp:include>
-    <jsp:include page="metaLink.jsp"></jsp:include>
+    <title>Header</title>
 </header>
 
 <body>
@@ -35,19 +34,14 @@
         </div>
     </div>
     <p></p>
-
     <a href="${pageContext.request.contextPath}/role"
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Role</a>
-<%--<sec:authentication property="name" htmlEscape="true" var="users" scope="application">--%>
-
-<a href="${pageContext.request.contextPath}/user"
+    <a href="${pageContext.request.contextPath}/user"
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">User</a>
-<%--</sec:authentication>--%>
     <a href="${pageContext.request.contextPath}/product"
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Product</a>
     <a href="${pageContext.request.contextPath}/manufacturer"
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Manufacturer</a>
-
 </div>
 
 </body>

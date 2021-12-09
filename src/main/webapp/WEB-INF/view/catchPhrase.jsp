@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Frase</title>
+    <title>Phrase</title>
 </head>
 
 <div class="w3-container w3-center w3-tangerine w3-text-dark-gray ">

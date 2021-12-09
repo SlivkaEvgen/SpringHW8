@@ -1,6 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@include file="_header.jsp"%>
 <!DOCTYPE HTML>
 <html>
 
@@ -14,15 +14,13 @@
 
 <head>
     <title>Login</title>
-    <jsp:include page="_header.jsp"></jsp:include>
 </head>
 
 
-           <span style="flood-color: crimson; text-decoration-style: solid; ">
+<span style="flood-color: crimson; text-decoration-style: solid; ">
         <a href="/registration">Sign Up</a>
     |
         <a href="/login">Log In </a></span>
-
 
 
 <%--  <div class="w3-display-bottomleft">
@@ -84,6 +82,6 @@
 </div>
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<%@include file="catchPhrase.jsp" %>
 
 </html>

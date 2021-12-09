@@ -51,10 +51,8 @@
                         <th>EMAIL</th>
                         <th>PASSWORD</th>
                         <th>ROLE</th>
-<%--                        <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
-                            <th>UPDATE</th>
-                            <th>DELETE</th>
-<%--                        </sec:authorize>--%>
+                        <th>UPDATE</th>
+                        <th>DELETE</th>
                     </tr>
                     <c:forEach items="${list}" var="user">
                         <tr>
@@ -65,7 +63,6 @@
                             <td>${user.email}</td>
                             <td>${user.password.hashCode()}</td>
                             <td>${user.roles.parallelStream().findAny().get().name}</td>
-<%--                            <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
                             <td>
                                 <a href="${pageContext.request.contextPath}update/?id=${user.id}"
                                    class="w3-btn w3-hover-light-blue w3-round-xlarge">UPDATE</a>
@@ -74,7 +71,6 @@
                                 <a href="${pageContext.request.contextPath}delete/?id=${user.id}"
                                    class="w3-btn w3-hover-red w3-round-xlarge">DELETE</a>
                             </td>
-<%--                            </sec:authorize>--%>
                         </tr>
                     </c:forEach>
                 </table>
@@ -85,6 +81,6 @@
 </div>
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<%@include file="/WEB-INF/view/catchPhrase.jsp" %>
 
 </html>

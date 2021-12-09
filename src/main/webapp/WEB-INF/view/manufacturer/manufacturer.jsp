@@ -21,14 +21,12 @@
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By ID</a>
         <a href="${pageContext.request.contextPath}/manufacturer/name"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By Name</a>
-        <%--        <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
         <a href="${pageContext.request.contextPath}/manufacturer/new"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Add New</a>
         <a href="${pageContext.request.contextPath}/manufacturer/update"
            class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
         <a href="${pageContext.request.contextPath}/manufacturer/delete"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
-        <%--        </sec:authorize>--%>
         <p></p>
     </div>
 </div>

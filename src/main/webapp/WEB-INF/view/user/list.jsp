@@ -48,7 +48,6 @@
                     <td>${user.gender}</td>
                     <td>${user.email}</td>
                     <td>${user.password.hashCode()}</td>
-<%--                    <td>${user.passwordConfirm.length()}</td>--%>
                     <td>${user.roles.parallelStream().findAny().get().name}</td>
                     <td>${user.active}</td>
                     <td>
@@ -67,6 +66,6 @@
 </div>
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<%@include file="/WEB-INF/view/catchPhrase.jsp" %>
 
 </html>
