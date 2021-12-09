@@ -3,6 +3,7 @@ package org.goit.springhw8.config;
 import lombok.SneakyThrows;
 import org.goit.springhw8.service.MyUserDetailsService;
 import org.goit.springhw8.service.UserService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,19 +20,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
+    private final MyUserDetailsService userDetailsService;
+
+    public SecurityConfig(MyUserDetailsService userDetailsService){
+        this.userDetailsService=userDetailsService;
+    }
+
     @Bean
     public BCryptPasswordEncoder getbCryptPasswordEncoder() {
-        System.out.println("configure");
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    private MyUserDetailsService userDetailsService;
-
     @SneakyThrows
     @Override
-    public void configure(AuthenticationManagerBuilder auth) {
-        System.out.println("configure");
+    public void configure(@NotNull AuthenticationManagerBuilder auth) {
         auth.userDetailsService(userDetailsService).and()
                 .inMemoryAuthentication()
                 .withUser("USER")
@@ -45,12 +47,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .password("$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG")
                 .authorities("ADMIN")
                 .roles("ADMIN")
-
                 .authorities(userService.getByName("admin".toUpperCase()).get(0).getRoles().toString());
     }
 
+    @SneakyThrows
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(@NotNull HttpSecurity http) {
         http
                 .csrf()
                 .disable()
@@ -75,86 +77,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll()
                 .logoutSuccessUrl("/");
-//                .regexMatcher("/registration").authorizeRequests().anyRequest().permitAll().and()
-//                .formLogin().loginPage("/login/**").permitAll()
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers("/admin/**").hasRole( "ADMIN")
-////                .antMatchers("/new/**").hasRole( "ADMIN")
-////                .antMatchers("/update/**").hasRole( "ADMIN")
-////                .antMatchers("/delete/**").hasRole( "ADMIN")
-//                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-//                .antMatchers("/home/**").hasAnyRole("USER", "ADMIN")
-//
-////                .antMatchers("/user/delete/**").denyAll().and().formLogin().and().authorizeRequests().anyRequest().hasRole("ADMIN")
-////                .anyRequest().hasAuthority("ROLE_ADMIN")
-//                .antMatchers("/user/update/**").hasRole("ADMIN")
-//                .antMatchers("/user/new/**").hasRole("ADMIN")
-//                .antMatchers("/user/delete/**").hasRole("ADMIN")
-//////
-//                .antMatchers("/role/delete/**").hasRole("ADMIN")
-//                .antMatchers("/role/update/**").hasRole("ADMIN")
-//                .antMatchers("/role/new/**").hasRole("ADMIN")
-//////
-//                .antMatchers("/product/delete/**").hasRole("ADMIN")
-//                .antMatchers("/product/update/**").hasRole("ADMIN")
-//                .antMatchers("/product/new/**").hasRole("ADMIN")
-//////
-//                .antMatchers("/manufacturer/delete/**").hasRole("ADMIN")
-//                .antMatchers("/manufacturer/update/**").hasRole("ADMIN")
-//                .antMatchers("/manufacturer/new/**").hasRole("ADMIN")
-//
-//                .antMatchers("/**").permitAll()
-//                .antMatchers("/home/**").permitAll()
-//                .antMatchers("/login/**").permitAll()
-//                .antMatchers("/registration/**").permitAll()
-//                .and()
-//                .formLogin()
-//                .and()
-//                .logout().permitAll();
+
     }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        System.out.println("configure");
-//
-//        http.csrf().disable();
-//        http.authorizeRequests()
-//                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-//
-//                .antMatchers("/product/new/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers("/product/update/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers("/product/delete/**").hasAuthority("ROLE_ADMIN")
-//
-//                .antMatchers("/role/new/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers("/role/update/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers("/role/delete/**").hasAuthority("ROLE_ADMIN")
-//
-//                .antMatchers("/manufacturer/new/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers("/manufacturer/update/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers("/manufacturer/delete/**").hasAuthority("ROLE_ADMIN")
-//
-//                .antMatchers("/user/delete/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers("/user/update/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers("/user/new/**").hasAuthority("ROLE_ADMIN")
-//
-//                .antMatchers("/home/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-//                .antMatchers("/**").permitAll()
-//                .and().formLogin();
-//
-//    }
-
-
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .logout()                                                                1
-//                .logoutUrl("/my/logout")                                                 2
-//                .logoutSuccessUrl("/my/index")                                           3
-//                .logoutSuccessHandler(logoutSuccessHandler)                              4
-//                .invalidateHttpSession(true)                                             5
-//                .addLogoutHandler(logoutHandler)                                         6
-//                .deleteCookies(cookieNamesToClear)                                       7
-//                .and()
-//		...
-//    }
 }

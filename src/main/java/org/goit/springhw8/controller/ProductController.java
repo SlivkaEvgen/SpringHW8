@@ -6,14 +6,13 @@ import org.goit.springhw8.util.Validator;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("product")  // валидация цены и мануфактурера у продукта + длины
+@RequestMapping("product")
 public class ProductController {
 
     private final ProductService productService;
@@ -22,17 +21,17 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("product") //OK
+    @GetMapping("product")
     public ModelAndView entity(ModelMap model) {
         return new ModelAndView("product/product", model);
     }
 
-    @GetMapping("list") //OK
+    @GetMapping("list")
     public ModelAndView getAllProducts(@NotNull ModelMap model) {
         return new ModelAndView("product/list", model.addAttribute("list", productService.getList()));
     }
 
-    @GetMapping("id") //OK
+    @GetMapping("id")
     public ModelAndView findById(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("product/productById", model);
@@ -49,7 +48,7 @@ public class ProductController {
         return new ModelAndView("product/productById", model.addAttribute("list", productService.findListById(id)).addAttribute("error2", "SUCCESSFULLY"));
     }
 
-    @GetMapping("name") //OK
+    @GetMapping("name")
     public ModelAndView findByName(String name, ModelMap model) {
         if (name == null) {
             return new ModelAndView("product/productByName", model);
@@ -66,8 +65,8 @@ public class ProductController {
         return new ModelAndView("product/productByName", model.addAttribute("list", productService.getByName(name)).addAttribute("error2", "SUCCESSFULLY"));
     }
 
-//    @Secured(value = {"ROLE_ADMIN"})
-    @GetMapping("delete") //OK
+    //    @Secured(value = {"ROLE_ADMIN"})
+    @GetMapping("delete")
     public ModelAndView delete(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("product/deleteProduct", model);
@@ -85,15 +84,13 @@ public class ProductController {
         return new ModelAndView("product/product", model.addAttribute("id", id).addAttribute("error", " Product Deleted").addAttribute("error2", "SUCCESSFULLY"));
     }
 
-    @GetMapping("new/**") //OK
+    @GetMapping("new/**")
     public ModelAndView addNew(Product product, @NotNull ModelMap model) {
         return new ModelAndView("product/newProduct", model.addAttribute("product", product));
     }
 
-    @RequestMapping(value = "new", method = RequestMethod.POST) //OK
-    public ModelAndView addNewPost(Product product,BindingResult bindingResult, ModelMap model) {
-        System.out.println("bindingResult = "+bindingResult);
-
+    @RequestMapping(value = "new", method = RequestMethod.POST)
+    public ModelAndView addNewPost(Product product, ModelMap model) {
         if (product == null) {
             return new ModelAndView("product/newProduct", model.addAttribute("error", "Product Is Null").addAttribute("error2", "Please, Try Again"));
         }
@@ -132,22 +129,13 @@ public class ProductController {
         return new ModelAndView("product/product", model.addAttribute("error", "New Product Added").addAttribute("error2", "SUCCESSFULLY"));
     }
 
-    @GetMapping("update/**") //OK
+    @GetMapping("update/**")
     public ModelAndView update(Product product, @NotNull ModelMap model) {
         return new ModelAndView("product/updateProduct", model.addAttribute("product", product));
     }
 
-    @RequestMapping(value = "update/**", method = RequestMethod.POST) //OK
-    public ModelAndView updatePost(@NotNull Product product, BindingResult bindingResult, ModelMap model) {
-        System.out.println("bindingResult = "+bindingResult);
-        System.out.println("bindingResult.getPropertyEditorRegistry() = "+bindingResult.getPropertyEditorRegistry());
-//        System.out.println("bindingResult.getSuppressedFields() = "+Arrays.toString(bindingResult.getSuppressedFields()));
-        System.out.println("getTarget() = "+bindingResult.getTarget());
-        System.out.println("getModel() = "+bindingResult.getModel());
-        System.out.println("hasErrors() = "+bindingResult.hasErrors());
-//        if (product.getPrice().toString()){
-//
-//        }
+    @RequestMapping(value = "update/**", method = RequestMethod.POST)
+    public ModelAndView updatePost(@NotNull Product product, ModelMap model) {
         if (product.getId() == null) {
             return new ModelAndView("product/updateProduct", model.addAttribute("manufacturer", product.getManufacturer()).addAttribute("error", "Product ID Is Null").addAttribute("error2", "Please, Try Again"));
         }
@@ -179,7 +167,7 @@ public class ProductController {
             return new ModelAndView("product/updateProduct", model.addAttribute("manufacturer", product.getManufacturer()).addAttribute("error", "Wrong Product Name").addAttribute("error2", "Please, Try Again"));
         }
         if (!Validator.validString(product.getPrice().toString())) {
-            return new ModelAndView("product/updateProduct",model.addAttribute("manufacturer", product.getManufacturer()).addAttribute("error", "Product Price Wrong").addAttribute("error2", "Please, Try Again"));
+            return new ModelAndView("product/updateProduct", model.addAttribute("manufacturer", product.getManufacturer()).addAttribute("error", "Product Price Wrong").addAttribute("error2", "Please, Try Again"));
         }
         productService.saveEntity(new Product(product.getId(), product.getName().toUpperCase(), product.getPrice(), product.getManufacturer()));
         return new ModelAndView("product/product", model.addAttribute("manufacturer", product.getManufacturer()).addAttribute("error", " Product Updated").addAttribute("error2", "SUCCESSFULLY"));

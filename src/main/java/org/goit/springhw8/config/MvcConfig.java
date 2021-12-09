@@ -52,17 +52,3 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/manufacturer/new/**").setViewName("manufacturer/newManufacturer");
     }
 }
-//@Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/pages/**").addResourceLocations("/pages/");
-//    }
-//
-//    @Bean
-//    public UrlBasedViewResolver setupViewResolver() {
-//        UrlBasedViewResolver resolver = new UrlBasedViewResolver();
-//        resolver.setPrefix("/pages/");
-//        resolver.setSuffix(".jsp");
-//        resolver.setViewClass(JstlView.class);
-//
-//        return resolver;
-//    }
