@@ -2,6 +2,7 @@ package org.goit.springhw8.controller;
 
 import jakarta.validation.Valid;
 import org.goit.springhw8.model.User;
+import org.goit.springhw8.model.dto.UserDto;
 import org.goit.springhw8.service.UserService;
 import org.goit.springhw8.util.Validator;
 import org.jetbrains.annotations.NotNull;
@@ -9,8 +10,11 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("user")
@@ -46,7 +50,7 @@ public class UserController {
         if (!userService.getById(id).isPresent()) {
             return new ModelAndView("user/userById", model.addAttribute("id",id).addAttribute("model", model).addAttribute("error", "Could Not Find By ID "+id).addAttribute("error2", "Please, Try Again"));
         }
-        return new ModelAndView("user/userById", model.addAttribute("error2", "SUCCESSFULLY").addAttribute("list", userService.findListById(id)));
+        return new ModelAndView("user/userById", model.addAttribute("error2", "SUCCESSFULLY").addAttribute("list", userService.findByUserId(id).get()));
     }
 
     @GetMapping("name") // OK
@@ -89,7 +93,7 @@ public class UserController {
         return new ModelAndView("redirect:/user", model.addAttribute("error", "User Deleted").addAttribute("error2", "SUCCESSFULLY"));
     }
 
-    @Secured({ "ROLE_ADMIN" })
+//    @Secured({ "ROLE_ADMIN" })
     @GetMapping("new/**") //OK
     public ModelAndView addNew(@AuthenticationPrincipal User user,
                                @RequestParam(value = "bCryptPasswordEncoder", required = true) String password,
@@ -97,7 +101,7 @@ public class UserController {
         return new ModelAndView("user/newUser", model.addAttribute("user", user));
     }
 
-    @Secured({ "ROLE_ADMIN" }) //OK
+//    @Secured({ "ROLE_ADMIN" }) //OK
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
     public ModelAndView addNewPost(@Valid @ModelAttribute User user, ModelMap model) {
         if (user.getId() == null) {
@@ -165,14 +169,14 @@ public class UserController {
         return new ModelAndView("user/user", model.addAttribute("user", model.addAttribute("error", "User Added").addAttribute("error2", "SUCCESSFULLY")));
     }
 
-    @Secured({ "ROLE_ADMIN" })
+//    @Secured({ "ROLE_ADMIN" })
     @GetMapping("update/**") //OK
     public ModelAndView update(@AuthenticationPrincipal User user,
                                @NotNull ModelMap model) {
         return new ModelAndView("user/updateUser", model.addAttribute("user", user));
     }
 
-    @Secured({ "ROLE_ADMIN" })
+//    @Secured({ "ROLE_ADMIN" })
     @RequestMapping(value = "update/**", method = RequestMethod.POST) //OK
     public ModelAndView updatePost(@AuthenticationPrincipal User user,
                                    @RequestParam(value = "bCryptPasswordEncoder", required = true) String password,
@@ -245,6 +249,39 @@ public class UserController {
         userService.saveEntity(user);
         return new ModelAndView("user/user", model.addAttribute("user",user).addAttribute("error", "User Updated").addAttribute("error2", "SUCCESSFULLY"));
     }
+
+
+//    @PostMapping("/user/registration")
+//    public ModelAndView registerUserAccount(
+//            @ModelAttribute("user") @Valid UserDto userDto,
+//            HttpServletRequest request,
+//            Errors errors) {
+//
+//        try {
+//            User registered = userService.registerNewUserAccount(userDto);
+//        } catch (UserAlreadyExistException uaeEx) {
+//            mav.addObject("message", "An account for that username/email already exists.");
+//            return mav;
+//        }
+//
+//        return new ModelAndView("successRegister", "user", userDto);
+//    }
+
+//    @PostMapping("/user/registration")
+//    public ModelAndView registerUserAccount(
+//            @ModelAttribute("user") @Valid UserDto userDto,
+//            HttpServletRequest request,
+//            Errors errors) {
+//
+//        try {
+//            User registered = userService.registerNewUserAccount(userDto);
+//        } catch (UserAlreadyExistException uaeEx) {
+//            mav.addObject("message", "An account for that username/email already exists.");
+//            return mav;
+//        }
+//
+//        // rest of the implementation
+//    }
 }
 
 //

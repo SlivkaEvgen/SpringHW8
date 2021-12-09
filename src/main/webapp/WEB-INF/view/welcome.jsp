@@ -7,9 +7,15 @@
 <head>
 <%--    <jsp:useBean id="role" type="org.goit.springhw8.model.Role" beanName="role"></jsp:useBean>--%>
     <title>Welcome</title>
+<h5>
+ <div>
 
+ </div>
+
+</h5>
     <sec:authorize access="isAuthenticated()">
-        <h3 class="w3-center">Welcome, ${pageContext.request.userPrincipal.name} !</h3>
+        <h5 class="w3-center w3-text-indigo w3-padding-58 current-new-color-grid w3-animate-opacity w3-hover-text-red w3-xxlarge">Welcome, Dear</h5>
+        <h3 class="w3-center  w3-text-yellow w3-wide w3-blue-grey w3-animate-zoom w3-display w3-xxlarge"> ${pageContext.request.userPrincipal.name} </h3>
     </sec:authorize>
 
 <%--    <sec:authorize access="isAuthenticated()">--%>

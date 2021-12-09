@@ -15,11 +15,12 @@
 
 <sec:authorize access="!isAuthenticated()">
 <div>
-    <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
+    <div class="w3-container w3-center w3-round-xlarge w3-padding-64">
         <h4>
             <a href="${pageContext.request.contextPath}/login"
                class="w3-btn  w3-hover-red w3-round-xlarge w3-ios-background">Log In</a>
         </h4>
+        <div>OR</div>
         <h4>
             <a href="${pageContext.request.contextPath}/registration"
                class="w3-btn  w3-hover-red w3-round-xlarge w3-ios-background">Sign Up</a>

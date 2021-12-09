@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,7 +14,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "role")
-public class Role implements BaseModel<String> , GrantedAuthority {//GrantedAuthority
+public class Role implements BaseModel<String>  {//GrantedAuthority
 
     private static final long serialVersionUID = 1909791726526791370L;
 
@@ -34,11 +33,6 @@ public class Role implements BaseModel<String> , GrantedAuthority {//GrantedAuth
     public Role(String id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    @Override
-    public String getAuthority() {
-        return getName();
     }
 
 }

@@ -45,7 +45,7 @@
                        id="myTable">
                     <tr class="w3-hover-light-blue">
                         <th>ID</th>
-                        <th>NAME</th>
+                        <th>FIRST NAME</th>
                         <th>LAST NAME</th>
                         <th>GENDER</th>
                         <th>EMAIL</th>
@@ -63,9 +63,9 @@
                             <td>${user.lastName}</td>
                             <td>${user.gender}</td>
                             <td>${user.email}</td>
-                            <td>${user.password}</td>
-                            <td>${user.roles}</td>
-                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <td>${user.password.hashCode()}</td>
+                            <td>${user.roles.parallelStream().findAny().get().name}</td>
+<%--                            <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
                             <td>
                                 <a href="${pageContext.request.contextPath}update/?id=${user.id}"
                                    class="w3-btn w3-hover-light-blue w3-round-xlarge">UPDATE</a>
@@ -74,7 +74,7 @@
                                 <a href="${pageContext.request.contextPath}delete/?id=${user.id}"
                                    class="w3-btn w3-hover-red w3-round-xlarge">DELETE</a>
                             </td>
-                            </sec:authorize>
+<%--                            </sec:authorize>--%>
                         </tr>
                     </c:forEach>
                 </table>
