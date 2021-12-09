@@ -1,5 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="user.jsp" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -14,13 +15,11 @@
 
 <head>
     <title>Update User</title>
-
-    <jsp:include page="user.jsp"></jsp:include>
 </head>
 
 <body>
 <form class="w3-container w3-small w3-center w3-round-xlarge" method="POST"
-      action="${pageContext.request.contextPath}/update">
+      action="${pageContext.request.contextPath}update">
     <nav style="width:30%"
          class="w3-light-grey w3-small w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
         <h5 style="color:steelblue" class="w3-text w3-center w3-animate-fading w3-round-xlarge">Update User</h5>

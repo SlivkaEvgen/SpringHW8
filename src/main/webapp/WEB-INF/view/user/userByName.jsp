@@ -1,5 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="user.jsp" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -14,8 +15,6 @@
 
 <head>
     <title>User By Name</title>
-
-    <jsp:include page="user.jsp"></jsp:include>
 </head>
 
 <body>

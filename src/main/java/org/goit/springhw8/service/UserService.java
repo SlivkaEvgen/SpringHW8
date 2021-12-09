@@ -25,8 +25,8 @@ public class UserService extends ServiceI<User, String> implements IUserService 
         this.userRepository = userRepository;
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @PostFilter("hasPermission(filterObject, 'read') or hasPermission(filterObject, 'USER')")
+//    @PreAuthorize("hasRole('ROLE_USER')")
+//    @PostFilter("hasPermission(filterObject, 'read') or hasPermission(filterObject, 'USER')")
     public List<User> getAll() {
         return userRepository.findAll();
     }
@@ -36,18 +36,25 @@ public class UserService extends ServiceI<User, String> implements IUserService 
         return super.findListById(id);
     }
 
-    public Optional<User> findByUserId(String id) {
+    @Override
+    public Optional<User> getById(String id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public List<User> getByName(@AuthenticationPrincipal @NotNull String name) {
+    public List<User> getByName(@NotNull String name) {
         return super.getByName(name);
     }
 
     @Override
-    public User registerNewUserAccount(@org.jetbrains.annotations.NotNull UserDto userDto) {
+    public User registerNewUserAccount(UserDto userDto) {
         return userRepository.save(userDto);
+    }
+
+    @Override
+    public void deleteById(String id){
+        System.out.println("deleteById = "+id);
+        userRepository.deleteById(id);
     }
 
 //    private boolean emailExist(String email) {

@@ -46,7 +46,7 @@ public class UserController {
         if (!userService.getById(id).isPresent()) {
             return new ModelAndView("user/userById", model.addAttribute("id", id).addAttribute("model", model).addAttribute("error", "Could Not Find By ID " + id).addAttribute("error2", "Please, Try Again"));
         }
-        if (!userService.findByUserId(id).isPresent()) {
+        if (!userService.getById(id).isPresent()) {
             return new ModelAndView("user/userById", model.addAttribute("error2", "Is Empty"));
         }
         return new ModelAndView("user/userById", model.addAttribute("error2", "SUCCESSFULLY").addAttribute("list", userService.getById(id)));
@@ -70,9 +70,10 @@ public class UserController {
         return new ModelAndView("user/userByName", model.addAttribute("error2", "SUCCESSFULLY").addAttribute("list", userService.getByName(name.toUpperCase())));
     }
 
-    @Secured({"ADMIN"})
+//    @Secured({"ADMIN"})
     @GetMapping("delete")
-    public ModelAndView delete(String id, @AuthenticationPrincipal ModelMap model) {
+    public ModelAndView delete(String id, ModelMap model) {
+        System.out.println("deleteById = "+id);
         if (id == null) {
             return new ModelAndView("user/deleteUser", model);
         }

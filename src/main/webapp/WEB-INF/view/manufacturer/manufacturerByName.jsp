@@ -14,8 +14,8 @@
 
 <head>
     <title>Manufacturer By Name</title>
+    <%@include file="manufacturer.jsp" %>
 
-    <jsp:include page="manufacturer.jsp"></jsp:include>
 </head>
 
 <body>

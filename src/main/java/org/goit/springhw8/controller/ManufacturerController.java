@@ -73,6 +73,7 @@ public class ManufacturerController {
 
     @GetMapping("delete")
     public ModelAndView delete(String id, ModelMap model) {
+        System.out.println("delete id = "+id);
         if (id == null) {
             return new ModelAndView("manufacturer/deleteManufacturer", model);
         }
@@ -83,7 +84,7 @@ public class ManufacturerController {
             return new ModelAndView("manufacturer/deleteManufacturer", model.addAttribute("error", "Manufacturer With ID = " + id + " Not Found").addAttribute("error2", "Try again"));
         }
         manufacturerService.deleteById(id);
-        return new ModelAndView("redirect:/manufacturer", model.addAttribute("error2", "Manufacturer Deleted").addAttribute("error", "SUCCESSFULLY"));
+        return new ModelAndView("redirect:/manufacturer", model.addAttribute("error", "Manufacturer Deleted").addAttribute("error2", "SUCCESSFULLY"));
     }
 
     @GetMapping("update/**")
