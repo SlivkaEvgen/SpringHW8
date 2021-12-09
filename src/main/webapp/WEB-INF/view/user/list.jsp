@@ -30,12 +30,13 @@
                id="myTable">
             <tr class="w3-hover-light-blue">
                 <th>ID</th>
-                <th>NAME</th>
+                <th>FIRST NAME</th>
                 <th>LAST NAME</th>
                 <th>GENDER</th>
                 <th>EMAIL</th>
                 <th>PASSWORD</th>
                 <th>ROLE</th>
+                <th>ACTIVE</th>
                 <th>UPDATE</th>
                 <th>DELETE</th>
             </tr>
@@ -46,8 +47,10 @@
                     <td>${user.lastName}</td>
                     <td>${user.gender}</td>
                     <td>${user.email}</td>
-                    <td>${user.password}</td>
-                    <td>${user.roles}</td>
+                    <td>${user.password.hashCode()}</td>
+<%--                    <td>${user.passwordConfirm.length()}</td>--%>
+                    <td>${user.roles.parallelStream().findAny().get().name}</td>
+                    <td>${user.active}</td>
                     <td>
                         <a href="${pageContext.request.contextPath}update/?id=${user.id}"
                            class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>

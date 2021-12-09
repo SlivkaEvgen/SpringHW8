@@ -1,10 +1,12 @@
 package org.goit.springhw8.config;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@ComponentScan("org.goit.springhw8")
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
@@ -17,7 +19,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/home").setViewName("index");
         //////////////////////////////////////////___USER____/////////////////////////////////
         registry.addViewController("/user").setViewName("user/user");
-        registry.addViewController("/user/id/**").setViewName("user/userById");
+        registry.addViewController("/user/id").setViewName("user/userById");
         registry.addViewController("/user/name/**").setViewName("user/userByName");
         registry.addViewController("/user/list/**").setViewName("user/list");
         registry.addViewController("/user/delete").setViewName("user/deleteUser");
@@ -50,3 +52,17 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/manufacturer/new/**").setViewName("manufacturer/newManufacturer");
     }
 }
+//@Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/pages/**").addResourceLocations("/pages/");
+//    }
+//
+//    @Bean
+//    public UrlBasedViewResolver setupViewResolver() {
+//        UrlBasedViewResolver resolver = new UrlBasedViewResolver();
+//        resolver.setPrefix("/pages/");
+//        resolver.setSuffix(".jsp");
+//        resolver.setViewClass(JstlView.class);
+//
+//        return resolver;
+//    }

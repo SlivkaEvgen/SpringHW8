@@ -43,7 +43,7 @@
                     <td>${product.id}</td>
                     <td>${product.name}</td>
                     <td>${product.price}</td>
-                    <td>${product.manufacturer}</td>
+                    <td>${product.manufacturer.name}</td>
 <%--                    <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
                         <td>
                             <a href="${pageContext.request.contextPath}update/?id=${product.id}"

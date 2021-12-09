@@ -22,17 +22,17 @@
         <a href="${pageContext.request.contextPath}/user/name"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By Name</a>
 
-        <sec:authorize access="!hasRole(authentication.equals('ADMIN'))">
+<%--        <sec:authorize access="!hasRole(authentication.equals('ADMIN'))">--%>
             <a href="${pageContext.request.contextPath}/user/new"
                class="w3-btn  w3-hover-light-blue w3-round-xlarge">Add New</a>
             <a href="${pageContext.request.contextPath}/user/update"
                class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
             <a href="${pageContext.request.contextPath}/user/delete"
                class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
-        </sec:authorize>
+            <a href="${pageContext.request.contextPath}/login"
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Login</a>
 <%--        </sec:authorize>--%>
-
-
+        <%--        </sec:authorize>--%>
     </div>
 </div>
 </body>

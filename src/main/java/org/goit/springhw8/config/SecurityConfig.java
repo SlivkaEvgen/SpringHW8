@@ -1,6 +1,7 @@
 package org.goit.springhw8.config;
 
 import lombok.SneakyThrows;
+import org.goit.springhw8.service.MyUserDetailsService;
 import org.goit.springhw8.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder getbCryptPasswordEncoder() {
         System.out.println("configure");
         return new BCryptPasswordEncoder();
+    }
+
+    @Autowired
+    private MyUserDetailsService userDetailsService;
+
+    @SneakyThrows
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) {
+        System.out.println("configure");
+        auth.userDetailsService(userDetailsService).and()
+                .inMemoryAuthentication()
+                .withUser("USER")
+                .password("$2a$10$5f2eKX7uI9sDDQrcP6zr4O9wvFbdHx6toINMlJlVxOtRThOZgih7u")
+                .password("123")
+                .authorities("USER")
+                .roles("USER")
+                .and()
+                .withUser("ADMIN")
+                .password(userService.getByName("ADMIN").get(0).getPassword())
+                .password("$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG")
+                .authorities("ADMIN")
+                .roles("ADMIN")
+
+                .authorities(userService.getByName("admin".toUpperCase()).get(0).getRoles().toString());
     }
 
     @Override
@@ -119,25 +144,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //    }
 
-    @SneakyThrows
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) {
-        System.out.println("configure");
-        auth.inMemoryAuthentication()
-                .withUser("USER")
-                .password("$2a$10$5f2eKX7uI9sDDQrcP6zr4O9wvFbdHx6toINMlJlVxOtRThOZgih7u")
-//                .password("123")
-                .authorities("USER")
-                .roles("USER")
-                .and()
-                .withUser("ADMIN")
-                .password(userService.getByName("ADMIN").get(0).getPassword())
-//                .password("$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG")
-//                .authorities("ADMIN");
-                .roles("ADMIN")
-
-                .authorities(userService.getByName("admin".toUpperCase()).get(0).getRoles().toString());
-    }
 
 //    protected void configure(HttpSecurity http) throws Exception {
 //        http
