@@ -14,8 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Collections;
 import java.util.Optional;
 
-@Controller ////        if you delete a manufacturer, then all products will be deleted as well. //    @PreAuthorize("hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')") //        Are you sure you want to remove the manufacturer?
-@RequestMapping("manufacturer")  //    @PreAuthorize("hasAuthority('ROLE_ADMIN')")  ////    @Secured({"ROLE_ADMIN"})
+////        if you delete a manufacturer, then all products will be deleted as well. //    @PreAuthorize("hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')") //        Are you sure you want to remove the manufacturer?
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")  ////    @Secured({"ROLE_ADMIN"})
+@RequestMapping("manufacturer")
+@Controller
 public class ManufacturerController {
 
     private final ManufacturerService manufacturerService;
@@ -49,10 +51,7 @@ public class ManufacturerController {
             return new ModelAndView("manufacturer/manufacturerByName", model.addAttribute("error", "WRONG NAME").addAttribute("error2", "Try Again"));
         }
         Optional<Manufacturer> byName = manufacturerService.findByName(name);
-        if (!byName.isPresent()) {
-            return new ModelAndView("manufacturer/manufacturerByName", model.addAttribute("error", "Could Not Find By Name " + name).addAttribute("error2", "Try Again"));
-        }
-        return new ModelAndView("manufacturer/manufacturerByName", model.addAttribute("list", Collections.singletonList(byName.get())).addAttribute("error2", "SUCCESSFULLY"));
+        return byName.map(manufacturer -> new ModelAndView("manufacturer/manufacturerByName", model.addAttribute("list", Collections.singletonList(manufacturer)).addAttribute("error2", "SUCCESSFULLY"))).orElseGet(() -> new ModelAndView("manufacturer/manufacturerByName", model.addAttribute("error", "Could Not Find By Name " + name).addAttribute("error2", "Try Again")));
     }
 
     @GetMapping("id")

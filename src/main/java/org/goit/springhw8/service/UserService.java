@@ -1,6 +1,5 @@
 package org.goit.springhw8.service;
 
-import jdk.nashorn.internal.runtime.logging.Logger;
 import org.goit.springhw8.model.Gender;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
@@ -13,14 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@Logger
 @Service
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class UserService extends ServiceI<User, String> implements IUserService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) { //AuthenticationPrincipal
+    public UserService(UserRepository userRepository) {
         super(userRepository);
         this.userRepository = userRepository;
     }
@@ -41,6 +39,9 @@ public class UserService extends ServiceI<User, String> implements IUserService 
 
     @Override
     public Optional<User> findByName(String name) {
+        if (name==null){
+            return Optional.empty();
+        }
         return super.findByName(name.toUpperCase());
     }
 

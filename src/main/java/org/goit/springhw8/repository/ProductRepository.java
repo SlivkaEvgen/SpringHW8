@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends RepositoryI<Product, String> {
 
-//    @Query("SELECT p FROM #{#entityName} p WHERE p.manufacturer.id=?1")
-//    List<Manufacturer> findByManufacturerId(String manufacturerId);
+
 }

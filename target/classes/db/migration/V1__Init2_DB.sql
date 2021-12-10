@@ -1,14 +1,6 @@
 -- create sequence hibernate_sequence start 1 increment 1;
 create type gender as enum ('MALE','FEMALE');
 
--- create type role as enum ('ROLE_ARMIN', 'ROLE_USER');
-
--- create table if not exists role
--- (
---     id   varchar(20) primary key,
---     name varchar(20)
--- );
-
 create table if not exists manufacturer
 (
     id   varchar(20) primary key,
@@ -57,16 +49,6 @@ values ('1', 'IPHONE X', 1099.9, '1'),
        ('5', 'IPOD', 1290.99, '1'),
        ('6', 'MAC AIR', 2290.99, '1'),
        ('7', 'MAC PRO', 2490.99, '1');
-
--- create roles
--- insert into role(id, name)
--- values ('1', 'ROLE_ADMIN'),
---        ('2', 'ROLE_USER'),
---        ('3', 'ROLE_MODERATOR'),
---        ('4', 'ROLE_PRODUCTION'),
---        ('5', 'ROLE_DEVELOPER'),
---        ('6', 'ROLE_OWNER'),
---        ('7', 'ROLE_MY');
 
 insert into users (id, name, last_name, gender, email, password)
 values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG'),

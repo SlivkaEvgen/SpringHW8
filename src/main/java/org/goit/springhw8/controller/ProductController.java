@@ -91,7 +91,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "new/**", method = RequestMethod.GET)
-    public ModelAndView addNew(Product product, @NotNull ModelMap model) {
+    public ModelAndView addNew(@Valid Product product, @NotNull ModelMap model) {
         return new ModelAndView("product/newProduct", model.addAttribute("list2", productService.findAllManufacturer()).addAttribute("product", product));
     }
 
@@ -137,7 +137,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.GET)
-    public ModelAndView update(Product product, @NotNull ModelMap model) {
+    public ModelAndView update(@Valid Product product, @NotNull ModelMap model) {
         return new ModelAndView("product/updateProduct", model.addAttribute("product", product).addAttribute("list2", productService.findAllManufacturer()));
     }
 

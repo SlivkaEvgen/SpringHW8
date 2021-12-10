@@ -14,13 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
+////    @PreAuthorize("hasRole('ADMIN') and hasAuthority('ADMIN')") ////@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @Validated
 @Controller
-@RequestMapping(value = "user")////    @PreAuthorize("hasRole('ADMIN') and hasAuthority('ADMIN')") ////@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+@RequestMapping(value = "user")
 public class UserController {
 
     private final UserService userService;
@@ -74,12 +73,11 @@ public class UserController {
         if (!userService.findByName(name).isPresent()) {
             return new ModelAndView("user/userByName", model.addAttribute("name", name).addAttribute("model", model).addAttribute("error", "Could Not Find By Name " + name).addAttribute("error2", "Please, Try Again"));
         }
-        return new ModelAndView("user/userByName", model.addAttribute("error2", "SUCCESSFULLY").addAttribute("list", Collections.singletonList( userService.findByName(name).get())));
+        return new ModelAndView("user/userByName", model.addAttribute("error2", "SUCCESSFULLY").addAttribute("list", Collections.singletonList(userService.findByName(name).get())));
     }
 
     @GetMapping("delete")
     public ModelAndView delete(String id, ModelMap model) {
-        System.out.println("deleteById = " + id);
         if (id == null) {
             return new ModelAndView("user/deleteUser", model);
         }
@@ -105,7 +103,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
-    public ModelAndView addNewPost(@NotNull @Valid @ModelAttribute User user, ModelMap model) {
+    public ModelAndView addNewPost(@NotNull @Valid @ModelAttribute User user, @NotNull ModelMap model) {
         model.addAttribute("user", user).addAttribute("list3", userService.getRoles()).addAttribute("list2", userService.getGenderList());
         if (user.getId() == null) {
             return new ModelAndView("user/newUser", model);
@@ -173,7 +171,7 @@ public class UserController {
     }
 
     @GetMapping("update/**")
-    public ModelAndView update(@Valid User user, ModelMap model) {
+    public ModelAndView update(@Valid User user, @NotNull ModelMap model) {
         return new ModelAndView("user/updateUser", model.addAttribute("user", user).addAttribute("list3", userService.getRoles()).addAttribute("list2", userService.getGenderList()));
     }
 

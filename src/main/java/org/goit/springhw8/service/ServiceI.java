@@ -5,12 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.goit.springhw8.model.BaseModel;
 import org.goit.springhw8.repository.RepositoryI;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Validated
 @RequiredArgsConstructor
 public abstract class ServiceI<T extends BaseModel<ID>, ID> {
 
@@ -25,6 +27,9 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
     }
 
     public Optional<T> findByName(String name) {
+        if (name == null) {
+            return Optional.empty();
+        }
         return repositoryI.findByName(name.toUpperCase());
     }
 
