@@ -1,10 +1,6 @@
 <!DOCTYPE HTML>
 <html>
 
-<head>
-<%--    <title>Phrase</title>--%>
-</head>
-
 <div class="w3-container w3-center w3-tangerine w3-text-dark-gray ">
     <p class="w3-xxlarge">"Make it as simple as possible, but not simpler."</p>
 </div>

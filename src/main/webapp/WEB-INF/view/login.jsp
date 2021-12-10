@@ -1,6 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="_header.jsp"%>
+<%@include file="_header.jsp" %>
 <!DOCTYPE HTML>
 <html>
 
@@ -15,14 +15,6 @@
 <head>
     <title>Login</title>
 </head>
-
-
-<%--<span style="flood-color: crimson; text-decoration-style: solid; ">--%>
-<%--        <a href="/registration">Sign Up</a>--%>
-<%--    |--%>
-<%--        <a href="/login">Log In </a></span>--%>
-
-
 <%--  <div class="w3-display-bottomleft">
             <h2>Displaying Rounded Signs</h2>
             <span class="w3-tag w3-padding w3-round-large w3-red w3-center">
@@ -36,9 +28,7 @@
                 Falcon Ridge Parkway
             </div>
         </div>--%>
-
 <body>
-
 <div class="w3-container w3-center w3-round-large w3-small">
     <span style="flood-color: crimson; text-decoration-style: solid; ">
         <a href="/registration">Sign Up</a>

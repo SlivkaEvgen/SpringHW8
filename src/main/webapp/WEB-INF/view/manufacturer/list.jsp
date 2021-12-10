@@ -55,7 +55,6 @@
         <h5 style="color:steelblue" class="text w3-center w3-round-xlarge w3-animate-bottom">MANUFACTURER LIST</h5>
     </nav>
 </div>
-
 </body>
 
 <%@include file="/WEB-INF/view/catchPhrase.jsp" %>

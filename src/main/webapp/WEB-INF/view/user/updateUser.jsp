@@ -58,7 +58,7 @@
                 <td>Gender</td>
                 <td><label>
                     <select class="w3-select w3-center w3-round-xlarge" name="gender">
-                        <c:forEach var="gender" items="${list2}" >
+                        <c:forEach var="gender" items="${list2}">
                             <option value="${gender.gender}">${gender.gender}</option>
                         </c:forEach>
                     </select>
@@ -87,7 +87,7 @@
                 <td>Role</td>
                 <td><label>
                     <select class="w3-select w3-center w3-round-xlarge" name="role">
-                        <c:forEach var="role" items="${list3}" begin="1" >
+                        <c:forEach var="role" items="${list3}" begin="1">
                             <option value="${role.name()}">${role.name()}</option>
                         </c:forEach>
                     </select>

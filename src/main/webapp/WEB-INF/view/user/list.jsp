@@ -35,8 +35,6 @@
                 <th>EMAIL</th>
                 <th>PASSWORD</th>
                 <sec:authorize access="hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')">
-                    <%--                <th>ROLE</th>--%>
-                    <%--                <th>ACTIVE</th>--%>
                     <th>UPDATE</th>
                     <th>DELETE</th>
                 </sec:authorize>
@@ -49,8 +47,6 @@
                     <td>${user.gender}</td>
                     <td>${user.email}</td>
                     <td>${user.password.hashCode()}</td>
-                        <%--                    <td>${user.roles.parallelStream().findAny().get().name}</td>--%>
-                        <%--                    <td>${user.active}</td>--%>
                     <sec:authorize access="hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')">
                         <td>
                             <a href="${pageContext.request.contextPath}update/?id=${user.id}"

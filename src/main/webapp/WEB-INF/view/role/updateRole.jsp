@@ -38,7 +38,7 @@
                     <td>Role</td>
                     <td><label>
                         <select class="w3-select w3-center w3-round-xlarge" name="role">
-                            <c:forEach var="role" items="${list}" begin="1" >
+                            <c:forEach var="role" items="${list}" begin="1">
                                 <option value="${role.name}">${role.name}</option>
                             </c:forEach>
                         </select>
