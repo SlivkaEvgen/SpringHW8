@@ -57,7 +57,7 @@ public class UserService extends ServiceI<User, String> implements IUserService 
         super.deleteById(id);
     }
 
-    public void saveUser(User user){
+    public void saveUser(User user) {
         super.saveEntity(user);
     }
 

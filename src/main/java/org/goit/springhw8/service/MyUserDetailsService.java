@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-//@Logger
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
@@ -23,17 +22,12 @@ public class MyUserDetailsService implements UserDetailsService {
 
     public MyUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
-
     }
 
     @Override
     public UserDetails loadUserByUsername(@NotNull String username) throws UsernameNotFoundException {
         System.out.println("username " + userRepository.findByName(username.toUpperCase()));
-        User user = userRepository.findByName(username.toUpperCase()).get();
-//        System.out.println(user);
-//        if (!user.isPresent()) {
-//            throw new UsernameNotFoundException("No user found with username: " + username);
-//        }
+        User user = userRepository.findByName(username.toUpperCase()).get(0);
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
