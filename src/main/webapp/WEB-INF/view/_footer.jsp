@@ -13,5 +13,3 @@
     <title>Footer</title>
 </head>
 </html>
-<%-- <a href="${pageContext.request.contextPath}/login"
-           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Login</a>--%>

@@ -1,7 +1,6 @@
 package org.goit.springhw8.model;
 
 import jakarta.validation.constraints.NotNull;
-import org.jetbrains.annotations.Contract;
 
 import java.util.Arrays;
 import java.util.List;

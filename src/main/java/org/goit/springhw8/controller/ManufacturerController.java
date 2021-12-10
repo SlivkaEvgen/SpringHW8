@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import java.util.Collections;
+import java.util.Optional;
 
-@Controller ////        if you delete a manufacturer, then all products will be deleted as well.
-              //        Are you sure you want to remove the manufacturer?
-@RequestMapping("manufacturer")
+@Controller ////        if you delete a manufacturer, then all products will be deleted as well. //    @PreAuthorize("hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')") //        Are you sure you want to remove the manufacturer?
+@RequestMapping("manufacturer")  //    @PreAuthorize("hasAuthority('ROLE_ADMIN')")  ////    @Secured({"ROLE_ADMIN"})
 public class ManufacturerController {
 
     private final ManufacturerService manufacturerService;
@@ -48,11 +48,11 @@ public class ManufacturerController {
         if (!Validator.validName(name)) {
             return new ModelAndView("manufacturer/manufacturerByName", model.addAttribute("error", "WRONG NAME").addAttribute("error2", "Try Again"));
         }
-        List<Manufacturer> byName = manufacturerService.getByName(name);
-        if (byName.isEmpty()) {
+        Optional<Manufacturer> byName = manufacturerService.findByName(name);
+        if (!byName.isPresent()) {
             return new ModelAndView("manufacturer/manufacturerByName", model.addAttribute("error", "Could Not Find By Name " + name).addAttribute("error2", "Try Again"));
         }
-        return new ModelAndView("manufacturer/manufacturerByName", model.addAttribute("list", byName).addAttribute("error2", "SUCCESSFULLY"));
+        return new ModelAndView("manufacturer/manufacturerByName", model.addAttribute("list", Collections.singletonList(byName.get())).addAttribute("error2", "SUCCESSFULLY"));
     }
 
     @GetMapping("id")
@@ -158,5 +158,4 @@ public class ManufacturerController {
         manufacturerService.saveEntity(manufacturer);
         return new ModelAndView("manufacturer/manufacturer", model.addAttribute("manufacturer", manufacturer).addAttribute("error", "SUCCESSFULLY").addAttribute("error2", "New Manufacturer Added"));
     }
-
 }

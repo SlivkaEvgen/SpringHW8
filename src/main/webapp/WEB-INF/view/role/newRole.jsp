@@ -33,21 +33,14 @@
                     </label></td>
                 </tr>
                 <tr>
-                    <td>Name</td>
-                    <td>
-                        <label>
-                            <select class="w3-select" name="name">
-                                <option value="" disabled selected>Choose Role</option>
-                                <option value="ROLE_ADMIN">ADMIN</option>
-                                <option value="ROLE_USER">USER</option>
-                                <option value="ROLE_MODERATOR">MODERATOR</option>
-                                <option value="ROLE_DEVELOPER">DEVELOPER</option>
-                                <option value="ROLE_PRODUCTION">PRODUCTION</option>
-                                <option value="ROLE_OWNER">OWNER</option>
-                                <option value="ROLE_MY">MY</option>
-                            </select>
-                        </label>
-                    </td>
+                    <td>Role</td>
+                    <td><label>
+                        <select class="w3-select w3-center w3-round-xlarge" name="role">
+                            <c:forEach var="role" items="${list}" begin="1">
+                                <option value="${role.name}">${role.name}</option>
+                            </c:forEach>
+                        </select>
+                    </label></td>
                 </tr>
                 <tr>
                     <td><a href="${pageContext.request.contextPath}/role"

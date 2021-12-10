@@ -2,17 +2,18 @@ package org.goit.springhw8.controller;
 
 import jakarta.validation.Valid;
 import org.goit.springhw8.model.Product;
-import org.goit.springhw8.model.User;
-import org.goit.springhw8.service.ManufacturerService;
 import org.goit.springhw8.service.ProductService;
 import org.goit.springhw8.util.Validator;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Collections;
 
 @Controller
 @Validated
@@ -63,10 +64,10 @@ public class ProductController {
         if (!Validator.validName(name)) {
             return new ModelAndView("product/productByName", model.addAttribute("name", name).addAttribute("error", "Wrong Product Name ").addAttribute("error2", "Please, Try Again"));
         }
-        if (productService.getByName(name).isEmpty()) {
+        if (!productService.findByName(name).isPresent()) {
             return new ModelAndView("product/productByName", model.addAttribute("name", name).addAttribute("error", "Could Not Find Product With Name " + name).addAttribute("error2", "Please, Try Again"));
         }
-        return new ModelAndView("product/productByName", model.addAttribute("list", productService.getByName(name)).addAttribute("error2", "SUCCESSFULLY"));
+        return new ModelAndView("product/productByName", model.addAttribute("list", Collections.singletonList(productService.findByName(name).get())).addAttribute("error2", "SUCCESSFULLY"));
     }
 
     @GetMapping(value = "delete")
@@ -137,7 +138,7 @@ public class ProductController {
 
     @RequestMapping(value = "update/**", method = RequestMethod.GET)
     public ModelAndView update(Product product, @NotNull ModelMap model) {
-        return new ModelAndView("product/updateProduct", model.addAttribute("product", product).addAttribute("list2",productService.findAllManufacturer()));
+        return new ModelAndView("product/updateProduct", model.addAttribute("product", product).addAttribute("list2", productService.findAllManufacturer()));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)

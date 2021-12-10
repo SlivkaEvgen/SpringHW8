@@ -30,21 +30,25 @@
             <tr class="w3-hover-light-blue">
                 <th>ID</th>
                 <th>NAME</th>
-                <th>UPDATE</th>
-                <th>DELETE</th>
+                <sec:authorize access="hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')">
+                    <th>UPDATE</th>
+                    <th>DELETE</th>
+                </sec:authorize>
             </tr>
             <c:forEach items="${list}" var="manufacturer">
                 <tr>
                     <td>${manufacturer.id}</td>
                     <td>${manufacturer.name}</td>
-                    <td>
-                        <a href="${pageContext.request.contextPath}update/?id=${manufacturer.id}"
-                           class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
-                    </td>
-                    <td>
-                        <a href="${pageContext.request.contextPath}delete/?id=${manufacturer.id}"
-                           class="w3-btn w3-hover-red w3-round-xlarge">Delete</a>
-                    </td>
+                    <sec:authorize access="hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')">
+                        <td>
+                            <a href="${pageContext.request.contextPath}update/?id=${manufacturer.id}"
+                               class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
+                        </td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}delete/?id=${manufacturer.id}"
+                               class="w3-btn w3-hover-red w3-round-xlarge">Delete</a>
+                        </td>
+                    </sec:authorize>
                 </tr>
             </c:forEach>
         </table>

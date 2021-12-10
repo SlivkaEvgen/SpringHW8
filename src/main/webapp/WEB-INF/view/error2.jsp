@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Error2</title>
+<%--    <title>Error2</title>--%>
 </head>
 <body>
 

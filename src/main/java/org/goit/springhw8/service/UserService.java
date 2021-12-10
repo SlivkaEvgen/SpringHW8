@@ -1,35 +1,30 @@
 package org.goit.springhw8.service;
 
-import jakarta.validation.constraints.NotNull;
+import jdk.nashorn.internal.runtime.logging.Logger;
 import org.goit.springhw8.model.Gender;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.model.dto.UserDto;
-import org.goit.springhw8.repository.RoleRepository;
 import org.goit.springhw8.repository.UserRepository;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+@Logger
 @Service
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class UserService extends ServiceI<User, String> implements IUserService {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,RoleRepository roleRepository) { //AuthenticationPrincipal
+    public UserService(UserRepository userRepository) { //AuthenticationPrincipal
         super(userRepository);
         this.userRepository = userRepository;
-        this.roleRepository=roleRepository;
     }
 
-    //    @PreAuthorize("hasRole('ROLE_USER')")
-//    @PostFilter("hasPermission(filterObject, 'read') or hasPermission(filterObject, 'USER')")
     public List<User> getAll() {
         return userRepository.findAll();
     }
@@ -45,8 +40,8 @@ public class UserService extends ServiceI<User, String> implements IUserService 
     }
 
     @Override
-    public List<User> getByName(@NotNull String name) {
-        return super.getByName(name);
+    public Optional<User> findByName(String name) {
+        return super.findByName(name.toUpperCase());
     }
 
     @Override
@@ -64,6 +59,6 @@ public class UserService extends ServiceI<User, String> implements IUserService 
     }
 
     public List<Role> getRoles(){
-        return  roleRepository.findAll();
+        return Arrays.asList(Role.values());
     }
 }

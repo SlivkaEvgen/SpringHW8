@@ -20,13 +20,15 @@
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By ID</a>
         <a href="${pageContext.request.contextPath}/user/name"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By Name</a>
+        <sec:authorize access="hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')">
         <a href="${pageContext.request.contextPath}/user/new"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Add New</a>
         <a href="${pageContext.request.contextPath}/user/update"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
         <a href="${pageContext.request.contextPath}/user/delete"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
-    </div>
+        </sec:authorize>
+</div>
 </div>
 </body>
 </html>

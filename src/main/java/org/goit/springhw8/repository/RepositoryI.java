@@ -5,12 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 
-import java.util.List;
+import java.util.Optional;
 
 @NoRepositoryBean
 public interface RepositoryI<T extends BaseModel<ID>, ID> extends JpaRepository<T, ID> {
 
     @Query("SELECT u FROM #{#entityName} u WHERE u.name=?1")
-    List<T> findByName(String name);
+    Optional<T> findByName(String name);
 
 }

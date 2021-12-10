@@ -5,7 +5,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Error</title>
+<%--    <title>Error</title>--%>
 </head>
 
 <body>
