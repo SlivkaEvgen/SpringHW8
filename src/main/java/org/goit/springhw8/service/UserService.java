@@ -14,13 +14,13 @@ import java.util.Optional;
 
 @Service
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class UserService extends ServiceI<User, String> implements IUserService {
+public class UserService extends ServiceI<User, String> implements IUserService{//implements IUserService {
 
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         super(userRepository);
-        this.userRepository = userRepository;
+        this.userRepository=userRepository;
     }
 
     @Override
@@ -46,9 +46,7 @@ public class UserService extends ServiceI<User, String> implements IUserService 
         return super.findByName(name.toUpperCase());
     }
 
-    @Override
     public User registerNewUserAccount(UserDto userDto) {
-        System.out.println("registerNewUserAccount = " + userDto);
         return userRepository.save(userDto);
     }
 

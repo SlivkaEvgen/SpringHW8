@@ -2,7 +2,6 @@ package org.goit.springhw8.config;
 
 import lombok.SneakyThrows;
 import org.goit.springhw8.service.MyUserDetailsService;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,13 +27,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @SneakyThrows
     @Override
-    public void configure(@NotNull AuthenticationManagerBuilder auth) {
+    public void configure(AuthenticationManagerBuilder auth) {
         auth.userDetailsService(userDetailsService).and().inMemoryAuthentication();
     }
 
     @SneakyThrows
     @Override
-    protected void configure(@NotNull HttpSecurity http) {
+    protected void configure(HttpSecurity http) {
         http.csrf().disable().rememberMe().and()
                 .authorizeRequests()
 

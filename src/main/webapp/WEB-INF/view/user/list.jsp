@@ -47,7 +47,7 @@
                     <td>${user.gender}</td>
                     <td>${user.email}</td>
                     <td>${user.password.hashCode()}</td>
-                    <sec:authorize access="hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')">
+                    <sec:authorize access="hasRole('ADMIN') and hasAuthority('ROLE_ADMIN')">
                         <td>
                             <a href="${pageContext.request.contextPath}update/?id=${user.id}"
                                class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>

@@ -1,18 +1,15 @@
 package org.goit.springhw8.service;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.goit.springhw8.model.BaseModel;
 import org.goit.springhw8.repository.RepositoryI;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Validated
 @RequiredArgsConstructor
 public abstract class ServiceI<T extends BaseModel<ID>, ID> {
 
@@ -22,7 +19,7 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
         return repositoryI.findAll();
     }
 
-    public Optional<T> getById(@Valid ID id) {
+    public Optional<T> getById(ID id) {
         return repositoryI.findById(id);
     }
 
@@ -33,20 +30,19 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
         return Optional.ofNullable(repositoryI.findByName(name.toUpperCase()).get(0));
     }
 
-    public void deleteById(@Valid ID id) {
+    public void deleteById(ID id) {
         repositoryI.deleteById(id);
     }
 
-    public void saveEntity(@Valid T t) {
+    public void saveEntity(T t) {
         repositoryI.save(t);
     }
 
-    public List<T> findListById(@Valid ID id) {
+    public List<T> findListById(ID id) {
         List<T> tList = new ArrayList<>();
         if (repositoryI.findById(id).isPresent()) {
             tList.add(repositoryI.findById(id).get());
         }
         return tList;
     }
-
 }

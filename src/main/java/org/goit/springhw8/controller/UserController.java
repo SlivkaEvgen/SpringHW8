@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserService;
 import org.goit.springhw8.util.Validator;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
@@ -60,7 +61,7 @@ public class UserController {
     }
 
     @GetMapping("name")
-    public ModelAndView getUserByName(String name, ModelMap model) {
+    public ModelAndView getUserByName(@AuthenticationPrincipal String name, ModelMap model) {
         if (name == null) {
             return new ModelAndView("user/userByName", model);
         }
