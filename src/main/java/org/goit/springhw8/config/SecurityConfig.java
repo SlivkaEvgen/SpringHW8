@@ -17,8 +17,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final MyUserDetailsService userDetailsService;
 
-    public SecurityConfig(MyUserDetailsService userDetailsService){
-        this.userDetailsService=userDetailsService;
+    public SecurityConfig(MyUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     @Bean
@@ -29,45 +29,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @SneakyThrows
     @Override
     public void configure(@NotNull AuthenticationManagerBuilder auth) {
-        auth.userDetailsService(userDetailsService).and()
-                .inMemoryAuthentication();
-//                .withUser("USER")
-//                .password("$2a$10$5f2eKX7uI9sDDQrcP6zr4O9wvFbdHx6toINMlJlVxOtRThOZgih7u")
-////              .password("123")
-//                .authorities("ROLE_USER")
-//                .roles("USER")
-//                .and()
-//                .withUser("ADMIN")
-////               .password("123")
-//                .password("$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG")
-//                .authorities("ROLE_ADMIN")
-//                .roles("ADMIN");
+        auth.userDetailsService(userDetailsService).and().inMemoryAuthentication();
     }
 
     @SneakyThrows
     @Override
     protected void configure(@NotNull HttpSecurity http) {
-        http
-                .csrf()
-                .disable().rememberMe().and()
+        http.csrf().disable().rememberMe().and()
                 .authorizeRequests()
+
                 //Доступ только для не зарегистрированных пользователей
                 .antMatchers("/registration").not().fullyAuthenticated()
 
                 //Доступ только для пользователей с ролью Администратор
-//                .antMatchers("/role/new/*").hasRole("ADMIN")
-//                .antMatchers("/user/new/*").hasRole("ADMIN")
-//                .antMatchers("/product/new/*").hasRole("ADMIN")
-//                .antMatchers("/manufacturer/new/*").hasRole("ADMIN")
-                //Доступ разрешен всем пользователей
+                //.antMatchers("/admin/*").hasRole("ADMIN")
 
+                //Доступ разрешен всем пользователей
                 .antMatchers("/", "/resources/**").permitAll()
+
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and().rememberMe().and()
+
                 //Настройка для входа в систему
                 .formLogin()
                 .loginPage("/login")
+
                 //Перенарпавление на главную страницу после успешного входа
                 .defaultSuccessUrl("/")
                 .permitAll()

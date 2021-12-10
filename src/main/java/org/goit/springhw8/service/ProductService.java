@@ -13,12 +13,12 @@ public class ProductService extends ServiceI<Product, String> {
 
     private final ManufacturerRepository manufacturerRepository;
 
-    public ProductService(ProductRepository productRepository,ManufacturerRepository manufacturerRepository) {
+    public ProductService(ProductRepository productRepository, ManufacturerRepository manufacturerRepository) {
         super(productRepository);
-        this.manufacturerRepository=manufacturerRepository;
+        this.manufacturerRepository = manufacturerRepository;
     }
 
-    public List<Manufacturer> findAllManufacturer(){
+    public List<Manufacturer> findAllManufacturer() {
         return manufacturerRepository.findAll();
     }
 }
