@@ -1,8 +1,8 @@
 package org.goit.springhw8.util;
 
-import lombok.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Validated
 @Component
@@ -14,12 +14,15 @@ public class Validator {
         } else return hasNumbers.matches("\\d+");
     }
 
-    public static boolean validString(@NonNull String hasLetters) {
+    public static boolean validString(String hasLetters) {
+        if (hasLetters==null){
+            return false;
+        }
         return !hasLetters.matches("\\d+");
     }
 
-    private static boolean empty(@NonNull String id) {
-        return !id.isEmpty();
+    private static boolean empty(String id) {
+        return id != null && !id.isEmpty();
     }
 
     public static boolean validId(String id) {
@@ -35,7 +38,10 @@ public class Validator {
         return Long.parseLong(id) != 0;
     }
 
-    public static boolean validName(@NonNull String name) {
+    public static boolean validName(String name) {
+        if (name == null) {
+            return false;
+        }
         if (name.isEmpty()) {
             return false;
         }
@@ -51,12 +57,15 @@ public class Validator {
         return validString(name);
     }
 
-    public static boolean validGender(@NonNull String gender) {
-        return (gender.equalsIgnoreCase("Male")
+    public static boolean validGender(@ModelAttribute("gender") String gender) {
+        return gender != null && (gender.equalsIgnoreCase("Male")
                 | gender.equalsIgnoreCase("Female"));
     }
 
-    public static boolean validEmail(@NonNull String email) {
+    public static boolean validEmail(String email) {
+        if (email==null){
+            return false;
+        }
         return email.contains("@");
     }
 }

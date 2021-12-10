@@ -1,22 +1,27 @@
 package org.goit.springhw8;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+/**
+ * The type Spring hw 8 application.
+ */
 @SpringBootApplication
 public class SpringHw8Application extends SpringBootServletInitializer {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         SpringApplication.run(SpringHw8Application.class, args);
-//        System.out.println(" \n START LOGIN = ADMIN ; PASSWORD = 123
-//        \n запретить удаление / редактирование админа \n");
     }
 
     @Override
-    protected SpringApplicationBuilder configure(@NotNull SpringApplicationBuilder application) {
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(SpringHw8Application.class);
     }
 }

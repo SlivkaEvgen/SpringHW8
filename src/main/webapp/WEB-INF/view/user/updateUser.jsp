@@ -59,7 +59,7 @@
                 <td><label>
                     <select class="w3-select w3-center w3-round-xlarge" name="gender">
                         <c:forEach var="gender" items="${list2}">
-                            <option value="${gender.gender}">${gender.gender}</option>
+                            <option value="${gender.name()}">${gender.name()}</option>
                         </c:forEach>
                     </select>
                 </label></td>

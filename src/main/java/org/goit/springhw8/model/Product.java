@@ -11,6 +11,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * The type Product.
+ */
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Getter

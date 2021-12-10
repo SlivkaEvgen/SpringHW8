@@ -2,6 +2,7 @@ package org.goit.springhw8.util;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,11 +16,11 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
     }
 
     @Override
-    public boolean isValid(String email, ConstraintValidatorContext context) {
+    public boolean isValid(@ModelAttribute("email") String email, ConstraintValidatorContext context) {
         return (validateEmail(email));
     }
 
-    private boolean validateEmail(String email) {
+    private boolean validateEmail(@ModelAttribute("email") String email) {
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
