@@ -1,4 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@include file="logout.jsp"%>
@@ -15,7 +17,7 @@
 </style>
 
 <header>
-    <title>Header</title>
+<%--    <title>Header</title>--%>
 </header>
 
 <body>
@@ -25,7 +27,14 @@
 
     <a class="w3-display-buttommiddle w3-center w3-round-xlarge w3-ios-grey">
         <h6 class="date-cell w3-center w3-round-xlarge"
-            style="color: darkslateblue; animation-iteration-count: revert; animation-timing-function: ease-in-out"><% out.println(new Date().toString()); %></h6>
+            style="color: darkslateblue; animation-timing-function: ease-in-out">
+            <%
+                Date dNow = new Date( );
+                SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+                out.print( "<h5 align=\"center\">" + ft.format(dNow) + "</h5>");
+            %>
+<%--            <% out.println(new Date().toString()); %>--%>
+        </h6>
     </a>
     <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
         <div class="w3-container w3-center w3-round-xlarge w3-ios">

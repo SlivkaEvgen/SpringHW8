@@ -1,11 +1,13 @@
 -- create sequence hibernate_sequence start 1 increment 1;
 create type gender as enum ('MALE','FEMALE');
 
-create table if not exists role
-(
-    id   varchar(20) primary key,
-    name varchar(20)
-);
+-- create type role as enum ('ROLE_ARMIN', 'ROLE_USER');
+
+-- create table if not exists role
+-- (
+--     id   varchar(20) primary key,
+--     name varchar(20)
+-- );
 
 create table if not exists manufacturer
 (
@@ -32,11 +34,11 @@ create table if not exists product
     manufacturer_id varchar(20)
 );
 
-create table users_roles
+create table user_role
 (
     user_id  varchar not null references users,
-    roles_id varchar not null references role,
-    primary key (user_id, roles_id)
+    roles varchar not null references pg_roles,
+    primary key (user_id, roles)
 );
 
 -- create manufacturers
@@ -57,14 +59,14 @@ values ('1', 'IPHONE X', 1099.9, '1'),
        ('7', 'MAC PRO', 2490.99, '1');
 
 -- create roles
-insert into role(id, name)
-values ('1', 'ROLE_ADMIN'),
-       ('2', 'ROLE_USER'),
-       ('3', 'ROLE_MODERATOR'),
-       ('4', 'ROLE_PRODUCTION'),
-       ('5', 'ROLE_DEVELOPER'),
-       ('6', 'ROLE_OWNER'),
-       ('7', 'ROLE_MY');
+-- insert into role(id, name)
+-- values ('1', 'ROLE_ADMIN'),
+--        ('2', 'ROLE_USER'),
+--        ('3', 'ROLE_MODERATOR'),
+--        ('4', 'ROLE_PRODUCTION'),
+--        ('5', 'ROLE_DEVELOPER'),
+--        ('6', 'ROLE_OWNER'),
+--        ('7', 'ROLE_MY');
 
 insert into users (id, name, last_name, gender, email, password)
 values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG'),
@@ -73,7 +75,7 @@ values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62
        ('4', 'GEKA', 'GK', 'MALE', 'geka@ua', '$2a$10$EuHVHqfXs.AqDfmlos9AfuOSs2DsHIhJ2t74CZxyJ95h1gOVkolD6'),
        ('5', 'GEKA2', 'GekK', 'MALE', 'geka2@ua', '$2a$10$EuHVHqfXs.AqDfmlos9AfuOSs2DsHIhJ2t74CZxyJ95h1gOVkolD6');
 
-insert into users_roles(user_id, roles_id)
+insert into user_role(user_id, roles)
 values ('1', '1'),
        ('2', '2'),
        ('3', '2'),

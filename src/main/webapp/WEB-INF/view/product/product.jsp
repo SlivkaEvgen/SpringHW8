@@ -20,16 +20,18 @@
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By ID</a>
         <a href="/product/name"
            class="w3-btn w3-hover-light-blue w3-round-xlarge">Find By Name</a>
-<%--                <a href="${pageContext.request.contextPath}/product/manufacturerId"--%>
-<%--                   class="w3-btn  w3-hover-light-blue w3-round-xlarge">Product By Manufacturer ID</a>--%>
-<%--        <a href="/product/list2"--%>
-<%--           class="w3-btn  w3-hover-light-blue w3-round-xlarge"> Manufacturers</a>--%>
-        <a href="/product/new"
-           class="w3-btn w3-hover-light-blue w3-round-xlarge">Add New</a>
-        <a href="/product/update"
-           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
-        <a href="/product/delete"
-           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
+        <%--                <a href="${pageContext.request.contextPath}/product/manufacturerId"--%>
+        <%--                   class="w3-btn  w3-hover-light-blue w3-round-xlarge">Product By Manufacturer ID</a>--%>
+        <%--        <a href="/product/list2"--%>
+        <%--           class="w3-btn  w3-hover-light-blue w3-round-xlarge"> Manufacturers</a>--%>
+        <sec:authorize access="hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')">
+            <a href="/product/new"
+               class="w3-btn w3-hover-light-blue w3-round-xlarge">Add New</a>
+            <a href="/product/update"
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
+            <a href="/product/delete"
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
+        </sec:authorize>
         <p></p>
     </div>
 </div>

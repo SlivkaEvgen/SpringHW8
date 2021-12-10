@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+//@Logger
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
@@ -22,28 +23,38 @@ public class MyUserDetailsService implements UserDetailsService {
 
     public MyUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
+
     }
 
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("No user found with username: " + email);
-        }
+    @Override
+    public UserDetails loadUserByUsername(@NotNull String username) throws UsernameNotFoundException {
+        System.out.println("username " + userRepository.findByName(username.toUpperCase()));
+        User user = userRepository.findByName(username.toUpperCase()).get();
+//        System.out.println(user);
+//        if (!user.isPresent()) {
+//            throw new UsernameNotFoundException("No user found with username: " + username);
+//        }
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
-
+        user.setActive(true);
         return new org.springframework.security.core.userdetails.User(
-                user.getEmail(), user.getPassword().toLowerCase(), enabled, accountNonExpired,
-                credentialsNonExpired, accountNonLocked, getAuthorities(user.getRoles()));
+                user.getName().toUpperCase(),
+                user.getPassword(),
+                enabled,
+                accountNonExpired,
+                credentialsNonExpired,
+                accountNonLocked,
+                getAuthorities(user.getRoles()));
     }
 
     @NotNull
     private static List<GrantedAuthority> getAuthorities(@NotNull Set<Role> roles) {
+        System.out.println("getAuthorities" + roles);
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            authorities.add(new SimpleGrantedAuthority(role.name()));
         }
         return authorities;
     }

@@ -1,38 +1,19 @@
 package org.goit.springhw8.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.validation.constraints.NotNull;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.annotation.security.RolesAllowed;
 
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-@Entity
-@Table(name = "role")
-public class Role implements BaseModel<String>  {
+@NotNull
+@RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
+public enum Role {
 
-    private static final long serialVersionUID = 1909791726526791370L;
+    ROLE_ADMIN,
+    ROLE_USER
 
-    @Id
-    @Column(name = "id", unique = true, nullable = false)
-    private String id;
-
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @Transient
-    @ManyToMany(mappedBy = "roles")
-    @ToString.Exclude
-    private Set<User> users;
-
-    public Role(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
+//    @Contract(pure = true)
+////    @Override
+//    public String getAuthority() {
+//        return name();
+//    }
 }

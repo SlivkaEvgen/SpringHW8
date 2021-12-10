@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <title>Index</title>
+    <title>Home</title>
 </head>
 <%@include file="welcome.jsp" %>
 <body>
