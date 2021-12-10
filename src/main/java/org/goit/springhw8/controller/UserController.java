@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserService;
 import org.goit.springhw8.util.Validator;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
 
-////    @PreAuthorize("hasRole('ADMIN') and hasAuthority('ADMIN')") ////@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @Validated
 @Controller
 @RequestMapping(value = "user")
@@ -29,26 +27,28 @@ public class UserController {
     }
 
     @GetMapping("user")
-    public ModelAndView entity(ModelMap model) {
+    public ModelAndView entityUser(ModelMap model) {
         return new ModelAndView("user/user", model);
     }
 
     @GetMapping("list")
-    public ModelAndView getAllUsers(@NotNull ModelMap model) {
-        return new ModelAndView("user/list", model.addAttribute("list", userService.getList()));
+    public ModelAndView getAllUsers(ModelMap model) {
+        if (model==null){
+            return new ModelAndView("user/list");
+        }
+        return new ModelAndView("user/list", model.addAttribute("list", userService.getAll()));
     }
 
     @GetMapping("id")
-    public ModelAndView findById(String id, ModelMap model) {
+    public ModelAndView getUserById(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("user/userById", model);
         }
         if (id.isEmpty()) {
             return new ModelAndView("user/userById", model.addAttribute("id", id).addAttribute("error", " User ID Is Empty").addAttribute("error2", "Please, Try Again"));
         }
-        if (!Validator.validId(id)) {
-            return new ModelAndView("user/userById", model.addAttribute("id", id).addAttribute("model", model).addAttribute("error", "Wrong User ID " + id).addAttribute("error2", "Please, Try Again"));
-        }
+//        if (!Validator.validId(id)) {
+//            return new ModelAndView("user/userById", model.addAttribute("id", id).addAttribute("model", model).addAttribute("error", "Wrong User ID " + id).addAttribute("error2", "Please, Try Again"));
         if (!userService.getById(id).isPresent()) {
             return new ModelAndView("user/userById", model.addAttribute("id", id).addAttribute("model", model).addAttribute("error", "Could Not Find By ID " + id).addAttribute("error2", "Please, Try Again"));
         }
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @GetMapping("name")
-    public ModelAndView findByUserName(String name, ModelMap model) {
+    public ModelAndView getUserByName(String name, ModelMap model) {
         if (name == null) {
             return new ModelAndView("user/userByName", model);
         }
@@ -77,7 +77,7 @@ public class UserController {
     }
 
     @GetMapping("delete")
-    public ModelAndView delete(String id, ModelMap model) {
+    public ModelAndView deleteUserById(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("user/deleteUser", model);
         }
@@ -98,13 +98,22 @@ public class UserController {
     }
 
     @GetMapping("new/**")
-    public ModelAndView addNew(@Valid User user, @NotNull ModelMap model) {
+    public ModelAndView addNewUserGet(@Valid User user, ModelMap model) {
+        if (model==null){
+            return new ModelAndView("user/newUser");
+        }
         return new ModelAndView("user/newUser", model.addAttribute("user", user).addAttribute("list2", userService.getGenderList()).addAttribute("list3", userService.getRoles()));
     }
 
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
-    public ModelAndView addNewPost(@NotNull @Valid @ModelAttribute User user, @NotNull ModelMap model) {
+    public ModelAndView addNewUserPost(@Valid @ModelAttribute User user, ModelMap model) {
+        if (model==null){
+            return new ModelAndView("user/newUser");
+        }
         model.addAttribute("user", user).addAttribute("list3", userService.getRoles()).addAttribute("list2", userService.getGenderList());
+        if (user==null){
+            return new ModelAndView("user/newUser", model);
+        }
         if (user.getId() == null) {
             return new ModelAndView("user/newUser", model);
         }
@@ -166,17 +175,23 @@ public class UserController {
         }
 
         user.setName(user.getName().toUpperCase());
-        userService.saveEntity(user);
+        userService.saveUser(user);
         return new ModelAndView("user/user", model.addAttribute("user", model.addAttribute("error", "User Added").addAttribute("error2", "SUCCESSFULLY")));
     }
 
     @GetMapping("update/**")
-    public ModelAndView update(@Valid User user, @NotNull ModelMap model) {
+    public ModelAndView updateUserGet(@Valid User user, ModelMap model) {
+        if (model==null){
+            return new ModelAndView("user/updateUser");
+        }
         return new ModelAndView("user/updateUser", model.addAttribute("user", user).addAttribute("list3", userService.getRoles()).addAttribute("list2", userService.getGenderList()));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(@Valid User user, @NotNull ModelMap model) {
+    public ModelAndView updateUserPost(@Valid User user, ModelMap model) {
+        if (model==null){
+            return new ModelAndView("user/updateUser");
+        }
         model.addAttribute("user", user).addAttribute("list3", userService.getRoles()).addAttribute("list2", userService.getGenderList());
         if (user == null) {
             return new ModelAndView("user/updateUser", model);
@@ -246,7 +261,7 @@ public class UserController {
         }
 
         user.setName(user.getName().toUpperCase());
-        userService.saveEntity(user);
+        userService.saveUser(user);
         return new ModelAndView("user/user", model.addAttribute("user", user).addAttribute("error", "User Updated").addAttribute("error2", "SUCCESSFULLY"));
     }
 }

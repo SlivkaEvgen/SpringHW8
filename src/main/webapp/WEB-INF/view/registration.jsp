@@ -20,6 +20,11 @@
 
 <body>
 <div class="w3-container w3-center w3-round-large">
+    <span style="flood-color: crimson; text-decoration-style: solid; ">
+        <a href="/registration">Sign Up</a>
+    |
+        <a href="/login">Log In </a></span>
+
     <form class="container m3-center w3-round-xlarge" method="POST"
           action="${pageContext.request.contextPath}registration">
         <nav style="width:30%"
@@ -29,20 +34,11 @@
                    class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
                    id="myTable">
                 <tr>
-                    <td>ID</td>
+                    <td>Username</td>
                     <td>
                         <label>
                             <input class="w3-input w3-center w3-border w3-small w3-round-xlarge w3-hover-light-blue"
-                                   type="text" name="id" placeholder=" Enter ID " value="${user.id}"/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Name</td>
-                    <td>
-                        <label>
-                            <input class="w3-input w3-center w3-border w3-small w3-round-xlarge w3-hover-light-blue"
-                                   type="text" name="name" placeholder=" Enter  Name  " value="${user.name}"/>
+                                   type="text" name="name" placeholder=" Enter  First Name  " value="${user.name}"/>
                         </label>
                     </td>
                 </tr>
@@ -58,15 +54,13 @@
                 </tr>
                 <tr>
                     <td>Gender</td>
-                    <td>
-                        <label>
-                            <select class="w3-select w3-round-xlarge" name="gender">
-                                <option value="" disabled selected>Choose Gender</option>
-                                <option value="SEX_MALE">Male</option>
-                                <option value="SEX_FEMALE">Female</option>
-                            </select>
-                        </label>
-                    </td>
+                    <td><label>
+                        <select class="w3-select w3-round-xlarge" name="gender">--%>
+                            <c:forEach var="gender" items="${list}">
+                                <option value="${gender.name().toString()}">${gender.name().toString()}</option>
+                            </c:forEach>
+                        </select>
+                    </label></td>
                 </tr>
                 <tr>
                     <td>Email</td>
@@ -84,17 +78,6 @@
                             <input class="w3-input w3-center w3-border w3-small w3-round-xlarge w3-hover-light-blue"
                                    type="password" name="password" placeholder=" Enter password "
                                    value="${user.password}"/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Role</td>
-                    <td>
-                        <label>
-                            <select class="w3-select w3-round-xlarge" name="roles">
-                                <option value="2" disabled selected></option>
-                                <option value="2">ROLE_USER</option>
-                            </select>
                         </label>
                     </td>
                 </tr>

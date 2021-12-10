@@ -1,4 +1,4 @@
-package org.goit.springhw8.model.dto;
+package org.goit.springhw8.util;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

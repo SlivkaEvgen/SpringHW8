@@ -34,7 +34,7 @@ public class User implements BaseModel<String> {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "gender", insertable = false)
+    @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
 

@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import org.goit.springhw8.model.Product;
 import org.goit.springhw8.service.ProductService;
 import org.goit.springhw8.util.Validator;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
@@ -27,17 +26,20 @@ public class ProductController {
     }
 
     @GetMapping("product")
-    public ModelAndView entity(ModelMap model) {
+    public ModelAndView entityProduct(ModelMap model) {
         return new ModelAndView("product/product", model);
     }
 
     @GetMapping("list")
-    public ModelAndView getAllProducts(@NotNull ModelMap model) {
-        return new ModelAndView("product/list", model.addAttribute("list", productService.getList()));
+    public ModelAndView getAllProducts(ModelMap model) {
+        if (model==null){
+            return new ModelAndView("product/list");
+        }
+        return new ModelAndView("product/list", model.addAttribute("list", productService.getAll()));
     }
 
     @GetMapping("id")
-    public ModelAndView findById(String id, ModelMap model) {
+    public ModelAndView getProductById(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("product/productById", model);
         }
@@ -54,7 +56,7 @@ public class ProductController {
     }
 
     @GetMapping("name")
-    public ModelAndView findByName(String name, ModelMap model) {
+    public ModelAndView getProductByName(String name, ModelMap model) {
         if (name == null) {
             return new ModelAndView("product/productByName", model);
         }
@@ -71,7 +73,10 @@ public class ProductController {
     }
 
     @GetMapping(value = "delete")
-    public ModelAndView delete(String id, @NotNull ModelMap model) {
+    public ModelAndView deleteProductById(String id, ModelMap model) {
+        if (model==null){
+            return new ModelAndView("product/deleteProduct");
+        }
         if (id == null) {
             return new ModelAndView("product/deleteProduct", model);
         }
@@ -91,12 +96,18 @@ public class ProductController {
     }
 
     @RequestMapping(value = "new/**", method = RequestMethod.GET)
-    public ModelAndView addNew(@Valid Product product, @NotNull ModelMap model) {
+    public ModelAndView addNewProductGet(@Valid Product product, ModelMap model) {
+        if (model==null){
+            return new ModelAndView("product/newProduct");
+        }
         return new ModelAndView("product/newProduct", model.addAttribute("list2", productService.findAllManufacturer()).addAttribute("product", product));
     }
 
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
-    public ModelAndView addNewPost(@Valid Product product, @NotNull ModelMap model) {
+    public ModelAndView addNewProductPost(@Valid Product product, ModelMap model) {
+        if (model==null){
+            return new ModelAndView("product/newProduct");
+        }
         model.addAttribute("list2", productService.findAllManufacturer());
         if (product == null) {
             return new ModelAndView("product/newProduct", model.addAttribute("error", "Product Is Null").addAttribute("error2", "Please, Try Again"));
@@ -137,12 +148,18 @@ public class ProductController {
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.GET)
-    public ModelAndView update(@Valid Product product, @NotNull ModelMap model) {
+    public ModelAndView updateProductGet(@Valid Product product, ModelMap model) {
+        if (model==null){
+            return new ModelAndView("product/updateProduct");
+        }
         return new ModelAndView("product/updateProduct", model.addAttribute("product", product).addAttribute("list2", productService.findAllManufacturer()));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(@Valid Product product, @NotNull ModelMap model) {
+    public ModelAndView updateProductPost(@Valid Product product, ModelMap model) {
+        if (model==null){
+            return new ModelAndView("product/updateProduct");
+        }
         model.addAttribute("list2", productService.findAllManufacturer());
         model.addAttribute("error2", "Please, Try Again");
 //        model.addAttribute("manufacturer", product.getManufacturer());

@@ -23,8 +23,9 @@ public class UserService extends ServiceI<User, String> implements IUserService 
         this.userRepository = userRepository;
     }
 
+    @Override
     public List<User> getAll() {
-        return userRepository.findAll();
+        return super.getAll();
     }
 
     @Override
@@ -34,12 +35,12 @@ public class UserService extends ServiceI<User, String> implements IUserService 
 
     @Override
     public Optional<User> getById(String id) {
-        return userRepository.findById(id);
+        return super.getById(id);
     }
 
     @Override
     public Optional<User> findByName(String name) {
-        if (name==null){
+        if (name == null) {
             return Optional.empty();
         }
         return super.findByName(name.toUpperCase());
@@ -47,19 +48,24 @@ public class UserService extends ServiceI<User, String> implements IUserService 
 
     @Override
     public User registerNewUserAccount(UserDto userDto) {
+        System.out.println("registerNewUserAccount = " + userDto);
         return userRepository.save(userDto);
     }
 
     @Override
     public void deleteById(String id) {
-        userRepository.deleteById(id);
+        super.deleteById(id);
+    }
+
+    public void saveUser(User user) {
+        super.saveEntity(user);
     }
 
     public List<Gender> getGenderList() {
-        return Arrays.asList(Gender.FEMALE,Gender.MALE);
+        return Arrays.asList(Gender.FEMALE, Gender.MALE);
     }
 
-    public List<Role> getRoles(){
+    public List<Role> getRoles() {
         return Arrays.asList(Role.values());
     }
 }

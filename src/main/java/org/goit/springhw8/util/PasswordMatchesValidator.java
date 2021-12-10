@@ -1,7 +1,8 @@
-package org.goit.springhw8.model.dto;
+package org.goit.springhw8.util;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.goit.springhw8.model.dto.UserDto;
 
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
 
