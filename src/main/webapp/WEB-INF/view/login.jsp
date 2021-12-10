@@ -17,10 +17,10 @@
 </head>
 
 
-<span style="flood-color: crimson; text-decoration-style: solid; ">
-        <a href="/registration">Sign Up</a>
-    |
-        <a href="/login">Log In </a></span>
+<%--<span style="flood-color: crimson; text-decoration-style: solid; ">--%>
+<%--        <a href="/registration">Sign Up</a>--%>
+<%--    |--%>
+<%--        <a href="/login">Log In </a></span>--%>
 
 
 <%--  <div class="w3-display-bottomleft">
@@ -38,7 +38,12 @@
         </div>--%>
 
 <body>
-<div class="w3-container w3-center w3-round-xlarge w3-small">
+
+<div class="w3-container w3-center w3-round-large w3-small">
+    <span style="flood-color: crimson; text-decoration-style: solid; ">
+        <a href="/registration">Sign Up</a>
+    |
+        <a href="/login">Log In </a></span>
     <nav class="w3-bar-block  w3-light-grey w3-small w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
         <h5 style="color:crimson" class="text w3-wide w3-center w3-animate-fading w3-round-large">LOGIN</h5>
         <form class="container m3-center w3-small w3-round-xlarge" method="POST"

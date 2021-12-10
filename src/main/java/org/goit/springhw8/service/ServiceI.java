@@ -18,7 +18,7 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
 
     private final RepositoryI<T, ID> repositoryI;
 
-    public List<T> getList() {
+    public List<T> getAll() {
         return repositoryI.findAll();
     }
 
@@ -30,7 +30,7 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
         if (name == null) {
             return Optional.empty();
         }
-        return repositoryI.findByName(name.toUpperCase());
+        return Optional.ofNullable(repositoryI.findByName(name.toUpperCase()).get(0));
     }
 
     public void deleteById(@Valid ID id) {

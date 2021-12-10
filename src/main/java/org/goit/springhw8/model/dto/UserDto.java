@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.goit.springhw8.model.Gender;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
+import org.goit.springhw8.util.PasswordMatches;
+import org.goit.springhw8.util.ValidEmail;
 
 import java.util.Set;
 

@@ -3,7 +3,6 @@ package org.goit.springhw8.controller;
 import org.goit.springhw8.model.Manufacturer;
 import org.goit.springhw8.service.ManufacturerService;
 import org.goit.springhw8.util.Validator;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Collections;
 import java.util.Optional;
 
-////        if you delete a manufacturer, then all products will be deleted as well. //    @PreAuthorize("hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')") //        Are you sure you want to remove the manufacturer?
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")  ////    @Secured({"ROLE_ADMIN"})
 @RequestMapping("manufacturer")
 @Controller
 public class ManufacturerController {
@@ -27,17 +24,20 @@ public class ManufacturerController {
     }
 
     @GetMapping("manufacturer")
-    public ModelAndView entity(ModelMap model) {
+    public ModelAndView entityManufacturer(ModelMap model) {
         return new ModelAndView("manufacturer/manufacturer", model);
     }
 
     @GetMapping("list")
-    public ModelAndView getAllManufacturers(@NotNull ModelMap model) {
-        return new ModelAndView("manufacturer/list", model.addAttribute("list", manufacturerService.getList()));
+    public ModelAndView getAllManufacturers(ModelMap model) {
+        if (model==null){
+            return new ModelAndView("manufacturer/list");
+        }
+        return new ModelAndView("manufacturer/list", model.addAttribute("list", manufacturerService.getAll()));
     }
 
     @GetMapping("name")
-    public ModelAndView findByManufacturerName(String name, ModelMap model) {
+    public ModelAndView getByManufacturerName(String name, ModelMap model) {
         if (name == null) {
             return new ModelAndView("manufacturer/manufacturerByName", model);
         }
@@ -55,7 +55,7 @@ public class ManufacturerController {
     }
 
     @GetMapping("id")
-    public ModelAndView findById(String id, ModelMap model) {
+    public ModelAndView getByManufacturerId(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("manufacturer/manufacturerById", model);
         }
@@ -72,7 +72,7 @@ public class ManufacturerController {
     }
 
     @GetMapping("delete")
-    public ModelAndView delete(String id, ModelMap model) {
+    public ModelAndView deleteManufacturerById(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("manufacturer/deleteManufacturer", model);
         }
@@ -87,12 +87,15 @@ public class ManufacturerController {
     }
 
     @GetMapping("update/**")
-    public ModelAndView update(Manufacturer manufacturer, @NotNull ModelMap model) {
+    public ModelAndView updateManufacturerGet(Manufacturer manufacturer, ModelMap model) {
+        if (model==null){
+            return new ModelAndView("manufacturer/updateManufacturer");
+        }
         return new ModelAndView("manufacturer/updateManufacturer", model.addAttribute("manufacturer", manufacturer));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(Manufacturer manufacturer, ModelMap model) {
+    public ModelAndView updateManufacturerPost(Manufacturer manufacturer, ModelMap model) {
         if (manufacturer == null) {
             return new ModelAndView("manufacturer/updateManufacturer", model.addAttribute("error", "Manufacturer is Null").addAttribute("error2", "Try Again"));
         }
@@ -123,12 +126,18 @@ public class ManufacturerController {
     }
 
     @GetMapping("new")
-    public ModelAndView addNew(Manufacturer manufacturer, @NotNull ModelMap model) {
+    public ModelAndView addNewManufacturerGet(Manufacturer manufacturer, ModelMap model) {
+        if (model==null){
+            return new ModelAndView("manufacturer/newManufacturer");
+        }
         return new ModelAndView("manufacturer/newManufacturer", model.addAttribute("manufacturer", manufacturer));
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewPost(@NotNull Manufacturer manufacturer, ModelMap model) {
+    public ModelAndView addNewManufacturerPost(Manufacturer manufacturer, ModelMap model) {
+        if (manufacturer==null){
+            return new ModelAndView("manufacturer/newManufacturer");
+        }
         if (manufacturer.getId() == null) {
             return new ModelAndView("manufacturer/newManufacturer", model.addAttribute("error", "Manufacturer ID Is Null").addAttribute("error2", "Try Again"));
         }

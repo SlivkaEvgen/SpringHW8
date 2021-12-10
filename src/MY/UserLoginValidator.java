@@ -1,5 +1,12 @@
 //package org.goit.springhw8.util;
 //
+
+
+//////    @PreAuthorize("hasRole('ADMIN') and hasAuthority('ADMIN')") ////@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")  ////    @Secured({"ROLE_ADMIN"})
+////        if you delete a manufacturer, then all products will be deleted as well. //    @PreAuthorize("hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')") //        Are you sure you want to remove the manufacturer?
+
+
 //import org.goit.springhw8.model.User;
 //import org.goit.springhw8.service.UserService;
 //import org.jetbrains.annotations.NotNull;

@@ -43,8 +43,8 @@
         </div>
     </div>
     <p></p>
-    <a href="${pageContext.request.contextPath}/role"
-       class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Role</a>
+<%--    <a href="${pageContext.request.contextPath}/role"--%>
+<%--       class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Role</a>--%>
     <a href="${pageContext.request.contextPath}/user"
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">User</a>
     <a href="${pageContext.request.contextPath}/product"
