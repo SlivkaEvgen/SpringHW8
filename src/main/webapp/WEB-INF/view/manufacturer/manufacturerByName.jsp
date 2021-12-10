@@ -15,7 +15,6 @@
 <head>
     <title>Manufacturer By Name</title>
     <%@include file="manufacturer.jsp" %>
-
 </head>
 
 <body>

@@ -32,7 +32,8 @@
                     <td>
                         <label>
                             <input class="w3-input w3-center w3-border w3-small w3-round-xlarge w3-hover-light-blue"
-                                   type="text" name="id" placeholder=" Enter Manufacturer ID " value="${manufacturer.id}"/>
+                                   type="text" name="id" placeholder=" Enter Manufacturer ID "
+                                   value="${manufacturer.id}"/>
                         </label>
                     </td>
                 </tr>

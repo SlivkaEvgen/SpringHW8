@@ -3,9 +3,7 @@
 
 <!DOCTYPE HTML>
 <html>
-<head>
-<%--    <title>Function For Tables</title>--%>
-</head>
+
 <body>
 
 <script>

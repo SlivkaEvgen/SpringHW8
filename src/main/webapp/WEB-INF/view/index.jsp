@@ -10,7 +10,6 @@
 </head>
 <%@include file="welcome.jsp" %>
 <body>
-
 <sec:authorize access="!isAuthenticated()">
     <div>
         <div class="w3-container w3-center w3-round-xlarge w3-padding-64">

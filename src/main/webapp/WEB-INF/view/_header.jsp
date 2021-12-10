@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@include file="logout.jsp"%>
-<%@include file="metaLink.jsp"%>
+<%@include file="logout.jsp" %>
+<%@include file="metaLink.jsp" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -17,7 +17,6 @@
 </style>
 
 <header>
-<%--    <title>Header</title>--%>
 </header>
 
 <body>
@@ -29,11 +28,10 @@
         <h6 class="date-cell w3-center w3-round-xlarge"
             style="color: darkslateblue; animation-timing-function: ease-in-out">
             <%
-                Date dNow = new Date( );
-                SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
-                out.print( "<h5 align=\"center\">" + ft.format(dNow) + "</h5>");
+                Date dNow = new Date();
+                SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                out.print("<h5 align=\"center\">" + ft.format(dNow) + "</h5>");
             %>
-<%--            <% out.println(new Date().toString()); %>--%>
         </h6>
     </a>
     <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
@@ -43,8 +41,8 @@
         </div>
     </div>
     <p></p>
-<%--    <a href="${pageContext.request.contextPath}/role"--%>
-<%--       class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Role</a>--%>
+    <%--    <a href="${pageContext.request.contextPath}/role"--%>
+    <%--       class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Role</a>--%>
     <a href="${pageContext.request.contextPath}/user"
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">User</a>
     <a href="${pageContext.request.contextPath}/product"

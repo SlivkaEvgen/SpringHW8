@@ -50,7 +50,7 @@
                     <td>Manufacturer</td>
                     <td><label>
                         <select class="w3-select w3-center w3-round-xlarge" name="manufacturer">
-                            <c:forEach var="manufacturer" items="${list2}" >
+                            <c:forEach var="manufacturer" items="${list2}">
                                 <option value="${manufacturer.name}">${manufacturer.name}</option>
                             </c:forEach>
                         </select>
