@@ -43,11 +43,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("USER")
                 .and()
                 .withUser("ADMIN")
-                .password(userService.getByName("ADMIN").get(0).getPassword())
+                .password("123")
                 .password("$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG")
                 .authorities("ADMIN")
                 .roles("ADMIN")
-                .authorities(userService.getByName("admin".toUpperCase()).get(0).getRoles().toString());
+                .authorities("ADMIN");
     }
 
     @SneakyThrows

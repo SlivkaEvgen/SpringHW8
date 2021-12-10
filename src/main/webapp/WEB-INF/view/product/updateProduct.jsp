@@ -50,11 +50,9 @@
                     <td>Manufacturer</td>
                     <td><label>
                         <select class="w3-select w3-center w3-round-xlarge" name="manufacturer">
-                            <option value="" disabled selected>Choose Manufacturer</option>
-                            <option value="1">APPLE</option>
-                            <option value="2">SAMSUNG</option>
-                            <option value="3">LG</option>
-                            <option value="4">MOTOROLA</option>
+                            <c:forEach var="manufacturer" items="${list2}" >
+                                <option value="${manufacturer.name}">${manufacturer.name}</option>
+                            </c:forEach>
                         </select>
                     </label></td>
                 </tr>

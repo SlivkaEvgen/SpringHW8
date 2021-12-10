@@ -8,9 +8,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@RequiredArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -35,6 +34,7 @@ public class Product implements BaseModel<String> {
     @Size(max = 20, message = "max = 20")
     private Double price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
 }

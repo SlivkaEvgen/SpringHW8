@@ -13,7 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@Controller
+@Controller ////        if you delete a manufacturer, then all products will be deleted as well.
+              //        Are you sure you want to remove the manufacturer?
 @RequestMapping("manufacturer")
 public class ManufacturerController {
 
@@ -73,7 +74,6 @@ public class ManufacturerController {
 
     @GetMapping("delete")
     public ModelAndView delete(String id, ModelMap model) {
-        System.out.println("delete id = "+id);
         if (id == null) {
             return new ModelAndView("manufacturer/deleteManufacturer", model);
         }
@@ -84,7 +84,7 @@ public class ManufacturerController {
             return new ModelAndView("manufacturer/deleteManufacturer", model.addAttribute("error", "Manufacturer With ID = " + id + " Not Found").addAttribute("error2", "Try again"));
         }
         manufacturerService.deleteById(id);
-        return new ModelAndView("redirect:/manufacturer", model.addAttribute("error", "Manufacturer Deleted").addAttribute("error2", "SUCCESSFULLY"));
+        return new ModelAndView("manufacturer/manufacturer", model.addAttribute("error", "Manufacturer Deleted").addAttribute("error2", "SUCCESSFULLY"));
     }
 
     @GetMapping("update/**")
@@ -158,4 +158,5 @@ public class ManufacturerController {
         manufacturerService.saveEntity(manufacturer);
         return new ModelAndView("manufacturer/manufacturer", model.addAttribute("manufacturer", manufacturer).addAttribute("error", "SUCCESSFULLY").addAttribute("error2", "New Manufacturer Added"));
     }
+
 }

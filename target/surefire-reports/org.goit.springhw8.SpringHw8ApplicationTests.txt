@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.goit.springhw8.SpringHw8ApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.114 s - in org.goit.springhw8.SpringHw8ApplicationTests

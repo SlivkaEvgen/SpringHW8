@@ -7,11 +7,10 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-@ToString
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table(name = "manufacturer")
 public class Manufacturer implements BaseModel<String> {
@@ -28,7 +27,6 @@ public class Manufacturer implements BaseModel<String> {
     @Size(min = 2, max = 25, message = "min = 2, max = 25")
     private String name;
 
-    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @ToString.Exclude
+    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<Product> products;
 }

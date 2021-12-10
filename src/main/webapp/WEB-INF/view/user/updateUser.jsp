@@ -56,15 +56,13 @@
             </tr>
             <tr>
                 <td>Gender</td>
-                <td>
-                    <label>
-                        <select class="w3-select" name="gender">
-                            <option value="" disabled selected>Choose Gender</option>
-                            <option value="SEX_MALE">Male</option>
-                            <option value="SEX_FEMALE">Female</option>
-                        </select>
-                    </label>
-                </td>
+                <td><label>
+                    <select class="w3-select w3-center w3-round-xlarge" name="manufacturer">
+                        <c:forEach var="gender" items="${list2}" >
+                            <option value="${gender.gender}">${gender.gender}</option>
+                        </c:forEach>
+                    </select>
+                </label></td>
             </tr>
             <tr>
                 <td>Email</td>
@@ -87,19 +85,13 @@
             </tr>
             <tr>
                 <td>Role</td>
-                <td>
-                    <label>
-                        <select class="w3-select w3-round-xlarge" name="roles">
-                            <option value="" disabled selected> Choose Role</option>
-                            <option value="2">ROLE_USER</option>
-                            <option value="3">ROLE_MODERATOR</option>
-                            <option value="4">ROLE_DEVELOPER</option>
-                            <option value="5">ROLE_PRODUCTION</option>
-                            <option value="6">ROLE_OWNER</option>
-                            <option value="7">ROLE_MY</option>
-                        </select>
-                    </label>
-                </td>
+                <td><label>
+                    <select class="w3-select w3-center w3-round-xlarge" name="manufacturer">
+                        <c:forEach var="role" items="${list3}" begin="1" >
+                            <option value="${role.name}">${role.name}</option>
+                        </c:forEach>
+                    </select>
+                </label></td>
             </tr>
             <tr>
                 <th>

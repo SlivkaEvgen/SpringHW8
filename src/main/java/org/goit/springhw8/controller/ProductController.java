@@ -1,17 +1,21 @@
 package org.goit.springhw8.controller;
 
+import jakarta.validation.Valid;
 import org.goit.springhw8.model.Product;
+import org.goit.springhw8.model.User;
+import org.goit.springhw8.service.ManufacturerService;
 import org.goit.springhw8.service.ProductService;
 import org.goit.springhw8.util.Validator;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@Validated
 @RequestMapping("product")
 public class ProductController {
 
@@ -65,32 +69,34 @@ public class ProductController {
         return new ModelAndView("product/productByName", model.addAttribute("list", productService.getByName(name)).addAttribute("error2", "SUCCESSFULLY"));
     }
 
-    //    @Secured(value = {"ROLE_ADMIN"})
-    @GetMapping("delete")
-    public ModelAndView delete(String id, ModelMap model) {
+    @GetMapping(value = "delete")
+    public ModelAndView delete(String id, @NotNull ModelMap model) {
         if (id == null) {
             return new ModelAndView("product/deleteProduct", model);
         }
+        model.addAttribute("error2", "Please, Try Again");
         if (id.isEmpty()) {
-            return new ModelAndView("product/deleteProduct", model.addAttribute("id", id).addAttribute("error", "Product ID Is Empty").addAttribute("error2", "Please, Try Again"));
+            return new ModelAndView("product/deleteProduct", model.addAttribute("id", id).addAttribute("error", "Product ID Is Empty"));
         }
         if (!Validator.validId(id)) {
-            return new ModelAndView("product/deleteProduct", model.addAttribute("id", id).addAttribute("error", "Wrong Product ID ").addAttribute("error2", "Please, Try Again"));
+            model.addAttribute("error2", "Please, Try Again");
+            return new ModelAndView("product/deleteProduct", model.addAttribute("id", id).addAttribute("error", "Wrong Product ID "));
         }
         if (!productService.getById(id).isPresent()) {
-            return new ModelAndView("product/deleteProduct", model.addAttribute("id", id).addAttribute("error", "Could Not Find Product With ID " + id).addAttribute("error2", "Please, Try Again"));
+            return new ModelAndView("product/deleteProduct", model.addAttribute("id", id).addAttribute("error", "Could Not Find Product With ID " + id));
         }
         productService.deleteById(id);
         return new ModelAndView("product/product", model.addAttribute("id", id).addAttribute("error", " Product Deleted").addAttribute("error2", "SUCCESSFULLY"));
     }
 
-    @GetMapping("new/**")
+    @RequestMapping(value = "new/**", method = RequestMethod.GET)
     public ModelAndView addNew(Product product, @NotNull ModelMap model) {
-        return new ModelAndView("product/newProduct", model.addAttribute("product", product));
+        return new ModelAndView("product/newProduct", model.addAttribute("list2", productService.findAllManufacturer()).addAttribute("product", product));
     }
 
-    @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewPost(Product product, ModelMap model) {
+    @RequestMapping(value = "new/**", method = RequestMethod.POST)
+    public ModelAndView addNewPost(@Valid Product product, @NotNull ModelMap model) {
+        model.addAttribute("list2", productService.findAllManufacturer());
         if (product == null) {
             return new ModelAndView("product/newProduct", model.addAttribute("error", "Product Is Null").addAttribute("error2", "Please, Try Again"));
         }
@@ -129,15 +135,21 @@ public class ProductController {
         return new ModelAndView("product/product", model.addAttribute("error", "New Product Added").addAttribute("error2", "SUCCESSFULLY"));
     }
 
-    @GetMapping("update/**")
+    @RequestMapping(value = "update/**", method = RequestMethod.GET)
     public ModelAndView update(Product product, @NotNull ModelMap model) {
-        return new ModelAndView("product/updateProduct", model.addAttribute("product", product));
+        return new ModelAndView("product/updateProduct", model.addAttribute("product", product).addAttribute("list2",productService.findAllManufacturer()));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(@NotNull Product product, ModelMap model) {
+    public ModelAndView updatePost(@Valid Product product, @NotNull ModelMap model) {
+        model.addAttribute("list2", productService.findAllManufacturer());
+        model.addAttribute("error2", "Please, Try Again");
+//        model.addAttribute("manufacturer", product.getManufacturer());
+        if (product == null) {
+            return new ModelAndView("product/updateProduct", model.addAttribute("error", "Product Is Null"));
+        }
         if (product.getId() == null) {
-            return new ModelAndView("product/updateProduct", model.addAttribute("manufacturer", product.getManufacturer()).addAttribute("error", "Product ID Is Null").addAttribute("error2", "Please, Try Again"));
+            return new ModelAndView("product/updateProduct", model.addAttribute("manufacturer", product.getManufacturer()).addAttribute("error", "Product ID Is Null"));
         }
         if (product.getName() == null) {
             return new ModelAndView("product/updateProduct", model.addAttribute("manufacturer", product.getManufacturer()).addAttribute("error", "Product Name Is Null").addAttribute("error2", "Please, Try Again"));
@@ -172,4 +184,5 @@ public class ProductController {
         productService.saveEntity(new Product(product.getId(), product.getName().toUpperCase(), product.getPrice(), product.getManufacturer()));
         return new ModelAndView("product/product", model.addAttribute("manufacturer", product.getManufacturer()).addAttribute("error", " Product Updated").addAttribute("error2", "SUCCESSFULLY"));
     }
+
 }

@@ -42,11 +42,11 @@
                     <td>${product.price}</td>
                     <td>${product.manufacturer.name}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}update/?id=${product.id}"
+                            <a href="${pageContext.request.contextPath}/product/update/?id=${product.id}"
                                class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
                         </td>
                         <td>
-                            <a href="${pageContext.request.contextPath}delete/?id=${product.id}"
+                            <a href="${pageContext.request.contextPath}/product/delete/?id=${product.id}"
                                class="w3-btn w3-hover-red w3-round-xlarge">Delete</a>
                         </td>
                 </tr>

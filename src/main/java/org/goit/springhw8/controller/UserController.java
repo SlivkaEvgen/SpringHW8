@@ -5,11 +5,13 @@ import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserService;
 import org.goit.springhw8.util.Validator;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -49,12 +51,12 @@ public class UserController {
         if (!userService.getById(id).isPresent()) {
             return new ModelAndView("user/userById", model.addAttribute("error2", "Is Empty"));
         }
-        return new ModelAndView("user/userById", model.addAttribute("error2", "SUCCESSFULLY").addAttribute("list", userService.getById(id)));
+        return new ModelAndView("user/userById", model.addAttribute("error2", "SUCCESSFULLY").addAttribute("list", userService.findListById(id)));
 
     }
 
     @GetMapping("name")
-    public ModelAndView findByUserName(@AuthenticationPrincipal String name, ModelMap model) {
+    public ModelAndView findByUserName(String name, ModelMap model) {
         if (name == null) {
             return new ModelAndView("user/userByName", model);
         }
@@ -67,7 +69,7 @@ public class UserController {
         if (userService.getByName(name).isEmpty()) {
             return new ModelAndView("user/userByName", model.addAttribute("name", name).addAttribute("model", model).addAttribute("error", "Could Not Find By Name " + name).addAttribute("error2", "Please, Try Again"));
         }
-        return new ModelAndView("user/userByName", model.addAttribute("error2", "SUCCESSFULLY").addAttribute("list", userService.getByName(name.toUpperCase())));
+        return new ModelAndView("user/userByName", model.addAttribute("error2", "SUCCESSFULLY").addAttribute("list", userService.getByName(name)));
     }
 
 //    @Secured({"ADMIN"})
@@ -90,16 +92,17 @@ public class UserController {
             return new ModelAndView("user/deleteUser", model.addAttribute("id", id).addAttribute("error", "Sorry, You Cannot Delete The Administrator").addAttribute("error2", "Please, Try Again"));
         }
         userService.deleteById(id);
-        return new ModelAndView("redirect:/user", model.addAttribute("error", "User Deleted").addAttribute("error2", "SUCCESSFULLY"));
+        return new ModelAndView("user/user", model.addAttribute("error", "User Deleted").addAttribute("error2", "SUCCESSFULLY"));
     }
 
     @GetMapping("new/**")
     public ModelAndView addNew(@AuthenticationPrincipal User user, @NotNull ModelMap model) {
-        return new ModelAndView("user/newUser", model.addAttribute("user", user));
+        return new ModelAndView("user/newUser", model.addAttribute("user", user).addAttribute("list2",userService.getGenderList()).addAttribute("list3",userService.getRoles()));
     }
 
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
     public ModelAndView addNewPost(@NotNull @Valid @ModelAttribute User user, ModelMap model) {
+        model.addAttribute("user", user).addAttribute("list3",userService.getRoles()).addAttribute("list2",userService.getGenderList());
         if (user.getId() == null) {
             return new ModelAndView("user/newUser", model);
         }
@@ -166,12 +169,16 @@ public class UserController {
     }
 
     @GetMapping("update/**")
-    public ModelAndView update(@AuthenticationPrincipal User user, @NotNull ModelMap model) {
-        return new ModelAndView("user/updateUser", model.addAttribute("user", user));
+    public ModelAndView update(@AuthenticationPrincipal User user, ModelMap model) {
+        return new ModelAndView("user/updateUser", model.addAttribute("user", user).addAttribute("list3",userService.getRoles()).addAttribute("list2",userService.getGenderList()));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updatePost(@NotNull @AuthenticationPrincipal User user, @NotNull ModelMap model) {
+    public ModelAndView updatePost(@AuthenticationPrincipal User user, @NotNull ModelMap model) {
+        model.addAttribute("user", user).addAttribute("list3",userService.getRoles()).addAttribute("list2",userService.getGenderList());
+        if (user==null){
+            return new ModelAndView("user/updateUser", model);
+        }
         if (user.getId() == null) {
             return new ModelAndView("user/updateUser", model);
         }
