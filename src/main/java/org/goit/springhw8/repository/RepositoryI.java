@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.List;
-import java.util.Optional;
 
 @NoRepositoryBean
 public interface RepositoryI<T extends BaseModel<ID>, ID> extends JpaRepository<T, ID> {
