@@ -9,40 +9,75 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Service i.
+ *
+ * @param <T>  the type parameter
+ * @param <ID> the type parameter
+ */
 @Service
 @RequiredArgsConstructor
 public abstract class ServiceI<T extends BaseModel<ID>, ID> {
 
     private final RepositoryI<T, ID> repositoryI;
 
+    /**
+     * Gets all.
+     *
+     * @return the all
+     */
     public List<T> getAll() {
         return repositoryI.findAll();
     }
 
+    /**
+     * Gets by id.
+     *
+     * @param id the id
+     * @return the by id
+     */
     public Optional<T> getById(ID id) {
         return repositoryI.findById(id);
     }
 
-    public Optional<T> findByName(String name) {
-        if (name == null) {
-            return Optional.empty();
-        }
-        return Optional.ofNullable(repositoryI.findByName(name.toUpperCase()).get(0));
+    /**
+     * Find by name optional.
+     *
+     * @param name the name
+     * @return the optional
+     */
+    public List<T> findByName(String name) {
+        return repositoryI.findByName(name.toUpperCase());
     }
 
+    /**
+     * Delete by id.
+     *
+     * @param id the id
+     */
     public void deleteById(ID id) {
         repositoryI.deleteById(id);
     }
 
+    /**
+     * Save entity.
+     *
+     * @param t the t
+     */
     public void saveEntity(T t) {
         repositoryI.save(t);
     }
 
-    public List<T> findListById(ID id) {
-        List<T> tList = new ArrayList<>();
-        if (repositoryI.findById(id).isPresent()) {
-            tList.add(repositoryI.findById(id).get());
-        }
+    /**
+     * Find list by entity id list.
+     *
+     * @param id the id
+     * @return the list
+     */
+    public List<T> findListByEntityId(ID id) {
+        ArrayList<T> tList = new ArrayList<>();
+        Optional<T> optionalT = repositoryI.findById(id);
+        optionalT.ifPresent(tList::add);
         return tList;
     }
 }

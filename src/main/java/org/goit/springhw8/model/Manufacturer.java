@@ -10,6 +10,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * The type Manufacturer.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
