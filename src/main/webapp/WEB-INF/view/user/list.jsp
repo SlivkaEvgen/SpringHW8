@@ -1,5 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="user.jsp" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -14,8 +15,6 @@
 
 <head>
     <title>List Users</title>
-
-    <jsp:include page="user.jsp"></jsp:include>
 </head>
 
 <body>
@@ -48,7 +47,6 @@
                     <td>${user.gender}</td>
                     <td>${user.email}</td>
                     <td>${user.password.hashCode()}</td>
-<%--                    <td>${user.passwordConfirm.length()}</td>--%>
                     <td>${user.roles.parallelStream().findAny().get().name}</td>
                     <td>${user.active}</td>
                     <td>
@@ -67,6 +65,6 @@
 </div>
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<%@include file="/WEB-INF/view/catchPhrase.jsp" %>
 
 </html>

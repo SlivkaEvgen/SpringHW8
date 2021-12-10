@@ -38,7 +38,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/product/id/**").setViewName("product/productById");
         registry.addViewController("/product/name/**").setViewName("product/productByName");
         registry.addViewController("/product/list/**").setViewName("product/list");
-        registry.addViewController("/product/delete").setViewName("product/deleteProduct");
+        registry.addViewController("/product/delete/**").setViewName("product/deleteProduct");
         registry.addViewController("/product/update/**").setViewName("product/updateProduct");
         registry.addViewController("/product/new/**").setViewName("product/newProduct");
         registry.addViewController("/product/manufacturerId/**").setViewName("product/productByManufactureId");
@@ -52,17 +52,3 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/manufacturer/new/**").setViewName("manufacturer/newManufacturer");
     }
 }
-//@Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/pages/**").addResourceLocations("/pages/");
-//    }
-//
-//    @Bean
-//    public UrlBasedViewResolver setupViewResolver() {
-//        UrlBasedViewResolver resolver = new UrlBasedViewResolver();
-//        resolver.setPrefix("/pages/");
-//        resolver.setSuffix(".jsp");
-//        resolver.setViewClass(JstlView.class);
-//
-//        return resolver;
-//    }

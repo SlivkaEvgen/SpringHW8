@@ -1,21 +1,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@include file="manufacturer.jsp" %>
 
 <!DOCTYPE HTML>
 <html>
 
 <style>
-     .w3-display-bottommiddle {
-         z-index: 2;
-         width: 550px;
-         line-height: initial;
-     }
+    .w3-display-bottommiddle {
+        z-index: 2;
+        width: 550px;
+        line-height: initial;
+    }
 </style>
 
 <head>
     <title>Manufacturer By ID</title>
-
-    <jsp:include page="manufacturer.jsp"></jsp:include>
 </head>
 
 <body>
@@ -34,7 +33,6 @@
                                    value="${manufacturer.name}"/>
                         </label>
                     </td>
-
                     <td colspan="1">
                         <input type="submit"
                                class="w3-input w3-center w3-border w3-hover-green w3-round-xlarge w3-light-blue"
@@ -68,9 +66,8 @@
         </form>
     </nav>
 </div>
-
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<%@include file="/WEB-INF/view/catchPhrase.jsp" %>
 
 </html>

@@ -1,5 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="user.jsp" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -14,15 +15,17 @@
 
 <head>
     <title>Update User</title>
-
-    <jsp:include page="user.jsp"></jsp:include>
 </head>
 
 <body>
-<form class="w3-container w3-small w3-center w3-round-xlarge" method="POST" action="${pageContext.request.contextPath}/update">
-    <nav style="width:30%" class="w3-light-grey w3-small w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
+<form class="w3-container w3-small w3-center w3-round-xlarge" method="POST"
+      action="${pageContext.request.contextPath}update">
+    <nav style="width:30%"
+         class="w3-light-grey w3-small w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
         <h5 style="color:steelblue" class="w3-text w3-center w3-animate-fading w3-round-xlarge">Update User</h5>
-        <table class="w3-table-all w3-small w3-centered " class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity" id="myTable">
+        <table class="w3-table-all w3-small w3-centered "
+               class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
+               id="myTable">
             <tr>
                 <td>ID</td>
                 <td>
@@ -53,15 +56,13 @@
             </tr>
             <tr>
                 <td>Gender</td>
-                <td>
-                    <label>
-                        <select class="w3-select" name="gender">
-                            <option value="" disabled selected>Choose Gender</option>
-                            <option value="SEX_MALE">Male</option>
-                            <option value="SEX_FEMALE">Female</option>
-                        </select>
-                    </label>
-                </td>
+                <td><label>
+                    <select class="w3-select w3-center w3-round-xlarge" name="manufacturer">
+                        <c:forEach var="gender" items="${list2}" >
+                            <option value="${gender.gender}">${gender.gender}</option>
+                        </c:forEach>
+                    </select>
+                </label></td>
             </tr>
             <tr>
                 <td>Email</td>
@@ -84,19 +85,13 @@
             </tr>
             <tr>
                 <td>Role</td>
-                <td>
-                    <label>
-                        <select class="w3-select w3-round-xlarge" name="roles">
-                            <option value="" disabled selected> Choose Role</option>
-                            <option value="2">ROLE_USER</option>
-                            <option value="3">ROLE_MODERATOR</option>
-                            <option value="4">ROLE_DEVELOPER</option>
-                            <option value="5">ROLE_PRODUCTION</option>
-                            <option value="6">ROLE_OWNER</option>
-                            <option value="7">ROLE_MY</option>
-                        </select>
-                    </label>
-                </td>
+                <td><label>
+                    <select class="w3-select w3-center w3-round-xlarge" name="manufacturer">
+                        <c:forEach var="role" items="${list3}" begin="1" >
+                            <option value="${role.name}">${role.name}</option>
+                        </c:forEach>
+                    </select>
+                </label></td>
             </tr>
             <tr>
                 <th>
@@ -115,6 +110,6 @@
 </form>
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<%@include file="/WEB-INF/view/catchPhrase.jsp" %>
 
 </html>

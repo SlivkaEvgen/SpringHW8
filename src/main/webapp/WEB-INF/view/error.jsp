@@ -9,7 +9,8 @@
 </head>
 
 <body>
-<div class="w3-display-position w3-round-xlarge w3-padding w3-hover-amber w3-red" style="top:350px;left:75px; bottom:15%;opacity:0.8;width:45% ; left: 75%">
+<div class="w3-display-position w3-round-xlarge w3-padding w3-hover-amber w3-red"
+     style="top:350px;left:75px; bottom:15%;opacity:0.8;width:45% ; left: 75%">
     <h2><c:out value="${error}" default=""></c:out><b><br></b></h2>
 </div>
 

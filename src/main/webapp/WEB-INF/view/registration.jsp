@@ -1,5 +1,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="_header.jsp" %>
+<%@include file="error2.jsp" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -14,13 +16,12 @@
 
 <head>
     <title>REGISTRATION</title>
-
-    <jsp:include page="_header.jsp"></jsp:include>
 </head>
 
 <body>
 <div class="w3-container w3-center w3-round-large">
-    <form class="container m3-center w3-round-xlarge" method="POST" action="${pageContext.request.contextPath}registration">
+    <form class="container m3-center w3-round-xlarge" method="POST"
+          action="${pageContext.request.contextPath}registration">
         <nav style="width:30%"
              class="w3-block  w3-light-grey w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
             <h5 style="color:crimson" class="text w3-wide w3-center w3-animate-fading w3-round-xlarge">REGISTRATION</h5>
@@ -114,8 +115,6 @@
 </div>
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
-<%--<jsp:include page="/WEB-INF/view/error.jsp"></jsp:include>--%>
-<jsp:include page="/WEB-INF/view/error2.jsp"></jsp:include>
+<%@include file="catchPhrase.jsp" %>
 
 </html>

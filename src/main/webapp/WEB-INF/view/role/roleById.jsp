@@ -1,21 +1,20 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="role.jsp" %>
 
 <!DOCTYPE HTML>
 <html>
 
 <style>
-     .w3-display-bottommiddle {
-         z-index: 2;
-         width: 550px;
-         line-height: initial;
-     }
+    .w3-display-bottommiddle {
+        z-index: 2;
+        width: 550px;
+        line-height: initial;
+    }
 </style>
 
 <head>
     <title>Role By ID</title>
-
-    <jsp:include page="role.jsp"></jsp:include>
 </head>
 
 <body>
@@ -70,6 +69,6 @@
 </div>
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<%@include file="/WEB-INF/view/catchPhrase.jsp" %>
 
 </html>

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@include file="role.jsp" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -14,8 +15,6 @@
 
 <head>
     <title>Roles List</title>
-
-    <jsp:include page="role.jsp"></jsp:include>
 </head>
 
 <body>
@@ -54,6 +53,6 @@
 </div>
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<%@include file="/WEB-INF/view/catchPhrase.jsp" %>
 
 </html>

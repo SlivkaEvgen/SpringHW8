@@ -14,8 +14,8 @@
 
 <head>
     <title>Manufacturer By Name</title>
+    <%@include file="manufacturer.jsp" %>
 
-    <jsp:include page="manufacturer.jsp"></jsp:include>
 </head>
 
 <body>
@@ -69,9 +69,8 @@
         </form>
     </nav>
 </div>
-
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<%@include file="/WEB-INF/view/catchPhrase.jsp" %>
 
 </html>

@@ -23,17 +23,17 @@ public class RoleController {
         this.roleService = roleService;
     }
 
-    @GetMapping("role") //OK
+    @GetMapping("role")
     public ModelAndView entity(ModelMap model) {
         return new ModelAndView("role/role", model);
     }
 
-    @GetMapping("list") //OK
+    @GetMapping("list")
     public ModelAndView getAllRoles(@NotNull ModelMap model) {
         return new ModelAndView("role/list", model.addAttribute("list", roleService.getList()));
     }
 
-    @GetMapping("name") //OK
+    @GetMapping("name")
     public ModelAndView findByRoleName(String name, ModelMap model) {
         if (name == null) {
             return new ModelAndView("role/roleByName", model);
@@ -47,12 +47,11 @@ public class RoleController {
         if (roleService.getByName(name).isEmpty()) {
             return new ModelAndView("role/roleByName", model.addAttribute("name", name).addAttribute("error", "Not Found Role With Name = " + name).addAttribute("error2", " Please, Try Again "));
         }
-        return new ModelAndView("role/roleByName", model.addAttribute("list", roleService.getByName(name)).addAttribute("error", "SUCCESSFULLY"));
+        return new ModelAndView("role/roleByName", model.addAttribute("list", roleService.getByName(name)).addAttribute("error2", "SUCCESSFULLY"));
     }
 
-    @GetMapping("id") //OK
+    @GetMapping("id")
     public ModelAndView findById(String id, ModelMap model) {
-        System.out.println("RoleController findById");
         if (id == null) {
             return new ModelAndView("role/roleById", model);
         }
@@ -65,45 +64,40 @@ public class RoleController {
         if (!roleService.getById(id).isPresent()) {
             return new ModelAndView("role/roleById", model.addAttribute("id", id).addAttribute("error", " No Found Role By ID = " + id).addAttribute("error2", " Please, Try Again "));
         }
-        return new ModelAndView("role/roleById", model.addAttribute("list", roleService.findListById(id)).addAttribute("error", "SUCCESSFULLY"));
+        return new ModelAndView("role/roleById", model.addAttribute("list", roleService.findListById(id)).addAttribute("error2", "SUCCESSFULLY"));
     }
 
-//    @Secured(value = {"ROLE_ADMIN"})
-    @GetMapping("delete") //OK
-    public ModelAndView delete( String id, ModelMap model) {
+    @GetMapping("delete")
+    public ModelAndView delete(String id, ModelMap model) {
         if (id == null) {
             return new ModelAndView("role/deleteRole", model);
         }
         if (id.isEmpty()) {
-            return new ModelAndView("role/deleteRole", model.addAttribute("id", id).addAttribute("error", "Role ID Is Empty").addAttribute("error2", "Try again"));
+            return new ModelAndView("role/deleteRole", model.addAttribute("id", id).addAttribute("error", "Role ID Is Empty").addAttribute("error2", "Please,Try Again "));
         }
         if (!Validator.validId(id)) {
-            return new ModelAndView("role/deleteRole", model.addAttribute("id", id).addAttribute("error", "Wrong Role ID").addAttribute("error2", "Try again"));
+            return new ModelAndView("role/deleteRole", model.addAttribute("id", id).addAttribute("error", "Wrong Role ID").addAttribute("error2", "Please,Try Again "));
         }
         if (!roleService.getById(id).isPresent()) {
-            return new ModelAndView("role/deleteRole", model.addAttribute("id", id).addAttribute("error", "Role With ID = " + id + " Is Empty").addAttribute("error2", "Try again"));
+            return new ModelAndView("role/deleteRole", model.addAttribute("id", id).addAttribute("error", "Role With ID = " + id + " Is Empty").addAttribute("error2", "Please,Try Again "));
         }
-        System.out.println(roleService.getById(id));
-        System.out.println(model.values());
         // If Admin
         if (roleService.getById(id).get().getName().equalsIgnoreCase("ROLE_ADMIN")) {
-            return new ModelAndView("role/deleteRole", model.addAttribute("id", id).addAttribute("error", "Sorry, The Admin Role Cannot Be Deleted").addAttribute("error2", "Try again"));
+            return new ModelAndView("role/deleteRole", model.addAttribute("id", id).addAttribute("error", "Sorry, The Admin Role Cannot Be Deleted").addAttribute("error2", "Please,Try Again "));
         }
         if (!Objects.equals(model.getAttribute("role"), "ROLE_ADMIN")) {
-            return new ModelAndView("role/deleteRole", model.addAttribute("error", "Sorry, Only Admin Can Delete").addAttribute("error2", "Try again"));
+            return new ModelAndView("role/deleteRole", model.addAttribute("error", "Sorry, Only Admin Can Delete").addAttribute("error2", " Please,Try Again "));
         }
         roleService.deleteById(id);
         return new ModelAndView("role/role", model.addAttribute("error", "Role With ID = " + id + "\n Deleted ").addAttribute("error2", "SUCCESSFULLY"));
     }
 
-//    @Secured(value = {"ROLE_ADMIN"})
-    @GetMapping("new") //OK
-    public ModelAndView addNew( Role role, @NotNull ModelMap model) {
+    @GetMapping("new")
+    public ModelAndView addNew(Role role, @NotNull ModelMap model) {
         return new ModelAndView("role/newRole", model.addAttribute("role", role));
     }
 
-//    @Secured(value = {"ROLE_ADMIN"})
-    @RequestMapping(value = "new", method = RequestMethod.POST) //OK
+    @RequestMapping(value = "new", method = RequestMethod.POST)
     public ModelAndView addNewPost(@NotNull Role role, ModelMap model) {
         if (role.getId() == null) {
             return new ModelAndView("role/newRole", model.addAttribute("role", role).addAttribute("error", "Role ID Is Null").addAttribute("error2", "Please, Try Again"));
@@ -125,32 +119,30 @@ public class RoleController {
         }
         role.setName(role.getName().toUpperCase());
         roleService.saveEntity(role);
-        return new ModelAndView("role/role", model.addAttribute("error2", "New Role Added").addAttribute("error", "SUCCESSFULLY"));
+        return new ModelAndView("role/role", model.addAttribute("error", "New Role Added").addAttribute("error2", "SUCCESSFULLY"));
     }
 
-    @GetMapping("update/**") //OK
+    @GetMapping("update/**")
     public ModelAndView update(Role role, @NotNull ModelMap model) {
         return new ModelAndView("role/updateRole", model.addAttribute("role", role));
     }
 
-    @RequestMapping(value = "update/**", method = RequestMethod.POST) //OK
+    @RequestMapping(value = "update/**", method = RequestMethod.POST)
     public ModelAndView updatePost(@NotNull Role role, ModelMap model) {
-        System.out.println(role);
         if (role.getId() == null) {
-            return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Role ID Is Null").addAttribute("error2", "Try Again"));
+            return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Role ID Is Null").addAttribute("error2", "Please,Try Again "));
         }
         if (role.getName() == null) {
-            return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Role Name Is Null").addAttribute("error2", "Try Again"));
+            return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Role Name Is Null").addAttribute("error2", "Please,Try Again "));
         }
         if (role.getId().isEmpty()) {
-            return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Role ID Is Empty").addAttribute("error2", "Try Again"));
+            return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Role ID Is Empty").addAttribute("error2", "Please,Try Again "));
         }
         if (role.getName().isEmpty()) {
-            return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Role Name Is Empty").addAttribute("error2", "Try Again"));
+            return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Role Name Is Empty").addAttribute("error2", "Please,Try Again "));
         }
-        // if ADMIN
-        if (role.getName().equalsIgnoreCase("admin")){
-            return new ModelAndView("role/updateRole",model.addAttribute("error", "It Is Impossible To Remove The Admin ").addAttribute("error2", "Please, Try Again"));
+        if (role.getName().equalsIgnoreCase("admin")) {
+            return new ModelAndView("role/updateRole", model.addAttribute("error", "It Is Impossible To Remove The Admin ").addAttribute("error2", "Please, Try Again"));
         }
         if (!Validator.validId(role.getId())) {
             return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Wrong Role ID").addAttribute("error2", "Please,Try Again"));
@@ -159,7 +151,7 @@ public class RoleController {
             return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Wrong Role Name").addAttribute("error2", "Please,Try Again"));
         }
         if (!roleService.getById(role.getId()).isPresent()) {
-            return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Role With ID " + role.getId() + " Not Found").addAttribute("error2", "Try Again"));
+            return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Role With ID " + role.getId() + " Not Found").addAttribute("error2", "Please,Try Again "));
         }
         if (!roleService.getByName(role.getName().toUpperCase()).isEmpty()) {
             return new ModelAndView("role/updateRole", model.addAttribute("role", role).addAttribute("error", "Role With Name " + role.getName() + " Is Used").addAttribute("error2", "Please,Try Again"));
@@ -169,6 +161,6 @@ public class RoleController {
         }
         role.setName(role.getName().toUpperCase());
         roleService.saveEntity(role);
-        return new ModelAndView("role/role", model.addAttribute("error2", role + "\n Updated ").addAttribute("error", "SUCCESSFULLY"));
+        return new ModelAndView("role/role", model.addAttribute("error", role + "\n Updated ").addAttribute("error2", "SUCCESSFULLY"));
     }
 }

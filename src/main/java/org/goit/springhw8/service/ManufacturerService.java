@@ -5,7 +5,7 @@ import org.goit.springhw8.repository.ManufacturerRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ManufacturerService extends ServiceI<Manufacturer,String> {
+public class ManufacturerService extends ServiceI<Manufacturer, String> {
 
     public ManufacturerService(ManufacturerRepository manufacturerRepository) {
         super(manufacturerRepository);

@@ -1,15 +1,14 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="../_header.jsp" %>
+<%@include file="../function.jsp" %>
+<%@include file="../error2.jsp" %>
 
 <!DOCTYPE HTML>
 <html>
 
 <head>
     <title>User</title>
-
-    <jsp:include page="../_header.jsp"></jsp:include>
-    <jsp:include page="../function.jsp"></jsp:include>
-    <jsp:include page="../error2.jsp"></jsp:include>
 </head>
 
 <body>
@@ -21,22 +20,15 @@
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By ID</a>
         <a href="${pageContext.request.contextPath}/user/name"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By Name</a>
-
-<%--        <sec:authorize access="!hasRole(authentication.equals('ADMIN'))">--%>
-            <a href="${pageContext.request.contextPath}/user/new"
-               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Add New</a>
-            <a href="${pageContext.request.contextPath}/user/update"
-               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
-            <a href="${pageContext.request.contextPath}/user/delete"
-               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
-            <a href="${pageContext.request.contextPath}/login"
-               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Login</a>
-<%--        </sec:authorize>--%>
-        <%--        </sec:authorize>--%>
+        <a href="${pageContext.request.contextPath}/user/new"
+           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Add New</a>
+        <a href="${pageContext.request.contextPath}/user/update"
+           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
+        <a href="${pageContext.request.contextPath}/user/delete"
+           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
     </div>
 </div>
 </body>
-
 </html>
 
 

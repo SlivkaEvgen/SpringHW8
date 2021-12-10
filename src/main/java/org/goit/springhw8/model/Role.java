@@ -14,7 +14,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "role")
-public class Role implements BaseModel<String>  {//GrantedAuthority
+public class Role implements BaseModel<String>  {
 
     private static final long serialVersionUID = 1909791726526791370L;
 

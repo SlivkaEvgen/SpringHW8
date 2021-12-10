@@ -1,5 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="user.jsp" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -7,15 +8,13 @@
 <style>
     .w3-display-bottommiddle {
         z-index: 2;
-        width: 1200px;
+        width: 800px;
         line-height: initial;
     }
 </style>
 
 <head>
     <title>User By Name</title>
-
-    <jsp:include page="user.jsp"></jsp:include>
 </head>
 
 <body>
@@ -51,10 +50,8 @@
                         <th>EMAIL</th>
                         <th>PASSWORD</th>
                         <th>ROLE</th>
-<%--                        <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
-                            <th>UPDATE</th>
-                            <th>DELETE</th>
-<%--                        </sec:authorize>--%>
+                        <th>UPDATE</th>
+                        <th>DELETE</th>
                     </tr>
                     <c:forEach items="${list}" var="user">
                         <tr>
@@ -64,17 +61,15 @@
                             <td>${user.gender}</td>
                             <td>${user.email}</td>
                             <td>${user.password.hashCode()}</td>
-                            <td>${user.roles.parallelStream().findAny().get().name}</td>
-<%--                            <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
+                            <td>${user.roles.parallelStream().findFirst().get().name}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}update/?id=${user.id}"
+                                <a href="${pageContext.request.contextPath}/update/?id=${user.id}"
                                    class="w3-btn w3-hover-light-blue w3-round-xlarge">UPDATE</a>
                             </td>
                             <td>
-                                <a href="${pageContext.request.contextPath}delete/?id=${user.id}"
+                                <a href="${pageContext.request.contextPath}/delete/?id=${user.id}"
                                    class="w3-btn w3-hover-red w3-round-xlarge">DELETE</a>
                             </td>
-<%--                            </sec:authorize>--%>
                         </tr>
                     </c:forEach>
                 </table>
@@ -85,6 +80,6 @@
 </div>
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<%@include file="/WEB-INF/view/catchPhrase.jsp" %>
 
 </html>

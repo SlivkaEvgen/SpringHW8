@@ -1,5 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="product.jsp" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -14,8 +15,6 @@
 
 <head>
     <title>Manufacturer By Name</title>
-
-    <jsp:include page="product.jsp"></jsp:include>
 </head>
 
 <body>
@@ -47,10 +46,8 @@
                         <th>NAME</th>
                         <th>PRICE</th>
                         <th>MANUFACTURER</th>
-                        <sec:authorize access="hasRole('ROLE_ADMIN')">
-                            <th>UPDATE</th>
-                            <th>DELETE</th>
-                        </sec:authorize>
+                        <th>UPDATE</th>
+                        <th>DELETE</th>
                     </tr>
                     <c:forEach items="${list}" var="product">
                         <tr>
@@ -58,18 +55,14 @@
                             <td>${product.name}</td>
                             <td>${product.price}</td>
                             <td>${product.manufacturer}</td>
-                                <%--                            <td>${manufacturer.id}</td>--%>
-                                <%--                            <td>${manufacturer.name}</td>--%>
-                            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <td>
-                                    <a href="${pageContext.request.contextPath}update/?id=${product.id}"
-                                       class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
-                                </td>
-                                <td>
-                                    <a href="${pageContext.request.contextPath}delete/?id=${product.id}"
-                                       class="w3-btn w3-hover-red w3-round-xlarge">Delete</a>
-                                </td>
-                            </sec:authorize>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/update/?id=${product.id}"
+                                   class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
+                            </td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/delete/?id=${product.id}"
+                                   class="w3-btn w3-hover-red w3-round-xlarge">Delete</a>
+                            </td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -79,10 +72,9 @@
         </form>
     </nav>
 </div>
-
 </body>
 
-<jsp:include page="/WEB-INF/view/catchPhrase.jsp"></jsp:include>
+<%@include file="/WEB-INF/view/catchPhrase.jsp" %>
 
 </html>
 
