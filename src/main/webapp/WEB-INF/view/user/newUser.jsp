@@ -26,15 +26,15 @@
             <table class="w3-table-all w3-small w3-centered "
                    class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
                    id="myTable">
-                <tr>
-                    <td>ID</td>
-                    <td>
-                        <label>
-                            <input class="w3-input w3-center w3-border w3-small w3-round-xlarge w3-hover-light-blue"
-                                   type="text" name="id" placeholder=" Enter ID " value="${user.id}"/>
-                        </label>
-                    </td>
-                </tr>
+<%--                <tr>--%>
+<%--                    <td>ID</td>--%>
+<%--                    <td>--%>
+<%--                        <label>--%>
+<%--                            <input class="w3-input w3-center w3-border w3-small w3-round-xlarge w3-hover-light-blue"--%>
+<%--                                   type="text" name="id" placeholder=" Enter ID " value="${user.id}"/>--%>
+<%--                        </label>--%>
+<%--                    </td>--%>
+<%--                </tr>--%>
                 <tr>
                     <td>Name</td>
                     <td>
@@ -59,7 +59,7 @@
                     <td><label>
                         <select class="w3-select w3-center w3-round-xlarge" name="gender">
                             <c:forEach var="gender" items="${list2}">
-                                <option value="${gender.name()}">${gender.name()}</option>
+                                <option value="${gender.name().toString()}">${gender.name().toString()}</option>
                             </c:forEach>
                         </select>
                     </label></td>
@@ -88,7 +88,7 @@
                     <td><label>
                         <select class="w3-select w3-center w3-round-xlarge" name="role">
                             <c:forEach var="role" items="${list3}" begin="1">
-                                <option value="${role.name()}">${role.name()}</option>
+                                <option value="${role.toString()}">${role.toString()}</option>
                             </c:forEach>
                         </select>
                     </label></td>

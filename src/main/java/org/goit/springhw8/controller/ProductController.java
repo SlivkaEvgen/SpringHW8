@@ -117,7 +117,7 @@ public class ProductController {
     @GetMapping(value = "delete")
     public ModelAndView deleteProductById(String id, ModelMap model) {
         viewName = "product/deleteProduct";
-        ModelAndView modelAndView = validProductMini(viewName, id, model);
+        validProductMini(viewName, id, model);
         if (!Validator.validId(id)) {
             return customModel(viewName, model, "Invalid Product ID ");
         }
@@ -199,6 +199,9 @@ public class ProductController {
     }
 
     public ModelAndView validProduct(String viewName, Product product, ModelMap model) {
+        if (validProductMini(viewName, product, model).isEmpty()){
+            return new ModelAndView();
+        }
         validProductMini(viewName, product, model);
         if (product.getId() == null) {
             return customModel(viewName, model, "Product ID Is Null");
