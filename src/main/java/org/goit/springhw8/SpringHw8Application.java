@@ -8,7 +8,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 /**
  * The type Spring hw 8 application.
  */
-@SpringBootApplication
+@SpringBootApplication  //remember me
 public class SpringHw8Application extends SpringBootServletInitializer {
 
     /**

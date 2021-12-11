@@ -19,12 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ManufacturerController {
 
+    private final ManufacturerService manufacturerService;
     private final static String ERROR = "error";
     private final static String ERROR2 = "error2";
     private final static String ERROR2MESSAGE = "Please,Try Again";
     private final static String ERROR2SUCCESSFULLY = "SUCCESSFULLY";
     private String viewName = "";
-    private final ManufacturerService manufacturerService;
 
     public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
         if (model != null) {
@@ -61,9 +61,6 @@ public class ManufacturerController {
      */
     @GetMapping("list")
     public ModelAndView getAllManufacturers(@ModelAttribute("list") ModelMap model) {
-        if (model == null) {
-            return new ModelAndView("manufacturer/list");
-        }
         return new ModelAndView("manufacturer/list", model.addAttribute("list", manufacturerService.getAll()));
     }
 
@@ -152,9 +149,6 @@ public class ManufacturerController {
      */
     @GetMapping("update/**")
     public ModelAndView updateManufacturerGet(@Valid Manufacturer manufacturer, ModelMap model) {
-        if (model == null) {
-            return new ModelAndView("manufacturer/updateManufacturer");
-        }
         return new ModelAndView("manufacturer/updateManufacturer", model.addAttribute("manufacturer", manufacturer));
     }
 
@@ -185,9 +179,6 @@ public class ManufacturerController {
      */
     @GetMapping("new")
     public ModelAndView addNewManufacturerGet(@Valid Manufacturer manufacturer, ModelMap model) {
-        if (model == null) {
-            return new ModelAndView("manufacturer/newManufacturer");
-        }
         return new ModelAndView("manufacturer/newManufacturer", model.addAttribute("manufacturer", manufacturer));
     }
 

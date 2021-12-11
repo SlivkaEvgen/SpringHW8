@@ -21,9 +21,6 @@ public class LoginController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView loginPage(ModelMap model) {
-        if (model==null){
-            return new ModelAndView("login");
-        }
         return new ModelAndView("login", model);
     }
 

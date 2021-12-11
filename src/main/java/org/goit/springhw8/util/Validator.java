@@ -20,7 +20,6 @@ public class Validator {
     public static boolean validId(String id) {
         return empty(id) &&
                 validNumber(id) &&
-                id.length() <= 20 &&
                 Long.parseLong(id) != 0;
     }
 

@@ -88,7 +88,7 @@
                 <td><label>
                     <select class="w3-select w3-center w3-round-xlarge" name="role">
                         <c:forEach var="role" items="${list3}" begin="1">
-                            <option value="${role.toString()}">${role}</option>
+                            <option value="${role.name()}">${role.name().toString()}</option>
                         </c:forEach>
                     </select>
                 </label></td>
