@@ -23,14 +23,14 @@ public class ManufacturerController {
     private final static String ERROR2 = "error2";
     private final static String ERROR2MESSAGE = "Please,Try Again";
     private final static String ERROR2SUCCESSFULLY = "SUCCESSFULLY";
-    // "Name Is Empty"/"Wrong Name Length"/"Wrong NAME"/"Could Not Find By Name "
-    //String errorMessage="error"; // "Name Is Empty"/"Wrong Name Length"/"Wrong NAME"/"Could Not Find By Name "
     private String viewName = "";
-
     private final ManufacturerService manufacturerService;
 
     public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
-        return new ModelAndView(viewName, model.addAttribute(ERROR, errorMessage).addAttribute(ERROR2, ERROR2MESSAGE));
+        if (model != null) {
+            return new ModelAndView(viewName, model.addAttribute(ERROR, errorMessage).addAttribute(ERROR2, ERROR2MESSAGE));
+        }
+        return new ModelAndView();
     }
 
     /**
