@@ -8,17 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @Component
 public class Validator {
 
-    public static boolean validNumber(String hasNumbers) {
-        if (!validString(hasNumbers)) {
-            return true;
-        } else return hasNumbers.matches("\\d+");
-    }
 
     public static boolean validString(String hasLetters) {
-        if (hasLetters==null){
-            return false;
-        }
-        return !hasLetters.matches("\\d+");
+        return hasLetters != null && !hasLetters.matches("\\d+");
     }
 
     private static boolean empty(String id) {
@@ -26,35 +18,19 @@ public class Validator {
     }
 
     public static boolean validId(String id) {
-        if (!empty(id)) {
-            return false;
-        }
-        if (!validNumber(id)) {
-            return false;
-        }
-        if (id.length() > 7) {
-            return false;
-        }
-        return Long.parseLong(id) != 0;
+        return empty(id) &&
+                validNumber(id) &&
+                id.length() <= 20 &&
+                Long.parseLong(id) != 0;
     }
 
     public static boolean validName(String name) {
-        if (name == null) {
-            return false;
-        }
-        if (name.isEmpty()) {
-            return false;
-        }
-        if (name.equalsIgnoreCase("null")) {
-            return false;
-        }
-        if (name.length() > 12) {
-            return false;
-        }
-        if (Validator.validNumber(name)) {
-            return false;
-        }
-        return validString(name);
+        return name != null &&
+                !name.isEmpty() &&
+                !name.equalsIgnoreCase("null") &&
+                name.length() <= 12 &&
+                !Validator.validNumber(name) &&
+                validString(name);
     }
 
     public static boolean validGender(@ModelAttribute("gender") String gender) {
@@ -63,9 +39,19 @@ public class Validator {
     }
 
     public static boolean validEmail(String email) {
-        if (email==null){
-            return false;
-        }
-        return email.contains("@");
+        return email != null && email.matches("/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i");
+    }
+
+    public static boolean validNumber(String hasNumbers) {
+        return !validString(hasNumbers) || hasNumbers.matches("\\d+");
+    }
+
+    public static boolean isValidNumbers(String isNumber){
+        return isNumber != null &&
+                isNumber.matches("/^\\d{1,}$/");
+    }
+
+    public static boolean isValidPrice(String price){
+        return isValidNumbers(price) && price.matches("/(\\[0-9,]+(\\.[0-9]{2})?)/");
     }
 }
