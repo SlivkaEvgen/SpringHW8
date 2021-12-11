@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @Component
 public class Validator {
 
-
     public static boolean validString(String hasLetters) {
         return hasLetters != null && !hasLetters.matches("\\d+");
     }
@@ -17,14 +16,13 @@ public class Validator {
         return id != null && !id.isEmpty();
     }
 
-    public static boolean validId(String id) {
+    public static boolean validId(@ModelAttribute("id") String id) {
         return empty(id) &&
                 validNumber(id) &&
-                id.length() <= 20 &&
                 Long.parseLong(id) != 0;
     }
 
-    public static boolean validName(String name) {
+    public static boolean validName(@ModelAttribute("name") String name) {
         return name != null &&
                 !name.isEmpty() &&
                 !name.equalsIgnoreCase("null") &&
@@ -38,7 +36,7 @@ public class Validator {
                 | gender.equalsIgnoreCase("Female"));
     }
 
-    public static boolean validEmail(String email) {
+    public static boolean validEmail(@ModelAttribute("email") String email) {
         return email != null && email.matches("/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i");
     }
 
@@ -51,7 +49,7 @@ public class Validator {
                 isNumber.matches("/^\\d{1,}$/");
     }
 
-    public static boolean isValidPrice(String price){
+    public static boolean isValidPrice(@ModelAttribute("price") String price){
         return isValidNumbers(price) && price.matches("/(\\[0-9,]+(\\.[0-9]{2})?)/");
     }
 }

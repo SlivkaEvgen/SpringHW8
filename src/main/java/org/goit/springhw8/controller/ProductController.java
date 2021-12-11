@@ -3,6 +3,7 @@ package org.goit.springhw8.controller;
 import jakarta.validation.Valid;
 import org.goit.springhw8.model.Product;
 import org.goit.springhw8.service.ProductService;
+import org.goit.springhw8.util.SendError;
 import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,18 +21,16 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("product")
 public class ProductController {
 
-    private final static String ERROR = "error";
-    private final static String ERROR2 = "error2";
-    private final static String ERROR2MESSAGE = "Please,Try Again";
-    private final static String ERROR2SUCCESSFULLY = "SUCCESSFULLY";
-    private String viewName = "";
+    private final SendError sendError;
     private final ProductService productService;
+    private String viewName = "";
 
     public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
-        if (model != null) {
-            return new ModelAndView(viewName, model.addAttribute(ERROR, errorMessage).addAttribute(ERROR2, ERROR2MESSAGE));
-        }
-        return new ModelAndView();
+        return sendError.customModelUser(viewName, model, errorMessage, errorMessage);
+    }
+
+    public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
+        return sendError.customModelUserOK(viewName, model, errorMessage);
     }
 
     /**
@@ -39,8 +38,9 @@ public class ProductController {
      *
      * @param productService the product service
      */
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, SendError sendError) {
         this.productService = productService;
+        this.sendError = sendError;
     }
 
     /**
@@ -62,8 +62,7 @@ public class ProductController {
      */
     @GetMapping("list")
     public ModelAndView getAllProducts(ModelMap model) {
-        viewName = "product/list";
-        return model == null ? new ModelAndView(viewName) : new ModelAndView(viewName, model.addAttribute("list", productService.getAll()));
+        return new ModelAndView("product/list", model.addAttribute("list", productService.getAll()));
     }
 
     /**
@@ -77,13 +76,16 @@ public class ProductController {
     public ModelAndView getProductById(String id, ModelMap model) {
         viewName = "product/productById";
         validProductMini(viewName, id, model);
+        if (id == null) {
+            return new ModelAndView(viewName, model);
+        }
         if (!Validator.validId(id)) {
             return customModel(viewName, model, "Wrong Product ID ");
         }
         if (!productService.getById(id).isPresent()) {
             return customModel(viewName, model, "Could Not Find Product With ID " + id);
         }
-        return new ModelAndView("product/productById", model.addAttribute("list", productService.findListByEntityId(id)).addAttribute(ERROR2, ERROR2SUCCESSFULLY));
+        return customModelOk(viewName, model.addAttribute("list", productService.findListByEntityId(id)), "");
     }
 
     /**
@@ -97,14 +99,16 @@ public class ProductController {
     public ModelAndView getProductByName(String name, ModelMap model) {
         viewName = "product/productByName";
         validProductMini(viewName, name, model);
+        if (name == null) {
+            return new ModelAndView(viewName, model);
+        }
         if (!Validator.validName(name)) {
             return customModel(viewName, model, "Wrong Product Name ");
         }
         if (productService.findByName(name.toUpperCase()).isEmpty()) {
             return customModel(viewName, model, "Product Is Empty");
         }
-        return new ModelAndView(viewName, model.addAttribute("list", productService.findByName(name.toUpperCase())).addAttribute("model", model).addAttribute("name", name.toUpperCase()).addAttribute(ERROR2, ERROR2SUCCESSFULLY));
-
+        return customModelOk(viewName, model.addAttribute("list", productService.findByName(name)), "");
     }
 
     /**
@@ -117,6 +121,9 @@ public class ProductController {
     @GetMapping(value = "delete")
     public ModelAndView deleteProductById(String id, ModelMap model) {
         viewName = "product/deleteProduct";
+        if (id == null) {
+            return new ModelAndView(viewName);
+        }
         validProductMini(viewName, id, model);
         if (!Validator.validId(id)) {
             return customModel(viewName, model, "Invalid Product ID ");
@@ -125,7 +132,7 @@ public class ProductController {
             return customModel(viewName, model, "Could Not Find Product With ID " + id);
         }
         productService.deleteById(id);
-        return new ModelAndView("product/product", model.addAttribute("id", id).addAttribute(ERROR, " Product Deleted").addAttribute(ERROR2, ERROR2SUCCESSFULLY));
+        return customModelOk("product/product", model, "Product Deleted");
     }
 
     /**
@@ -137,11 +144,7 @@ public class ProductController {
      */
     @RequestMapping(value = "new/**", method = RequestMethod.GET)
     public ModelAndView addNewProductGet(@Valid Product product, ModelMap model) {
-        viewName = "product/newProduct";
-        if (model == null) {
-            return new ModelAndView(viewName);
-        }
-        return new ModelAndView(viewName, model.addAttribute("list2", productService.findAllManufacturer()).addAttribute("product", product));
+        return new ModelAndView("product/newProduct", model.addAttribute("list2", productService.findAllManufacturer()).addAttribute("product", product));
     }
 
     /**
@@ -154,55 +157,8 @@ public class ProductController {
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
     public ModelAndView addNewProductPost(@Valid Product product, ModelMap model) {
         viewName = "product/newProduct";
-        validProduct(viewName, product, model);
         model.addAttribute("list2", productService.findAllManufacturer());
-        if (productService.getById(product.getId()).isPresent()) {
-            return customModel(viewName, model, " Product With ID " + product.getId() + " Is Used");
-        }
-        productService.saveEntity(product);
-        return new ModelAndView("product/product", model.addAttribute(ERROR, "New Product Added").addAttribute(ERROR2, ERROR2SUCCESSFULLY));
-    }
 
-    /**
-     * Update product get model and view.
-     *
-     * @param product the product
-     * @param model   the model
-     * @return the model and view
-     */
-    @RequestMapping(value = "update/**", method = RequestMethod.GET)
-    public ModelAndView updateProductGet(@Valid Product product, ModelMap model) {
-        viewName = "product/updateProduct";
-        if (model == null) {
-            return new ModelAndView(viewName);
-        }
-        return new ModelAndView(viewName, model.addAttribute("product", product).addAttribute("list2", productService.findAllManufacturer()));
-    }
-
-    /**
-     * Update product post model and view.
-     *
-     * @param product the product
-     * @param model   the model
-     * @return the model and view
-     */
-    @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updateProductPost(@Valid Product product, ModelMap model) {
-        viewName = "product/updateProduct";
-        validProduct(viewName, product, model);
-        model.addAttribute("list2", productService.findAllManufacturer());
-        if (!productService.getById(product.getId()).isPresent()) {
-            return customModel(viewName, model, "Not Found " + product.getId() + "");
-        }
-        productService.saveEntity(new Product(product.getId(), product.getName().toUpperCase(), product.getPrice(), product.getManufacturer()));
-        return new ModelAndView("product/product", model.addAttribute("manufacturer", product.getManufacturer()).addAttribute(ERROR, " Product Updated").addAttribute(ERROR2, ERROR2SUCCESSFULLY));
-    }
-
-    public ModelAndView validProduct(String viewName, Product product, ModelMap model) {
-        if (validProductMini(viewName, product, model).isEmpty()){
-            return new ModelAndView();
-        }
-        validProductMini(viewName, product, model);
         if (product.getId() == null) {
             return customModel(viewName, model, "Product ID Is Null");
         }
@@ -239,21 +195,95 @@ public class ProductController {
         if (Validator.isValidPrice(product.getPrice().toString())) {
             return customModel(viewName, model, "Product Price Invalid Value");
         }
-        product.setName(product.getName().toUpperCase());
-        return customModel(viewName, model, "");
+        if (productService.getById(product.getId()).isPresent()) {
+            return customModel(viewName, model, " Product With ID " + product.getId() + " Is Used");
+        }
 
+        productService.saveEntity(product);
+        return customModelOk("product/product", model, "Product Added");
     }
 
-    public ModelAndView validProductMini(String viewName, Object attribute, ModelMap model) {
+    /**
+     * Update product get model and view.
+     *
+     * @param product the product
+     * @param model   the model
+     * @return the model and view
+     */
+    @RequestMapping(value = "update/**", method = RequestMethod.GET)
+    public ModelAndView updateProductGet(@Valid Product product, ModelMap model) {
+        return new ModelAndView("product/updateProduct", model.addAttribute("product", product).addAttribute("list2", productService.findAllManufacturer()));
+    }
+
+    /**
+     * Update product post model and view.
+     *
+     * @param product the product
+     * @param model   the model
+     * @return the model and view
+     */
+    @RequestMapping(value = "update/**", method = RequestMethod.POST)
+    public ModelAndView updateProductPost(@Valid Product product, ModelMap model) {
+        viewName = "product/updateProduct";
+        model.addAttribute("list2", productService.findAllManufacturer());
+
+        if (product.getId() == null) {
+            return customModel(viewName, model, "Product ID Is Null");
+        }
+        if (product.getName() == null) {
+            return customModel(viewName, model, "Product Name Is Null");
+        }
+        if (product.getPrice() == null) {
+            return customModel(viewName, model, "Product Price Is Null");
+        }
+        if (product.getManufacturer() == null) {
+            return customModel(viewName, model, "Product`s Manufacturer Is Null");
+        }
+        if (product.getId().isEmpty()) {
+            return customModel(viewName, model, "Product ID Is Empty");
+        }
+        if (product.getName().isEmpty()) {
+            return customModel(viewName, model, "Product Name Is Empty");
+        }
+        if (product.getPrice().isNaN()) {
+            return customModel(viewName, model, "Product Price Is Empty");
+        }
+        if (product.getPrice().isInfinite()) {
+            return customModel(viewName, model, "Product Price Is Empty");
+        }
+        if (!Validator.validId(product.getId())) {
+            return customModel(viewName, model, "Wrong Product ID");
+        }
+        if (!Validator.validName(product.getName())) {
+            return customModel(viewName, model, "Wrong Product Name");
+        }
+        if (!Validator.validString(product.getPrice().toString())) {
+            return customModel(viewName, model, "Product Price Wrong");
+        }
+        if (Validator.isValidPrice(product.getPrice().toString())) {
+            return customModel(viewName, model, "Product Price Invalid Value");
+        }
+        if (!productService.getById(product.getId()).isPresent()) {
+            return customModel(viewName, model, "Not Found " + product.getId() + "");
+        }
+
+        productService.saveEntity(product);
+        return customModelOk("product/product", model.addAttribute("manufacturer", product.getManufacturer()), "Product Updated");
+    }
+
+    public void validProductMini(String viewName, Object attribute, ModelMap model) {
         if (model == null) {
-            return new ModelAndView(viewName);
+            new ModelAndView(viewName);
+            return;
         }
         if (attribute == null) {
-            return new ModelAndView(viewName);
+            new ModelAndView(viewName);
+            return;
         }
         if (model.isEmpty()) {
-            return new ModelAndView(viewName);
+            new ModelAndView(viewName);
+            return;
         }
-        return customModel(viewName, model, attribute);
+        customModel(viewName, model, attribute);
     }
 }

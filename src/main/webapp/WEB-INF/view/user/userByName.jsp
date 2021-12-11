@@ -66,11 +66,11 @@
                                 <%--                            <td>${user.roles.parallelStream().findFirst().get().name}</td>--%>
                             <sec:authorize access="hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')">
                                 <td>
-                                    <a href="${pageContext.request.contextPath}/update/?id=${user.id}"
+                                    <a href="${pageContext.request.contextPath}update/?id=${user.id}"
                                        class="w3-btn w3-hover-light-blue w3-round-xlarge">UPDATE</a>
                                 </td>
                                 <td>
-                                    <a href="${pageContext.request.contextPath}/delete/?id=${user.id}"
+                                    <a href="${pageContext.request.contextPath}delete/?id=${user.id}"
                                        class="w3-btn w3-hover-red w3-round-xlarge">DELETE</a>
                                 </td>
                             </sec:authorize>
