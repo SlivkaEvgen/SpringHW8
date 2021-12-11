@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
-import java.util.List;
 
 /**
  * The type User controller.
@@ -51,6 +50,11 @@ public class UserController {
     public ModelAndView getStandardCustomModel(String viewName, ModelMap model, Object message) {
         return sendError.customModelUserStandard(viewName, model, message);
     }
+
+    public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
+        return sendError.customModelUserOK(viewName, model, errorMessage);
+    }
+
 
 //OK
 
@@ -104,7 +108,7 @@ public class UserController {
         if (!myUserDetailsService.getById(id).isPresent()) {
             return getStandardCustomModel(viewName, model, "User Is Empty");
         }
-        return getStandardCustomModel("user/userById", model.addAttribute("SUCCESSFULLY").addAttribute("list", myUserDetailsService.findListByEntityId(id)), "");
+        return customModelOk("user/userById", model.addAttribute("list", myUserDetailsService.findListByEntityId(id)), "");
     }
 
     public ModelAndView valid(String viewName, ModelMap model, String param) {
@@ -155,7 +159,7 @@ public class UserController {
         if (myUserDetailsService.findByName(name).isEmpty()) {
             return getStandardCustomModel(viewName, model, "Could Not Find By Name " + name);
         }
-        return getStandardCustomModel("user/userByName", model.addAttribute("SUCCESSFULLY").addAttribute("list", myUserDetailsService.findByName(name)), "SUCCESSFULLY");
+        return customModelOk("user/userByName", model.addAttribute("list", myUserDetailsService.findByName(name)), "");
     }
 //OK
 
@@ -191,8 +195,7 @@ public class UserController {
 //        if (optionalUser.isPresent()) {
 //            return getStandardCustomModel(viewName, model, "User With ID = " + id + " Is Empty");
         myUserDetailsService.deleteById(id);
-//        }
-        return getStandardCustomModel("user/user", model.addAttribute("SUCCESSFULLY"), "User Deleted");
+        return customModelOk("user/user", model, "User Deleted");
     }
 //OK
 
@@ -244,9 +247,7 @@ public class UserController {
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
     public ModelAndView updateUserPost(@Valid User user, ModelMap model) {
         viewName = "user/updateUser";
-        model.addAttribute("user", user).
-                addAttribute("list3", myUserDetailsService.getRoles()).
-                addAttribute("list2", myUserDetailsService.getGenderList());
+        model.addAttribute("user", user).addAttribute("list3", myUserDetailsService.getRoles()).addAttribute("list2", myUserDetailsService.getGenderList());
 
         if (user.getId() == null) {
             return getFullCustomModel(viewName, model, user, "ERROR");
@@ -304,8 +305,7 @@ public class UserController {
         if (user.getPassword() == null) {
             return getFullCustomModel(viewName, model, user, "User Email Is Empty");
         }
-        List<User> userList = myUserDetailsService.getAll();
-        for (User value : userList) {
+        for (User value : myUserDetailsService.getAll()) {
             if (user.getEmail().equals(value.getEmail())) {
                 return getFullCustomModel(viewName, model, user, "The User With This Email Is Registered");
             }
@@ -317,6 +317,6 @@ public class UserController {
         user.setRoles(Collections.singleton(Role.ROLE_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         myUserDetailsService.saveEntity(user);
-        return getFullCustomModel("user/user", model.addAttribute("SUCCESSFULLY"), user, "User Updated");
+        return customModelOk("user/user", model, "User Updated");
     }
 }
