@@ -8,7 +8,9 @@ import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -53,7 +55,7 @@ public class ManufacturerController {
      * Instantiates a new Manufacturer controller.
      *
      * @param manufacturerService the manufacturer service
-     * @param sendErrorMessage           the send error
+     * @param sendErrorMessage    the send error
      */
     public ManufacturerController(ManufacturerService manufacturerService, SendErrorMessage sendErrorMessage) {
         this.manufacturerService = manufacturerService;
@@ -80,37 +82,8 @@ public class ManufacturerController {
      * @return the all manufacturers
      */
     @GetMapping("list")
-    public ModelAndView getAllManufacturers(@ModelAttribute("list") ModelMap model) {
+    public ModelAndView getAllManufacturers(ModelMap model) {
         return new ModelAndView("manufacturer/list", model.addAttribute("list", manufacturerService.getAll()));
-    }
-//OK
-
-    /**
-     * Gets by manufacturer name.
-     *
-     * @param name  the name
-     * @param model the model
-     * @return the by manufacturer name
-     */
-    @GetMapping("name")
-    public ModelAndView getByManufacturerName( String name, ModelMap model) {
-        viewName = "manufacturer/manufacturerByName";
-        if (name == null) {
-            return new ModelAndView(viewName, model);
-        }
-        if (name.isEmpty()) {
-            return customModel(viewName, model.addAttribute("name", name), "Name Is Empty");
-        }
-        if (name.length() > 25) {
-            return customModel(viewName, model.addAttribute("name", name), "Wrong Name Length");
-        }
-        if (!Validator.validName(name)) {
-            return customModel(viewName, model.addAttribute("name", name), "Invalid Name Value");
-        }
-        if (manufacturerService.findByName(name).isEmpty()) {
-            return customModel(viewName, model, "Could Not Find By Name " + name);
-        }
-        return customModelOk(viewName, model.addAttribute("list", manufacturerService.findByName(name)), "");
     }
 //OK
 
@@ -127,16 +100,30 @@ public class ManufacturerController {
         if (id == null) {
             return new ModelAndView(viewName, model);
         }
-        if (id.isEmpty()) {
-            return customModel(viewName, model, "Wrong Empty ID");
-        }
-        if (!Validator.validId(id)) {
-            return customModel(viewName, model, "Invalid ID Value");
-        }
         if (!manufacturerService.getById(id).isPresent()) {
-            return customModel(viewName, model, "Could Not Find By ID " + id);
+            return customModel(viewName, model.addAttribute("list", manufacturerService.findListByEntityId(id)), "Manufacturer With The ID = " + id + ",\n Is Not Found");
         }
         return customModelOk(viewName, model.addAttribute("list", manufacturerService.findListByEntityId(id)), "");
+    }
+//OK
+
+    /**
+     * Gets by manufacturer name.
+     *
+     * @param name  the name
+     * @param model the model
+     * @return the by manufacturer name
+     */
+    @GetMapping("name")
+    public ModelAndView getByManufacturerName(String name, ModelMap model) {
+        viewName = "manufacturer/manufacturerByName";
+        if (name == null) {
+            return new ModelAndView(viewName, model);
+        }
+        if (manufacturerService.findByName(name).isEmpty()) {
+            return customModel(viewName, model.addAttribute("list", manufacturerService.findListByEntityId(name)), "Manufacturer With The Name = " + name + ",\n Is Not Found");
+        }
+        return customModelOk(viewName, model.addAttribute("list", manufacturerService.findByName(name)), "");
     }
 //OK
 
@@ -153,14 +140,24 @@ public class ManufacturerController {
         if (id == null) {
             return new ModelAndView(viewName, model);
         }
-        if (!Validator.validId(id)) {
-            return customModel(viewName, model, "Invalid ID Value");
-        }
         if (!manufacturerService.getById(id).isPresent()) {
-            return customModel(viewName, model, "Manufacturer With ID = " + id + " Not Found");
+            return customModel(viewName, model, "Manufacturer With The ID = " + id + ",\n Is Not Found");
         }
         manufacturerService.deleteById(id);
         return customModelOk("manufacturer/manufacturer", model, "Manufacturer Deleted");
+    }
+//OK
+
+    /**
+     * Add new manufacturer get model and view.
+     *
+     * @param manufacturer the manufacturer
+     * @param model        the model
+     * @return the model and view
+     */
+    @GetMapping("new")
+    public ModelAndView addNewManufacturerGet(@Valid Manufacturer manufacturer, ModelMap model) {
+        return new ModelAndView("manufacturer/newManufacturer", model.addAttribute("manufacturer", manufacturer));
     }
 //OK
 
@@ -174,6 +171,53 @@ public class ManufacturerController {
     @GetMapping("update/**")
     public ModelAndView updateManufacturerGet(@Valid Manufacturer manufacturer, ModelMap model) {
         return new ModelAndView("manufacturer/updateManufacturer", model.addAttribute("manufacturer", manufacturer));
+    }
+//OK
+
+    /**
+     * Add new manufacturer post model and view.
+     *
+     * @param manufacturer the manufacturer
+     * @param model        the model
+     * @return the model and view
+     */
+    @RequestMapping(value = "new", method = RequestMethod.POST)
+    public ModelAndView addNewManufacturerPost(@Valid Manufacturer manufacturer, ModelMap model) {
+        viewName = "manufacturer/newManufacturer";
+        if (manufacturer == null) {
+            return new ModelAndView(viewName);
+        }
+        if (manufacturer.getId() == null) {
+            return customModel(viewName, model, "Manufacturer ID Is Null");
+        }
+        if (manufacturer.getName() == null) {
+            return customModel(viewName, model, "Manufacturer Name Is Null");
+        }
+
+        if (manufacturer.getId().isEmpty()) {
+            return customModel(viewName, model, "Manufacturer ID Is Empty");
+        }
+        if (manufacturer.getName().isEmpty()) {
+            return customModel(viewName, model, "Manufacturer Name Is Empty");
+        }
+        if (manufacturer.getName().equalsIgnoreCase("null")) {
+            return customModel(viewName, model, "Manufacturer Name Is Null");
+        }
+
+        if (!Validator.validId(manufacturer.getId())) {
+            return customModel(viewName, model, "Invalid Manufacturer ID Value");
+        }
+        if (!Validator.validName(manufacturer.getName())) {
+            return customModel(viewName, model, "Invalid Manufacturer Name Value");
+        }
+
+        if (manufacturerService.getById(manufacturer.getId()).isPresent()) {
+            return customModel(viewName, model, "Manufacturer With ID = " + manufacturer.getId() + " Is Used");
+        }
+
+        manufacturer.setName(manufacturer.getName().toUpperCase());
+        manufacturerService.saveEntity(manufacturer);
+        return customModelOk(viewName, model, "New Manufacturer Added");
     }
 //OK
 
@@ -196,6 +240,7 @@ public class ManufacturerController {
         if (manufacturer.getName() == null) {
             return customModel(viewName, model, "Manufacturer Name Is Null");
         }
+
         if (manufacturer.getId().isEmpty()) {
             return customModel(viewName, model, "Manufacturer ID Is Empty");
         }
@@ -205,75 +250,20 @@ public class ManufacturerController {
         if (manufacturer.getName().equalsIgnoreCase("null")) {
             return customModel(viewName, model, "Manufacturer Name Is Null");
         }
-        if (!Validator.validId(String.valueOf(manufacturer.getId()))) {
+
+        if (!Validator.validId(manufacturer.getId())) {
             return customModel(viewName, model, "Invalid Manufacturer ID Value");
         }
         if (!Validator.validName(manufacturer.getName())) {
             return customModel(viewName, model, "Invalid Manufacturer Name Value");
         }
+
         if (!manufacturerService.getById(manufacturer.getId()).isPresent()) {
             return customModel(viewName, model, "Manufacturer With ID = " + manufacturer.getId() + " Not Found");
         }
+
         manufacturer.setName(manufacturer.getName().toUpperCase());
         manufacturerService.saveEntity(manufacturer);
         return customModelOk("manufacturer/manufacturer", model, "Manufacturer Updated");
-    }
-//OK
-
-    /**
-     * Add new manufacturer get model and view.
-     *
-     * @param manufacturer the manufacturer
-     * @param model        the model
-     * @return the model and view
-     */
-    @GetMapping("new")
-    public ModelAndView addNewManufacturerGet(@Valid Manufacturer manufacturer, ModelMap model) {
-        return new ModelAndView("manufacturer/newManufacturer", model.addAttribute("manufacturer", manufacturer));
-    }
-//OK
-
-    /**
-     * Add new manufacturer post model and view.
-     *
-     * @param manufacturer the manufacturer
-     * @param model        the model
-     * @return the model and view
-     */
-    @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewManufacturerPost(@Valid Manufacturer manufacturer, ModelMap model) {
-        viewName = "manufacturer/newManufacturer";
-
-        if (manufacturer == null) {
-            return new ModelAndView(viewName);
-        }
-        if (manufacturer.getId() == null) {
-            return customModel(viewName, model, "Manufacturer ID Is Null");
-        }
-        if (manufacturer.getName() == null) {
-            return customModel(viewName, model, "Manufacturer Name Is Null");
-        }
-        if (manufacturer.getId().isEmpty()) {
-            return customModel(viewName, model, "Manufacturer ID Is Empty");
-        }
-        if (manufacturer.getName().isEmpty()) {
-            return customModel(viewName, model, "Manufacturer Name Is Empty");
-        }
-        if (manufacturer.getName().equalsIgnoreCase("null")) {
-            return customModel(viewName, model, "Manufacturer Name Is Null");
-        }
-        if (!Validator.validId(String.valueOf(manufacturer.getId()))) {
-            return customModel(viewName, model, "Invalid Manufacturer ID Value");
-        }
-        if (!Validator.validName(manufacturer.getName())) {
-            return customModel(viewName, model, "Invalid Manufacturer Name Value");
-        }
-        if (manufacturerService.getById(manufacturer.getId()).isPresent()) {
-            return customModel(viewName, model, "Manufacturer With ID = " + manufacturer.getId() + " Is Used");
-        }
-
-        manufacturer.setName(manufacturer.getName().toUpperCase());
-        manufacturerService.saveEntity(manufacturer);
-        return customModelOk(viewName, model, "New Manufacturer Added");
     }
 }

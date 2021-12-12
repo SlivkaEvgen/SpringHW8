@@ -13,18 +13,4 @@ public enum Gender {
      * Female gender.
      */
     FEMALE
-
-//    @Override
-//    public String toString() {
-//        return super.toString();
-//    }
-//
-//    /**
-//     * Gets all.
-//     *
-//     * @return the all
-//     */
-//    public static List<Gender> getAll() {
-//        return Arrays.asList(Gender.MALE, Gender.FEMALE);
-//    }
 }

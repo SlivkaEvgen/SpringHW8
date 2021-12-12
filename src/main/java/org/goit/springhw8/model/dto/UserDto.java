@@ -67,13 +67,6 @@ public class UserDto extends User {
 
     @NotNull
     @NotEmpty
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
-
-    @NotNull
-    @NotEmpty
     @Transient
     @AssertTrue
     private boolean active;
@@ -84,7 +77,13 @@ public class UserDto extends User {
     @ToString.Exclude
     private String passwordConfirm;
 
-//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//    private Set<Note> notes;
+    @NotNull
+    @NotEmpty
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
 }
+//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//    private Set<Note> notes;
