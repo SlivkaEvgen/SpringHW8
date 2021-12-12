@@ -1,7 +1,12 @@
 package org.goit.springhw8.model;
 
 import jakarta.validation.constraints.AssertTrue;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.goit.springhw8.util.annotations.NameValid;
+import org.goit.springhw8.util.annotations.PasswordMatches;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,6 +19,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
+@NameValid
+@PasswordMatches
 @Table(name = "users")
 public class User implements BaseModel<String> {
 
@@ -38,20 +45,13 @@ public class User implements BaseModel<String> {
     @Column(name = "password")
     private String password;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
-
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Set<Note> notes;
-
     @Transient
     @AssertTrue
     private boolean active;
 
-    @Transient
-    @ToString.Exclude
-    private String passwordConfirm;
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
 }

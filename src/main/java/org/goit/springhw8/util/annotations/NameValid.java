@@ -1,7 +1,8 @@
-package org.goit.springhw8.util;
+package org.goit.springhw8.util.annotations;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import org.goit.springhw8.util.annotations.validators.NameValidator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -13,10 +14,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({TYPE,ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = PasswordMatchesValidator.class)
+@Constraint(validatedBy = NameValidator.class)
 @Documented
-public @interface PasswordMatches {
-    String message() default "Passwords don't match";
+public @interface NameValid {
+    String message() default "Name not null,String,not Empty";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

@@ -1,7 +1,8 @@
-package org.goit.springhw8.util;
+package org.goit.springhw8.util.annotations;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import org.goit.springhw8.util.annotations.validators.PriceValidator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -12,10 +13,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({TYPE, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = EmailValidator.class)
+@Constraint(validatedBy = PriceValidator.class)
 @Documented
-public @interface ValidEmail {
-    String message() default "Invalid email";
+public @interface PriceValid {
+    String message() default "Invalid price";
 
     Class<?>[] groups() default {};
 

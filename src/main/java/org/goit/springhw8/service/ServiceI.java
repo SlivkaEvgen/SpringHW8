@@ -76,8 +76,7 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
      */
     public List<T> findListByEntityId(ID id) {
         ArrayList<T> tList = new ArrayList<>();
-        Optional<T> optionalT = repositoryI.findById(id);
-        optionalT.ifPresent(tList::add);
+        repositoryI.findById(id).ifPresent(tList::add);
         return tList;
     }
 }

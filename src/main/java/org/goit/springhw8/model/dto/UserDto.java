@@ -8,8 +8,9 @@ import lombok.ToString;
 import org.goit.springhw8.model.Gender;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
-import org.goit.springhw8.util.PasswordMatches;
-import org.goit.springhw8.util.ValidEmail;
+import org.goit.springhw8.util.annotations.NameValid;
+import org.goit.springhw8.util.annotations.PasswordMatches;
+import org.goit.springhw8.util.annotations.ValidEmail;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ import java.util.Set;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@NameValid
 @RequiredArgsConstructor
 @PasswordMatches
 public class UserDto extends User {
@@ -81,5 +83,8 @@ public class UserDto extends User {
     @Transient
     @ToString.Exclude
     private String passwordConfirm;
+
+//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//    private Set<Note> notes;
 
 }

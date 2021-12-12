@@ -81,44 +81,8 @@ public class UserDetailsServiceImpl extends ServiceI<User, String> implements Us
      *
      * @return the roles
      */
-    public List<Role> getRoles() {
+    public List<Role> getRoleList() {
         return Arrays.asList(Role.values());
     }
 
 }
-//    @Override
-//    public List<User> getAll() {
-//        return super.getAll();
-//    }
-//
-//    @Override
-//    public List<User> findListById(String id) {
-//        return super.findListById(id);
-//    }
-//
-//    @Override
-//    public Optional<User> getById(String id) {
-//        return super.getById(id);
-//    }
-//
-//    @Override
-//    public Optional<User> findByName(String name) {
-//        if (name == null) {
-//            return Optional.empty();
-//        }
-//        return super.findByName(name.toUpperCase());
-//    }
-//
-//    public User registerNewUserAccount(UserDto userDto) {
-//        return userRepository.save(userDto);
-//    }
-//
-//    @Override
-//    public void deleteById(String id) {
-//        super.deleteById(id);
-//    }
-//
-//    public void saveUser(User user) {
-//        super.saveEntity(user);
-//    }
-//

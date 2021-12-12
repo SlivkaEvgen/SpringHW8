@@ -1,11 +1,10 @@
 package org.goit.springhw8.controller;
 
 import jakarta.validation.Valid;
-import org.goit.springhw8.model.Gender;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserDetailsServiceImpl;
-import org.goit.springhw8.util.SendError;
+import org.goit.springhw8.util.SendErrorMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
@@ -25,16 +24,18 @@ import java.util.UUID;
 @RequestMapping("registration")
 public class Registration {
 
-    private final SendError sendError;
+    private final SendErrorMessage sendErrorMessage;
+
     private final UserDetailsServiceImpl userDetailsServiceImpl;
+
     private final PasswordEncoder passwordEncoder;
 
     public ModelAndView customModelStandard(String viewName, ModelMap model, Object message) {
-        return sendError.customModelUserStandard(viewName, model, message);
+        return sendErrorMessage.customModelUserStandard(viewName, model, message);
     }
 
-    public ModelAndView customModelFull(String viewName, ModelMap model, User user, Object message) {
-        return sendError.customModelUser(viewName, model, user, message);
+    public ModelAndView customModelOK(String viewName, ModelMap model, Object message) {
+        return sendErrorMessage.customModelUserOK(viewName, model, message);
     }
 
     /**
@@ -43,10 +44,10 @@ public class Registration {
      * @param userDetailsServiceImpl the my user details service
      * @param passwordEncoder      the b crypt password encoder
      */
-    public Registration(UserDetailsServiceImpl userDetailsServiceImpl, PasswordEncoder passwordEncoder, SendError sendError) {
+    public Registration(UserDetailsServiceImpl userDetailsServiceImpl, PasswordEncoder passwordEncoder, SendErrorMessage sendErrorMessage) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.passwordEncoder = passwordEncoder;
-        this.sendError = sendError;
+        this.sendErrorMessage = sendErrorMessage;
     }
 //OK
 
@@ -58,7 +59,7 @@ public class Registration {
      */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showRegistrationForm(ModelMap model) {
-        return new ModelAndView("registration", model.addAttribute("list", Gender.getAll()));//.addAttribute("list3", myUserDetailsService.getRoles()).addAttribute("list2", myUserDetailsService.getGenderList()));
+        return new ModelAndView("registration", model.addAttribute("list", userDetailsServiceImpl.getGenderList()));
     }
 //OK
 
@@ -72,7 +73,7 @@ public class Registration {
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView registration(@Valid User user, ModelMap model) {
         String viewName = "registration";
-        model.addAttribute("list", Gender.getAll());
+        model.addAttribute("list", userDetailsServiceImpl.getGenderList());
         if (user.getId() == null) {
             user.setId(String.valueOf(UUID.randomUUID()));
         }
@@ -111,13 +112,14 @@ public class Registration {
                 return customModelStandard(viewName, model, "The User With This Email Is Registered");
             }
         }
+
         user.setGender(user.getGender());
         user.setName(user.getName().toUpperCase());
         user.setRoles(Collections.singleton(Role.ROLE_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDetailsServiceImpl.saveEntity(user);
         userDetailsServiceImpl.saveEntity(user);
-        return customModelFull("login", model.addAttribute("ERROR", "SUCCESSFULLY").addAttribute("ERROR2", "SUCCESSFULLY"), user, "User Is Registered.\n Now You Can To Log In");
+        return customModelOK("login", model, "User Is Registered.\n Now You Can To Log In");
     }
 }
 
