@@ -15,6 +15,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
+        registry.addViewController("/admin/**").setViewName("admin");
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/registration/**").setViewName("registration");
         registry.addViewController("/home").setViewName("index");
@@ -51,5 +52,16 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/manufacturer/delete").setViewName("manufacturer/deleteManufacturer");
         registry.addViewController("/manufacturer/update/**").setViewName("manufacturer/updateManufacturer");
         registry.addViewController("/manufacturer/new/**").setViewName("manufacturer/newManufacturer");
+
+//        registry.addViewController("/note/id/**").setViewName("note/manufacturerById");
+//        registry.addViewController("/note/name/**").setViewName("note/manufacturerById");
+        registry.addViewController("/note/list/**").setViewName("note/noteList");
+//        registry.addViewController("/note/delete").setViewName("note/deleteManufacturer");
+        registry.addViewController("/note/update/**").setViewName("note/noteCreate");
+        registry.addViewController("/note/edit/**").setViewName("note/noteEdit");
+//        registry.addViewController("/note/new/**").setViewName("note/newManufacturer");
+        registry.addViewController("/note/**").setViewName("note/note");
+        registry.addViewController("/note/show/**").setViewName("note/noteShow");
+        registry.addViewController("/note/error/**").setViewName("note/noteError");
     }
 }

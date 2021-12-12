@@ -1,11 +1,11 @@
 package org.goit.springhw8.model;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.goit.springhw8.model.BaseModel;
+import org.goit.springhw8.model.Product;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -25,14 +25,12 @@ public class Manufacturer implements BaseModel<String> {
 
     @Id
     @Column(name = "id", unique = true, nullable = false)
-    @Size(min = 1, max = 50, message = "min = 1, max = 50")
     private String id;
 
-    @NotBlank
     @Column(name = "name")
-    @Size(min = 2, max = 25, message = "min = 2, max = 25")
     private String name;
 
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<Product> products;
+
 }

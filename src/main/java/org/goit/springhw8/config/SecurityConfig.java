@@ -1,7 +1,7 @@
 package org.goit.springhw8.config;
 
 import lombok.SneakyThrows;
-import org.goit.springhw8.service.MyUserDetailsService;
+import org.goit.springhw8.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,14 +17,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final MyUserDetailsService userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     /**
      * Instantiates a new Security config.
      *
      * @param userDetailsService the user details service
      */
-    public SecurityConfig(MyUserDetailsService userDetailsService) {
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -52,12 +52,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @SneakyThrows
     @Override
     protected void configure(HttpSecurity http) {
-        http.csrf().disable().rememberMe().and()
+        http.csrf().disable()//.rememberMe().and()
                 .authorizeRequests()
                 //Доступ только для не зарегистрированных пользователей
                 .antMatchers("/registration").not().fullyAuthenticated()
                 //Доступ только для пользователей с ролью Администратор
-                //.antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/admin/*").hasRole("ADMIN")
                 //Доступ разрешен всем пользователей
                 .antMatchers("/", "/resources/**").permitAll()
                 //Все остальные страницы требуют аутентификации

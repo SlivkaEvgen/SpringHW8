@@ -3,43 +3,61 @@ package org.goit.springhw8.controller;
 import jakarta.validation.Valid;
 import org.goit.springhw8.model.Manufacturer;
 import org.goit.springhw8.service.ManufacturerService;
-import org.goit.springhw8.util.SendError;
+import org.goit.springhw8.util.SendErrorMessage;
 import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
  * The type Manufacturer controller.
  */
+@Validated
 @RequestMapping("manufacturer")
 @Controller
 public class ManufacturerController {
 
     private final ManufacturerService manufacturerService;
-    private final SendError sendError;
+
+    private final SendErrorMessage sendErrorMessage;
+
     private String viewName = "";
 
+    /**
+     * Custom model model and view.
+     *
+     * @param viewName     the view name
+     * @param model        the model
+     * @param errorMessage the error message
+     * @return the model and view
+     */
     public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
-        return sendError.customModelUser(viewName, model, errorMessage, errorMessage);
+        return sendErrorMessage.customModelUser(viewName, model, errorMessage, errorMessage);
     }
 
+    /**
+     * Custom model ok model and view.
+     *
+     * @param viewName     the view name
+     * @param model        the model
+     * @param errorMessage the error message
+     * @return the model and view
+     */
     public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
-        return sendError.customModelUserOK(viewName, model, errorMessage);
+        return sendErrorMessage.customModelUserOK(viewName, model, errorMessage);
     }
 
     /**
      * Instantiates a new Manufacturer controller.
      *
      * @param manufacturerService the manufacturer service
+     * @param sendErrorMessage           the send error
      */
-    public ManufacturerController(ManufacturerService manufacturerService, SendError sendError) {
+    public ManufacturerController(ManufacturerService manufacturerService, SendErrorMessage sendErrorMessage) {
         this.manufacturerService = manufacturerService;
-        this.sendError = sendError;
+        this.sendErrorMessage = sendErrorMessage;
     }
 //OK
 
@@ -75,7 +93,7 @@ public class ManufacturerController {
      * @return the by manufacturer name
      */
     @GetMapping("name")
-    public ModelAndView getByManufacturerName(String name, ModelMap model) {
+    public ModelAndView getByManufacturerName( String name, ModelMap model) {
         viewName = "manufacturer/manufacturerByName";
         if (name == null) {
             return new ModelAndView(viewName, model);
@@ -158,6 +176,7 @@ public class ManufacturerController {
         return new ModelAndView("manufacturer/updateManufacturer", model.addAttribute("manufacturer", manufacturer));
     }
 //OK
+
     /**
      * Update manufacturer post model and view.
      *
@@ -213,6 +232,7 @@ public class ManufacturerController {
         return new ModelAndView("manufacturer/newManufacturer", model.addAttribute("manufacturer", manufacturer));
     }
 //OK
+
     /**
      * Add new manufacturer post model and view.
      *

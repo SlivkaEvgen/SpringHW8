@@ -3,7 +3,7 @@ package org.goit.springhw8.controller;
 import jakarta.validation.Valid;
 import org.goit.springhw8.model.Product;
 import org.goit.springhw8.service.ProductService;
-import org.goit.springhw8.util.SendError;
+import org.goit.springhw8.util.SendErrorMessage;
 import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,16 +21,18 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("product")
 public class ProductController {
 
-    private final SendError sendError;
+    private final SendErrorMessage sendErrorMessage;
+
     private final ProductService productService;
+
     private String viewName = "";
 
     public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
-        return sendError.customModelUser(viewName, model, errorMessage, errorMessage);
+        return sendErrorMessage.customModelUser(viewName, model, errorMessage, errorMessage);
     }
 
     public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
-        return sendError.customModelUserOK(viewName, model, errorMessage);
+        return sendErrorMessage.customModelUserOK(viewName, model, errorMessage);
     }
 
     /**
@@ -38,9 +40,9 @@ public class ProductController {
      *
      * @param productService the product service
      */
-    public ProductController(ProductService productService, SendError sendError) {
+    public ProductController(ProductService productService, SendErrorMessage sendErrorMessage) {
         this.productService = productService;
-        this.sendError = sendError;
+        this.sendErrorMessage = sendErrorMessage;
     }
 
     /**
@@ -271,7 +273,7 @@ public class ProductController {
         return customModelOk("product/product", model.addAttribute("manufacturer", product.getManufacturer()), "Product Updated");
     }
 
-    public void validProductMini(String viewName, Object attribute, ModelMap model) {
+    private void validProductMini(String viewName, Object attribute, ModelMap model) {
         if (model == null) {
             new ModelAndView(viewName);
             return;

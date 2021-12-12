@@ -1,11 +1,10 @@
 package org.goit.springhw8.controller;
 
 import jakarta.validation.Valid;
-import org.goit.springhw8.model.Gender;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
-import org.goit.springhw8.service.MyUserDetailsService;
-import org.goit.springhw8.util.SendError;
+import org.goit.springhw8.service.UserDetailsServiceImpl;
+import org.goit.springhw8.util.SendErrorMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
@@ -25,28 +24,30 @@ import java.util.UUID;
 @RequestMapping("registration")
 public class Registration {
 
-    private final SendError sendError;
-    private final MyUserDetailsService myUserDetailsService;
+    private final SendErrorMessage sendErrorMessage;
+
+    private final UserDetailsServiceImpl userDetailsServiceImpl;
+
     private final PasswordEncoder passwordEncoder;
 
     public ModelAndView customModelStandard(String viewName, ModelMap model, Object message) {
-        return sendError.customModelUserStandard(viewName, model, message);
+        return sendErrorMessage.customModelUserStandard(viewName, model, message);
     }
 
-    public ModelAndView customModelFull(String viewName, ModelMap model, User user, Object message) {
-        return sendError.customModelUser(viewName, model, user, message);
+    public ModelAndView customModelOK(String viewName, ModelMap model, Object message) {
+        return sendErrorMessage.customModelUserOK(viewName, model, message);
     }
 
     /**
      * Instantiates a new Registration.
      *
-     * @param myUserDetailsService the my user details service
+     * @param userDetailsServiceImpl the my user details service
      * @param passwordEncoder      the b crypt password encoder
      */
-    public Registration(MyUserDetailsService myUserDetailsService, PasswordEncoder passwordEncoder, SendError sendError) {
-        this.myUserDetailsService = myUserDetailsService;
+    public Registration(UserDetailsServiceImpl userDetailsServiceImpl, PasswordEncoder passwordEncoder, SendErrorMessage sendErrorMessage) {
+        this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.passwordEncoder = passwordEncoder;
-        this.sendError = sendError;
+        this.sendErrorMessage = sendErrorMessage;
     }
 //OK
 
@@ -58,7 +59,7 @@ public class Registration {
      */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showRegistrationForm(ModelMap model) {
-        return new ModelAndView("registration", model.addAttribute("list", Gender.getAll()));//.addAttribute("list3", myUserDetailsService.getRoles()).addAttribute("list2", myUserDetailsService.getGenderList()));
+        return new ModelAndView("registration", model.addAttribute("list", userDetailsServiceImpl.getGenderList()));
     }
 //OK
 
@@ -72,14 +73,14 @@ public class Registration {
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView registration(@Valid User user, ModelMap model) {
         String viewName = "registration";
-        model.addAttribute("list", Gender.getAll());
+        model.addAttribute("list", userDetailsServiceImpl.getGenderList());
         if (user.getId() == null) {
             user.setId(String.valueOf(UUID.randomUUID()));
         }
         if (user.getId().isEmpty()) {
             user.setId(String.valueOf(UUID.randomUUID()));
         }
-        if (myUserDetailsService.getById(user.getId()).isPresent()) {
+        if (userDetailsServiceImpl.getById(user.getId()).isPresent()) {
             return customModelStandard(viewName, model, "User With ID " + user.getId() + "Is Used");
         }
         if (user.getName() == null) {
@@ -106,18 +107,19 @@ public class Registration {
         if (user.getPassword() == null) {
             return customModelStandard(viewName, model, "User Password Is Null");
         }
-        for (User value : myUserDetailsService.getAll()) {
+        for (User value : userDetailsServiceImpl.getAll()) {
             if (user.getEmail().equals(value.getEmail())) {
                 return customModelStandard(viewName, model, "The User With This Email Is Registered");
             }
         }
+
         user.setGender(user.getGender());
         user.setName(user.getName().toUpperCase());
         user.setRoles(Collections.singleton(Role.ROLE_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        myUserDetailsService.saveEntity(user);
-        myUserDetailsService.saveEntity(user);
-        return customModelFull("login", model.addAttribute("ERROR", "SUCCESSFULLY").addAttribute("ERROR2", "SUCCESSFULLY"), user, "User Is Registered.\n Now You Can To Log In");
+        userDetailsServiceImpl.saveEntity(user);
+        userDetailsServiceImpl.saveEntity(user);
+        return customModelOK("login", model, "User Is Registered.\n Now You Can To Log In");
     }
 }
 

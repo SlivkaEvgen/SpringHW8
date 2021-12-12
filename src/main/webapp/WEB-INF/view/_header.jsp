@@ -5,6 +5,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@include file="logout.jsp" %>
 <%@include file="metaLink.jsp" %>
+<%--<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>--%>
 
 <!DOCTYPE HTML>
 <html>
