@@ -43,6 +43,9 @@ public class User implements BaseModel<String> {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<Note> notes;
+
     @Transient
     @AssertTrue
     private boolean active;

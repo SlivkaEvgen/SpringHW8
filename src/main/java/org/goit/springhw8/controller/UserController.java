@@ -3,13 +3,12 @@ package org.goit.springhw8.controller;
 import jakarta.validation.Valid;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
-import org.goit.springhw8.service.MyUserDetailsService;
+import org.goit.springhw8.service.UserDetailsServiceImpl;
 import org.goit.springhw8.util.SendError;
 import org.goit.springhw8.util.Validator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,24 +19,24 @@ import java.util.Collections;
 /**
  * The type User controller.
  */
-@Validated
+//@Validated
 @Controller
 @RequestMapping(value = "user")
 public class UserController {
 
     private final SendError sendError;
     private final Registration registration;
-    private final MyUserDetailsService myUserDetailsService;
+    private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final PasswordEncoder passwordEncoder;
     private String viewName = "";
 
     /**
      * Instantiates a new User controller.
      *
-     * @param myUserDetailsService the my user details service
+     * @param userDetailsServiceImpl the my user details service
      */
-    public UserController(SendError sendError, MyUserDetailsService myUserDetailsService, PasswordEncoder passwordEncoder, Registration registration) {
-        this.myUserDetailsService = myUserDetailsService;
+    public UserController(SendError sendError, UserDetailsServiceImpl userDetailsServiceImpl, PasswordEncoder passwordEncoder, Registration registration) {
+        this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.passwordEncoder = passwordEncoder;
         this.registration = registration;
         this.sendError = sendError;
@@ -78,7 +77,7 @@ public class UserController {
      */
     @GetMapping("list")
     public ModelAndView getAllUsers(ModelMap model) {
-        return new ModelAndView("user/list", model.addAttribute("list", myUserDetailsService.getAll()));
+        return new ModelAndView("user/list", model.addAttribute("list", userDetailsServiceImpl.getAll()));
     }
 //OK
 
@@ -102,13 +101,13 @@ public class UserController {
 //        if (id.isEmpty()) {
 //            return getStandardCustomModel(viewName, model, " User ID Is Empty");
 //        }
-        if (!myUserDetailsService.getById(id).isPresent()) {
+        if (!userDetailsServiceImpl.getById(id).isPresent()) {
             return getStandardCustomModel(viewName, model, "Could Not Find By ID " + id);
         }
-        if (!myUserDetailsService.getById(id).isPresent()) {
+        if (!userDetailsServiceImpl.getById(id).isPresent()) {
             return getStandardCustomModel(viewName, model, "User Is Empty");
         }
-        return customModelOk("user/userById", model.addAttribute("list", myUserDetailsService.findListByEntityId(id)), "");
+        return customModelOk("user/userById", model.addAttribute("list", userDetailsServiceImpl.findListByEntityId(id)), "");
     }
 
     public ModelAndView valid(String viewName, ModelMap model, String param) {
@@ -156,10 +155,10 @@ public class UserController {
 //        if (!Validator.validName(name)) {
 //            return getStandardCustomModel(viewName, model, " Invalid User Name ");
 //        }
-        if (myUserDetailsService.findByName(name).isEmpty()) {
+        if (userDetailsServiceImpl.findByName(name).isEmpty()) {
             return getStandardCustomModel(viewName, model, "Could Not Find By Name " + name);
         }
-        return customModelOk("user/userByName", model.addAttribute("list", myUserDetailsService.findByName(name)), "");
+        return customModelOk("user/userByName", model.addAttribute("list", userDetailsServiceImpl.findByName(name)), "");
     }
 //OK
 
@@ -179,7 +178,7 @@ public class UserController {
 //        if (!Validator.validId(id)) {
 //            return getStandardCustomModel(viewName, model, "Invalid ID Value");
 //        }
-        if (!myUserDetailsService.getById(id).isPresent()) {
+        if (!userDetailsServiceImpl.getById(id).isPresent()) {
             return getStandardCustomModel(viewName, model, "Manufacturer With ID = " + id + " Not Found");
         }
 
@@ -194,7 +193,7 @@ public class UserController {
 //        }
 //        if (optionalUser.isPresent()) {
 //            return getStandardCustomModel(viewName, model, "User With ID = " + id + " Is Empty");
-        myUserDetailsService.deleteById(id);
+        userDetailsServiceImpl.deleteById(id);
         return customModelOk("user/user", model, "User Deleted");
     }
 //OK
@@ -208,7 +207,7 @@ public class UserController {
      */
     @GetMapping("new/**")
     public ModelAndView addNewUserGet(@Valid User user, ModelMap model) {
-        return new ModelAndView("user/newUser", model.addAttribute("SUCCESSFULLY").addAttribute("user", user).addAttribute("list2", myUserDetailsService.getGenderList()).addAttribute("list3", myUserDetailsService.getRoles()));
+        return new ModelAndView("user/newUser", model.addAttribute("SUCCESSFULLY").addAttribute("user", user).addAttribute("list2", userDetailsServiceImpl.getGenderList()).addAttribute("list3", userDetailsServiceImpl.getRoles()));
     }
 //OK
 
@@ -234,7 +233,7 @@ public class UserController {
      */
     @GetMapping("update/**")
     public ModelAndView updateUserGet(@Valid User user, ModelMap model) {
-        return new ModelAndView("user/updateUser", model.addAttribute("user", user).addAttribute("list3", myUserDetailsService.getRoles()).addAttribute("list2", myUserDetailsService.getGenderList()));
+        return new ModelAndView("user/updateUser", model.addAttribute("user", user).addAttribute("list3", userDetailsServiceImpl.getRoles()).addAttribute("list2", userDetailsServiceImpl.getGenderList()));
     }
 
     /**
@@ -247,7 +246,7 @@ public class UserController {
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
     public ModelAndView updateUserPost(@Valid User user, ModelMap model) {
         viewName = "user/updateUser";
-        model.addAttribute("user", user).addAttribute("list3", myUserDetailsService.getRoles()).addAttribute("list2", myUserDetailsService.getGenderList());
+        model.addAttribute("user", user).addAttribute("list3", userDetailsServiceImpl.getRoles()).addAttribute("list2", userDetailsServiceImpl.getGenderList());
 
         if (user.getId() == null) {
             return getFullCustomModel(viewName, model, user, "ERROR");
@@ -277,7 +276,7 @@ public class UserController {
             return getFullCustomModel(viewName, model, user, "ERROR getEmail");
         }
 
-        if (!myUserDetailsService.getById(user.getId()).isPresent()) {
+        if (!userDetailsServiceImpl.getById(user.getId()).isPresent()) {
             return getFullCustomModel(viewName, model, user, "NOT FOUND");
         }
 
@@ -305,7 +304,7 @@ public class UserController {
         if (user.getPassword() == null) {
             return getFullCustomModel(viewName, model, user, "User Email Is Empty");
         }
-        for (User value : myUserDetailsService.getAll()) {
+        for (User value : userDetailsServiceImpl.getAll()) {
             if (user.getEmail().equals(value.getEmail())) {
                 return getFullCustomModel(viewName, model, user, "The User With This Email Is Registered");
             }
@@ -316,7 +315,7 @@ public class UserController {
         user.setName(user.getName().toUpperCase());
         user.setRoles(Collections.singleton(Role.ROLE_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        myUserDetailsService.saveEntity(user);
+        userDetailsServiceImpl.saveEntity(user);
         return customModelOk("user/user", model, "User Updated");
     }
 }

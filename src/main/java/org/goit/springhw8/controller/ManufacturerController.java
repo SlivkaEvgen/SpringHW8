@@ -24,10 +24,26 @@ public class ManufacturerController {
     private final SendError sendError;
     private String viewName = "";
 
+    /**
+     * Custom model model and view.
+     *
+     * @param viewName     the view name
+     * @param model        the model
+     * @param errorMessage the error message
+     * @return the model and view
+     */
     public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
         return sendError.customModelUser(viewName, model, errorMessage, errorMessage);
     }
 
+    /**
+     * Custom model ok model and view.
+     *
+     * @param viewName     the view name
+     * @param model        the model
+     * @param errorMessage the error message
+     * @return the model and view
+     */
     public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
         return sendError.customModelUserOK(viewName, model, errorMessage);
     }
@@ -36,6 +52,7 @@ public class ManufacturerController {
      * Instantiates a new Manufacturer controller.
      *
      * @param manufacturerService the manufacturer service
+     * @param sendError           the send error
      */
     public ManufacturerController(ManufacturerService manufacturerService, SendError sendError) {
         this.manufacturerService = manufacturerService;
@@ -158,6 +175,7 @@ public class ManufacturerController {
         return new ModelAndView("manufacturer/updateManufacturer", model.addAttribute("manufacturer", manufacturer));
     }
 //OK
+
     /**
      * Update manufacturer post model and view.
      *
@@ -213,6 +231,7 @@ public class ManufacturerController {
         return new ModelAndView("manufacturer/newManufacturer", model.addAttribute("manufacturer", manufacturer));
     }
 //OK
+
     /**
      * Add new manufacturer post model and view.
      *

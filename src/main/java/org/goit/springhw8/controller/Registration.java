@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import org.goit.springhw8.model.Gender;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
-import org.goit.springhw8.service.MyUserDetailsService;
+import org.goit.springhw8.service.UserDetailsServiceImpl;
 import org.goit.springhw8.util.SendError;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.ModelMap;
@@ -26,7 +26,7 @@ import java.util.UUID;
 public class Registration {
 
     private final SendError sendError;
-    private final MyUserDetailsService myUserDetailsService;
+    private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final PasswordEncoder passwordEncoder;
 
     public ModelAndView customModelStandard(String viewName, ModelMap model, Object message) {
@@ -40,11 +40,11 @@ public class Registration {
     /**
      * Instantiates a new Registration.
      *
-     * @param myUserDetailsService the my user details service
+     * @param userDetailsServiceImpl the my user details service
      * @param passwordEncoder      the b crypt password encoder
      */
-    public Registration(MyUserDetailsService myUserDetailsService, PasswordEncoder passwordEncoder, SendError sendError) {
-        this.myUserDetailsService = myUserDetailsService;
+    public Registration(UserDetailsServiceImpl userDetailsServiceImpl, PasswordEncoder passwordEncoder, SendError sendError) {
+        this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.passwordEncoder = passwordEncoder;
         this.sendError = sendError;
     }
@@ -79,7 +79,7 @@ public class Registration {
         if (user.getId().isEmpty()) {
             user.setId(String.valueOf(UUID.randomUUID()));
         }
-        if (myUserDetailsService.getById(user.getId()).isPresent()) {
+        if (userDetailsServiceImpl.getById(user.getId()).isPresent()) {
             return customModelStandard(viewName, model, "User With ID " + user.getId() + "Is Used");
         }
         if (user.getName() == null) {
@@ -106,7 +106,7 @@ public class Registration {
         if (user.getPassword() == null) {
             return customModelStandard(viewName, model, "User Password Is Null");
         }
-        for (User value : myUserDetailsService.getAll()) {
+        for (User value : userDetailsServiceImpl.getAll()) {
             if (user.getEmail().equals(value.getEmail())) {
                 return customModelStandard(viewName, model, "The User With This Email Is Registered");
             }
@@ -115,8 +115,8 @@ public class Registration {
         user.setName(user.getName().toUpperCase());
         user.setRoles(Collections.singleton(Role.ROLE_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        myUserDetailsService.saveEntity(user);
-        myUserDetailsService.saveEntity(user);
+        userDetailsServiceImpl.saveEntity(user);
+        userDetailsServiceImpl.saveEntity(user);
         return customModelFull("login", model.addAttribute("ERROR", "SUCCESSFULLY").addAttribute("ERROR2", "SUCCESSFULLY"), user, "User Is Registered.\n Now You Can To Log In");
     }
 }

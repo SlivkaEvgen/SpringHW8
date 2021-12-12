@@ -14,8 +14,8 @@ create table if not exists users
     last_name varchar(15),
     gender    gender,
     email     varchar(20),
-    password  varchar(100),
-    active    boolean
+    password  varchar(100)
+--     active    boolean
 );
 
 create table if not exists product
@@ -58,8 +58,8 @@ values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62
        ('5', 'GEKA2', 'GekK', 'MALE', 'geka2@ua', '$2a$10$EuHVHqfXs.AqDfmlos9AfuOSs2DsHIhJ2t74CZxyJ95h1gOVkolD6');
 
 insert into user_role(user_id, roles)
-values ('1', '1'),
-       ('2', '2'),
-       ('3', '2'),
-       ('4', '3'),
-       ('5', '2');
+values ('1', 'ROLE_ADMIN'),
+       ('2', 'ROLE_USER'),
+       ('3', 'ROLE_USER'),
+       ('4', 'ROLE_USER'),
+       ('5', 'ROLE_USER');

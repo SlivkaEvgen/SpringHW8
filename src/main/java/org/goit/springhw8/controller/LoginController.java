@@ -1,5 +1,6 @@
 package org.goit.springhw8.controller;
 
+import org.goit.springhw8.model.dto.UserDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +18,12 @@ public class LoginController {
      * Login page model and view.
      *
      * @param model the model
+     * @param user  the user
      * @return the model and view
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView loginPage(ModelMap model) {
-        return new ModelAndView("login", model);
+    public ModelAndView loginPage(ModelMap model, UserDto user) {
+        return new ModelAndView("login", model.addAttribute("user",user));
     }
 
 }
