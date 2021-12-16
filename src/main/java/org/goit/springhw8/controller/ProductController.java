@@ -28,11 +28,11 @@ public class ProductController {
     private String viewName = "";
 
     public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
-        return sendErrorMessage.customModelUser(viewName, model, errorMessage, errorMessage);
+        return sendErrorMessage.customModel(viewName, model, errorMessage);
     }
 
     public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
-        return sendErrorMessage.customModelUserOK(viewName, model, errorMessage);
+        return sendErrorMessage.customModelOK(viewName, model, errorMessage);
     }
 
     /**
@@ -119,7 +119,7 @@ public class ProductController {
             return new ModelAndView(viewName, model);
         }
         if (!productService.getById(id).isPresent()) {
-            return customModel(viewName, model, "Manufacturer With The ID = " + id + ",\n Is Not Found");
+            return customModel(viewName, model, "Product With The ID = " + id + ",\n Is Not Found");
         }
         productService.deleteById(id);
         return customModelOk("product/product", model, "Product Deleted");

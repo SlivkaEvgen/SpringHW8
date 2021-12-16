@@ -26,7 +26,7 @@ public class NameValidator implements ConstraintValidator<NameValid,String> {
                 !name.isEmpty() &&
                 !name.equalsIgnoreCase("null") &&
                 name.length() <= 12 &&
-                !Validator.validNumber(name) &&
+                !Validator.validName(name) &&
                 validString(name);
     }
 

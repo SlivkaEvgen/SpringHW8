@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.goit.springhw8.model.BaseModel;
-import org.goit.springhw8.model.Product;
 
 import javax.persistence.*;
 import java.util.Set;
