@@ -7,25 +7,38 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
+import org.goit.springhw8.model.Manufacturer;
 import org.goit.springhw8.model.Product;
+import org.goit.springhw8.util.annotations.PriceValid;
+
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * The type Product dto.
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 public class ProductDto extends Product {
 
+    @Id
     @Size(min = 1, max = 50, message = "min = 1, max = 50")
     private final String id;
 
     @Size(min = 2, max = 25, message = "min = 2, max = 25")
     private final String name;
 
-    @Digits(integer = 6, fraction = 2)
     @NotBlank
+    @PriceValid
     @PositiveOrZero
+    @Digits(integer = 6, fraction = 2)
     @Size(max = 20, message = "max = 20")
     private final Double price;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "manufacturer_id")
+    private Manufacturer manufacturer;
 }

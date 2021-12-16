@@ -12,13 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Service
 @RequiredArgsConstructor
 public class SendErrorMessage {
-    private final static String ERROR = "error";
 
-    private final static String ERROR2 = "error2";
-
-    private final static String ERROR2MESSAGE = "Please,Try Again";
-
-    private final static String SUCCESSFULLY = "SUCCESSFULLY";
+    private final String ERROR = "error";
+    private final String ERROR2 = "error2";
+    private final static String SUCCESSFULLY = " SUCCESSFULLY ";
+    private final static String TRY_AGAIN = " Please, Try Again ";
 
     /**
      * Gets send error.
@@ -38,25 +36,9 @@ public class SendErrorMessage {
      * @param errorMessage the error message
      * @return the model and view
      */
-    public ModelAndView customModelUserStandard(String viewName, ModelMap model, Object errorMessage) {
+    public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
         if (model != null) {
-            return new ModelAndView(viewName, model.addAttribute(ERROR, errorMessage).addAttribute(ERROR2, ERROR2MESSAGE));
-        }
-        return new ModelAndView();
-    }
-
-    /**
-     * Custom model user model and view.
-     *
-     * @param viewName the view name
-     * @param model    the model
-     * @param object   the object
-     * @param message  the message
-     * @return the model and view
-     */
-    public ModelAndView customModelUser(String viewName, ModelMap model, Object object, Object message) {
-        if (model != null) {
-            return new ModelAndView(viewName, model.addAttribute(object.toString(), object).addAttribute(ERROR, message).addAttribute(ERROR2, ERROR2MESSAGE));
+            return new ModelAndView(viewName, model.addAttribute(ERROR, errorMessage).addAttribute(ERROR2,  TRY_AGAIN));
         }
         return new ModelAndView();
     }
@@ -69,7 +51,7 @@ public class SendErrorMessage {
      * @param errorMessage the error message
      * @return the model and view
      */
-    public ModelAndView customModelUserOK(String viewName, ModelMap model, Object errorMessage) {
+    public ModelAndView customModelOK(String viewName, ModelMap model, Object errorMessage) {
         if (model != null) {
             return new ModelAndView(viewName, model.addAttribute(ERROR, errorMessage).addAttribute(ERROR2, SUCCESSFULLY));
         }

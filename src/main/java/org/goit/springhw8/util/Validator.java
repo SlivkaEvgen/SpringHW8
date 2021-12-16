@@ -21,8 +21,8 @@ public class Validator {
         return hasLetters != null && !hasLetters.matches("\\d+");
     }
 
-    private static boolean empty(String id) {
-        return id != null && !id.isEmpty();
+    private static boolean empty(String attribute) {
+        return attribute != null && !attribute.isEmpty();
     }
 
     /**
@@ -32,10 +32,7 @@ public class Validator {
      * @return the boolean
      */
     public static boolean validId(@ModelAttribute("id") String id) {
-        return empty(id) &&
-                validNumber(id) &&
-                Long.parseLong(id) != 0;
-    }
+        return empty(id) && validNumber(id) && id.length() < 10;}
 
     /**
      * Valid name boolean.
@@ -44,23 +41,11 @@ public class Validator {
      * @return the boolean
      */
     public static boolean validName(@ModelAttribute("name") String name) {
-        return name != null &&
-                !name.isEmpty() &&
+        return empty(name) &&
                 !name.equalsIgnoreCase("null") &&
-                name.length() <= 12 &&
+                name.length() <= 15 &&
                 !Validator.validNumber(name) &&
                 validString(name);
-    }
-
-    /**
-     * Valid gender boolean.
-     *
-     * @param gender the gender
-     * @return the boolean
-     */
-    public static boolean validGender(@ModelAttribute("gender") String gender) {
-        return gender != null && (gender.equalsIgnoreCase("MALE")
-                | gender.equalsIgnoreCase("FEMALE"));
     }
 
     /**
@@ -70,7 +55,7 @@ public class Validator {
      * @return the boolean
      */
     public static boolean validEmail(@ModelAttribute("email") String email) {
-        return email != null && email.matches("/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i");
+        return empty(email) && email.matches("/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i");
     }
 
     /**
@@ -79,8 +64,8 @@ public class Validator {
      * @param hasNumbers the has numbers
      * @return the boolean
      */
-    public static boolean validNumber(String hasNumbers) {
-        return !validString(hasNumbers) || hasNumbers.matches("\\d+");
+    private static boolean validNumber(String hasNumbers) {
+        return  empty(hasNumbers)&&hasNumbers.matches("\\d+");
     }
 
     /**
@@ -89,9 +74,8 @@ public class Validator {
      * @param isNumber the is number
      * @return the boolean
      */
-    public static boolean isValidNumbers(String isNumber){
-        return isNumber != null &&
-                isNumber.matches("/^\\d{1,}$/");
+    private static boolean isValidNumbers(String isNumber){
+        return empty(isNumber) && isNumber.matches("/^\\d{1,}$/");
     }
 
     /**
@@ -104,3 +88,13 @@ public class Validator {
         return isValidNumbers(price) && price.matches("/(\\[0-9,]+(\\.[0-9]{2})?)/");
     }
 }
+//    /**
+//     * Valid gender boolean.
+//     *
+//     * @param gender the gender
+//     * @return the boolean
+//     */
+//    public static boolean validGender(@ModelAttribute("gender") String gender) {
+//        return gender != null && (gender.equalsIgnoreCase("MALE")
+//                | gender.equalsIgnoreCase("FEMALE"));
+//    }

@@ -41,10 +41,10 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
     }
 
     /**
-     * Find by name optional.
+     * Find by name list.
      *
      * @param name the name
-     * @return the optional
+     * @return the list
      */
     public List<T> findByName(String name) {
         return repositoryI.findByName(name.toUpperCase());

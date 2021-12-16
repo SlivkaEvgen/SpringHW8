@@ -40,7 +40,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/product/id/**").setViewName("product/productById");
         registry.addViewController("/product/name/**").setViewName("product/productByName");
         registry.addViewController("/product/list/**").setViewName("product/list");
-        registry.addViewController("/product/delete/**").setViewName("product/deleteProduct");
+        registry.addViewController("/product/delete").setViewName("product/deleteProduct");
         registry.addViewController("/product/update/**").setViewName("product/updateProduct");
         registry.addViewController("/product/new/**").setViewName("product/newProduct");
         registry.addViewController("/product/manufacturerId/**").setViewName("product/productByManufactureId");
@@ -52,14 +52,10 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/manufacturer/delete").setViewName("manufacturer/deleteManufacturer");
         registry.addViewController("/manufacturer/update/**").setViewName("manufacturer/updateManufacturer");
         registry.addViewController("/manufacturer/new/**").setViewName("manufacturer/newManufacturer");
-
-//        registry.addViewController("/note/id/**").setViewName("note/manufacturerById");
-//        registry.addViewController("/note/name/**").setViewName("note/manufacturerById");
+        /////////////////////////////////////////____NOTE____/////////////////////////////////
         registry.addViewController("/note/list/**").setViewName("note/noteList");
-//        registry.addViewController("/note/delete").setViewName("note/deleteManufacturer");
         registry.addViewController("/note/update/**").setViewName("note/noteCreate");
         registry.addViewController("/note/edit/**").setViewName("note/noteEdit");
-//        registry.addViewController("/note/new/**").setViewName("note/newManufacturer");
         registry.addViewController("/note/**").setViewName("note/note");
         registry.addViewController("/note/show/**").setViewName("note/noteShow");
         registry.addViewController("/note/error/**").setViewName("note/noteError");

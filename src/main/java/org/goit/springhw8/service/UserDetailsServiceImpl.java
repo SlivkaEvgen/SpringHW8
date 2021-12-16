@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * The type My user details service.
+ * The type User details service.
  */
 @Logger
 @Service
@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl extends ServiceI<User, String> implements Us
     private final UserRepository userRepository;
 
     /**
-     * Instantiates a new My user details service.
+     * Instantiates a new User details service.
      *
      * @param userRepository the user repository
      */
@@ -39,6 +39,14 @@ public class UserDetailsServiceImpl extends ServiceI<User, String> implements Us
         this.userRepository = userRepository;
     }
 
+    /**
+     * load user by username
+     *
+     * @param username username
+     * @return {@link UserDetails}
+     * @see UserDetails
+     * @throws UsernameNotFoundException org.springframework.security.core.userdetails. username not found exception
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<User> byName = userRepository.findByName(username.toUpperCase());
@@ -58,12 +66,27 @@ public class UserDetailsServiceImpl extends ServiceI<User, String> implements Us
                 getAuthorities(user.getRoles()));
     }
 
+    /**
+     * get authorities
+     *
+     * @param roles roles
+     * @return {@link List}
+     * @see List
+     * @see GrantedAuthority
+     */
     private static List<GrantedAuthority> getAuthorities(Set<Role> roles) {
         return roles == null || roles.isEmpty() ? null : roles.stream().map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
     }
 
+    /**
+     * register new user account
+     *
+     * @param userDto userDto
+     * @return {@link User}
+     * @see User
+     */
     @Override
-    public User registerNewUserAccount( UserDto userDto) {
+    public User registerNewUserAccount(UserDto userDto) {
         return userRepository.save(userDto);
     }
 
@@ -77,12 +100,11 @@ public class UserDetailsServiceImpl extends ServiceI<User, String> implements Us
     }
 
     /**
-     * Gets roles.
+     * Gets role list.
      *
-     * @return the roles
+     * @return the role list
      */
     public List<Role> getRoleList() {
         return Arrays.asList(Role.values());
     }
-
 }

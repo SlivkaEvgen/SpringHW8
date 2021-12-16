@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.goit.springhw8.util.annotations.NameValid;
 import org.goit.springhw8.util.annotations.PasswordMatches;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -27,6 +28,9 @@ public class User implements BaseModel<String> {
     private static final long serialVersionUID = -558_820_640_269_434_517L;
 
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false, unique = true)
     private String id;
 
     @Column(name = "name")

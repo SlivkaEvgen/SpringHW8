@@ -28,11 +28,11 @@ public class ProductController {
     private String viewName = "";
 
     public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
-        return sendErrorMessage.customModelUser(viewName, model, errorMessage, errorMessage);
+        return sendErrorMessage.customModel(viewName, model, errorMessage);
     }
 
     public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
-        return sendErrorMessage.customModelUserOK(viewName, model, errorMessage);
+        return sendErrorMessage.customModelOK(viewName, model, errorMessage);
     }
 
     /**
@@ -77,15 +77,11 @@ public class ProductController {
     @GetMapping("id")
     public ModelAndView getProductById(String id, ModelMap model) {
         viewName = "product/productById";
-        validProductMini(viewName, id, model);
         if (id == null) {
             return new ModelAndView(viewName, model);
         }
-        if (!Validator.validId(id)) {
-            return customModel(viewName, model, "Wrong Product ID ");
-        }
         if (!productService.getById(id).isPresent()) {
-            return customModel(viewName, model, "Could Not Find Product With ID " + id);
+            return customModel(viewName, model.addAttribute("list", productService.findListByEntityId(id)), "Product With The ID = " + id + ",\n Is Not Found");
         }
         return customModelOk(viewName, model.addAttribute("list", productService.findListByEntityId(id)), "");
     }
@@ -100,15 +96,11 @@ public class ProductController {
     @GetMapping("name")
     public ModelAndView getProductByName(String name, ModelMap model) {
         viewName = "product/productByName";
-        validProductMini(viewName, name, model);
         if (name == null) {
             return new ModelAndView(viewName, model);
         }
-        if (!Validator.validName(name)) {
-            return customModel(viewName, model, "Wrong Product Name ");
-        }
-        if (productService.findByName(name.toUpperCase()).isEmpty()) {
-            return customModel(viewName, model, "Product Is Empty");
+        if (productService.findByName(name).isEmpty()) {
+            return customModel(viewName, model.addAttribute("list", productService.findListByEntityId(name)), "Product With The Name = " + name + ",\n Is Not Found");
         }
         return customModelOk(viewName, model.addAttribute("list", productService.findByName(name)), "");
     }
@@ -124,14 +116,10 @@ public class ProductController {
     public ModelAndView deleteProductById(String id, ModelMap model) {
         viewName = "product/deleteProduct";
         if (id == null) {
-            return new ModelAndView(viewName);
-        }
-        validProductMini(viewName, id, model);
-        if (!Validator.validId(id)) {
-            return customModel(viewName, model, "Invalid Product ID ");
+            return new ModelAndView(viewName, model);
         }
         if (!productService.getById(id).isPresent()) {
-            return customModel(viewName, model, "Could Not Find Product With ID " + id);
+            return customModel(viewName, model, "Product With The ID = " + id + ",\n Is Not Found");
         }
         productService.deleteById(id);
         return customModelOk("product/product", model, "Product Deleted");
@@ -248,22 +236,22 @@ public class ProductController {
             return customModel(viewName, model, "Product Name Is Empty");
         }
         if (product.getPrice().isNaN()) {
-            return customModel(viewName, model, "Product Price Is Empty");
+            return customModel(viewName, model, "Product Price Is Nan");
         }
         if (product.getPrice().isInfinite()) {
-            return customModel(viewName, model, "Product Price Is Empty");
+            return customModel(viewName, model, "Product Price Is Infinite");
         }
         if (!Validator.validId(product.getId())) {
             return customModel(viewName, model, "Wrong Product ID");
         }
         if (!Validator.validName(product.getName())) {
-            return customModel(viewName, model, "Wrong Product Name");
+            return customModel(viewName, model, "Invalid Product Name");
         }
         if (!Validator.validString(product.getPrice().toString())) {
-            return customModel(viewName, model, "Product Price Wrong");
+            return customModel(viewName, model, "Invalid Price ");
         }
         if (Validator.isValidPrice(product.getPrice().toString())) {
-            return customModel(viewName, model, "Product Price Invalid Value");
+            return customModel(viewName, model, "Invalid Price Value");
         }
         if (!productService.getById(product.getId()).isPresent()) {
             return customModel(viewName, model, "Not Found " + product.getId() + "");
@@ -273,19 +261,4 @@ public class ProductController {
         return customModelOk("product/product", model.addAttribute("manufacturer", product.getManufacturer()), "Product Updated");
     }
 
-    private void validProductMini(String viewName, Object attribute, ModelMap model) {
-        if (model == null) {
-            new ModelAndView(viewName);
-            return;
-        }
-        if (attribute == null) {
-            new ModelAndView(viewName);
-            return;
-        }
-        if (model.isEmpty()) {
-            new ModelAndView(viewName);
-            return;
-        }
-        customModel(viewName, model, attribute);
-    }
 }

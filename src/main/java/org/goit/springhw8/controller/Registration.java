@@ -30,19 +30,19 @@ public class Registration {
 
     private final PasswordEncoder passwordEncoder;
 
-    public ModelAndView customModelStandard(String viewName, ModelMap model, Object message) {
-        return sendErrorMessage.customModelUserStandard(viewName, model, message);
+    public ModelAndView customModel(String viewName, ModelMap model, Object message) {
+        return sendErrorMessage.customModel(viewName, model, message);
     }
 
     public ModelAndView customModelOK(String viewName, ModelMap model, Object message) {
-        return sendErrorMessage.customModelUserOK(viewName, model, message);
+        return sendErrorMessage.customModelOK(viewName, model, message);
     }
 
     /**
      * Instantiates a new Registration.
      *
      * @param userDetailsServiceImpl the my user details service
-     * @param passwordEncoder      the b crypt password encoder
+     * @param passwordEncoder        the b crypt password encoder
      */
     public Registration(UserDetailsServiceImpl userDetailsServiceImpl, PasswordEncoder passwordEncoder, SendErrorMessage sendErrorMessage) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
@@ -80,36 +80,40 @@ public class Registration {
         if (user.getId().isEmpty()) {
             user.setId(String.valueOf(UUID.randomUUID()));
         }
+
         if (userDetailsServiceImpl.getById(user.getId()).isPresent()) {
-            return customModelStandard(viewName, model, "User With ID " + user.getId() + "Is Used");
+            return customModel(viewName, model, "User With ID " + user.getId() + "Is Used");
         }
+
         if (user.getName() == null) {
-            return customModelStandard(viewName, model, "User Name Is Null");
-        }
-        if (user.getName().isEmpty()) {
-            return customModelStandard(viewName, model, "User Name Is Empty");
+            return customModel(viewName, model, "User Name Is Null");
         }
         if (user.getLastName() == null) {
-            return customModelStandard(viewName, model, "User Last Name Is Null");
-        }
-        if (user.getLastName().isEmpty()) {
-            return customModelStandard(viewName, model, "User Last Name Is Empty");
-        }
-        if (user.getEmail().isEmpty()) {
-            return customModelStandard(viewName, model, "User Email Is Empty");
+            return customModel(viewName, model, "User Last Name Is Null");
         }
         if (user.getEmail() == null) {
-            return customModelStandard(viewName, model, "User Email Is Null");
-        }
-        if (user.getPassword().isEmpty()) {
-            return customModelStandard(viewName, model, "User Password Is Empty");
+            return customModel(viewName, model, "User Email Is Null");
         }
         if (user.getPassword() == null) {
-            return customModelStandard(viewName, model, "User Password Is Null");
+            return customModel(viewName, model, "User Password Is Null");
         }
+
+        if (user.getName().isEmpty()) {
+            return customModel(viewName, model, "User Name Is Empty");
+        }
+        if (user.getLastName().isEmpty()) {
+            return customModel(viewName, model, "User Last Name Is Empty");
+        }
+        if (user.getEmail().isEmpty()) {
+            return customModel(viewName, model, "User Email Is Empty");
+        }
+        if (user.getPassword().isEmpty()) {
+            return customModel(viewName, model, "User Password Is Empty");
+        }
+
         for (User value : userDetailsServiceImpl.getAll()) {
             if (user.getEmail().equals(value.getEmail())) {
-                return customModelStandard(viewName, model, "The User With This Email Is Registered");
+                return customModel(viewName, model, "The User With This Email Is Registered");
             }
         }
 
