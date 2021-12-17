@@ -53,9 +53,7 @@ public class Registration {
         if (user.getId() == null||user.getId().isEmpty()) {
             user.setId(String.valueOf(UUID.randomUUID()));
         }
-//        if (user.getId().isEmpty()) {
-//            user.setId(String.valueOf(UUID.randomUUID()));
-//        }
+
         if (userDetailsServiceImpl.getById(user.getId()).isPresent()) {
             return customModel(viewName, model, "User With ID " + user.getId() + "Is Used");
         }
@@ -72,23 +70,12 @@ public class Registration {
             return customModel(viewName, model, "User Password Is Null");
         }
 
-//        if (user.getName().isEmpty()) {
-//            return customModel(viewName, model, "User Name Is Empty");
-//        }
-//        if (user.getLastName().isEmpty()) {
-//            return customModel(viewName, model, "User Last Name Is Empty");
-//        }
-//        if (user.getEmail().isEmpty()) {
-//            return customModel(viewName, model, "User Email Is Empty");
-//        }
-//        if (user.getPassword().isEmpty()) {
-//            return customModel(viewName, model, "User Password Is Empty");
-//        }
         for (User value : userDetailsServiceImpl.getAll()) {
             if (user.getEmail().equals(value.getEmail())) {
                 return customModel(viewName, model, "The User With This Email Is Registered");
             }
         }
+
         user.setGender(user.getGender());
         user.setName(user.getName().toUpperCase());
         user.setRoles(Collections.singleton(Role.ROLE_USER));
