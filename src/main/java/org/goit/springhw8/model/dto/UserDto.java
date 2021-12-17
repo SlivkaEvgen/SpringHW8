@@ -16,9 +16,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * The type User dto.
- */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NameValid
@@ -85,5 +82,3 @@ public class UserDto extends User {
     private Set<Role> roles;
 
 }
-//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//    private Set<Note> notes;

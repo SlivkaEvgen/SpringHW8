@@ -5,9 +5,6 @@ import jakarta.validation.ConstraintValidatorContext;
 import org.goit.springhw8.model.dto.UserDto;
 import org.goit.springhw8.util.annotations.PasswordMatches;
 
-/**
- * The type Password matches validator.
- */
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
 
     @Override

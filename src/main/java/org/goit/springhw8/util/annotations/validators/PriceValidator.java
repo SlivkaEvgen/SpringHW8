@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * The type Price validator.
- */
 public class PriceValidator implements ConstraintValidator<PriceValid, String> {
 
     private static final String PRICE_PATTERN = "/(\\[0-9,]+(\\.[0-9]{2})?)/";

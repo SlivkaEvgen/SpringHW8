@@ -8,9 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * The type Manufacturer.
- */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -30,5 +27,4 @@ public class Manufacturer implements BaseModel<String> {
 
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<Product> products;
-
 }
