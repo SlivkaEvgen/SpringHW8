@@ -1,6 +1,5 @@
 package org.goit.springhw8.controller;
 
-import jakarta.validation.Valid;
 import org.goit.springhw8.model.Manufacturer;
 import org.goit.springhw8.model.Product;
 import org.goit.springhw8.service.ManufacturerService;
@@ -9,16 +8,15 @@ import org.goit.springhw8.util.SendErrorMessage;
 import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Controller
-@Validated
 @RequestMapping("product")
 public class ProductController {
 
@@ -51,7 +49,7 @@ public class ProductController {
 
     @GetMapping("list")
     public ModelAndView getAllProducts(ModelMap model) {
-        return new ModelAndView("product/list", model.addAttribute("list", productService.getAll()));
+        return new ModelAndView("product/list", String.valueOf(model),model.addAttribute("list", productService.getAll()));
     }
 
     @GetMapping("id")
@@ -92,13 +90,16 @@ public class ProductController {
     }
 
     @RequestMapping(value = "new/**", method = RequestMethod.GET)
-    public ModelAndView addNewProductGet(@Valid Product product, ModelMap model) {
-        return new ModelAndView("product/newProduct", model.addAttribute("list2", productService.findAllManufacturer()).addAttribute("product", product));
+    public ModelAndView addNewProductGet(Product product, ModelMap model) {
+        return new ModelAndView("product/newProduct", String.valueOf(model),model.addAttribute("list2", productService.findAllManufacturer()).addAttribute("product", product));
     }
 
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
     public ModelAndView addNewProductPost(String id, String name, String price, String manufacturer, ModelMap model) {
         viewName = "product/newProduct";
+        if (model==null){
+            return new ModelAndView(viewName);
+        }
         model.addAttribute("list2", productService.findAllManufacturer());
         if (name == null||name.isEmpty()) {
             return customModel(viewName, model, "Product Name Is Null Or Empty");
@@ -106,12 +107,14 @@ public class ProductController {
         if (price == null||price.isEmpty()) {
             return customModel(viewName, model, "Product Price Is Null Or Empty");
         }
+
         if (!Validator.validName(name)) {
             return customModel(viewName, model, "Invalid Product Name");
         }
-        if (Validator.isValidPrice(price)|Validator.validString(price)) {
+        if (!Validator.isValidPrice(price)) {
             return customModel(viewName, model, "Invalid Price Value");
         }
+
         if (productService.getById(id).isPresent()) {
             return customModel(viewName, model, " Product With ID " + id + " Is Used");
         }
@@ -119,19 +122,22 @@ public class ProductController {
         if (!manufacturer1.isPresent()){
             return customModel(viewName, model, "Not Found Manufacturer");
         }
-        Product product = new Product(id, name, Double.valueOf(price),manufacturer1.get());
+        Product product = new Product(id, name.toUpperCase(), Double.parseDouble(price),manufacturer1.get());
         productService.saveEntity(product);
         return customModelOk("product/product", model, "Product Added");
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.GET)
-    public ModelAndView updateProductGet(@Valid Product product, ModelMap model) {
-        return new ModelAndView("product/updateProduct", model.addAttribute("product", product).addAttribute("list2", productService.findAllManufacturer()));
+    public ModelAndView updateProductGet(Product product, ModelMap model) {
+        return new ModelAndView("product/updateProduct", String.valueOf(model),model.addAttribute("product", product).addAttribute("list2", productService.findAllManufacturer()));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updateProductPost(String id, String name, String price, String manufacturer, ModelMap model) throws NumberFormatException {
+    public ModelAndView updateProductPost(String id, String name, String price, String manufacturer, ModelMap model){
         viewName = "product/updateProduct";
+        if (model==null){
+            return new ModelAndView(viewName);
+        }
         model.addAttribute("list2", productService.findAllManufacturer());
         if (name == null||name.isEmpty()) {
             return customModel(viewName, model, "Product Name Is Null Or Empty");
@@ -139,12 +145,14 @@ public class ProductController {
         if (price == null||price.isEmpty()) {
             return customModel(viewName, model, "Product Price Is Null Or Empty");
         }
+
         if (!Validator.validName(name)) {
             return customModel(viewName, model, "Invalid Product Name");
         }
-        if (Validator.isValidPrice(price)|Validator.validString(price)) {
+        if (!Validator.isValidPrice(price)){
             return customModel(viewName, model, "Invalid Price Value");
         }
+
         if (!productService.getById(id).isPresent()) {
             return customModel(viewName, model, "Not Found " + id + "");
         }
@@ -152,7 +160,7 @@ public class ProductController {
         if (!manufacturer1.isPresent()){
             return customModel(viewName, model, "Not Found Manufacturer");
         }
-        Product product = new Product(id, name, Double.valueOf(price),manufacturer1.get());
+        Product product = new Product(id, name.toUpperCase(),Double.parseDouble(price),manufacturer1.get());
         productService.saveEntity(product);
         return customModelOk("product/product", model.addAttribute("manufacturer", manufacturer1.get()), "Product Updated");
     }

@@ -22,7 +22,7 @@ create table if not exists product
 (
     id              varchar(20) primary key,
     name            varchar(15),
-    price           double precision,
+    price           decimal,
     manufacturer_id varchar(20)
 );
 

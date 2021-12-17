@@ -1,13 +1,11 @@
 package org.goit.springhw8.controller;
 
-import jakarta.validation.Valid;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserDetailsServiceImpl;
 import org.goit.springhw8.util.SendErrorMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Collections;
 import java.util.UUID;
 
-@Validated
 @RestController
 @RequestMapping("registration")
 public class Registration {
@@ -43,56 +40,55 @@ public class Registration {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showRegistrationForm(ModelMap model) {
-        return new ModelAndView("registration", model.addAttribute("list", userDetailsServiceImpl.getGenderList()));
+        return new ModelAndView("registration", String.valueOf(model),model.addAttribute("list", userDetailsServiceImpl.getGenderList()));
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView registration(@Valid User user, ModelMap model) {
+    public ModelAndView registration(User user, ModelMap model) {
         String viewName = "registration";
+        if (model==null){
+            return new ModelAndView("registration");
+        }
         model.addAttribute("list", userDetailsServiceImpl.getGenderList());
-        if (user.getId() == null) {
+        if (user.getId() == null||user.getId().isEmpty()) {
             user.setId(String.valueOf(UUID.randomUUID()));
         }
-        if (user.getId().isEmpty()) {
-            user.setId(String.valueOf(UUID.randomUUID()));
-        }
-
+//        if (user.getId().isEmpty()) {
+//            user.setId(String.valueOf(UUID.randomUUID()));
+//        }
         if (userDetailsServiceImpl.getById(user.getId()).isPresent()) {
             return customModel(viewName, model, "User With ID " + user.getId() + "Is Used");
         }
-
-        if (user.getName() == null) {
+        if (user.getName() == null||user.getName().isEmpty()) {
             return customModel(viewName, model, "User Name Is Null");
         }
-        if (user.getLastName() == null) {
+        if (user.getLastName() == null||user.getLastName().isEmpty()) {
             return customModel(viewName, model, "User Last Name Is Null");
         }
-        if (user.getEmail() == null) {
+        if (user.getEmail() == null||user.getEmail().isEmpty()) {
             return customModel(viewName, model, "User Email Is Null");
         }
-        if (user.getPassword() == null) {
+        if (user.getPassword() == null||user.getPassword().isEmpty()) {
             return customModel(viewName, model, "User Password Is Null");
         }
 
-        if (user.getName().isEmpty()) {
-            return customModel(viewName, model, "User Name Is Empty");
-        }
-        if (user.getLastName().isEmpty()) {
-            return customModel(viewName, model, "User Last Name Is Empty");
-        }
-        if (user.getEmail().isEmpty()) {
-            return customModel(viewName, model, "User Email Is Empty");
-        }
-        if (user.getPassword().isEmpty()) {
-            return customModel(viewName, model, "User Password Is Empty");
-        }
-
+//        if (user.getName().isEmpty()) {
+//            return customModel(viewName, model, "User Name Is Empty");
+//        }
+//        if (user.getLastName().isEmpty()) {
+//            return customModel(viewName, model, "User Last Name Is Empty");
+//        }
+//        if (user.getEmail().isEmpty()) {
+//            return customModel(viewName, model, "User Email Is Empty");
+//        }
+//        if (user.getPassword().isEmpty()) {
+//            return customModel(viewName, model, "User Password Is Empty");
+//        }
         for (User value : userDetailsServiceImpl.getAll()) {
             if (user.getEmail().equals(value.getEmail())) {
                 return customModel(viewName, model, "The User With This Email Is Registered");
             }
         }
-
         user.setGender(user.getGender());
         user.setName(user.getName().toUpperCase());
         user.setRoles(Collections.singleton(Role.ROLE_USER));

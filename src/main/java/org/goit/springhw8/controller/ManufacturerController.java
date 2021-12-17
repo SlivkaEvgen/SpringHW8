@@ -1,19 +1,16 @@
 package org.goit.springhw8.controller;
 
-import jakarta.validation.Valid;
 import org.goit.springhw8.model.Manufacturer;
 import org.goit.springhw8.service.ManufacturerService;
 import org.goit.springhw8.util.SendErrorMessage;
 import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-@Validated
 @RequestMapping("manufacturer")
 @Controller
 public class ManufacturerController {
@@ -87,17 +84,17 @@ public class ManufacturerController {
     }
 
     @GetMapping("new")
-    public ModelAndView addNewManufacturerGet(@Valid Manufacturer manufacturer, ModelMap model) {
+    public ModelAndView addNewManufacturerGet(Manufacturer manufacturer, ModelMap model) {
         return new ModelAndView("manufacturer/newManufacturer", String.valueOf(model),manufacturer);
     }
 
     @GetMapping("update/**")
-    public ModelAndView updateManufacturerGet(@Valid Manufacturer manufacturer, ModelMap model) {
+    public ModelAndView updateManufacturerGet(Manufacturer manufacturer, ModelMap model) {
         return new ModelAndView("manufacturer/updateManufacturer", String.valueOf(model), manufacturer);
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView addNewManufacturerPost(@Valid Manufacturer manufacturer, ModelMap model) {
+    public ModelAndView addNewManufacturerPost(Manufacturer manufacturer, ModelMap model) {
         viewName = "manufacturer/newManufacturer";
         if (manufacturer == null) {
             return new ModelAndView(viewName);
@@ -119,7 +116,7 @@ public class ManufacturerController {
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updateManufacturerPost(@Valid Manufacturer manufacturer, ModelMap model) {
+    public ModelAndView updateManufacturerPost(Manufacturer manufacturer, ModelMap model) {
         viewName = "manufacturer/updateManufacturer";
         if (manufacturer == null) {
             return new ModelAndView(viewName);
