@@ -6,14 +6,10 @@ import org.goit.springhw8.util.Validator;
 import org.goit.springhw8.util.annotations.NameValid;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-/**
- * The type Name validator.
- */
 public class NameValidator implements ConstraintValidator<NameValid,String> {
 
     @Override
     public void initialize(NameValid constraintAnnotation) {
-
     }
 
     @Override
@@ -33,5 +29,4 @@ public class NameValidator implements ConstraintValidator<NameValid,String> {
     private boolean validString(String hasLetters) {
         return hasLetters != null && !hasLetters.matches("\\d+");
     }
-
 }

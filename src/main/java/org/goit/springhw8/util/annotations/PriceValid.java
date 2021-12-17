@@ -16,6 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = PriceValidator.class)
 @Documented
 public @interface PriceValid {
+
     String message() default "Invalid price";
 
     Class<?>[] groups() default {};

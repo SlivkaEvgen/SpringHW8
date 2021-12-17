@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * The type Manufacturer controller.
- */
 @Validated
 @RequestMapping("manufacturer")
 @Controller
@@ -27,72 +24,29 @@ public class ManufacturerController {
 
     private String viewName = "";
 
-    /**
-     * Custom model model and view.
-     *
-     * @param viewName     the view name
-     * @param model        the model
-     * @param errorMessage the error message
-     * @return the model and view
-     */
     public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
         return sendErrorMessage.customModel(viewName, model, errorMessage);
     }
 
-    /**
-     * Custom model ok model and view.
-     *
-     * @param viewName     the view name
-     * @param model        the model
-     * @param errorMessage the error message
-     * @return the model and view
-     */
     public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
         return sendErrorMessage.customModelOK(viewName, model, errorMessage);
     }
 
-    /**
-     * Instantiates a new Manufacturer controller.
-     *
-     * @param manufacturerService the manufacturer service
-     * @param sendErrorMessage    the send error
-     */
     public ManufacturerController(ManufacturerService manufacturerService, SendErrorMessage sendErrorMessage) {
         this.manufacturerService = manufacturerService;
         this.sendErrorMessage = sendErrorMessage;
     }
-//OK
 
-    /**
-     * Entity manufacturer model and view.
-     *
-     * @param model the model
-     * @return the model and view
-     */
     @GetMapping("manufacturer")
     public ModelAndView entityManufacturer(ModelMap model) {
        return new ModelAndView("manufacturer/manufacturer",model);
     }
-//OK
 
-    /**
-     * Gets all manufacturers.
-     *
-     * @return the all manufacturers
-     */
     @GetMapping("list")
     public ModelAndView getAllManufacturers() {
         return new ModelAndView("manufacturer/list","list",manufacturerService.getAll());
     }
-//OK
 
-    /**
-     * Gets by manufacturer id.
-     *
-     * @param id    the id
-     * @param model the model
-     * @return the by manufacturer id
-     */
     @GetMapping("id")
     public ModelAndView getByManufacturerId(String id, ModelMap model) {
         viewName = "manufacturer/manufacturerById";
@@ -105,15 +59,7 @@ public class ManufacturerController {
         }
         return customModelOk(viewName, model, "");
     }
-//OK
 
-    /**
-     * Gets by manufacturer name.
-     *
-     * @param name  the name
-     * @param model the model
-     * @return the by manufacturer name
-     */
     @GetMapping("name")
     public ModelAndView getByManufacturerName(String name, ModelMap model) {
         viewName = "manufacturer/manufacturerByName";
@@ -126,15 +72,7 @@ public class ManufacturerController {
         }
         return customModelOk(viewName, model,"");
     }
-//OK
 
-    /**
-     * Delete manufacturer by id model and view.
-     *
-     * @param id    the id
-     * @param model the model
-     * @return the model and view
-     */
     @GetMapping("delete")
     public ModelAndView deleteManufacturerById(String id, ModelMap model) {
         viewName = "manufacturer/deleteManufacturer";
@@ -147,41 +85,17 @@ public class ManufacturerController {
         manufacturerService.deleteById(id);
         return customModelOk("manufacturer/manufacturer", model, "Manufacturer Deleted");
     }
-//OK
 
-    /**
-     * Add new manufacturer get model and view.
-     *
-     * @param manufacturer the manufacturer
-     * @param model        the model
-     * @return the model and view
-     */
     @GetMapping("new")
     public ModelAndView addNewManufacturerGet(@Valid Manufacturer manufacturer, ModelMap model) {
         return new ModelAndView("manufacturer/newManufacturer", String.valueOf(model),manufacturer);
     }
-//OK
 
-    /**
-     * Update manufacturer get model and view.
-     *
-     * @param manufacturer the manufacturer
-     * @param model        the model
-     * @return the model and view
-     */
     @GetMapping("update/**")
     public ModelAndView updateManufacturerGet(@Valid Manufacturer manufacturer, ModelMap model) {
         return new ModelAndView("manufacturer/updateManufacturer", String.valueOf(model), manufacturer);
     }
-//OK
 
-    /**
-     * Add new manufacturer post model and view.
-     *
-     * @param manufacturer the manufacturer
-     * @param model        the model
-     * @return the model and view
-     */
     @RequestMapping(value = "new", method = RequestMethod.POST)
     public ModelAndView addNewManufacturerPost(@Valid Manufacturer manufacturer, ModelMap model) {
         viewName = "manufacturer/newManufacturer";
@@ -203,15 +117,7 @@ public class ManufacturerController {
         manufacturerService.saveEntity(manufacturer);
         return customModelOk(viewName, model, "New Manufacturer Added");
     }
-//OK
 
-    /**
-     * Update manufacturer post model and view.
-     *
-     * @param manufacturer the manufacturer
-     * @param model        the model
-     * @return the model and view
-     */
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
     public ModelAndView updateManufacturerPost(@Valid Manufacturer manufacturer, ModelMap model) {
         viewName = "manufacturer/updateManufacturer";

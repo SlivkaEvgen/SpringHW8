@@ -44,19 +44,16 @@ public class UserController {
     public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
         return sendErrorMessage.customModelOK(viewName, model, errorMessage);
     }
-//OK
 
     @GetMapping("user")
     public ModelAndView entityUser(ModelMap model) {
         return new ModelAndView("user/user", model);
     }
-//OK
 
     @GetMapping("list")
     public ModelAndView getAllUsers(ModelMap model) {
         return new ModelAndView("user/list", model.addAttribute("list", userDetailsServiceImpl.getAll()));
     }
-//OK
 
     @GetMapping("id")
     public ModelAndView getUserById(String id, ModelMap model) {
@@ -69,7 +66,6 @@ public class UserController {
         }
         return customModelOk(viewName, model.addAttribute("list", userDetailsServiceImpl.findListByEntityId(id)), "");
     }
-//OK
 
     @GetMapping("name")
     public ModelAndView getUserByName(String name, ModelMap model) {
@@ -82,7 +78,6 @@ public class UserController {
         }
         return customModelOk(viewName, model.addAttribute("list", userDetailsServiceImpl.findByName(name)), "");
     }
-//OK
 
     @GetMapping("delete")
     public ModelAndView deleteUserById(String id, ModelMap model) {
@@ -96,13 +91,11 @@ public class UserController {
         userDetailsServiceImpl.deleteById(id);
         return customModelOk("user/user", model, "User Deleted");
     }
-//OK
 
     @GetMapping("new/**")
     public ModelAndView addNewUserGet(@Valid User user, ModelMap model) {
         return new ModelAndView("user/newUser", model.addAttribute("user", user).addAttribute("list2", userDetailsServiceImpl.getGenderList()).addAttribute("list3", userDetailsServiceImpl.getRoleList()));
     }
-//OK
 
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
     public ModelAndView addNewUserPost(@Valid User user, ModelMap model) {
@@ -161,13 +154,11 @@ public class UserController {
         userDetailsServiceImpl.saveEntity(user);
         return customModelOk(viewName, model, "User Is Registered.\n Now You Can To Log In");
     }
-//OK
 
     @GetMapping("update/**")
     public ModelAndView updateUserGet(@Valid User user, ModelMap model) {
         return new ModelAndView("user/updateUser", model.addAttribute("user", user).addAttribute("list3", userDetailsServiceImpl.getRoleList()).addAttribute("list2", userDetailsServiceImpl.getGenderList()));
     }
-//OK
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
     public ModelAndView updateUserPost(@Valid User user, ModelMap model) {

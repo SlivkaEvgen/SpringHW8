@@ -17,7 +17,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = NameValidator.class)
 @Documented
 public @interface NameValid {
+
     String message() default "Name not null,String,not Empty";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

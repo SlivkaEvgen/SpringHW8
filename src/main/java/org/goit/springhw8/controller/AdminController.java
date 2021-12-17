@@ -1,6 +1,5 @@
 package org.goit.springhw8.controller;
 
-import com.zaxxer.hikari.pool.HikariPool;
 import jakarta.validation.Valid;
 import org.goit.springhw8.model.User;
 import org.springframework.stereotype.Controller;

@@ -16,9 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-/**
- * The type Product dto.
- */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
@@ -41,4 +38,5 @@ public class ProductDto extends Product {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
+
 }
