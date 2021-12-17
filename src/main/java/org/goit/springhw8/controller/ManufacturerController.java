@@ -67,7 +67,7 @@ public class ManufacturerController {
         if (manufacturerService.findByName(name).isEmpty()) {
             return customModel(viewName, model, "Manufacturer With The Name = " + name + ",\n Is Not Found");
         }
-        return customModelOk(viewName, model,"");
+        return customModelOk(viewName, model.addAttribute("list",manufacturerService.findByName(name)),"");
     }
 
     @GetMapping("delete")
