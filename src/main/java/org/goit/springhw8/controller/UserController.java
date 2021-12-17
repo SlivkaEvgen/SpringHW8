@@ -155,11 +155,15 @@ public class UserController {
             return customModel(viewName, model, "User Password Is Empty");
         }
 
-        for (User value : userDetailsServiceImpl.getAll()) {
-            if (user.getEmail().equals(value.getEmail())) {
-                return customModel(viewName, model, "The User With This Email Is Registered");
-            }
+        if (!userDetailsServiceImpl.findByEmail(user.getEmail()).isEmpty()) {
+            return customModel(viewName, model, "The User With This Email Is Registered");
         }
+
+//        for (User value : userDetailsServiceImpl.getAll()) {
+//            if (user.getEmail().equals(value.getEmail())) {
+//                return customModel(viewName, model, "The User With This Email Is Registered");
+//            }
+//        }
 
         System.out.println(user.getGender());
         user.setActive(true);

@@ -33,3 +33,4 @@ org/goit/springhw8/util/annotations/validators/NameValidator.class
 org/goit/springhw8/config/SecurityConfig.class
 org/goit/springhw8/model/dto/UserDto.class
 org/goit/springhw8/model/Manufacturer.class
+org/goit/springhw8/controller/AdminController.class
