@@ -12,7 +12,7 @@ create table if not exists users
     id        varchar primary key,
     name      varchar(15),
     last_name varchar(15),
-    gender    gender,
+    gender    varchar,
     email     varchar(20),
     password  varchar(100)
 --     active    boolean

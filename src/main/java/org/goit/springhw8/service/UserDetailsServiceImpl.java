@@ -65,4 +65,8 @@ public class UserDetailsServiceImpl extends ServiceI<User, String> implements Us
     public List<Role> getRoleList() {
         return Arrays.asList(Role.values());
     }
+
+    public List<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }

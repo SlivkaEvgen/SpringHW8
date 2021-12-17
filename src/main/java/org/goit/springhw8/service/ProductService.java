@@ -22,5 +22,4 @@ public class ProductService extends ServiceI<Product, String> {
         return manufacturerRepository.findAll();
     }
 
-
 }

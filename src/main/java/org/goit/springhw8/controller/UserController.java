@@ -1,5 +1,6 @@
 package org.goit.springhw8.controller;
 
+import org.goit.springhw8.model.Gender;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserDetailsServiceImpl;
@@ -76,6 +77,18 @@ public class UserController {
         return customModelOk(viewName, model.addAttribute("list", userDetailsServiceImpl.findByName(name)), "");
     }
 
+    @GetMapping("email")
+    public ModelAndView getUserByEmail(String email, ModelMap model) {
+        viewName = "user/userByEmail";
+        if (email == null) {
+            return new ModelAndView(viewName, model);
+        }
+        if (userDetailsServiceImpl.findByEmail(email).isEmpty()) {
+            return customModel(viewName, model.addAttribute("list", userDetailsServiceImpl.findByEmail(email)), "User With The Name = " + email + ",\n Is Not Found");
+        }
+        return customModelOk(viewName, model.addAttribute("list", userDetailsServiceImpl.findByEmail(email)), "");
+    }
+
     @GetMapping("delete")
     public ModelAndView deleteUserById(String id, ModelMap model) {
         viewName = "user/deleteUser";
@@ -85,6 +98,9 @@ public class UserController {
         if (!userDetailsServiceImpl.getById(id).isPresent()) {
             return customModel(viewName, model, "User With The ID = " + id + ",\n Is Not Found");
         }
+        if (id.equalsIgnoreCase("1")){
+            return customModel(viewName, model, "Forbidden! User ADMIN ");
+        } // if ADMIN
         userDetailsServiceImpl.deleteById(id);
         return customModelOk("user/user", model, "User Deleted");
     }
@@ -100,8 +116,8 @@ public class UserController {
         if (model==null){
             return new ModelAndView("user/newUser");
         }
-        model.addAttribute("list2", userDetailsServiceImpl.getGenderList())
-                .addAttribute("list3", userDetailsServiceImpl.getRoleList());
+        model.addAttribute("list2", userDetailsServiceImpl.getGenderList());
+               // .addAttribute("list3", userDetailsServiceImpl.getRoleList());
 
         if (user.getId() == null) {
             user.setId(String.valueOf(UUID.randomUUID()));
@@ -146,9 +162,11 @@ public class UserController {
             }
         }
 
+        System.out.println(user.getGender());
         user.setActive(true);
         user.setGender(user.getGender());
         user.setName(user.getName().toUpperCase());
+        user.setLastName(user.getLastName().toUpperCase());
         user.setRoles(Collections.singleton(Role.ROLE_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDetailsServiceImpl.saveEntity(user);
@@ -207,16 +225,20 @@ public class UserController {
 
         if (!userDetailsServiceImpl.getById(user.getId()).isPresent()) {
             return customModel(viewName, model, "User With The ID = " + user.getId() + ",\n Is Not Found");
-        }
+        } // if by id is null
         for (User value : userDetailsServiceImpl.getAll()) {
             if (user.getEmail().equals(value.getEmail())) {
                 return customModel(viewName, model, "The User With This Email Is Registered");
             }
-        }
+        } // check unique email
+        if (user.getId().equalsIgnoreCase("1")){
+            return customModel(viewName, model, "Forbidden! User ADMIN ");
+        } // if ADMIN
 
         user.setActive(true);
         user.setGender(user.getGender());
         user.setName(user.getName().toUpperCase());
+        user.setLastName(user.getLastName().toUpperCase());
         user.setRoles(Collections.singleton(Role.ROLE_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDetailsServiceImpl.saveEntity(user);
