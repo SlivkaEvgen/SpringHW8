@@ -39,12 +39,12 @@ public class Registration {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView showRegistrationForm(ModelMap model) {
+    public ModelAndView registrationGet(ModelMap model) {
         return new ModelAndView("registration", String.valueOf(model), model.addAttribute("list", userDetailsServiceImpl.getGenderList()));
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView registration(User user, ModelMap model) {
+    public ModelAndView registrationPost(User user, ModelMap model) {
         String viewName = "registration";
         if (model == null) {
             return new ModelAndView("registration");
@@ -52,10 +52,6 @@ public class Registration {
         model.addAttribute("list", userDetailsServiceImpl.getGenderList());
         if (user.getId() == null || user.getId().isEmpty()) {
             user.setId(String.valueOf(UUID.randomUUID()));
-        }
-
-        if (userDetailsServiceImpl.getById(user.getId()).isPresent()) {
-            return customModel(viewName, model, "User With ID " + user.getId() + "Is Used");
         }
         if (user.getName() == null || user.getName().isEmpty()) {
             return customModel(viewName, model, "User Name Is Null");
@@ -72,12 +68,7 @@ public class Registration {
 
         if (!userDetailsServiceImpl.findByEmail(user.getEmail()).isEmpty()) {
             return customModel(viewName, model, "The User With This Email Is Registered");
-        }
-//        for (User value : userDetailsServiceImpl.getAll()) {
-//            if (user.getEmail().equals(value.getEmail())) {
-//                return customModel(viewName, model, "The User With This Email Is Registered");
-//            }
-//        }
+        } // check unique email
 
         user.setActive(true);
         user.setGender(user.getGender());

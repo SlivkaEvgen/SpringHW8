@@ -10,6 +10,7 @@ public class SpringHw8Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringHw8Application.class, args);
+        System.out.println("DEFAULT Login/Password:\n->      ADMIN/123\n->      USER/123");
     }
 
     @Override

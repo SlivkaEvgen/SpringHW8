@@ -20,12 +20,13 @@ public class Validator {
         return empty(name) &&
                 !name.equalsIgnoreCase("null") &&
                 name.length() <= 15 &&
+                name.length()>=2&&
                 !Validator.validNumber(name) &&
                 validString(name);
     }
 
     public static boolean validEmail(@ModelAttribute("email") String email) {
-        return empty(email) && email.matches("/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i");
+        return empty(email) && email.length()>=4 && email.matches("/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i");
     }
 
     private static boolean validNumber(String hasNumbers) {
