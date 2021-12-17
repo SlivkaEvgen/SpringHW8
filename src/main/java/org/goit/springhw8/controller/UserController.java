@@ -1,6 +1,5 @@
 package org.goit.springhw8.controller;
 
-import jakarta.validation.Valid;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserDetailsServiceImpl;
@@ -9,7 +8,6 @@ import org.goit.springhw8.util.Validator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Collections;
 import java.util.UUID;
 
-@Validated
 @Controller
 @RequestMapping(value = "user")
 public class UserController {
@@ -52,7 +49,7 @@ public class UserController {
 
     @GetMapping("list")
     public ModelAndView getAllUsers(ModelMap model) {
-        return new ModelAndView("user/list", model.addAttribute("list", userDetailsServiceImpl.getAll()));
+        return new ModelAndView("user/list", String.valueOf(model),model.addAttribute("list", userDetailsServiceImpl.getAll()));
     }
 
     @GetMapping("id")
@@ -93,13 +90,16 @@ public class UserController {
     }
 
     @GetMapping("new/**")
-    public ModelAndView addNewUserGet(@Valid User user, ModelMap model) {
-        return new ModelAndView("user/newUser", model.addAttribute("user", user).addAttribute("list2", userDetailsServiceImpl.getGenderList()).addAttribute("list3", userDetailsServiceImpl.getRoleList()));
+    public ModelAndView addNewUserGet(User user, ModelMap model) {
+        return new ModelAndView("user/newUser", String.valueOf(model),model.addAttribute("user", user).addAttribute("list2", userDetailsServiceImpl.getGenderList()).addAttribute("list3", userDetailsServiceImpl.getRoleList()));
     }
 
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
-    public ModelAndView addNewUserPost(@Valid User user, ModelMap model) {
+    public ModelAndView addNewUserPost(User user, ModelMap model) {
         viewName = "user/newUser";
+        if (model==null){
+            return new ModelAndView("user/newUser");
+        }
         model.addAttribute("list2", userDetailsServiceImpl.getGenderList())
                 .addAttribute("list3", userDetailsServiceImpl.getRoleList());
 
@@ -156,43 +156,45 @@ public class UserController {
     }
 
     @GetMapping("update/**")
-    public ModelAndView updateUserGet(@Valid User user, ModelMap model) {
-        return new ModelAndView("user/updateUser", model.addAttribute("user", user).addAttribute("list3", userDetailsServiceImpl.getRoleList()).addAttribute("list2", userDetailsServiceImpl.getGenderList()));
+    public ModelAndView updateUserGet(User user, ModelMap model) {
+        return new ModelAndView("user/updateUser",String.valueOf(model), model.addAttribute("user", user).addAttribute("list3", userDetailsServiceImpl.getRoleList()).addAttribute("list2", userDetailsServiceImpl.getGenderList()));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
-    public ModelAndView updateUserPost(@Valid User user, ModelMap model) {
+    public ModelAndView updateUserPost(User user, ModelMap model) {
         viewName = "user/updateUser";
+        if (model==null){
+            return new ModelAndView("user/updateUser");
+        }
         model.addAttribute("user", user).addAttribute("list3", userDetailsServiceImpl.getRoleList()).addAttribute("list2", userDetailsServiceImpl.getGenderList());
 
-        if (user.getId() == null) {
-            return customModel(viewName, model, "User ID Is Null");
+        if (user.getId() == null||user.getId().isEmpty()) {
+            return customModel(viewName, model, "User ID Is Null Or Empty");
         }
-        if (user.getName() == null) {
-            return customModel(viewName, model, "User Name Is Null");
+        if (user.getName() == null||user.getName().isEmpty()) {
+            return customModel(viewName, model, "User Name Is Null Or Empty");
         }
-        if (user.getLastName() == null) {
-            return customModel(viewName, model, "User Last Name Is Null");
+        if (user.getLastName() == null||user.getLastName().isEmpty()) {
+            return customModel(viewName, model, "User Last Name Is Null Or Empty");
         }
-        if (user.getEmail() == null) {
-            return customModel(viewName, model, "User Email Is Null");
+        if (user.getEmail() == null||user.getEmail().isEmpty()) {
+            return customModel(viewName, model, "User Email Is Null Or Empty");
         }
-        if (user.getPassword() == null) {
-            return customModel(viewName, model, "User Password Is Null");
+        if (user.getPassword() == null||user.getPassword().isEmpty()) {
+            return customModel(viewName, model, "User Password Is Null Or Empty");
         }
-        if (user.getName().isEmpty()) {
-            return customModel(viewName, model, "User Name Is Empty");
-        }
-        if (user.getLastName().isEmpty()) {
-            return customModel(viewName, model, "User Last Name Is Empty");
-        }
-        if (user.getEmail().isEmpty()) {
-            return customModel(viewName, model, "User Email Is Empty");
-        }
-        if (user.getPassword().isEmpty()) {
-            return customModel(viewName, model, "User Password Is Empty");
-        }
-
+//        if (user.getName().isEmpty()) {
+//            return customModel(viewName, model, "User Name Is Empty");
+//        }
+//        if (user.getLastName().isEmpty()) {
+//            return customModel(viewName, model, "User Last Name Is Empty");
+//        }
+//        if (user.getEmail().isEmpty()) {
+//            return customModel(viewName, model, "User Email Is Empty");
+//        }
+//        if (user.getPassword().isEmpty()) {
+//            return customModel(viewName, model, "User Password Is Empty");
+//        }
         if (!Validator.validName(user.getName())) {
             return customModel(viewName, model, "Invalid Name Value");
         }

@@ -1,10 +1,9 @@
 package org.goit.springhw8.util;
 
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-@Validated
+//@Validated
 @Component
 public class Validator {
 
@@ -39,7 +38,7 @@ public class Validator {
         return empty(isNumber) && isNumber.matches("/^\\d{1,}$/");
     }
 
-    public static boolean isValidPrice(@ModelAttribute("price") String price){
-        return price.matches("/(\\[0-9,]+(\\.[0-9]{2})?)/") || !price.matches("^[^\\s]+(\\s+[^\\s]+)*$");
+    public static boolean isValidPrice(String price){//@ModelAttribute("price")
+        return !price.contains(",") && price.matches("[0-9]+([,.][0-9]{1,2})?");
     }
 }
