@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @SneakyThrows
     @Override
     protected void configure(HttpSecurity http) {
-        http.csrf().disable()//.rememberMe().and()
+        http.csrf().disable().rememberMe().and()
                 .authorizeRequests()
                 //Доступ только для не зарегистрированных пользователей
                 .antMatchers("/registration").not().fullyAuthenticated()
@@ -58,8 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll()
-                .logoutSuccessUrl("/");
+                .permitAll();
+//                .logoutSuccessUrl("/");
 
     }
 }
