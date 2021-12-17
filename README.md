@@ -39,13 +39,7 @@ ADD to Application.properties:
 
 #Coming soon
 
-- security
+- notes
+- weather
 
-- user(update/add)
-
-- send message(error/wrong)
-
-- validation
-
-- убрать логику в моделях
 ...
