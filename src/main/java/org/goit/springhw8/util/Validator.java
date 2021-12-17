@@ -1,10 +1,8 @@
 package org.goit.springhw8.util;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-//@Validated
-@Component
+//@Component
 public class Validator {
 
     public static boolean validString(String hasLetters) {
@@ -34,11 +32,12 @@ public class Validator {
         return  empty(hasNumbers)&&hasNumbers.matches("\\d+")&&hasNumbers.matches("^[^\\s]+(\\s+[^\\s]+)*$");
     }
 
-    private static boolean isValidNumbers(String isNumber){
-        return empty(isNumber) && isNumber.matches("/^\\d{1,}$/");
-    }
-
-    public static boolean isValidPrice(String price){//@ModelAttribute("price")
-        return !price.contains(",") && price.matches("[0-9]+([,.][0-9]{1,2})?");
+    public static boolean isValidPrice(@ModelAttribute("price") String price){
+        return price!=null &&
+                !price.contains(",") &&
+                price.matches("[0-9]+([,.][0-9]{1,2})?");
     }
 }
+//    private static boolean isValidNumbers(String isNumber){
+//        return empty(isNumber) && isNumber.matches("/^\\d{1,}$/");
+//    }

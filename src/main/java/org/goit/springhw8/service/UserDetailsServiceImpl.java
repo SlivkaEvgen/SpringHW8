@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-//@Logger
 @Service
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class UserDetailsServiceImpl extends ServiceI<User, String> implements UserDetailsService, IUserService {

@@ -1,6 +1,5 @@
 package org.goit.springhw8.model;
 
-import jakarta.validation.Constraint;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.Setter;
 import org.goit.springhw8.util.annotations.PriceValid;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @AllArgsConstructor
 @RequiredArgsConstructor

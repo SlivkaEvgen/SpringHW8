@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface NameValid {
 
-    String message() default "Name not null,String,not Empty";
+    String message() default "Name not null,not Empty";
 
     Class<?>[] groups() default {};
 

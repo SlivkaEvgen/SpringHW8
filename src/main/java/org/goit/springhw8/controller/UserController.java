@@ -1,6 +1,5 @@
 package org.goit.springhw8.controller;
 
-import org.goit.springhw8.model.Gender;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserDetailsServiceImpl;
@@ -201,18 +200,7 @@ public class UserController {
         if (user.getPassword() == null||user.getPassword().isEmpty()) {
             return customModel(viewName, model, "User Password Is Null Or Empty");
         }
-//        if (user.getName().isEmpty()) {
-//            return customModel(viewName, model, "User Name Is Empty");
-//        }
-//        if (user.getLastName().isEmpty()) {
-//            return customModel(viewName, model, "User Last Name Is Empty");
-//        }
-//        if (user.getEmail().isEmpty()) {
-//            return customModel(viewName, model, "User Email Is Empty");
-//        }
-//        if (user.getPassword().isEmpty()) {
-//            return customModel(viewName, model, "User Password Is Empty");
-//        }
+
         if (!Validator.validName(user.getName())) {
             return customModel(viewName, model, "Invalid Name Value");
         }

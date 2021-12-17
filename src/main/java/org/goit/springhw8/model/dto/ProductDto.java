@@ -15,7 +15,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.math.BigDecimal;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -33,7 +32,7 @@ public class ProductDto extends Product {
     @PriceValid
     @PositiveOrZero
     @Digits(integer = 5, fraction = 2)
-//    @Size(max = 20, message = "max = 20")
+    @Size(max = 20, message = "max = 20")
     private final Double price;
 
     @ManyToOne(fetch = FetchType.EAGER)
