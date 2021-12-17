@@ -21,7 +21,7 @@
 <div class="w3-container w3-center w3-round-xlarge">
     <form class="container m3-center w3-round-xlarge" method="POST" action="${pageContext.request.contextPath}new">
         <nav class="w3-bar-block  w3-light-grey w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
-            <h5 style="color:steelblue" class="text w3-animate-fading">New Role</h5>
+            <h5 style="color:steelblue" class="text w3-animate-fading">New Product</h5>
             <table class="w3-table-all w3-small w3-centered "
                    class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
                    id="myTable">

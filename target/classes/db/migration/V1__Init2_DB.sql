@@ -1,12 +1,17 @@
 -- create sequence hibernate_sequence start 1 increment 1;
-create type gender as enum ('MALE','FEMALE');
 
+-- create types Gender / Roles
+create type gender as enum ('MALE','FEMALE');
+create type roles as enum ('ROLE_ADMIN','ROLE_USER');
+
+-- create table manufacturer
 create table if not exists manufacturer
 (
     id   varchar(20) primary key,
     name varchar(15)
 );
 
+-- create table users
 create table if not exists users
 (
     id        varchar primary key,
@@ -18,18 +23,20 @@ create table if not exists users
 --     active    boolean
 );
 
+-- create table product
 create table if not exists product
 (
     id              varchar(20) primary key,
     name            varchar(15),
-    price           decimal,
+    price           double precision,
     manufacturer_id varchar(20)
 );
 
+-- create table user_role
 create table user_role
 (
-    user_id  varchar not null references users,
-    roles varchar not null references pg_roles,
+    user_id  varchar not null ,
+    roles varchar not null,
     primary key (user_id, roles)
 );
 
@@ -50,6 +57,7 @@ values ('1', 'IPHONE X', 1099.9, '1'),
        ('6', 'MAC AIR', 2290.99, '1'),
        ('7', 'MAC PRO', 2490.99, '1');
 
+-- create users
 insert into users (id, name, last_name, gender, email, password)
 values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG'),
        ('2', 'USER', 'USER', 'MALE', 'user@ua', '$2a$10$/5aMIjIbWnFOUgdVHoFGpOkcjubz8wOXYy8hzbKoyQVFcIiYY7z7i'),
@@ -57,6 +65,7 @@ values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62
        ('4', 'GEKA', 'GK', 'MALE', 'geka@ua', '$2a$10$EuHVHqfXs.AqDfmlos9AfuOSs2DsHIhJ2t74CZxyJ95h1gOVkolD6'),
        ('5', 'GEKA2', 'GekK', 'MALE', 'geka2@ua', '$2a$10$EuHVHqfXs.AqDfmlos9AfuOSs2DsHIhJ2t74CZxyJ95h1gOVkolD6');
 
+-- create user_role
 insert into user_role(user_id, roles)
 values ('1', 'ROLE_ADMIN'),
        ('2', 'ROLE_USER'),

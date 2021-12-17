@@ -78,7 +78,7 @@
                     </c:forEach>
                 </table>
             </table>
-            <h5 style="color:steelblue" class="text w3-center w3-round-xlarge w3-animate-bottom">USER BY ID</h5>
+            <h5 style="color:steelblue" class="text w3-center w3-round-xlarge w3-animate-bottom">USER BY NAME</h5>
         </form>
     </nav>
 </div>
