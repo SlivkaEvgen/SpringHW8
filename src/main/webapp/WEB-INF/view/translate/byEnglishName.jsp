@@ -11,7 +11,7 @@
 <style>
     .w3-display-bottommiddle {
         z-index: 2;
-        width: 600px;
+        width: 500px;
         line-height: initial;
     }
 </style>

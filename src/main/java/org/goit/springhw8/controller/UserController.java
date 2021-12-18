@@ -1,11 +1,9 @@
 package org.goit.springhw8.controller;
 
-import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserDetailsServiceImpl;
 import org.goit.springhw8.util.SendErrorMessage;
 import org.goit.springhw8.util.Validator;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collections;
 import java.util.UUID;
 
 @Controller
@@ -24,14 +21,14 @@ public class UserController {
 
     private final UserDetailsServiceImpl userDetailsServiceImpl;
 
-    private final PasswordEncoder passwordEncoder;
+    private final SetIntoUser setIntoUser;
 
     private String viewName = "";
 
-    public UserController(SendErrorMessage sendErrorMessage, UserDetailsServiceImpl userDetailsServiceImpl, PasswordEncoder passwordEncoder) {
+    public UserController(SendErrorMessage sendErrorMessage, UserDetailsServiceImpl userDetailsServiceImpl, SetIntoUser setIntoUser) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
-        this.passwordEncoder = passwordEncoder;
         this.sendErrorMessage = sendErrorMessage;
+        this.setIntoUser = setIntoUser;
     }
 
     public ModelAndView customModel(String viewName, ModelMap model, Object message) {
@@ -49,7 +46,7 @@ public class UserController {
 
     @GetMapping("list")
     public ModelAndView getAllUsers(ModelMap model) {
-        return new ModelAndView("user/list", String.valueOf(model),model.addAttribute("list", userDetailsServiceImpl.getAll()));
+        return new ModelAndView("user/list", String.valueOf(model), model.addAttribute("list", userDetailsServiceImpl.getAll()));
     }
 
     @GetMapping("id")
@@ -97,131 +94,92 @@ public class UserController {
         if (!userDetailsServiceImpl.getById(id).isPresent()) {
             return customModel(viewName, model, "User With The ID = " + id + ",\n Is Not Found");
         }
-        if (id.equalsIgnoreCase("1")){
+        // if ADMIN
+        if (id.equalsIgnoreCase("1")) {
             return customModel(viewName, model, "Forbidden! User ADMIN ");
-        } // if ADMIN
+        }
         userDetailsServiceImpl.deleteById(id);
         return customModelOk("user/user", model, "User Deleted");
     }
 
     @GetMapping("new/**")
     public ModelAndView addNewUserGet(User user, ModelMap model) {
-        return new ModelAndView("user/newUser", String.valueOf(model),model.addAttribute("user", user).addAttribute("list2", userDetailsServiceImpl.getGenderList()).addAttribute("list3", userDetailsServiceImpl.getRoleList()));
+        return new ModelAndView("user/newUser", String.valueOf(model), model.addAttribute("user", user).addAttribute("list2", userDetailsServiceImpl.getGenderList()).addAttribute("list3", userDetailsServiceImpl.getRoleList()));
     }
 
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
     public ModelAndView addNewUserPost(User user, ModelMap model) {
         viewName = "user/newUser";
-        if (model==null){
+        if (model == null) {
             return new ModelAndView("user/newUser");
         }
-        model.addAttribute("list2", userDetailsServiceImpl.getGenderList());
-               // .addAttribute("list3", userDetailsServiceImpl.getRoleList());
-        if (user.getId() == null||user.getId().isEmpty()) {
+        model.addAttribute("list2", userDetailsServiceImpl.getGenderList());// .addAttribute("list3", userDetailsServiceImpl.getRoleList());
+        if (user.getId() == null || user.getId().isEmpty()) {
             user.setId(String.valueOf(UUID.randomUUID()));
         }
-        if (userDetailsServiceImpl.getById(user.getId()).isPresent()) {
-            return customModel(viewName, model, "User With ID " + user.getId() + "Is Used");
+        if (!setIntoUser.NotNullNotEmpty(viewName, user, model).isEmpty()) {
+            if (!Validator.validName(user.getName())) {
+                return customModel(viewName, model, " Invalid  Name ");
+            }
+            if (!Validator.validName(user.getLastName())) {
+                return customModel(viewName, model, " Invalid  Last Name ");
+            }
+            if (Validator.validEmail(user.getEmail())) {
+                return customModel(viewName, model, " Invalid  Email ");
+            }
+            if (!userDetailsServiceImpl.findByEmail(user.getEmail()).isEmpty()) {
+                return customModel(viewName, model, "The User With This Email Is Registered");
+            }
+            if (user.getPassword().length() <= 5 | user.getPassword().length() > 20) {
+                return customModel(viewName, model, " Password must be more than 5 characters ");
+            }
+            if (userDetailsServiceImpl.getById(user.getId()).isPresent()) {
+                return customModel(viewName, model, "User With ID " + user.getId() + "Is Used");
+            }
         }
-        if (user.getName() == null||user.getName().isEmpty()) {
-            return customModel(viewName, model, "User Name Is Null");
-        }
-        if (user.getLastName() == null||user.getLastName().isEmpty()) {
-            return customModel(viewName, model, "User Last Name Is Null");
-        }
-        if (user.getEmail() == null||user.getEmail().isEmpty()) {
-            return customModel(viewName, model, "User Email Is Null");
-        }
-        if (user.getPassword() == null||user.getPassword().isEmpty()) {
-            return customModel(viewName, model, "User Password Is Null");
-        }
-
-        if (!Validator.validName(user.getName())){
-            return customModel(viewName, model, " Invalid  Name ");
-        }
-        if (!Validator.validName(user.getLastName())){
-            return customModel(viewName, model, " Invalid  Last Name ");
-        }
-        if (Validator.validEmail(user.getEmail())){
-            return customModel(viewName, model, " Invalid  Email ");
-        }
-
-        if (!userDetailsServiceImpl.findByEmail(user.getEmail()).isEmpty()) {
-            return customModel(viewName, model, "The User With This Email Is Registered");
-        }
-
-        if (user.getPassword().length() <= 5 | user.getPassword().length() > 20) {
-            return customModel(viewName, model, " Password must be more than 5 characters ");
-        }
-
-        user.setActive(true);
-        user.setGender(user.getGender());
-        user.setName(user.getName().toUpperCase());
-        user.setLastName(user.getLastName().toUpperCase());
-        user.setRoles(Collections.singleton(Role.ROLE_USER));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userDetailsServiceImpl.saveEntity(user);
-        return customModelOk("login", model, "User Is Registered.\n Now You Can To Log In");
+        userDetailsServiceImpl.saveEntity(setIntoUser.setUser(user));
+        return customModelOk("user/user", model, "User Is Registered.\n Now You Can To Log In");
     }
 
     @GetMapping("update/**")
     public ModelAndView updateUserGet(User user, ModelMap model) {
-        return new ModelAndView("user/updateUser",String.valueOf(model), model.addAttribute("user", user).addAttribute("list3", userDetailsServiceImpl.getRoleList()).addAttribute("list2", userDetailsServiceImpl.getGenderList()));
+        return new ModelAndView("user/updateUser", String.valueOf(model), model.addAttribute("user", user).addAttribute("list3", userDetailsServiceImpl.getRoleList()).addAttribute("list2", userDetailsServiceImpl.getGenderList()));
     }
 
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
     public ModelAndView updateUserPost(User user, ModelMap model) {
         viewName = "user/updateUser";
-        if (model==null){
+        if (model == null) {
             return new ModelAndView("user/updateUser");
         }
-        model.addAttribute("user", user).
-//                addAttribute("list3", userDetailsServiceImpl.getRoleList()).
-                addAttribute("list2", userDetailsServiceImpl.getGenderList());
-
-        if (user.getId() == null||user.getId().isEmpty()) {
+        model.addAttribute("user", user).addAttribute("list2", userDetailsServiceImpl.getGenderList());//addAttribute("list3", userDetailsServiceImpl.getRoleList()).
+        if (user.getId() == null || user.getId().isEmpty()) {
             return customModel(viewName, model, "User ID Is Null Or Empty");
         }
-        if (user.getName() == null||user.getName().isEmpty()) {
-            return customModel(viewName, model, "User Name Is Null Or Empty");
+        if (!setIntoUser.NotNullNotEmpty(viewName, user, model).isEmpty()) {
+            if (!Validator.validName(user.getName())) {
+                return customModel(viewName, model, "Invalid Name Value");
+            }
+            if (!Validator.validName(user.getLastName())) {
+                return customModel(viewName, model, "Invalid Last Name Value");
+            }
+            if (Validator.validEmail(user.getEmail())) {
+                return customModel(viewName, model, "Invalid Email Value");
+            }
+            // if by id is Empty
+            if (!userDetailsServiceImpl.getById(user.getId()).isPresent()) {
+                return customModel(viewName, model, "User With The ID = " + user.getId() + ",\n Is Not Found");
+            }
+            // check unique email
+            if (!userDetailsServiceImpl.findByEmail(user.getEmail()).isEmpty()) {
+                return customModel(viewName, model, "The User With This Email Is Registered");
+            }
+            // if ADMIN
+            if (user.getId().equalsIgnoreCase("1")) {
+                return customModel(viewName, model, "Forbidden! User ADMIN ");
+            }
         }
-        if (user.getLastName() == null||user.getLastName().isEmpty()) {
-            return customModel(viewName, model, "User Last Name Is Null Or Empty");
-        }
-        if (user.getEmail() == null||user.getEmail().isEmpty()) {
-            return customModel(viewName, model, "User Email Is Null Or Empty");
-        }
-        if (user.getPassword() == null||user.getPassword().isEmpty()) {
-            return customModel(viewName, model, "User Password Is Null Or Empty");
-        }
-
-        if (!Validator.validName(user.getName())) {
-            return customModel(viewName, model, "Invalid Name Value");
-        }
-        if (!Validator.validName(user.getLastName())) {
-            return customModel(viewName, model, "Invalid Last Name Value");
-        }
-        if (Validator.validEmail(user.getEmail())) {
-            return customModel(viewName, model, "Invalid Email Value");
-        }
-
-        if (!userDetailsServiceImpl.getById(user.getId()).isPresent()) {
-            return customModel(viewName, model, "User With The ID = " + user.getId() + ",\n Is Not Found");
-        }    // if by id is null
-        if (!userDetailsServiceImpl.findByEmail(user.getEmail()).isEmpty()){
-            return customModel(viewName, model, "The User With This Email Is Registered");
-        }// check unique email
-        if (user.getId().equalsIgnoreCase("1")){
-            return customModel(viewName, model, "Forbidden! User ADMIN ");
-        }                // if ADMIN
-
-        user.setActive(true);
-        user.setGender(user.getGender());
-        user.setName(user.getName().toUpperCase());
-        user.setLastName(user.getLastName().toUpperCase());
-        user.setRoles(Collections.singleton(Role.ROLE_USER));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userDetailsServiceImpl.saveEntity(user);
+        userDetailsServiceImpl.saveEntity(setIntoUser.setUser(user));
         return customModelOk("user/user", model, "User Updated");
     }
 }
