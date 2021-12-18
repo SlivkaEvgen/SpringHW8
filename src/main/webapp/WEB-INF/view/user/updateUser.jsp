@@ -83,16 +83,16 @@
                     </label>
                 </td>
             </tr>
-<%--            <tr>--%>
-<%--                <td>Role</td>--%>
-<%--                <td><label>--%>
-<%--                    <select class="w3-select w3-center w3-round-xlarge" name="role">--%>
-<%--                        <c:forEach var="role" items="${list3}" begin="1">--%>
-<%--                            <option value="${role.name()}">${role.name().toString()}</option>--%>
-<%--                        </c:forEach>--%>
-<%--                    </select>--%>
-<%--                </label></td>--%>
-<%--            </tr>--%>
+            <%--            <tr>--%>
+            <%--                <td>Role</td>--%>
+            <%--                <td><label>--%>
+            <%--                    <select class="w3-select w3-center w3-round-xlarge" name="role">--%>
+            <%--                        <c:forEach var="role" items="${list3}" begin="1">--%>
+            <%--                            <option value="${role.name()}">${role.name().toString()}</option>--%>
+            <%--                        </c:forEach>--%>
+            <%--                    </select>--%>
+            <%--                </label></td>--%>
+            <%--            </tr>--%>
             <tr>
                 <th>
                     <a href="${pageContext.request.contextPath}/user"

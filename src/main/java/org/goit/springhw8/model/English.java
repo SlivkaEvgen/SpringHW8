@@ -3,7 +3,10 @@ package org.goit.springhw8.model;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Getter
@@ -15,6 +18,8 @@ import java.util.Objects;
 @Table(name = "english")
 public class English implements BaseModel<String> {
 
+    private static final long serialVersionUID = -8885599447527871882L;
+
     @Id
     @Column(name = "id")
     private String id;
@@ -24,10 +29,6 @@ public class English implements BaseModel<String> {
 
     @Column(name = "ukr")
     private String ukr;
-
-    //Later
-//    @Column("pronunciation")
-//    private String pronunciation;
 
     @Override
     public boolean equals(Object o) {
@@ -42,3 +43,7 @@ public class English implements BaseModel<String> {
         return Objects.hash(getId(), getName(), getUkr());
     }
 }
+
+//Later
+//    @Column("pronunciation")
+//    private String pronunciation;

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="_header.jsp" %>
@@ -20,27 +20,27 @@
     <h2 class="date-cell w3-center w3-round-xlarge"
         style="color: darkslateblue; animation-timing-function: ease-in-out">
     </h2>
-<div class="w3-container w3-center w3-round-xlarge w3-padding-50">
-    <div class="w3-container w3-center w3-round-xlarge w3-ios">
-<%--        <a href="${pageContext.request.contextPath}/home"--%>
-<%--           class="w3-btn w3-wide w3-hover-red w3-round-xlarge w3-ios-background">HOME</a>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<p></p>
-    <a href="${pageContext.request.contextPath}/note"
-       class="w3-btn w3-hover-light-blue w3-round-xlarge">Note</a>
+    <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
+        <div class="w3-container w3-center w3-round-xlarge w3-ios">
+            <%--        <a href="${pageContext.request.contextPath}/home"--%>
+            <%--           class="w3-btn w3-wide w3-hover-red w3-round-xlarge w3-ios-background">HOME</a>--%>
+            <%--    </div>--%>
+            <%--</div>--%>
+            <p></p>
+            <a href="${pageContext.request.contextPath}/note"
+               class="w3-btn w3-hover-light-blue w3-round-xlarge">Note</a>
 
-    <a href="${pageContext.request.contextPath}/weather"
-   class="w3-btn  w3-hover-light-blue w3-round-xlarge">Weather</a>
-<%--<a href="${pageContext.request.contextPath}/product"--%>
-<%--   class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Product</a>--%>
-<%--<a href="${pageContext.request.contextPath}/manufacturer"--%>
-<%--   class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Manufacturer</a>--%>
-<%--<a href="${pageContext.request.contextPath}/note"--%>
-<%--   class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Notes</a>--%>
+            <a href="${pageContext.request.contextPath}/weather"
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Weather</a>
+            <%--<a href="${pageContext.request.contextPath}/product"--%>
+            <%--   class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Product</a>--%>
+            <%--<a href="${pageContext.request.contextPath}/manufacturer"--%>
+            <%--   class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Manufacturer</a>--%>
+            <%--<a href="${pageContext.request.contextPath}/note"--%>
+            <%--   class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Notes</a>--%>
 
-<%--</a>--%>
-    </div>
+            <%--</a>--%>
+        </div>
     </div>
     <p></p>
     <p></p>

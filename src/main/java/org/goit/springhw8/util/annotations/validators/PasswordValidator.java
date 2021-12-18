@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import org.goit.springhw8.model.dto.UserDto;
 import org.goit.springhw8.util.annotations.PasswordMatches;
 
-public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
+public class PasswordValidator implements ConstraintValidator<PasswordMatches, Object> {
 
     @Override
     public void initialize(PasswordMatches constraintAnnotation) {

@@ -36,12 +36,12 @@ public class ManufacturerController {
 
     @GetMapping("manufacturer")
     public ModelAndView entityManufacturer(ModelMap model) {
-       return new ModelAndView("manufacturer/manufacturer",model);
+        return new ModelAndView("manufacturer/manufacturer", model);
     }
 
     @GetMapping("list")
     public ModelAndView getAllManufacturers() {
-        return new ModelAndView("manufacturer/list","list",manufacturerService.getAll());
+        return new ModelAndView("manufacturer/list", "list", manufacturerService.getAll());
     }
 
     @GetMapping("id")
@@ -67,7 +67,7 @@ public class ManufacturerController {
         if (manufacturerService.findByName(name).isEmpty()) {
             return customModel(viewName, model, "Manufacturer With The Name = " + name + ",\n Is Not Found");
         }
-        return customModelOk(viewName, model.addAttribute("list",manufacturerService.findByName(name)),"");
+        return customModelOk(viewName, model.addAttribute("list", manufacturerService.findByName(name)), "");
     }
 
     @GetMapping("delete")
@@ -85,7 +85,7 @@ public class ManufacturerController {
 
     @GetMapping("new")
     public ModelAndView addNewManufacturerGet(Manufacturer manufacturer, ModelMap model) {
-        return new ModelAndView("manufacturer/newManufacturer", String.valueOf(model),manufacturer);
+        return new ModelAndView("manufacturer/newManufacturer", String.valueOf(model), manufacturer);
     }
 
     @GetMapping("update/**")
@@ -105,7 +105,6 @@ public class ManufacturerController {
         if (!Validator.validName(manufacturer.getName())) {
             return customModel(viewName, model, "Invalid Manufacturer Name Value");
         }
-
         if (manufacturerService.getById(manufacturer.getId()).isPresent()) {
             return customModel(viewName, model, "Manufacturer With ID = " + manufacturer.getId() + " Is Used");
         }
@@ -127,7 +126,6 @@ public class ManufacturerController {
         if (!Validator.validName(manufacturer.getName())) {
             return customModel(viewName, model, "Invalid Manufacturer Name Value");
         }
-
         if (!manufacturerService.getById(manufacturer.getId()).isPresent()) {
             return customModel(viewName, model, "Manufacturer With ID = " + manufacturer.getId() + " Not Found");
         }

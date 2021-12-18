@@ -19,7 +19,6 @@ public class EnglishController {
 
     @GetMapping
     public ModelAndView getByEnglish(String name, ModelMap model){
-        System.out.println(name);
         if (name==null||name.isEmpty()){
             return new ModelAndView("translate/byEnglishName",model);
         }

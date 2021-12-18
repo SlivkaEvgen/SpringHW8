@@ -20,7 +20,6 @@ create table if not exists users
     gender    varchar,
     email     varchar(20),
     password  varchar(100)
---     active    boolean
 );
 
 -- create table product
