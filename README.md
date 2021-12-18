@@ -41,5 +41,5 @@ ADD to Application.properties:
 
 - notes
 - weather
-
+- translator(eng-ukr/ukr-eng)
 ...
