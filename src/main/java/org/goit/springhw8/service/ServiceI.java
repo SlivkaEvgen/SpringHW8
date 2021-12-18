@@ -24,7 +24,7 @@ public abstract class ServiceI<T extends BaseModel<ID>, ID> {
     }
 
     public List<T> findByName(String name) {
-        return repositoryI.findByName(name.toUpperCase());
+        return repositoryI.findByNameContainingIgnoreCase(name);
     }
 
     public void deleteById(ID id) {

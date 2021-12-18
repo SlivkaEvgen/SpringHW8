@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl extends ServiceI<User, String> implements Us
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<User> byName = userRepository.findByName(username.toUpperCase());
+        List<User> byName = userRepository.findByNameContainingIgnoreCase(username.toUpperCase());
         User user = byName.get(0);
         boolean enabled = true;
         boolean accountNonExpired = true;

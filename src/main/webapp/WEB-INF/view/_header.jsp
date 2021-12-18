@@ -50,6 +50,8 @@
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Product</a>
     <a href="${pageContext.request.contextPath}/manufacturer"
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Manufacturer</a>
+    <a href="${pageContext.request.contextPath}/english"
+       class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Translator</a>
 </div>
 
 </body>

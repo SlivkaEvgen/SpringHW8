@@ -21,5 +21,4 @@ public class ProductService extends ServiceI<Product, String> {
     public List<Manufacturer> findAllManufacturer() {
         return manufacturerRepository.findAll();
     }
-
 }
