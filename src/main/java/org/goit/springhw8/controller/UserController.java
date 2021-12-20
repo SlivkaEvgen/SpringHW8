@@ -13,6 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
 
+/**
+ * The type User controller.
+ */
 @Controller
 @RequestMapping(value = "user")
 public class UserController {
@@ -25,30 +28,72 @@ public class UserController {
 
     private String viewName = "";
 
+    /**
+     * Instantiates a new User controller.
+     *
+     * @param sendErrorMessage       the send error message
+     * @param userDetailsServiceImpl the user details service
+     * @param setIntoUser            the set into user
+     */
     public UserController(SendErrorMessage sendErrorMessage, UserDetailsServiceImpl userDetailsServiceImpl, SetIntoUser setIntoUser) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.sendErrorMessage = sendErrorMessage;
         this.setIntoUser = setIntoUser;
     }
 
+    /**
+     * Custom model model and view.
+     *
+     * @param viewName the view name
+     * @param model    the model
+     * @param message  the message
+     * @return the model and view
+     */
     public ModelAndView customModel(String viewName, ModelMap model, Object message) {
         return sendErrorMessage.customModel(viewName, model, message);
     }
 
+    /**
+     * Custom model ok model and view.
+     *
+     * @param viewName     the view name
+     * @param model        the model
+     * @param errorMessage the error message
+     * @return the model and view
+     */
     public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
         return sendErrorMessage.customModelOK(viewName, model, errorMessage);
     }
 
+    /**
+     * Entity user model and view.
+     *
+     * @param model the model
+     * @return the model and view
+     */
     @GetMapping("user")
     public ModelAndView entityUser(ModelMap model) {
         return new ModelAndView("user/user", model);
     }
 
+    /**
+     * Gets all users.
+     *
+     * @param model the model
+     * @return the all users
+     */
     @GetMapping("list")
     public ModelAndView getAllUsers(ModelMap model) {
         return new ModelAndView("user/list", String.valueOf(model), model.addAttribute("list", userDetailsServiceImpl.getAll()));
     }
 
+    /**
+     * Gets user by id.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the user by id
+     */
     @GetMapping("id")
     public ModelAndView getUserById(String id, ModelMap model) {
         viewName = "user/userById";
@@ -61,6 +106,13 @@ public class UserController {
         return customModelOk(viewName, model.addAttribute("list", userDetailsServiceImpl.findListByEntityId(id)), "");
     }
 
+    /**
+     * Gets user by name.
+     *
+     * @param name  the name
+     * @param model the model
+     * @return the user by name
+     */
     @GetMapping("name")
     public ModelAndView getUserByName(String name, ModelMap model) {
         viewName = "user/userByName";
@@ -73,6 +125,13 @@ public class UserController {
         return customModelOk(viewName, model.addAttribute("list", userDetailsServiceImpl.findByName(name)), "");
     }
 
+    /**
+     * Gets user by email.
+     *
+     * @param email the email
+     * @param model the model
+     * @return the user by email
+     */
     @GetMapping("email")
     public ModelAndView getUserByEmail(String email, ModelMap model) {
         viewName = "user/userByEmail";
@@ -85,6 +144,13 @@ public class UserController {
         return customModelOk(viewName, model.addAttribute("list", userDetailsServiceImpl.findByEmail(email)), "");
     }
 
+    /**
+     * Delete user by id model and view.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the model and view
+     */
     @GetMapping("delete")
     public ModelAndView deleteUserById(String id, ModelMap model) {
         viewName = "user/deleteUser";
@@ -102,11 +168,25 @@ public class UserController {
         return customModelOk("user/user", model, "User Deleted");
     }
 
+    /**
+     * Add new user get model and view.
+     *
+     * @param user  the user
+     * @param model the model
+     * @return the model and view
+     */
     @GetMapping("new/**")
     public ModelAndView addNewUserGet(User user, ModelMap model) {
         return new ModelAndView("user/newUser", String.valueOf(model), model.addAttribute("user", user).addAttribute("list2", userDetailsServiceImpl.getGenderList()).addAttribute("list3", userDetailsServiceImpl.getRoleList()));
     }
 
+    /**
+     * Add new user post model and view.
+     *
+     * @param user  the user
+     * @param model the model
+     * @return the model and view
+     */
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
     public ModelAndView addNewUserPost(User user, ModelMap model) {
         viewName = "user/newUser";
@@ -141,11 +221,25 @@ public class UserController {
         return customModelOk("user/user", model, "User Is Registered.\n Now You Can To Log In");
     }
 
+    /**
+     * Update user get model and view.
+     *
+     * @param user  the user
+     * @param model the model
+     * @return the model and view
+     */
     @GetMapping("update/**")
     public ModelAndView updateUserGet(User user, ModelMap model) {
         return new ModelAndView("user/updateUser", String.valueOf(model), model.addAttribute("user", user).addAttribute("list3", userDetailsServiceImpl.getRoleList()).addAttribute("list2", userDetailsServiceImpl.getGenderList()));
     }
 
+    /**
+     * Update user post model and view.
+     *
+     * @param user  the user
+     * @param model the model
+     * @return the model and view
+     */
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
     public ModelAndView updateUserPost(User user, ModelMap model) {
         viewName = "user/updateUser";

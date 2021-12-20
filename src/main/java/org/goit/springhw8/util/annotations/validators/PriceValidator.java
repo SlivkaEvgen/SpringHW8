@@ -3,11 +3,16 @@ package org.goit.springhw8.util.annotations.validators;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.goit.springhw8.util.annotations.PriceValid;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type Price validator.
+ */
+@Validated
 public class PriceValidator implements ConstraintValidator<PriceValid, String> {
 
     private static final String PRICE_PATTERN = "/(\\[0-9,]+(\\.[0-9]{2})?)/";

@@ -12,6 +12,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * The type User.
+ */
 @Getter
 @Setter
 @RequiredArgsConstructor
