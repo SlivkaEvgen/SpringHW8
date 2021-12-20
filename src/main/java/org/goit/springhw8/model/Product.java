@@ -10,6 +10,9 @@ import org.goit.springhw8.util.annotations.PriceValid;
 
 import javax.persistence.*;
 
+/**
+ * The type Product.
+ */
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Getter

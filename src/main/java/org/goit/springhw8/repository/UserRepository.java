@@ -6,9 +6,18 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * The interface User repository.
+ */
 @Repository
 public interface UserRepository extends RepositoryI<User, String> {
 
+    /**
+     * Find by email list.
+     *
+     * @param email the email
+     * @return the list
+     */
     @Query("SELECT u FROM #{#entityName} u WHERE u.email=?1")
     List<User> findByEmail(String email);
 

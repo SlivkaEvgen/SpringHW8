@@ -18,12 +18,20 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * The type User details service.
+ */
 @Service
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class UserDetailsServiceImpl extends ServiceI<User, String> implements UserDetailsService, IUserService {
 
     private final UserRepository userRepository;
 
+    /**
+     * Instantiates a new User details service.
+     *
+     * @param userRepository the user repository
+     */
     public UserDetailsServiceImpl(UserRepository userRepository) {
         super(userRepository);
         this.userRepository = userRepository;
@@ -57,14 +65,30 @@ public class UserDetailsServiceImpl extends ServiceI<User, String> implements Us
         return userRepository.save(userDto);
     }
 
+    /**
+     * Gets gender list.
+     *
+     * @return the gender list
+     */
     public List<Gender> getGenderList() {
         return Arrays.asList(Gender.FEMALE, Gender.MALE);
     }
 
+    /**
+     * Gets role list.
+     *
+     * @return the role list
+     */
     public List<Role> getRoleList() {
         return Arrays.asList(Role.values());
     }
 
+    /**
+     * Find by email list.
+     *
+     * @param email the email
+     * @return the list
+     */
     public List<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }

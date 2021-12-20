@@ -4,8 +4,13 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.goit.springhw8.util.Validator;
 import org.goit.springhw8.util.annotations.NameValid;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+/**
+ * The type Name validator.
+ */
+@Validated
 public class NameValidator implements ConstraintValidator<NameValid,String> {
 
     @Override

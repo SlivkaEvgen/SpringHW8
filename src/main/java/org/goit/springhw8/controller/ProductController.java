@@ -15,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
+/**
+ * The type Product controller.
+ */
 @Controller
 @RequestMapping("product")
 public class ProductController {
@@ -27,30 +30,72 @@ public class ProductController {
 
     private String viewName = "";
 
+    /**
+     * Custom model model and view.
+     *
+     * @param viewName     the view name
+     * @param model        the model
+     * @param errorMessage the error message
+     * @return the model and view
+     */
     public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
         return sendErrorMessage.customModel(viewName, model, errorMessage);
     }
 
+    /**
+     * Custom model ok model and view.
+     *
+     * @param viewName     the view name
+     * @param model        the model
+     * @param errorMessage the error message
+     * @return the model and view
+     */
     public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
         return sendErrorMessage.customModelOK(viewName, model, errorMessage);
     }
 
+    /**
+     * Instantiates a new Product controller.
+     *
+     * @param productService      the product service
+     * @param manufacturerService the manufacturer service
+     * @param sendErrorMessage    the send error message
+     */
     public ProductController(ProductService productService, ManufacturerService manufacturerService, SendErrorMessage sendErrorMessage) {
         this.productService = productService;
         this.sendErrorMessage = sendErrorMessage;
         this.manufacturerService = manufacturerService;
     }
 
+    /**
+     * Entity product model and view.
+     *
+     * @param model the model
+     * @return the model and view
+     */
     @GetMapping("product")
     public ModelAndView entityProduct(ModelMap model) {
         return new ModelAndView("product/product", model);
     }
 
+    /**
+     * Gets all products.
+     *
+     * @param model the model
+     * @return the all products
+     */
     @GetMapping("list")
     public ModelAndView getAllProducts(ModelMap model) {
         return new ModelAndView("product/list", String.valueOf(model), model.addAttribute("list", productService.getAll()));
     }
 
+    /**
+     * Gets product by id.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the product by id
+     */
     @GetMapping("id")
     public ModelAndView getProductById(String id, ModelMap model) {
         viewName = "product/productById";
@@ -63,6 +108,13 @@ public class ProductController {
         return customModelOk(viewName, model.addAttribute("list", productService.findListByEntityId(id)), "");
     }
 
+    /**
+     * Gets product by name.
+     *
+     * @param name  the name
+     * @param model the model
+     * @return the product by name
+     */
     @GetMapping("name")
     public ModelAndView getProductByName(String name, ModelMap model) {
         viewName = "product/productByName";
@@ -75,6 +127,13 @@ public class ProductController {
         return customModelOk(viewName, model.addAttribute("list", productService.findByName(name)), "");
     }
 
+    /**
+     * Delete product by id model and view.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the model and view
+     */
     @GetMapping(value = "delete")
     public ModelAndView deleteProductById(String id, ModelMap model) {
         viewName = "product/deleteProduct";
@@ -88,11 +147,28 @@ public class ProductController {
         return customModelOk("product/product", model, "Product Deleted");
     }
 
+    /**
+     * Add new product get model and view.
+     *
+     * @param product the product
+     * @param model   the model
+     * @return the model and view
+     */
     @RequestMapping(value = "new/**", method = RequestMethod.GET)
     public ModelAndView addNewProductGet(Product product, ModelMap model) {
         return new ModelAndView("product/newProduct", String.valueOf(model), model.addAttribute("list2", productService.findAllManufacturer()).addAttribute("product", product));
     }
 
+    /**
+     * Add new product post model and view.
+     *
+     * @param id           the id
+     * @param name         the name
+     * @param price        the price
+     * @param manufacturer the manufacturer
+     * @param model        the model
+     * @return the model and view
+     */
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
     public ModelAndView addNewProductPost(String id, String name, String price, String manufacturer, ModelMap model) {
         viewName = "product/newProduct";
@@ -121,11 +197,28 @@ public class ProductController {
         return customModelOk("product/product", model, "Product Added");
     }
 
+    /**
+     * Update product get model and view.
+     *
+     * @param product the product
+     * @param model   the model
+     * @return the model and view
+     */
     @RequestMapping(value = "update/**", method = RequestMethod.GET)
     public ModelAndView updateProductGet(Product product, ModelMap model) {
         return new ModelAndView("product/updateProduct", String.valueOf(model), model.addAttribute("product", product).addAttribute("list2", productService.findAllManufacturer()));
     }
 
+    /**
+     * Update product post model and view.
+     *
+     * @param id           the id
+     * @param name         the name
+     * @param price        the price
+     * @param manufacturer the manufacturer
+     * @param model        the model
+     * @return the model and view
+     */
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
     public ModelAndView updateProductPost(String id, String name, String price, String manufacturer, ModelMap model) {
         viewName = "product/updateProduct";

@@ -16,6 +16,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+/**
+ * The type Product dto.
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor

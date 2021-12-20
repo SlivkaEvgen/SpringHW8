@@ -59,9 +59,9 @@ values ('1', 'IPHONE X', 1099.9, '1'),
 -- create users
 insert into users (id, name, last_name, gender, email, password)
 values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG'),
-       ('2', 'USER', 'USER', 'MALE', 'user@ua', '$2a$10$/5aMIjIbWnFOUgdVHoFGpOkcjubz8wOXYy8hzbKoyQVFcIiYY7z7i'),
-       ('3', 'VOVA', 'VOVA', 'MALE', 'vova@ua', '$2a$10$e4laZ8QwdzYzKmsWgLMM8.kl6soxQkRvkjQgGXm4r4OLDhXL1ekJO'),
-       ('4', 'GEKA', 'GK', 'MALE', 'geka@ua', '$2a$10$EuHVHqfXs.AqDfmlos9AfuOSs2DsHIhJ2t74CZxyJ95h1gOVkolD6'),
+       ('2', 'USER', 'USER', 'MALE', 'user@ua', '$2a$10$8.nwMrZcNZpVt3mx7tbErekod2rRxVGUulcFEwryAxNt22mLIiMYm'),
+       ('3', 'VOVA', 'VOVA', 'MALE', 'vova@ua', '$2a$10$pnMrYmLjqBnSuNfdhXWfTOlecBx46nJjP3XXlHz.pXiGkNPNMXOFi'),
+       ('4', 'GEKA', 'GK', 'MALE', 'geka@ua', '$2a$10$Tt06O.JUoOR7WuBshdhWbu8LlQrYWuvveouoAKiAqe2AljJ97MmGa'),
        ('5', 'GEKA2', 'GekK', 'MALE', 'geka2@ua', '$2a$10$EuHVHqfXs.AqDfmlos9AfuOSs2DsHIhJ2t74CZxyJ95h1gOVkolD6');
 
 -- create user_role
