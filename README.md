@@ -1,7 +1,6 @@
-![](SpHW8.png)
 [SpringWebMarket](https://spring-webmarket.herokuapp.com)
 
-[//]: # ([]&#40;WebMarket.png&#41;)
+![](SpHW8.png)
 
 # Spring Market Application
 
