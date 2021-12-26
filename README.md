@@ -1,23 +1,24 @@
-[SpringWebMarket](https://spring-webmarket.herokuapp.com)
 
+[SpringWebMarket](https://spring-webmarket.herokuapp.com)
 ![](SpHW8.png)
 
 # Spring Market Application
 
 ADD to Application.properties:
 
-- DB_USERNAME = {YOUR_DB}
+- DB_USERNAME = ${DB_USERNAME}
 
-- DB_PASSWORD = {YOUR_PASSWORD}
+- DB_PASSWORD = ${DB_PASSWORD}
 
-- DB_URL = {YOUR_DB_URL}
+- DB_URL = ${DB_URL}
+
 #For example:
 
 * DB_USERNAME = root
 
 * DB_PASSWORD = super_password
 
-* DB_URL = jdbc:postgresql://localhost:5432/MYSQL_DB
+* DB_URL = jdbc:postgresql://localhost:5432/postgres
 
 
 [comment]: <README.md> (before the start of application you have to add environment variables:)
