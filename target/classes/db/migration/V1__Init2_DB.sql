@@ -61,13 +61,11 @@ insert into users (id, name, last_name, gender, email, password)
 values ('1', 'ADMIN', 'ADMIN', 'MALE', 'admin@ua', '$2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG'),
        ('2', 'USER', 'USER', 'MALE', 'user@ua', '$2a$10$8.nwMrZcNZpVt3mx7tbErekod2rRxVGUulcFEwryAxNt22mLIiMYm'),
        ('3', 'VOVA', 'VOVA', 'MALE', 'vova@ua', '$2a$10$pnMrYmLjqBnSuNfdhXWfTOlecBx46nJjP3XXlHz.pXiGkNPNMXOFi'),
-       ('4', 'GEKA', 'GK', 'MALE', 'geka@ua', '$2a$10$Tt06O.JUoOR7WuBshdhWbu8LlQrYWuvveouoAKiAqe2AljJ97MmGa'),
-       ('5', 'GEKA2', 'GekK', 'MALE', 'geka2@ua', '$2a$10$EuHVHqfXs.AqDfmlos9AfuOSs2DsHIhJ2t74CZxyJ95h1gOVkolD6');
+       ('4', 'GEKA', 'GK', 'MALE', 'geka@ua', '$2a$10$Tt06O.JUoOR7WuBshdhWbu8LlQrYWuvveouoAKiAqe2AljJ97MmGa');
 
 -- create user_role
 insert into user_role(user_id, roles)
 values ('1', 'ROLE_ADMIN'),
        ('2', 'ROLE_USER'),
        ('3', 'ROLE_USER'),
-       ('4', 'ROLE_USER'),
-       ('5', 'ROLE_USER');
+       ('4', 'ROLE_USER');

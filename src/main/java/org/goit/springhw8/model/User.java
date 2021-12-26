@@ -1,5 +1,6 @@
 package org.goit.springhw8.model;
 
+import io.swagger.annotations.ApiModel;
 import jakarta.validation.constraints.AssertTrue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,7 @@ import java.util.Set;
 @Entity
 @NameValid
 @PasswordMatches
+@ApiModel
 @Table(name = "users")
 public class User implements BaseModel<String> {
 

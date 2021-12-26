@@ -1,5 +1,6 @@
 package org.goit.springhw8.model;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
+@ApiModel
 @Table(name = "manufacturer")
 public class Manufacturer implements BaseModel<String> {
 

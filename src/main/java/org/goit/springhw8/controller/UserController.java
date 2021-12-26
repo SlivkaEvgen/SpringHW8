@@ -1,5 +1,7 @@
 package org.goit.springhw8.controller;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserDetailsServiceImpl;
 import org.goit.springhw8.util.SendErrorMessage;
@@ -9,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
@@ -187,7 +190,7 @@ public class UserController {
      * @param model the model
      * @return the model and view
      */
-    @RequestMapping(value = "new/**", method = RequestMethod.POST)
+    @RequestMapping( value = "new/**", method = RequestMethod.POST)
     public ModelAndView addNewUserPost(User user, ModelMap model) {
         viewName = "user/newUser";
         if (model == null) {
@@ -218,7 +221,7 @@ public class UserController {
             }
         }
         userDetailsServiceImpl.saveEntity(setIntoUser.setUser(user));
-        return customModelOk("user/user", model, "User Is Registered.\n Now You Can To Log In");
+        return customModelOk( "user/user", model, "User Is Registered.\n Now You Can To Log In");
     }
 
     /**
