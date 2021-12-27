@@ -22,7 +22,7 @@ public class AdminController {
      * @return the model and view
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView loginPage(ModelMap model, User user) {
+    public ModelAndView loginPage(ModelMap model,  User user) {
         return new ModelAndView("admin", String.valueOf(model),model.addAttribute("user",user));
     }
 }

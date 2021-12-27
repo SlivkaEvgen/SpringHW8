@@ -1,6 +1,7 @@
 org/goit/springhw8/controller/ProductController.class
 org/goit/springhw8/SpringHw8Application.class
 org/goit/springhw8/model/dto/ProductDto.class
+org/goit/springhw8/controller/swagger/UserApiController.class
 org/goit/springhw8/controller/EnglishController.class
 org/goit/springhw8/util/annotations/ValidEmail.class
 org/goit/springhw8/controller/UserController.class
@@ -16,6 +17,7 @@ org/goit/springhw8/util/annotations/PasswordMatches.class
 org/goit/springhw8/model/User.class
 org/goit/springhw8/model/Role.class
 org/goit/springhw8/config/MvcConfig.class
+org/goit/springhw8/config/SwaggerConfiguration.class
 org/goit/springhw8/repository/ProductRepository.class
 org/goit/springhw8/model/English.class
 org/goit/springhw8/service/IUserService.class

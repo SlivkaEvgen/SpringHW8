@@ -187,7 +187,7 @@ public class UserController {
      * @param model the model
      * @return the model and view
      */
-    @RequestMapping(value = "new/**", method = RequestMethod.POST)
+    @RequestMapping( value = "new/**", method = RequestMethod.POST)
     public ModelAndView addNewUserPost(User user, ModelMap model) {
         viewName = "user/newUser";
         if (model == null) {
@@ -218,7 +218,7 @@ public class UserController {
             }
         }
         userDetailsServiceImpl.saveEntity(setIntoUser.setUser(user));
-        return customModelOk("user/user", model, "User Is Registered.\n Now You Can To Log In");
+        return customModelOk( "user/user", model, "User Is Registered.\n Now You Can To Log In");
     }
 
     /**
@@ -269,7 +269,7 @@ public class UserController {
                 return customModel(viewName, model, "The User With This Email Is Registered");
             }
             // if ADMIN
-            if (user.getId().equalsIgnoreCase("1")) {
+            if (user.getId().intern().equalsIgnoreCase("1")) {
                 return customModel(viewName, model, "Forbidden! User ADMIN ");
             }
         }

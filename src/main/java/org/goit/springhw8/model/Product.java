@@ -1,5 +1,6 @@
 package org.goit.springhw8.model;
 
+import io.swagger.annotations.ApiModel;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@ApiModel
 @Table(name = "product")
 public class Product implements BaseModel<String> {
 

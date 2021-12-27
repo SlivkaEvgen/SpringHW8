@@ -40,6 +40,6 @@ public class ProductDto extends Product {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manufacturer_id")
-    private Manufacturer manufacturer;
+    private final Manufacturer manufacturer;
 
 }

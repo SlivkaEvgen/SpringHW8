@@ -26,15 +26,6 @@
             <table class="w3-table-all w3-small w3-centered "
                    class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
                    id="myTable">
-                <%--                <tr>--%>
-                <%--                    <td>ID</td>--%>
-                <%--                    <td>--%>
-                <%--                        <label>--%>
-                <%--                            <input class="w3-input w3-center w3-border w3-small w3-round-xlarge w3-hover-light-blue"--%>
-                <%--                                   type="text" name="id" placeholder=" Enter ID " value="${user.id}"/>--%>
-                <%--                        </label>--%>
-                <%--                    </td>--%>
-                <%--                </tr>--%>
                 <tr>
                     <td>Name</td>
                     <td>

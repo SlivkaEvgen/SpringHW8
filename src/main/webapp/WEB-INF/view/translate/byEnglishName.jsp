@@ -27,7 +27,8 @@
         <form class="container w3-center w3-round-xlarge" method="GET"
               action="${pageContext.request.contextPath}english">
             <table class="w3-table-all w3-small w3-centered "
-                   class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity">
+                   class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
+                   id="myTable">
                 <tr>
                     <td>
                         <label>
@@ -45,7 +46,7 @@
 
                 <table class="w3-table-all w3-small w3-center "
                        class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-center w3-animate-opacity"
-                       id="myTable">
+                       >
                     <tr class="w3-hover-light-blue">
                         <th>English</th>
                         <th>Ukrainian</th>
@@ -57,7 +58,7 @@
                     <c:forEach items="${list}" var="english">
                         <tr>
                             <td>${english.name}</td>
-                            <td>${english.ukr}</td>
+                            <td class="text-area w3-text-brown">${english.ukr}</td>
                             <sec:authorize access="hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')">
                                 <%--                                <td>--%>
                                 <%--                                    <a href="${pageContext.request.contextPath}update/?id=${english.id}"--%>
@@ -68,11 +69,11 @@
                                 <%--                                       class="w3-btn w3-hover-red w3-round-xlarge">DELETE</a>--%>
                                 <%--                                </td>--%>
                             </sec:authorize>
-                        </tr>
                     </c:forEach>
                     <c:forEach items="${list2}" var="english">
+                    <tr>
                         <td>${english.name}</td>
-                        <td>${english.ukr}</td>
+                        <td >${english.ukr}</td>
                     </c:forEach>
                 </table>
             </table>
