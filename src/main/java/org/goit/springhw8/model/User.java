@@ -2,7 +2,6 @@ package org.goit.springhw8.model;
 
 import io.swagger.annotations.ApiModel;
 import jakarta.validation.constraints.AssertTrue;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -19,7 +18,6 @@ import java.util.Set;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor
 @Entity
 @NameValid
 @PasswordMatches

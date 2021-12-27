@@ -22,7 +22,7 @@ import java.util.Set;
 @Api
 @Controller
 @RequestMapping(value = "api/user")
-public class UserApiController { //@ApiParam(required = true,value = "User user")
+public class UserApiController {
 
     private final UserDetailsServiceImpl userDetailsServiceImpl;
 

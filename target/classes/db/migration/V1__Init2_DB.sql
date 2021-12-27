@@ -1,4 +1,3 @@
--- create sequence hibernate_sequence start 1 increment 1;
 
 -- create types Gender / Roles
 create type gender as enum ('MALE','FEMALE');

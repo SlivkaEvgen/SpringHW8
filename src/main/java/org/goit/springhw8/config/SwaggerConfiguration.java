@@ -13,12 +13,10 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 //http://localhost:9999/swagger-ui/index.html#/
 @Configuration
 @EnableOpenApi
-//@EnableSwagger2WebMvc
 @EnableSwagger2
 @Import({SpringDataRestConfiguration.class,BeanValidatorPluginsConfiguration.class})
 public class SwaggerConfiguration {

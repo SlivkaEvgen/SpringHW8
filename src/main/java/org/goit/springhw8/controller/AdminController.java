@@ -1,11 +1,5 @@
 package org.goit.springhw8.controller;
 
-import io.swagger.annotations.ApiParam;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.goit.springhw8.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

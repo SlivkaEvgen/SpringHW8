@@ -1,7 +1,5 @@
 package org.goit.springhw8.controller;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserDetailsServiceImpl;
 import org.goit.springhw8.util.SendErrorMessage;
@@ -11,7 +9,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
@@ -272,7 +269,7 @@ public class UserController {
                 return customModel(viewName, model, "The User With This Email Is Registered");
             }
             // if ADMIN
-            if (user.getId().equalsIgnoreCase("1")) {
+            if (user.getId().intern().equalsIgnoreCase("1")) {
                 return customModel(viewName, model, "Forbidden! User ADMIN ");
             }
         }
