@@ -72,6 +72,3 @@ public class Validator {
                 price.matches("[0-9]+([,.][0-9]{1,2})?");
     }
 }
-//    private static boolean isValidNumbers(String isNumber){
-//        return empty(isNumber) && isNumber.matches("/^\\d{1,}$/");
-//    }
