@@ -29,6 +29,5 @@ public class Manufacturer implements BaseModel<String> {
 
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @ToString.Exclude
-    @Transient
     private Set<Product> products;
 }

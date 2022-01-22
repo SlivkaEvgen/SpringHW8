@@ -66,7 +66,7 @@ public class UserDto extends User {
     @NotEmpty
     @Transient
     @AssertTrue
-    private boolean active;
+    private final boolean active;
 
     @NotNull
     @NotEmpty

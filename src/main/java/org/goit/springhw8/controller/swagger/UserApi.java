@@ -96,7 +96,7 @@ public class UserApi {
         user.setEmail(email);
         user.setPassword(password);
         user.setRoles(roleSet);
-         userDetailsServiceImpl.saveEntity(user);
+        userDetailsServiceImpl.saveEntity(user);
     }
 
     @Operation(summary = "Update User ",description = "Update User")

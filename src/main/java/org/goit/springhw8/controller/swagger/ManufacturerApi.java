@@ -72,7 +72,7 @@ public class ManufacturerApi {
     @RequestMapping(value = "update", method = RequestMethod.PUT)
     @ResponseBody
     public void updateManufacturerGet(@PathVariable(value = "ID") @ApiParam(value = " Example : 12 ") String id,
-                                 @PathVariable(value = "Name") @ApiParam(value = " Example : Iphone ") String name) {
+                                      @PathVariable(value = "Name") @ApiParam(value = " Example : Iphone ") String name) {
         Optional<Manufacturer> manufacturerOptional = manufacturerService.getById(id);
         if (manufacturerOptional.isPresent()) {
             Manufacturer manufacturer = manufacturerOptional.get();
@@ -82,3 +82,4 @@ public class ManufacturerApi {
         }
     }
 }
+

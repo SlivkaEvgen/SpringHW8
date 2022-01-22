@@ -1,11 +1,13 @@
 package org.goit.springhw8.model;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
 
 /**
  * The type English.
@@ -31,21 +33,19 @@ public class English implements BaseModel<String> {
     @Column(name = "ukr")
     private String ukr;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        English english = (English) o;
+        return id != null && Objects.equals(id, english.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getUkr());
+    }
 }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-//        English english = (English) o;
-//        return id != null && Objects.equals(id, english.id);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//          return Objects.hash(getId(), getName(), getUkr());
-//    }
-
 
 //Later
 //    @Column("pronunciation")

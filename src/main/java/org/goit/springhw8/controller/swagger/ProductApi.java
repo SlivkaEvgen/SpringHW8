@@ -75,8 +75,8 @@ public class ProductApi {
                     content = @Content)})
     public void addNewProductGet(@PathVariable(value = "ID") @ApiParam(value = " Example : 12 ") String id,
                                  @PathVariable(value = "Name") @ApiParam(value = " Example : Iphone ") String name,
-                              @PathVariable(value = "Price") @ApiParam(value = " Example : 999.00 ") String price,
-                              @PathVariable(value = "Manufacturer ID") @ApiParam(value = " Example : 1 ") String manufacturer) {
+                                 @PathVariable(value = "Price") @ApiParam(value = " Example : 999.00 ") String price,
+                                 @PathVariable(value = "Manufacturer ID") @ApiParam(value = " Example : 1 ") String manufacturer) {
         Product product = new Product();
         product.setId(id);
         product.setName(name);
