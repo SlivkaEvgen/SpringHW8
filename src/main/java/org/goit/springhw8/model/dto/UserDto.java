@@ -1,7 +1,10 @@
 package org.goit.springhw8.model.dto;
 
 import jakarta.validation.constraints.*;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.goit.springhw8.model.Gender;
 import org.goit.springhw8.model.Role;
 import org.goit.springhw8.model.User;
@@ -27,58 +30,58 @@ public class UserDto extends User {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", updatable = false, nullable = false, unique = true)
-    private final String id;
+    private String id;
 
     @NotNull
     @NotEmpty
     @NotBlank
     @Column(name = "name")
-    private final String firstName;
+    private String firstName;
 
     @NotNull
     @NotEmpty
     @NotBlank
     @Column(name = "last_name")
-    private final String lastName;
+    private String lastName;
 
     @NotNull
     @NotEmpty
     @NotBlank
     @Column(name = "password")
-    private final String password;
+    private String password;
 
-    private final String matchingPassword;
+    private String matchingPassword;
 
     @ValidEmail
     @NotNull
     @NotEmpty
     @Email
     @Column(name = "email")
-    private final String email;
+    private String email;
 
     @NotNull
     @NotEmpty
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
-    private final Gender gender;
+    private Gender gender;
 
     @NotNull
     @NotEmpty
     @Transient
     @AssertTrue
-    private final boolean active;
+    private boolean active;
 
     @NotNull
     @NotEmpty
     @Transient
     @ToString.Exclude
-    private final String passwordConfirm;
+    private String passwordConfirm;
 
     @NotNull
     @NotEmpty
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private final Set<Role> roles;
+    private Set<Role> roles;
 
 }
