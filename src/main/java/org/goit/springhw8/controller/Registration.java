@@ -58,7 +58,7 @@ public class Registration {
      * @return the model and view
      */
     public ModelAndView customModelOK(String viewName, ModelMap model, Object message) {
-        return sendErrorMessage.customModelOK(viewName, model, message);
+        return sendErrorMessage.customModelOk(viewName, model, message);
     }
 
     /**

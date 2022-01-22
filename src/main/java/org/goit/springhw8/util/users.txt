@@ -1,0 +1,10 @@
+
+1, ADMIN, ADMIN, admin@ua, MALE, $2a$10$2Sy0K/rQTxX1flzOt0Z62.Z8JLal6NPCDI09ELDViGYuDCD4ceoGG, [ROLE_ADMIN]
+
+3, VOVA, VOVA, vova@ua, MALE, $2a$10$e4laZ8QwdzYzKmsWgLMM8.kl6soxQkRvkjQgGXm4r4OLDhXL1ekJO, [ROLE_USER]
+
+4, GEKA, GK, geka@ua, MALE, $2a$10$EuHVHqfXs.AqDfmlos9AfuOSs2DsHIhJ2t74CZxyJ95h1gOVkolD6, [ROLE_USER]
+
+99883ac2-21ce-44f1-b3fa-cbf57bf2bf82, EVGEN, SLIVKA, allrent@ua, MALE, $2a$10$le6aQ/T9LIwiabCC.ODxKuXmflhzECXZRdJ2qNokN.i29iGtw/2uK, [ROLE_USER]
+
+2, USER, USER, user@ua, MALE, $2a$10$8.nwMrZcNZpVt3mx7tbErekod2rRxVGUulcFEwryAxNt22mLIiMYm, [ROLE_USER]

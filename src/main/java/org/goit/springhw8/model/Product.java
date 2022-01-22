@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.goit.springhw8.util.annotations.PriceValid;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -26,7 +27,8 @@ public class Product implements BaseModel<String> {
     private static final long serialVersionUID = 6007665773823540856L;
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")    @Column(name = "id", unique = true, nullable = false)
     private String id;
 
     @Column(name = "name")

@@ -13,8 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class SendErrorMessage {
 
-    private final String ERROR = "error";
-    private final String ERROR2 = "error2";
+    private final static String ERROR = "error";
+    private final static String ERROR2 = "error2";
+
     private final static String SUCCESSFULLY = " SUCCESSFULLY ";
     private final static String TRY_AGAIN = " Please, Try Again ";
 
@@ -51,7 +52,7 @@ public class SendErrorMessage {
      * @param errorMessage the error message
      * @return the model and view
      */
-    public ModelAndView customModelOK(String viewName, ModelMap model, Object errorMessage) {
+    public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
         if (model != null) {
             return new ModelAndView(viewName, model.addAttribute(ERROR, errorMessage).addAttribute(ERROR2, SUCCESSFULLY));
         }

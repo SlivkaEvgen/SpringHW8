@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -68,7 +69,7 @@ public class UserController {
      */
     @ApiIgnore
     public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
-        return sendErrorMessage.customModelOK(viewName, model, errorMessage);
+        return sendErrorMessage.customModelOk(viewName, model, errorMessage);
     }
 
     /**
@@ -90,7 +91,8 @@ public class UserController {
      * @return the all users
      */
     @GetMapping("list")
-    public ModelAndView getAllUsers(ModelMap model) {
+    public ModelAndView getAllUsers(ModelMap model) throws IOException {
+        userDetailsServiceImpl.writeUserFile();
         return new ModelAndView("user/list", String.valueOf(model), model.addAttribute("list", userDetailsServiceImpl.getAll()));
     }
 

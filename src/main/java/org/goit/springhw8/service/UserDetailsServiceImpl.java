@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -71,7 +74,8 @@ public class UserDetailsServiceImpl extends ServiceI<User, String> implements Us
      * @return the gender list
      */
     public List<Gender> getGenderList() {
-        return Arrays.asList(Gender.FEMALE, Gender.MALE);
+        return Arrays.asList(Gender.FEMALE,
+                Gender.MALE);
     }
 
     /**
@@ -91,5 +95,21 @@ public class UserDetailsServiceImpl extends ServiceI<User, String> implements Us
      */
     public List<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public void writeUserFile() throws IOException {
+        List<User> fileContent = userRepository.findAll();
+        try (BufferedWriter outputFileWriter = new BufferedWriter(new FileWriter("/Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/util/users.txt"))) {
+            for (User s : fileContent) {
+                String user = "\n" + s.getId() + ", " +
+                        s.getName() + ", " +
+                        s.getLastName() + ", " +
+                        s.getEmail() + ", " +
+                        s.getGender() + ", " +
+                        s.getPassword() + ", " +
+                        s.getRoles() + "\n";
+                outputFileWriter.write(user);
+            }
+        }
     }
 }

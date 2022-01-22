@@ -45,7 +45,7 @@ public class ManufacturerController {
      * @return the model and view
      */
     public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
-        return sendErrorMessage.customModelOK(viewName, model, errorMessage);
+        return sendErrorMessage.customModelOk(viewName, model, errorMessage);
     }
 
     /**
