@@ -26,7 +26,6 @@
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/util/annotations/validators/EmailValidator.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/service/EnglishService.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/repository/RepositoryI.java
-/Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/controller/swagger/UserApiController.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/controller/LogOutController.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/model/dto/UserDto.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/controller/LoginController.java
@@ -35,11 +34,13 @@
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/repository/ManufacturerRepository.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/model/User.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/util/SendErrorMessage.java
-/Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/util/ReadWrite.java
+/Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/controller/swagger/ManufacturerApi.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/util/annotations/validators/PriceValidator.java
+/Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/controller/swagger/UserApi.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/model/BaseModel.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/service/ServiceI.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/util/annotations/ValidEmail.java
+/Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/controller/swagger/ProductApi.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/util/Validator.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/controller/SetIntoUser.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/service/ProductService.java
