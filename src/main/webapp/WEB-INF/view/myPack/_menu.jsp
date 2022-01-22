@@ -15,7 +15,7 @@
 <%--    <meta name='DC.Language' scheme='rfc1766' content='ru'/>--%>
 
 <%--    <title>Menu</title>--%>
-<%--    <jsp:include page="_header.jsp"></jsp:include>--%>
+<%--    <jsp:include page="header.jsp"></jsp:include>--%>
 <%--</head>--%>
 
 <%--<body>--%>

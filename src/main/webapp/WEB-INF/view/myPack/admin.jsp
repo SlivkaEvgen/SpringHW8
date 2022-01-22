@@ -48,8 +48,8 @@
 <%--    <a href="/">Home</a>--%>
 <%--</div>--%>
 
-<%--&lt;%&ndash;<jsp:include page="/WEB-INF/view/_footer.jsp"></jsp:include>&ndash;%&gt;--%>
-<%--<jsp:include page="/WEB-INF/view/_footer.jsp"></jsp:include>--%>
+<%--&lt;%&ndash;<jsp:include page="/WEB-INF/view/footer.jsp"></jsp:include>&ndash;%&gt;--%>
+<%--<jsp:include page="/WEB-INF/view/footer.jsp"></jsp:include>--%>
 
 <%--</body>--%>
 

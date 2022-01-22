@@ -122,7 +122,7 @@
 <%--    <p><a class="font-menu-button w3-center w3-red w3-round-xlarge">GO-IT</a></p>--%>
 <%--</footer>--%>
 
-<%--<jsp:include page="/WEB-INF/view/_footer.jsp"></jsp:include>--%>
+<%--<jsp:include page="/WEB-INF/view/footer.jsp"></jsp:include>--%>
 
 <%--</html>--%>
 

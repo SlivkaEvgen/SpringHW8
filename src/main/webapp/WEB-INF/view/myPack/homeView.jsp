@@ -27,7 +27,7 @@
 <%--    <title>Home</title>--%>
 <%--    <h4>Home</h4>--%>
 
-<%--    <jsp:include page="_header.jsp"></jsp:include>--%>
+<%--    <jsp:include page="header.jsp"></jsp:include>--%>
 
 <%--</head>--%>
 

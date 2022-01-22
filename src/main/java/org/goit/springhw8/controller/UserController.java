@@ -1,5 +1,7 @@
 package org.goit.springhw8.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserDetailsServiceImpl;
 import org.goit.springhw8.util.SendErrorMessage;
@@ -9,7 +11,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.UUID;
 
@@ -49,6 +53,7 @@ public class UserController {
      * @param message  the message
      * @return the model and view
      */
+    @ApiIgnore
     public ModelAndView customModel(String viewName, ModelMap model, Object message) {
         return sendErrorMessage.customModel(viewName, model, message);
     }
@@ -61,6 +66,7 @@ public class UserController {
      * @param errorMessage the error message
      * @return the model and view
      */
+    @ApiIgnore
     public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
         return sendErrorMessage.customModelOK(viewName, model, errorMessage);
     }
@@ -72,6 +78,7 @@ public class UserController {
      * @return the model and view
      */
     @GetMapping("user")
+    @ApiIgnore
     public ModelAndView entityUser(ModelMap model) {
         return new ModelAndView("user/user", model);
     }
@@ -95,7 +102,18 @@ public class UserController {
      * @return the user by id
      */
     @GetMapping("id")
-    public ModelAndView getUserById(String id, ModelMap model) {
+    @ResponseBody
+    @Operation(summary = "Add new User",description = "Create the New User")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200",description = "successful operation",
+//                    content = {
+//                            @Content(mediaType = "application/json",
+//                                    schema = @Schema(implementation = User.class))})})
+//            @ApiResponse(responseCode = "400",
+//                    description = "User not found by id specified in the request",//Invalid ID supplied =404
+//                    content = @Content)}
+    @ApiResponse
+    public ModelAndView getUserById(String id,ModelMap model) {
         viewName = "user/userById";
         if (id == null) {
             return new ModelAndView(viewName, model);
@@ -114,7 +132,7 @@ public class UserController {
      * @return the user by name
      */
     @GetMapping("name")
-    public ModelAndView getUserByName(String name, ModelMap model) {
+    public ModelAndView getUserByName(String name,ModelMap model) {
         viewName = "user/userByName";
         if (name == null) {
             return new ModelAndView(viewName, model);
@@ -133,7 +151,7 @@ public class UserController {
      * @return the user by email
      */
     @GetMapping("email")
-    public ModelAndView getUserByEmail(String email, ModelMap model) {
+    public ModelAndView getUserByEmail(String email,ModelMap model) {
         viewName = "user/userByEmail";
         if (email == null) {
             return new ModelAndView(viewName, model);
@@ -152,7 +170,7 @@ public class UserController {
      * @return the model and view
      */
     @GetMapping("delete")
-    public ModelAndView deleteUserById(String id, ModelMap model) {
+    public ModelAndView deleteUserById(String id,ModelMap model) {
         viewName = "user/deleteUser";
         if (id == null) {
             return new ModelAndView(viewName, model);

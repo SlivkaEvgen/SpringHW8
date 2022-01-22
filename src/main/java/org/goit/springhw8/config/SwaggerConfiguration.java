@@ -33,7 +33,7 @@ public class SwaggerConfiguration {
 
     private ApiInfo getApiInfo() {
         return new ApiInfoBuilder()
-                .title("NotesStorage")
+                .title("SpringWebMarket")
                 .description("Custom description")
                 .version("1.0.0")
                 .license("Apache 2.0")
