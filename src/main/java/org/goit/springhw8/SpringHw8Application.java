@@ -23,7 +23,6 @@ public class SpringHw8Application extends SpringBootServletInitializer {
         System.out.println(new BCryptPasswordEncoder().encode("123"));
         System.out.println(new BCryptPasswordEncoder().encode("123"));
         System.out.println("DEFAULT Login/Password:\n->      ADMIN/123\n->      USER/123");
-
     }
 
     @Override
