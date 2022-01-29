@@ -3,10 +3,7 @@ package org.goit.springhw8.model;
 import io.swagger.annotations.ApiModel;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.goit.springhw8.util.annotations.PriceValid;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,6 +18,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @ApiModel
+@ToString(exclude = "products")
 @Table(name = "product")
 public class Product implements BaseModel<String> {
 
@@ -41,7 +39,8 @@ public class Product implements BaseModel<String> {
     @Digits(integer=5, fraction=2)
     private Double price;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne (fetch = FetchType.EAGER)
+//    @ToString.Exclude
     @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
 }

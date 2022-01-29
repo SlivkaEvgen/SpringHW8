@@ -90,7 +90,7 @@ public class Registration {
             user.setId(String.valueOf(UUID.randomUUID()));
         }
         if (!setIntoUser.NotNullNotEmpty(viewName,user,model).isEmpty()) {
-            if (!userDetailsServiceImpl.findByEmail(user.getEmail()).isEmpty()) {
+            if (userDetailsServiceImpl.findByEmail(user.getEmail()).isPresent()) {
                 return customModel(viewName, model, "The User With This Email Is Registered");
             }
         }

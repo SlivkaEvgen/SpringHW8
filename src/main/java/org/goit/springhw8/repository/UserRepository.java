@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The interface User repository.
@@ -19,6 +20,6 @@ public interface UserRepository extends RepositoryI<User, String> {
      * @return the list
      */
     @Query("SELECT u FROM #{#entityName} u WHERE u.email=?1")
-    List<User> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
 }

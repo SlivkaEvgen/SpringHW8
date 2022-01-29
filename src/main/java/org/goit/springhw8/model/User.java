@@ -45,7 +45,7 @@ public class User implements BaseModel<String> {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
 
     @Column(name = "password")

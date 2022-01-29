@@ -138,7 +138,7 @@ public class UserController {
         if (email == null) {
             return new ModelAndView(viewName, model);
         }
-        if (userDetailsServiceImpl.findByEmail(email).isEmpty()) {
+        if (!userDetailsServiceImpl.findByEmail(email).isPresent()) {
             return customModel(viewName, model.addAttribute("list", userDetailsServiceImpl.findByEmail(email)), "User With The Name = " + email + ",\n Is Not Found");
         }
         return customModelOk(viewName, model.addAttribute("list", userDetailsServiceImpl.findByEmail(email)), "");
@@ -207,7 +207,7 @@ public class UserController {
             if (Validator.validEmail(user.getEmail())) {
                 return customModel(viewName, model, " Invalid  Email ");
             }
-            if (!userDetailsServiceImpl.findByEmail(user.getEmail()).isEmpty()) {
+            if (userDetailsServiceImpl.findByEmail(user.getEmail()).isPresent()) {
                 return customModel(viewName, model, "The User With This Email Is Registered");
             }
             if (user.getPassword().length() <= 5 | user.getPassword().length() > 20) {
@@ -265,7 +265,7 @@ public class UserController {
                 return customModel(viewName, model, "User With The ID = " + user.getId() + ",\n Is Not Found");
             }
             // check unique email
-            if (!userDetailsServiceImpl.findByEmail(user.getEmail()).isEmpty()) {
+            if (userDetailsServiceImpl.findByEmail(user.getEmail()).isPresent()) {
                 return customModel(viewName, model, "The User With This Email Is Registered");
             }
             // if ADMIN
