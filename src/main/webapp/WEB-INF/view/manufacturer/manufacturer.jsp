@@ -15,16 +15,16 @@
 <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
     <div class="w3-container w3-center w3-round-xlarge w3-ios">
         <a href="${pageContext.request.contextPath}/manufacturer/list"
-           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Manufacturers List</a>
+           class="w3-btn  w3-hover-light-blue w3-round-xlarge"> <i class="fa fa-th-list"></i>Manufacturers List</a>
         <a href="${pageContext.request.contextPath}/manufacturer/id"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By ID</a>
         <a href="${pageContext.request.contextPath}/manufacturer/name"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By Name</a>
         <sec:authorize access="hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')">
             <a href="${pageContext.request.contextPath}/manufacturer/new"
-               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Add New</a>
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge"><i class="fa fa-plus-circle"></i>Add New</a>
             <a href="${pageContext.request.contextPath}/manufacturer/update"
-               class="w3-btn w3-hover-light-blue w3-round-xlarge">Update</a>
+               class="w3-btn w3-hover-light-blue w3-round-xlarge"><i class="fa fa-edit"></i>Update</a>
             <a href="${pageContext.request.contextPath}/manufacturer/delete"
                class="w3-btn  w3-hover-light-blue w3-round-xlarge"> <i class="fa fa-trash"></i> Delete</a>
         </sec:authorize>
