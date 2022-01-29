@@ -2,10 +2,6 @@ package org.goit.springhw8.controller.swagger;
 
 import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.goit.springhw8.model.Manufacturer;
 import org.goit.springhw8.service.ManufacturerService;
@@ -30,56 +26,59 @@ public class ManufacturerApi {
     }
 
     @Operation(summary = "Find Manufacturer by ID", description = "Show Manufacturer by ID")
-    @GetMapping("id")
+    @GetMapping("/{id}")
     @ResponseBody
-    public Optional<Manufacturer> getManufacturerById(@ApiParam(required = true, value = " Example : 1 ") String id) {
+    public Optional<Manufacturer> getManufacturerById(@PathVariable @ApiParam(required = true, value = " Example : 1 ") String id) {
         return manufacturerService.getById(id);
     }
 
     @Operation(summary = "Find Manufacturers by Name", description = " Show Manufacturers by Name ")
-    @GetMapping("name")
+    @GetMapping("/name/{name}")
     @ResponseBody
-    public List<Manufacturer> getManufacturerByName(@ApiParam(required = true, value = " Example : Apple ") String name) {
+    public List<Manufacturer> getManufacturerByName(@PathVariable @ApiParam(required = true, value = " Example : Apple ") String name) {
         return manufacturerService.findByName(name);
     }
 
     @Operation(summary = "Delete Manufacturer", description = "Delete Manufacturer")
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteManufacturerById(@ApiParam(required = true, value = " Example : 4 ") @PathVariable String id) {
         manufacturerService.deleteById(id);
     }
 
-    @RequestMapping(value = "new", method = RequestMethod.POST)
-    @ResponseBody
     @Operation(summary = "New Manufacturer", description = "Create the New Manufacturer")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "successful operation",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = Manufacturer.class))}),
-            @ApiResponse(responseCode = "400",
-                    description = "Manufacturer not found by id specified in the request",
-                    content = @Content)})
-    public void addNewManufacturerGet(@PathVariable(value = "ID") @ApiParam(value = " Example : 12 ") String id, @PathVariable(value = "Name") @ApiParam(value = " Example : Iphone ") String name) {
-        Manufacturer manufacturer = new Manufacturer();
-        manufacturer.setId(id);
-        manufacturer.setName(name);
+    @RequestMapping(value = "/new/{name}", method = RequestMethod.POST)
+    @ResponseBody
+    public Manufacturer addNewManufacturerGet(@PathVariable(value = "name") @ApiParam(value = " Example : Samsung ") String name) {
+        Manufacturer manufacturer = setIntoManufacturer(
+                new Manufacturer(),
+                name);
         manufacturerService.saveEntity(manufacturer);
+        return manufacturer;
     }
 
     @Operation(summary = "Update Manufacturer ", description = "Update Manufacturer")
-    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/{id}&{name}", method = RequestMethod.PUT)
     @ResponseBody
-    public void updateManufacturerGet(@PathVariable(value = "ID") @ApiParam(value = " Example : 12 ") String id,
-                                      @PathVariable(value = "Name") @ApiParam(value = " Example : Iphone ") String name) {
-        Optional<Manufacturer> manufacturerOptional = manufacturerService.getById(id);
-        if (manufacturerOptional.isPresent()) {
-            Manufacturer manufacturer = manufacturerOptional.get();
-            manufacturer.setId(id);
-            manufacturer.setName(name);
+    public Manufacturer updateManufacturerGet(@PathVariable(value = "id") @ApiParam(value = " Example : 2 ") String id,
+                                              @PathVariable(value = "name") @ApiParam(value = " Example : Samsung ") String name) {
+        if (getManufacturerById(id).isPresent()) {
+            Manufacturer manufacturer = setIntoManufacturer(
+                    getManufacturerById(id).get(),
+                    name);
             manufacturerService.saveEntity(manufacturer);
-        }
+            return manufacturer;
+        } else return null;
     }
+
+    private Manufacturer setIntoManufacturer(Manufacturer manufacturer, String name) {
+        if (name == null) {
+            return null;
+        }
+        manufacturer.setId(manufacturer.getId());
+        manufacturer.setName(name.toUpperCase());
+        return manufacturer;
+    }
+
 }
 
