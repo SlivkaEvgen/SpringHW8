@@ -50,7 +50,7 @@
                         </td>
                         <td>
                             <a href="${pageContext.request.contextPath}/product/delete/?id=${product.id}"
-                               class="w3-btn w3-hover-red w3-round-xlarge">Delete</a>
+                               class="w3-btn w3-hover-red w3-round-xlarge"><i class="fa fa-trash"></i>Delete</a>
                         </td>
                     </sec:authorize>
                 </tr>

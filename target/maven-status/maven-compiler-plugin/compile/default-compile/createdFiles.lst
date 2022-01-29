@@ -1,9 +1,9 @@
 org/goit/springhw8/controller/EnglishController.class
 org/goit/springhw8/util/annotations/ValidEmail.class
 org/goit/springhw8/controller/UserController.class
-org/goit/springhw8/model/Gender.class
 org/goit/springhw8/util/SendErrorMessage.class
 org/goit/springhw8/controller/LogOutController.class
+org/goit/springhw8/model/enums/Gender.class
 org/goit/springhw8/util/annotations/PasswordMatches.class
 org/goit/springhw8/config/MvcConfig.class
 org/goit/springhw8/config/SwaggerConfiguration.class
@@ -27,11 +27,11 @@ org/goit/springhw8/SpringHw8Application.class
 org/goit/springhw8/model/dto/ProductDto.class
 org/goit/springhw8/controller/Registration.class
 org/goit/springhw8/repository/ManufacturerRepository.class
+org/goit/springhw8/model/enums/Role.class
 org/goit/springhw8/util/annotations/PriceValid.class
 org/goit/springhw8/util/annotations/validators/PriceValidator.class
 org/goit/springhw8/repository/EnglishRepository.class
 org/goit/springhw8/model/User.class
-org/goit/springhw8/model/Role.class
 org/goit/springhw8/model/English.class
 org/goit/springhw8/service/IUserService.class
 org/goit/springhw8/controller/LoginController.class

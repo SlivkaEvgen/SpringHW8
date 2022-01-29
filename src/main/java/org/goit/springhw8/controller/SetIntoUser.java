@@ -1,6 +1,6 @@
 package org.goit.springhw8.controller;
 
-import org.goit.springhw8.model.Role;
+import org.goit.springhw8.model.enums.Role;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.util.SendErrorMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;

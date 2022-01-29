@@ -5,6 +5,8 @@ import jakarta.validation.constraints.AssertTrue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.goit.springhw8.model.enums.Gender;
+import org.goit.springhw8.model.enums.Role;
 import org.goit.springhw8.util.annotations.NameValid;
 import org.goit.springhw8.util.annotations.PasswordMatches;
 import org.hibernate.annotations.GenericGenerator;

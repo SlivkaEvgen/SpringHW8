@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="_header.jsp" %>
+<%@include file="header.jsp" %>
 
 <html>
 <head>
@@ -28,10 +28,10 @@
             <%--</div>--%>
             <p></p>
             <a href="${pageContext.request.contextPath}/note"
-               class="w3-btn w3-hover-light-blue w3-round-xlarge">Note</a>
+               class="w3-btn w3-hover-light-blue w3-round-xlarge"><i class="fa fa-envelope"></i> Note  <span class="w3-tag w3-round w3-red">New!Coming soon </span></a>
 
             <a href="${pageContext.request.contextPath}/weather"
-               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Weather</a>
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge"><i class="fa fa-globe"></i> Weather  <span class="w3-tag w3-round w3-red">New!Coming soon </span></a>
             <%--<a href="${pageContext.request.contextPath}/product"--%>
             <%--   class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Product</a>--%>
             <%--<a href="${pageContext.request.contextPath}/manufacturer"--%>

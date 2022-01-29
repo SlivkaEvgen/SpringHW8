@@ -1,12 +1,12 @@
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/controller/ProductController.java
+/Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/model/enums/Role.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/config/SecurityConfig.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/util/annotations/validators/PasswordValidator.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/model/Product.java
+/Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/model/enums/Gender.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/util/annotations/validators/NameValidator.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/model/Manufacturer.java
-/Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/model/Role.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/util/annotations/NameValid.java
-/Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/model/Gender.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/service/UserDetailsServiceImpl.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/SpringHw8Application.java
 /Users/mymac/IDEAProjects/Рабочие/SpringWebMarket/src/main/java/org/goit/springhw8/controller/ManufacturerController.java

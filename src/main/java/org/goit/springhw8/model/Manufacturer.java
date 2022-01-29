@@ -2,6 +2,7 @@ package org.goit.springhw8.model;
 
 import io.swagger.annotations.ApiModel;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -21,6 +22,8 @@ public class Manufacturer implements BaseModel<String> {
     private static final long serialVersionUID = -2363992291788316414L;
 
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", unique = true, nullable = false)
     private String id;
 

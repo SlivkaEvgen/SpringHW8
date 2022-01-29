@@ -1,6 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="../_header.jsp" %>
+<%@include file="../header.jsp" %>
 <%@include file="../function.jsp" %>
 <%@include file="../error2.jsp" %>
 
@@ -30,7 +30,7 @@
             <a href="/product/update"
                class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
             <a href="/product/delete"
-               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Delete</a>
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge"> <i class="fa fa-trash"></i> Delete</a>
         </sec:authorize>
         <p></p>
     </div>

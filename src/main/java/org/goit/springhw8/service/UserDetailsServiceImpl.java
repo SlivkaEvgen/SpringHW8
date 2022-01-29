@@ -1,7 +1,7 @@
 package org.goit.springhw8.service;
 
-import org.goit.springhw8.model.Gender;
-import org.goit.springhw8.model.Role;
+import org.goit.springhw8.model.enums.Gender;
+import org.goit.springhw8.model.enums.Role;
 import org.goit.springhw8.model.User;
 import org.goit.springhw8.model.dto.UserDto;
 import org.goit.springhw8.repository.UserRepository;

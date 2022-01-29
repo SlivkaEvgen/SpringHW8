@@ -58,8 +58,13 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/note/list/**").setViewName("note/noteList");
         registry.addViewController("/note/update/**").setViewName("note/noteCreate");
         registry.addViewController("/note/edit/**").setViewName("note/noteEdit");
-        registry.addViewController("/note/**").setViewName("note/note");
+//        registry.addViewController("/note/**").setViewName("note/note");
         registry.addViewController("/note/show/**").setViewName("note/noteShow");
         registry.addViewController("/note/error/**").setViewName("note/noteError");
+        // REDIRECT
+        registry.addRedirectViewController("/note/**","/admin");
+        registry.addRedirectViewController("/weather/**","/admin");
+        registry.addRedirectViewController("/api/**","/swagger-ui/index.html#/");
+
     }
 }
