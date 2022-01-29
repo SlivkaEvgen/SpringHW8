@@ -9,6 +9,7 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -34,10 +35,11 @@ public class SwaggerConfiguration {
     private ApiInfo getApiInfo() {
         return new ApiInfoBuilder()
                 .title("SpringMarket")
-                .description("Custom description")
+                .description("This is a sample server SpringMarket server. To come back https://spring-webmarket.herokuapp.com \n")
                 .version("1.0.0")
+                .contact(new Contact("Slivka Evgen","https://github.com/SlivkaEvgen","allrent3@gmail.com"))
                 .license("Apache 2.0")
-                .license("https://www.apache.org/licences/LICENSE-2.0")
+                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0.html")
                 .build();
     }
 
