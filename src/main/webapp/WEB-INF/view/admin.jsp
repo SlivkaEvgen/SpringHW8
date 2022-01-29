@@ -1,16 +1,11 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="header.jsp" %>
+<%@ include file="header.jsp" %>
 
 <html>
 <head>
-    <style>
-        .w3-tangerine {
-            font-family: "Tangerine", serif;
-        }
-    </style>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <title>Admin</title>
 
 </head>
@@ -27,7 +22,7 @@
             <%--    </div>--%>
             <%--</div>--%>
             <p></p>
-            <a href="${pageContext.request.contextPath}/note"
+            <a href="${pageContext.request.contextPath}/notes"
                class="w3-btn w3-hover-light-blue w3-round-xlarge"><i class="fa fa-envelope"></i> Note  <span class="w3-tag w3-round w3-red">New!Coming soon </span></a>
 
             <a href="${pageContext.request.contextPath}/weather"
@@ -38,7 +33,7 @@
             <%--   class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Manufacturer</a>--%>
             <%--<a href="${pageContext.request.contextPath}/note"--%>
             <%--   class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Notes</a>--%>
-
+                <i class="fa fa-pen"></i>
             <%--</a>--%>
         </div>
     </div>

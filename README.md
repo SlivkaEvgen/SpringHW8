@@ -41,6 +41,6 @@ ADD to Application.properties:
 
 - notes
 - weather
-- translator(eng-ukr/ukr-eng)
-- Swagger
+- translator(eng-ukr/ukr-eng) - testing!
+- Swagger - testing!
 ...

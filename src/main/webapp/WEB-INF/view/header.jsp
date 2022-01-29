@@ -2,6 +2,7 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@include file="logout.jsp" %>
 <%@include file="metaLink.jsp" %>
@@ -22,7 +23,7 @@
 
 <body>
 <div class="w3-container w3-center w3-padding w3-animate w3-ios-grey">
-    <h1><b>Web Market</b></h1>
+    <h1><b>Web Market</b> </h1>
     <p>This Web Application using <span class="w3-tag">SPRING</span></p>
 
     <a class="w3-display-buttommiddle w3-center w3-round-xlarge w3-ios-grey">
@@ -46,7 +47,8 @@
     <%--       class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Role</a>--%>
     <p></p>
     <a href="${pageContext.request.contextPath}/user"
-       class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">User</a>
+       class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge"><i class="fa fa-user"></i>
+        User</a>
     <a href="${pageContext.request.contextPath}/product"
        class="w3-btn w3-wide w3-hover-light-blue w3-round-xlarge">Product</a>
     <a href="${pageContext.request.contextPath}/manufacturer"

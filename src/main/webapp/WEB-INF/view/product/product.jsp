@@ -15,7 +15,8 @@
 <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
     <div class="w3-container w3-center w3-round-xlarge w3-ios">
         <a href="/product/list"
-           class="w3-btn w3-hover-light-blue w3-round-xlarge">Products List</a>
+           class="w3-btn w3-hover-light-blue w3-round-xlarge">        <i class="fa fa-th-list"></i>
+            Products List</a>
         <a href="/product/id"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By ID</a>
         <a href="/product/name"
@@ -26,9 +27,10 @@
         <%--           class="w3-btn  w3-hover-light-blue w3-round-xlarge"> Manufacturers</a>--%>
         <sec:authorize access="hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')">
             <a href="/product/new"
-               class="w3-btn w3-hover-light-blue w3-round-xlarge">Add New</a>
+               class="w3-btn w3-hover-light-blue w3-round-xlarge"><i class="fa fa-plus-circle"></i>Add New</a>
             <a href="/product/update"
-               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge"><i class="fa fa-edit"></i>
+                Update</a>
             <a href="/product/delete"
                class="w3-btn  w3-hover-light-blue w3-round-xlarge"> <i class="fa fa-trash"></i> Delete</a>
         </sec:authorize>

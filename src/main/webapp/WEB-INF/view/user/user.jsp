@@ -15,7 +15,8 @@
 <div class="w3-container w3-center w3-round-xlarge w3-padding-50">
     <div class="w3-container w3-center w3-round-xlarge w3-ios">
         <a href="${pageContext.request.contextPath}/user/list"
-           class="w3-btn  w3-hover-light-blue w3-round-xlarge">Users List</a>
+           class="w3-btn  w3-hover-light-blue w3-round-xlarge"><i class="fa fa-users"></i>
+            Users List</a>
         <a href="${pageContext.request.contextPath}/user/id"
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By ID</a>
         <a href="${pageContext.request.contextPath}/user/name"
@@ -24,9 +25,11 @@
            class="w3-btn  w3-hover-light-blue w3-round-xlarge">Find By Email</a>
         <sec:authorize access="hasRole('ROLE_ADMIN') and hasAuthority('ROLE_ADMIN')">
             <a href="${pageContext.request.contextPath}/user/new"
-               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Add New</a>
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge"><i class="fa fa-user-plus"></i>
+                Add New</a>
             <a href="${pageContext.request.contextPath}/user/update"
-               class="w3-btn  w3-hover-light-blue w3-round-xlarge">Update</a>
+               class="w3-btn  w3-hover-light-blue w3-round-xlarge"><i class="fa fa-edit"></i>
+                Update</a>
             <a href="${pageContext.request.contextPath}/user/delete"
                class="w3-btn  w3-hover-light-blue w3-round-xlarge"> <i class="fa fa-trash"></i> Delete</a>
         </sec:authorize>

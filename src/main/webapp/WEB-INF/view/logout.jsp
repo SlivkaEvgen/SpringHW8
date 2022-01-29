@@ -4,11 +4,16 @@
 <html>
 
 <sec:authorize access="isAuthenticated()">
-    <h6 class="w3-btn w3-hover-text-light-gray w3-round-xlarge w3-ios-background w3-display-topleft">
-        <a href="${pageContext.request.contextPath}admin">${pageContext.request.userPrincipal.name}</a></h6>
+    <a href="${pageContext.request.contextPath}/admin"
+       class="w3-btn w3-hover-text-light-gray w3-round-xlarge w3-ios-background w3-display-topleft">
+        <i class="fa fa-user-circle"></i>
+            ${pageContext.request.userPrincipal.name}</a>
 
     <a href="${pageContext.request.contextPath}/logout"
-       class="w3-btn w3-hover-text-light-gray w3-round-xlarge w3-ios-background w3-display-topright">Logout</a>
+       class="w3-btn w3-hover-text-light-gray w3-round-xlarge w3-ios-background w3-display-topright">
+        <i class="fa fa-sign-out"></i>
+        Logout</a>
+
 </sec:authorize>
 
 </html>
