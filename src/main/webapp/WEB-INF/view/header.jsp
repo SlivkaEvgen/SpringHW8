@@ -59,14 +59,12 @@
             <span class="w3-tag w3-round w3-hover-light-blue">Swagger API </span></a>
         <p></p>
         <a href="${pageContext.request.contextPath}/english"
-           class="w3-btn w3-red  w3-round-xlarge w3-animate-right">New!Coming soon
-            <span class="w3-tag w3-round w3-hover-light-blue"> Translator</span></a>
+           class="w3-btn w3-red  w3-round-xlarge w3-animate-right">New!Testing
+            <span class="w3-tag w3-round w3-hover-light-blue">Translator (Ukr/Eng)</span></a>
     </div>
     <p></p>
 
-
 </div>
-
 
 </body>
 
