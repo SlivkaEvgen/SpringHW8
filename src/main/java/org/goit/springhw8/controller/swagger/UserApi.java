@@ -2,21 +2,15 @@ package org.goit.springhw8.controller.swagger;
 
 import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.goit.springhw8.model.User;
 import org.goit.springhw8.model.enums.Gender;
 import org.goit.springhw8.model.enums.Role;
-import org.goit.springhw8.model.User;
 import org.goit.springhw8.service.UserDetailsServiceImpl;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "api/user")
@@ -24,117 +18,109 @@ public class UserApi {
 
     private final UserDetailsServiceImpl userDetailsServiceImpl;
 
-
-    public UserApi(UserDetailsServiceImpl userDetailsServiceImpl){
-        this.userDetailsServiceImpl=userDetailsServiceImpl;
+    public UserApi(UserDetailsServiceImpl userDetailsServiceImpl) {
+        this.userDetailsServiceImpl = userDetailsServiceImpl;
     }
 
-    @Operation(summary = "Show All Users",description = " All Users")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "successful operation", content =
-                    {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
-            @ApiResponse(responseCode = "404", description = "Not found", content =
-                    {@Content(mediaType = "application/json")})}  )
+    @Operation(summary = "Show All Users", description = " All Users")
     @GetMapping("list")
     @ResponseBody
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userDetailsServiceImpl.getAll();
     }
 
-    @Operation(summary = "Find User by ID",description = "Show User by ID")
-    @GetMapping("id")
+    @Operation(summary = "Find User by ID", description = "Show User by ID")
+    @GetMapping("/{id}")
     @ResponseBody
-    public Optional<User> getUserById(@ApiParam(required = true,value = " Example : 1 ")String id){
+    public Optional<User> getUserById(@PathVariable @ApiParam(required = true, value = " Example : 1 ") String id) {
         return userDetailsServiceImpl.getById(id);
     }
 
-    @Operation(summary = "Find Users by Name",description = " Show Users by Name ")
-    @GetMapping("name")
+    @Operation(summary = "Find Users by Name", description = " Show Users by Name ")
+    @GetMapping("/name/{name}")
     @ResponseBody
-    public List<User> getUserByName(@ApiParam(required = true,value = " Example : admin ")String name){
+    public List<User> getUserByName(@PathVariable @ApiParam(required = true, value = " Example : user ") String name) {
         return userDetailsServiceImpl.findByName(name);
     }
 
-    @Operation(summary = "Find by Email",description = "Show User by Email")
-    @GetMapping("email")
+    @Operation(summary = "Find by Email", description = "Show User by Email")
+    @GetMapping("/email/{email}")
     @ResponseBody
-    public List<User> getUserByEmail(@ApiParam(required = true,value = " Example :  admin@ua ")String email){
+    public Optional<User> getUserByEmail(@PathVariable @ApiParam(required = true, value = " Example :  user@ua ") String email) {
         return userDetailsServiceImpl.findByEmail(email);
     }
 
-    @Operation(summary = "Delete User",description = "Delete User")
-    @RequestMapping(value = "delete/{id}",method = RequestMethod.DELETE)
+    @Operation(summary = "Delete User", description = "Delete User")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteUserById(@ApiParam(required = true, value = " Example : 4 ") @PathVariable String id){
+    public void deleteUserById(@ApiParam(required = true, value = " Example : 4 ") @PathVariable String id) {
         userDetailsServiceImpl.deleteById(id);
     }
 
-    @RequestMapping(value = "new", method = RequestMethod.POST)
+    @Operation(summary = "New User", description = "Create the New User")
+    @RequestMapping(value = "/new/{firstName}&{email}&{gender}&{lastName}&{password}", method = RequestMethod.POST)
     @ResponseBody
-    @Operation(summary = "New User",description = "Create the New User")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "successful operation",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = User.class))}),
-            @ApiResponse(responseCode = "400",
-                    description = "User not found by id specified in the request",//Invalid ID supplied =404
-                    content = @Content)})
-    public void addNewUserGet(@PathVariable(value = "First Name / Login") @ApiParam(value = " Example : Bill ") String firstName,
-                              @PathVariable(value = "Last Name") @ApiParam(value = " Example : Gates ") String lastName,
-                              @PathVariable(value = "Gender") @ApiParam() Gender gender,
-                              @PathVariable(value = "Email") @ApiParam(value = " Example : billGates@ua ") String email,
-                              @PathVariable(value = "Password") @ApiParam(value = " Example : 123456Ab ")  String password){
-        Set<Role> roleSet = new HashSet<>();
-        roleSet.add(Role.ROLE_USER);
-        User user = new User();
-        user.setActive(true);
-        user.setId(user.getId());
-        user.setName(firstName);
-        user.setLastName(lastName);
-        user.setGender(Gender.valueOf(gender.name()));
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setRoles(roleSet);
+    public User addNewUserGet(@PathVariable @ApiParam(value = " Example : Bill ") String firstName,
+                              @PathVariable @ApiParam(value = " Example : Gates ") String lastName,
+                              @PathVariable @ApiParam(value = " Example : MALE ") Gender gender,
+                              @PathVariable @ApiParam(value = " Example : billGates@ua ") String email,
+                              @PathVariable @ApiParam(value = " Example : 123456abc ") String password) {
+        User user = setIntoUser(new User(),
+                firstName,
+                lastName,
+                email,
+                gender,
+                password);
         userDetailsServiceImpl.saveEntity(user);
+        return user;
     }
 
-    @Operation(summary = "Update User ",description = "Update User")
-    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    @Operation(summary = "Update User ", description = "Update User By ID")
+    @RequestMapping(value = "/update/{id}&{firstName}&{lastName}&{gender}&{email}&{password}", method = RequestMethod.PUT)
     @ResponseBody
-    public void updateUserGet(@ApiParam(required = true)@PathVariable String id, @ApiParam(required = true) @PathVariable String firstName, @ApiParam(required = true) @PathVariable String lastName,
-                              @ApiParam(required = true) @PathVariable Gender gender, @ApiParam(required = true) @PathVariable String email, @ApiParam(required = true,value = " password ") @PathVariable String password){//@ApiParam(required = true, value = "User user") User user
+    public User updateUserGet(@PathVariable @ApiParam(value = " Example : 22 ") String id,
+                              @PathVariable @ApiParam(value = " Example : Bill ") String firstName,
+                              @PathVariable @ApiParam(value = " Example : Gates ") String lastName,
+                              @PathVariable @ApiParam(value = " Example : MALE ") Gender gender,
+                              @PathVariable @ApiParam(value = " Example : billGates@ua ") String email,
+                              @PathVariable @ApiParam(value = " Example : 123456abc ") String password) {
 
         Optional<User> userById = getUserById(id);
-        if (!userById.isPresent()){
-            return;
+        if (userById.isPresent()) {
+            if (!userById.get().getEmail().equals(email)) {
+                if (getUserByEmail(email).isPresent()) {
+                    User user = getUserByEmail(email).get();
+                    if (!user.getId().equals(id)) {
+                        return null;
+                    }
+                }
+            }
+            User user = setIntoUser(userById.get(),
+                    firstName,
+                    lastName,
+                    email,
+                    gender,
+                    password);
+            userDetailsServiceImpl.saveEntity(user);
+            return user;
+        } else {
+            return null;
         }
-        User user = userById.get();
-        Set<Role> roleSet = new HashSet<>();
-        roleSet.add(Role.ROLE_USER);
-//        User user = new User();
-        user.setActive(true);
-        user.setId(id);
-        user.setName(firstName);
-        user.setLastName(lastName);
-        user.setGender(Gender.valueOf(gender.name()));
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setRoles(roleSet);
-        userDetailsServiceImpl.saveEntity(user);
     }
 
-//    @Example(value = ElementType.PACKAGE.TYPE)
-//    public static ElementType getExample(@ExampleProperty(value = ElementType.TYPE) String name){
-//
-//    }
-
-//
-//    public static ElementType values() {
-//        for (ElementType c : ElementType.values()) {
-////            System.out.println(c);
-//            return c;
-//        }
-//        return null;
-//    }
+    private User setIntoUser(User user, String firstName, String lastName, String email, Gender gender, String password) {
+        if (firstName == null) {
+            return null;
+        }
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(Role.ROLE_USER);
+        user.setActive(true);
+        user.setName(firstName.toUpperCase());
+        user.setLastName(lastName.toUpperCase());
+        user.setGender(gender);
+        user.setEmail(email);
+        user.setPassword(new BCryptPasswordEncoder().encode(password));
+        user.setRoles(roleSet);
+        return user;
+    }
 }
