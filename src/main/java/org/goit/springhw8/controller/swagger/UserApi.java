@@ -46,7 +46,7 @@ public class UserApi {
     @Operation(summary = "Find by Email", description = "Show User by Email")
     @GetMapping("/email/{email}")
     @ResponseBody
-    public Optional<User> getUserByEmail(@PathVariable @ApiParam(required = true, value = " Example :  user@ua ") String email) {
+    public List<User> getUserByEmail(@PathVariable @ApiParam(required = true, value = " Example :  user@ua ") String email) {
         return userDetailsServiceImpl.findByEmail(email);
     }
 
@@ -88,8 +88,8 @@ public class UserApi {
         Optional<User> userById = getUserById(id);
         if (userById.isPresent()) {
             if (!userById.get().getEmail().equals(email)) {
-                if (getUserByEmail(email).isPresent()) {
-                    User user = getUserByEmail(email).get();
+                if (!getUserByEmail(email).isEmpty()) {
+                    User user = getUserByEmail(email).get(0);
                     if (!user.getId().equals(id)) {
                         return null;
                     }

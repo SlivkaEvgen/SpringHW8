@@ -20,6 +20,6 @@ public interface UserRepository extends RepositoryI<User, String> {
      * @return the list
      */
     @Query("SELECT u FROM #{#entityName} u WHERE u.email=?1")
-    Optional<User> findByEmail(String email);
+    List<User> findByEmail(String email);
 
 }
