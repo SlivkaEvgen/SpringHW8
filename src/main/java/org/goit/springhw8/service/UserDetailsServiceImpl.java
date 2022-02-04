@@ -90,7 +90,7 @@ public class UserDetailsServiceImpl extends ServiceI<User, String> implements Us
      * @param email the email
      * @return the list
      */
-    public Optional<User> findByEmail(String email) {
+    public List<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 }

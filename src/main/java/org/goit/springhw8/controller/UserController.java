@@ -7,6 +7,7 @@ import org.goit.springhw8.util.Validator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -138,7 +139,7 @@ public class UserController {
         if (email == null) {
             return new ModelAndView(viewName, model);
         }
-        if (!userDetailsServiceImpl.findByEmail(email).isPresent()) {
+        if (userDetailsServiceImpl.findByEmail(email).isEmpty()) {
             return customModel(viewName, model.addAttribute("list", userDetailsServiceImpl.findByEmail(email)), "User With The Name = " + email + ",\n Is Not Found");
         }
         return customModelOk(viewName, model.addAttribute("list", userDetailsServiceImpl.findByEmail(email)), "");
@@ -207,7 +208,7 @@ public class UserController {
             if (Validator.validEmail(user.getEmail())) {
                 return customModel(viewName, model, " Invalid  Email ");
             }
-            if (userDetailsServiceImpl.findByEmail(user.getEmail()).isPresent()) {
+            if (!userDetailsServiceImpl.findByEmail(user.getEmail()).isEmpty()) {
                 return customModel(viewName, model, "The User With This Email Is Registered");
             }
             if (user.getPassword().length() <= 5 | user.getPassword().length() > 20) {
@@ -265,7 +266,7 @@ public class UserController {
                 return customModel(viewName, model, "User With The ID = " + user.getId() + ",\n Is Not Found");
             }
             // check unique email
-            if (userDetailsServiceImpl.findByEmail(user.getEmail()).isPresent()) {
+            if (!userDetailsServiceImpl.findByEmail(user.getEmail()).isEmpty()) {
                 return customModel(viewName, model, "The User With This Email Is Registered");
             }
             // if ADMIN
