@@ -8,9 +8,10 @@
 <style>
     .w3-display-bottommiddle {
         z-index: 2;
-        width: 800px;
-        line-height: initial;
+        width: 600px;
+        line-height: inherit;
     }
+
 </style>
 
 <head>
@@ -21,7 +22,7 @@
 <div class="w3-container w3-center w3-round-xlarge">
     <nav class="w3-bar-block  w3-light-grey w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
         <h5 style="color:steelblue" class="text w3-animate">All Notes</h5>
-        <label for="myInput"></label>
+        <%--        <label for="myInput"></label>--%>
         <input class="w3-input w3-center w3-border w3-tiny w3-round-xxlarge w3-hover-light-blue"
                type="text" placeholder="Search for id..." id="myInput" onkeyup="myFunction()">
         <table class="w3-table-all w3-small w3-centered "
@@ -30,17 +31,22 @@
             <tr class="w3-hover-light-blue">
                 <th>ID</th>
                 <th>NAME</th>
-                <th>MESSAGE</th>
+                <%--                <th>MESSAGE</th>--%>
                 <th>AUTHOR</th>
                 <th>ACCESS TYPE</th>
                 <th>UPDATE</th>
                 <th>DELETE</th>
+                <%--                <th>LINK</th>--%>
             </tr>
             <c:forEach items="${list}" var="note">
                 <tr>
+                        <%--                    <a href="${pageContext.request.contextPath}/notes/id?id=${note.id}">${note.id}</a>--%>
                     <td>${note.id}</td>
-                    <td>${note.name}</td>
-                    <td>${note.message}</td>
+                        <%--                    <td class="link w3-btn" id="myInput"><a href="${pageContext.request.contextPath}/notes/id?id=${note.id}">${note.id}</a></td>--%>
+                    <td class="link" id="myInput"><a
+                            href="${pageContext.request.contextPath}/notes/id?id=${note.id}">${note.name}</a></td>
+                        <%--                    <td>${note.name}</td>--%>
+                        <%--                    <td>${note.message}</td>--%>
                     <td>${note.author.name}</td>
                     <td>${note.accessType}</td>
                     <td>

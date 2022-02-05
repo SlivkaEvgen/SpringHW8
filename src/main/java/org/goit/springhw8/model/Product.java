@@ -43,4 +43,6 @@ public class Product implements BaseModel<String> {
 //    @ToString.Exclude
     @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
+
+
 }

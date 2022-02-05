@@ -38,7 +38,7 @@ public class ProductController {
      * @param errorMessage the error message
      * @return the model and view
      */
-    public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
+    private ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
         return sendErrorMessage.customModel(viewName, model, errorMessage);
     }
 
@@ -50,7 +50,7 @@ public class ProductController {
      * @param errorMessage the error message
      * @return the model and view
      */
-    public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
+    private ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
         return sendErrorMessage.customModelOK(viewName, model, errorMessage);
     }
 
