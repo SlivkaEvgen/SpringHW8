@@ -49,7 +49,7 @@ public class UserController {
      * @param message  the message
      * @return the model and view
      */
-    public ModelAndView customModel(String viewName, ModelMap model, Object message) {
+    private ModelAndView customModel(String viewName, ModelMap model, Object message) {
         return sendErrorMessage.customModel(viewName, model, message);
     }
 
@@ -61,7 +61,7 @@ public class UserController {
      * @param errorMessage the error message
      * @return the model and view
      */
-    public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
+    private ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
         return sendErrorMessage.customModelOK(viewName, model, errorMessage);
     }
 

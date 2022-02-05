@@ -8,7 +8,7 @@
 <style>
     .w3-display-bottommiddle {
         z-index: 2;
-        width: 800px;
+        width: 600px;
         line-height: initial;
     }
 </style>
@@ -36,38 +36,27 @@
                                class="w3-input w3-center w3-high-small w3-btn w3-border w3-hover-green w3-round-xlarge w3-light-blue"
                                value="SEARCH"/>
                     </td>
-                </tr>
-
-                <table class="w3-table-all w3-small w3-centered "
-                       class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
-                       id="myTable">
-                    <tr class="w3-hover-light-blue">
-                        <th>ID</th>
-                        <th>NAME</th>
-                        <th>MESSAGE</th>
-                        <th>ACCESS TYPE</th>
-                        <th>AUTHOR</th>
-                        <th>UPDATE</th>
-                        <th>DELETE</th>
-                    </tr>
-                    <c:forEach items="${list}" var="note">
-                        <tr>
-                            <td>${note.id}</td>
-                            <td>${note.name}</td>
-                            <td>${note.message}</td>
-                            <td>${note.accessType}</td>
-                            <td>${note.author.name}</td>
-                            <td>
+                    <table class="w3-table-all w3-small w3-centered "
+                           class="w3-hoverable w3-center w3-padding w3-table-all w3-card-4 w3-small w3-margin-top w3-round-xlarge w3-centered w3-animate-opacity"
+                           id="myTable">
+                        <div class="w3-panel w3-border w3-ios-grey w3-round-large">
+                            <c:forEach items="${list}" var="note">
+                                <p></p>
+                                <a class="w3-text-black w3-left">Name: ${note.name} </a>
+                                <p></p>
+                                <a class="w3-text-black w3-right">${note.accessType}</a>
+                                <p>***</p>
+                                <p></p>
+<%--                                <p class="w3-text w3-left">&copy; ${note.author.name} </p>--%>
+                                <p class="w3-text-sand w3-left"> MESSAGE: ${note.message}</p>
+                                <p></p>
                                 <a href="${pageContext.request.contextPath}/notes/update/?id=${note.id}"
-                                   class="w3-btn w3-hover-light-blue w3-round-xlarge">UPDATE</a>
-                            </td>
-                            <td>
+                                   class="w3-btn w3-hover-light-blue w3-round-xlarge w3-right">UPDATE</a>
                                 <a href="${pageContext.request.contextPath}/notes/delete/?id=${note.id}"
-                                   class="w3-btn w3-hover-red w3-round-xlarge">DELETE</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
+                                   class="w3-btn w3-hover-red w3-round-xlarge w3-right">DELETE</a>
+                            </c:forEach>
+                        </div>
+                    </table>
             </table>
             <h5 style="color:steelblue" class="text w3-center w3-round-xlarge w3-animate-bottom">NOTE BY ID</h5>
         </form>

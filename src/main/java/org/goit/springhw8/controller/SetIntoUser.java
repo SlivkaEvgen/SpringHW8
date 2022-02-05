@@ -38,7 +38,7 @@ public class SetIntoUser {
      * @param message  the message
      * @return the model and view
      */
-    public ModelAndView customModel(String viewName, ModelMap model, Object message) {
+    private ModelAndView customModel(String viewName, ModelMap model, Object message) {
         return sendErrorMessage.customModel(viewName, model, message);
     }
 

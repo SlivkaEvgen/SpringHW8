@@ -42,23 +42,20 @@ public class Registration {
      *
      * @param viewName the view name
      * @param model    the model
-     * @param message  the message
      * @return the model and view
      */
-    public ModelAndView customModel(String viewName, ModelMap model, Object message) {
-        return sendErrorMessage.customModel(viewName, model, message);
+    private ModelAndView customModel(String viewName, ModelMap model) {
+        return sendErrorMessage.customModel(viewName, model, "The User With This Email Is Registered");
     }
 
     /**
      * Custom model ok model and view.
      *
-     * @param viewName the view name
      * @param model    the model
-     * @param message  the message
      * @return the model and view
      */
-    public ModelAndView customModelOK(String viewName, ModelMap model, Object message) {
-        return sendErrorMessage.customModelOK(viewName, model, message);
+    private ModelAndView customModelOK(ModelMap model) {
+        return sendErrorMessage.customModelOK("login", model, "User Is Registered.\n Now You Can To Log In");
     }
 
     /**
@@ -91,11 +88,11 @@ public class Registration {
         }
         if (!setIntoUser.NotNullNotEmpty(viewName,user,model).isEmpty()) {
             if (!userDetailsServiceImpl.findByEmail(user.getEmail()).isEmpty()) {
-                return customModel(viewName, model, "The User With This Email Is Registered");
+                return customModel(viewName, model);
             }
         }
         userDetailsServiceImpl.saveEntity(setIntoUser.setUser(user));
-        return customModelOK("login", model, "User Is Registered.\n Now You Can To Log In");
+        return customModelOK(model);
     }
 }
 

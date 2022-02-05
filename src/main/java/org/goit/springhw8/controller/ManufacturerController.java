@@ -32,7 +32,7 @@ public class ManufacturerController {
      * @param errorMessage the error message
      * @return the model and view
      */
-    public ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
+    private ModelAndView customModel(String viewName, ModelMap model, Object errorMessage) {
         return sendErrorMessage.customModel(viewName, model, errorMessage);
     }
 
@@ -44,7 +44,7 @@ public class ManufacturerController {
      * @param errorMessage the error message
      * @return the model and view
      */
-    public ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
+    private ModelAndView customModelOk(String viewName, ModelMap model, Object errorMessage) {
         return sendErrorMessage.customModelOK(viewName, model, errorMessage);
     }
 
@@ -186,7 +186,6 @@ public class ManufacturerController {
         if (manufacturerService.getById(manufacturer.getId()).isPresent()) {
             return customModel(viewName, model, "Manufacturer With ID = " + manufacturer.getId() + " Is Used");
         }
-
         manufacturer.setName(manufacturer.getName().toUpperCase());
         manufacturerService.saveEntity(manufacturer);
         return customModelOk(viewName, model, "New Manufacturer Added");
@@ -214,7 +213,6 @@ public class ManufacturerController {
         if (!manufacturerService.getById(manufacturer.getId()).isPresent()) {
             return customModel(viewName, model, "Manufacturer With ID = " + manufacturer.getId() + " Not Found");
         }
-
         manufacturer.setName(manufacturer.getName().toUpperCase());
         manufacturerService.saveEntity(manufacturer);
         return customModelOk("manufacturer/manufacturer", model, "Manufacturer Updated");
