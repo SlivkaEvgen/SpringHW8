@@ -16,7 +16,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @ApiModel
-//@ToString(exclude = "products")
 @Table(name = "manufacturer")
 public class Manufacturer implements BaseModel<String> {
 

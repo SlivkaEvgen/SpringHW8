@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Manufacturer api.
+ */
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "api/manufacturer")
@@ -18,6 +21,11 @@ public class ManufacturerApi {
 
     private final ManufacturerService manufacturerService;
 
+    /**
+     * Gets all manufacturers.
+     *
+     * @return the all manufacturers
+     */
     @Operation(summary = "Show All Manufacturers", description = " All Manufacturers")
     @GetMapping("list")
     @ResponseBody
@@ -25,6 +33,12 @@ public class ManufacturerApi {
         return manufacturerService.getAll();
     }
 
+    /**
+     * Gets manufacturer by id.
+     *
+     * @param id the id
+     * @return the manufacturer by id
+     */
     @Operation(summary = "Find Manufacturer by ID", description = "Show Manufacturer by ID")
     @GetMapping("/{id}")
     @ResponseBody
@@ -32,6 +46,12 @@ public class ManufacturerApi {
         return manufacturerService.getById(id);
     }
 
+    /**
+     * Gets manufacturer by name.
+     *
+     * @param name the name
+     * @return the manufacturer by name
+     */
     @Operation(summary = "Find Manufacturers by Name", description = " Show Manufacturers by Name ")
     @GetMapping("/name/{name}")
     @ResponseBody
@@ -39,6 +59,11 @@ public class ManufacturerApi {
         return manufacturerService.findByName(name);
     }
 
+    /**
+     * Delete manufacturer by id.
+     *
+     * @param id the id
+     */
     @Operation(summary = "Delete Manufacturer", description = "Delete Manufacturer")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
@@ -46,6 +71,12 @@ public class ManufacturerApi {
         manufacturerService.deleteById(id);
     }
 
+    /**
+     * Add new manufacturer get manufacturer.
+     *
+     * @param name the name
+     * @return the manufacturer
+     */
     @Operation(summary = "New Manufacturer", description = "Create the New Manufacturer")
     @RequestMapping(value = "/new/{name}", method = RequestMethod.POST)
     @ResponseBody
@@ -57,6 +88,13 @@ public class ManufacturerApi {
         return manufacturer;
     }
 
+    /**
+     * Update manufacturer get manufacturer.
+     *
+     * @param id   the id
+     * @param name the name
+     * @return the manufacturer
+     */
     @Operation(summary = "Update Manufacturer ", description = "Update Manufacturer")
     @RequestMapping(value = "/update/{id}&{name}", method = RequestMethod.PUT)
     @ResponseBody

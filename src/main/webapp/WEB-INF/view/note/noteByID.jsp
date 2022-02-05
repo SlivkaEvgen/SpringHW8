@@ -16,6 +16,7 @@
 <head>
     <title>Note By ID</title>
 </head>
+
 <body>
 <div class="w3-container w3-center w3-round-xlarge">
     <nav class="w3-bar-block w3-center w3-light-grey w3-animate-top w3-card w3-round-xlarge w3-display-bottommiddle">
@@ -47,7 +48,7 @@
                                 <a class="w3-text-black w3-right">${note.accessType}</a>
                                 <p>***</p>
                                 <p></p>
-<%--                                <p class="w3-text w3-left">&copy; ${note.author.name} </p>--%>
+                                <%--                                <p class="w3-text w3-left">&copy; ${note.author.name} </p>--%>
                                 <p class="w3-text-sand w3-left"> MESSAGE: ${note.message}</p>
                                 <p></p>
                                 <a href="${pageContext.request.contextPath}/notes/update/?id=${note.id}"

@@ -23,5 +23,3 @@ public interface RepositoryI<T extends BaseModel<ID>, ID> extends JpaRepository<
      */
     List<T> findByNameContainingIgnoreCase(String name);
 }
-//    @Query("SELECT u FROM #{#entityName} u WHERE lower(u.name) like lower(concat('%', ?1,'%'))")
-//    @Query("SELECT u.name FROM #{#entityName} u WHERE u.name LIKE CONCAT('%',:name,'%')")

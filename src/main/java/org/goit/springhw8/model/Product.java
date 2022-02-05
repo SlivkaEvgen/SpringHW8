@@ -44,5 +44,4 @@ public class Product implements BaseModel<String> {
     @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
 
-
 }
