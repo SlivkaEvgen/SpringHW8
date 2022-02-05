@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Product api.
+ */
 @Controller
 @RequestMapping(value = "api/product")
 public class ProductApi {
@@ -20,11 +23,22 @@ public class ProductApi {
 
     private final ManufacturerService manufacturerService;
 
+    /**
+     * Instantiates a new Product api.
+     *
+     * @param productService      the product service
+     * @param manufacturerService the manufacturer service
+     */
     public ProductApi(ProductService productService, ManufacturerService manufacturerService) {
         this.productService = productService;
         this.manufacturerService = manufacturerService;
     }
 
+    /**
+     * Gets all products.
+     *
+     * @return the all products
+     */
     @Operation(summary = "Show All Products", description = " All Products")
     @GetMapping("list")
     @ResponseBody
@@ -32,6 +46,12 @@ public class ProductApi {
         return productService.getAll();
     }
 
+    /**
+     * Gets product by id.
+     *
+     * @param id the id
+     * @return the product by id
+     */
     @Operation(summary = "Find Product by ID", description = "Show Product by ID")
     @GetMapping("/{id}")
     @ResponseBody
@@ -39,6 +59,12 @@ public class ProductApi {
         return productService.getById(id);
     }
 
+    /**
+     * Gets product by name.
+     *
+     * @param name the name
+     * @return the product by name
+     */
     @Operation(summary = "Find Products by Name", description = " Show Products by Name ")
     @GetMapping("/name/{name}")
     @ResponseBody
@@ -46,6 +72,11 @@ public class ProductApi {
         return productService.findByName(name);
     }
 
+    /**
+     * Delete product by id.
+     *
+     * @param id the id
+     */
     @Operation(summary = "Delete Product", description = "Delete Product")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
@@ -53,6 +84,14 @@ public class ProductApi {
         productService.deleteById(id);
     }
 
+    /**
+     * Add new product get product.
+     *
+     * @param name         the name
+     * @param price        the price
+     * @param manufacturer the manufacturer
+     * @return the product
+     */
     @Operation(summary = "New Product", description = "Create the New Product")
     @RequestMapping(value = "/new/{name}&{price}&{manufacturer}", method = RequestMethod.POST)
     @ResponseBody
@@ -68,6 +107,15 @@ public class ProductApi {
         return product;
     }
 
+    /**
+     * Update product get product.
+     *
+     * @param id           the id
+     * @param name         the name
+     * @param price        the price
+     * @param manufacturer the manufacturer
+     * @return the product
+     */
     @Operation(summary = "Update Product ", description = "Update Product")
     @RequestMapping(value = "/update/{id}&{name}&{price}&{manufacturer}", method = RequestMethod.PUT)
     @ResponseBody

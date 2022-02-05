@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Note controller.
+ */
 @Controller
 @RequestMapping(value = "notes")
 public class NoteController {
@@ -29,6 +32,13 @@ public class NoteController {
 
     private String viewName = "";
 
+    /**
+     * Instantiates a new Note controller.
+     *
+     * @param sendErrorMessage   the send error message
+     * @param noteService        the note service
+     * @param userDetailsService the user details service
+     */
     public NoteController(SendErrorMessage sendErrorMessage, NoteService noteService, UserDetailsServiceImpl userDetailsService) {
         this.sendErrorMessage = sendErrorMessage;
         this.noteService = noteService;
@@ -43,11 +53,24 @@ public class NoteController {
         return sendErrorMessage.customModelOK(viewName, model, errorMessage);
     }
 
+    /**
+     * Entity note model and view.
+     *
+     * @param model the model
+     * @return the model and view
+     */
     @GetMapping("")
     public ModelAndView entityNote(ModelMap model) {
         return new ModelAndView("note/note", model);
     }
 
+    /**
+     * Gets all notes.
+     *
+     * @param userName the user name
+     * @param model    the model
+     * @return the all notes
+     */
     @GetMapping("list")
     public ModelAndView getAllNotes(@CurrentSecurityContext(expression = "authentication?.name") String userName, ModelMap model) {
         List<Note> noteList = new ArrayList<>();
@@ -62,6 +85,13 @@ public class NoteController {
         return new ModelAndView("note/noteList", String.valueOf(model), model.addAttribute("list", noteList));
     }
 
+    /**
+     * Gets note by id.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the note by id
+     */
     @GetMapping("id")
     public ModelAndView getNoteById(String id, ModelMap model) {
         viewName = "note/noteByID";
@@ -74,6 +104,14 @@ public class NoteController {
         return customModelOk(viewName, model.addAttribute("list", noteService.findListByEntityId(id)), "");
     }
 
+    /**
+     * Delete note by id model and view.
+     *
+     * @param userName the user name
+     * @param id       the id
+     * @param model    the model
+     * @return the model and view
+     */
     @GetMapping("delete")
     public ModelAndView deleteNoteById(@CurrentSecurityContext(expression = "authentication?.name") String userName, String id, ModelMap model) {
         viewName = "note/deleteNote";
@@ -90,11 +128,26 @@ public class NoteController {
         return new ModelAndView("redirect:/notes/list", model);
     }
 
+    /**
+     * Add new note get model and view.
+     *
+     * @param note  the note
+     * @param model the model
+     * @return the model and view
+     */
     @GetMapping("new/**")
     public ModelAndView addNewNoteGet(Note note, ModelMap model) {
         return new ModelAndView("note/newNote", String.valueOf(model), model.addAttribute("note", note).addAttribute("list2", noteService.getAccessType()));
     }
 
+    /**
+     * Add new note post model and view.
+     *
+     * @param userName the user name
+     * @param note     the note
+     * @param model    the model
+     * @return the model and view
+     */
     @RequestMapping(value = "new/**", method = RequestMethod.POST)
     public ModelAndView addNewNotePost(@CurrentSecurityContext(expression = "authentication?.name") String userName, Note note, ModelMap model) {
         viewName = "note/newNote";
@@ -104,6 +157,14 @@ public class NoteController {
         return validNote(userName, viewName, note, model.addAttribute("list2", noteService.getAccessType()), true);
     }
 
+    /**
+     * Update note get model and view.
+     *
+     * @param userName the user name
+     * @param note     the note
+     * @param model    the model
+     * @return the model and view
+     */
     @GetMapping("update/**")
     public ModelAndView updateNoteGet(@CurrentSecurityContext(expression = "authentication?.name") String userName, Note note, ModelMap model) {
         if (note==null){
@@ -126,6 +187,14 @@ public class NoteController {
         return new ModelAndView("note/updateNote", String.valueOf(model), model.addAttribute("note", note).addAttribute("list2", noteService.getAccessType()));
     }
 
+    /**
+     * Update note post model and view.
+     *
+     * @param userName the user name
+     * @param note     the note
+     * @param model    the model
+     * @return the model and view
+     */
     @RequestMapping(value = "update/**", method = RequestMethod.POST)
     public ModelAndView updateNotePost(@CurrentSecurityContext(expression = "authentication?.name") String userName, Note note, ModelMap model) {
         viewName = "note/updateNote";

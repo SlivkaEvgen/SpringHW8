@@ -11,6 +11,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+/**
+ * The type Note.
+ */
 @Getter
 @Setter
 @RequiredArgsConstructor

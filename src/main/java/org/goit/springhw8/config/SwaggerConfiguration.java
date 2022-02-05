@@ -15,6 +15,9 @@ import springfox.documentation.spring.data.rest.configuration.SpringDataRestConf
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * The type Swagger configuration.
+ */
 //http://localhost:9999/swagger-ui/index.html#/
 @Configuration
 @EnableOpenApi
@@ -22,6 +25,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Import({SpringDataRestConfiguration.class,BeanValidatorPluginsConfiguration.class})
 public class SwaggerConfiguration {
 
+    /**
+     * Api docket.
+     *
+     * @return the docket
+     */
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)

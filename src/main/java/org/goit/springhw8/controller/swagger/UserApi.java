@@ -12,16 +12,29 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+/**
+ * The type User api.
+ */
 @Controller
 @RequestMapping(value = "api/user")
 public class UserApi {
 
     private final UserDetailsServiceImpl userDetailsServiceImpl;
 
+    /**
+     * Instantiates a new User api.
+     *
+     * @param userDetailsServiceImpl the user details service
+     */
     public UserApi(UserDetailsServiceImpl userDetailsServiceImpl) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
     }
 
+    /**
+     * Gets all users.
+     *
+     * @return the all users
+     */
     @Operation(summary = "Show All Users", description = " All Users")
     @GetMapping("list")
     @ResponseBody
@@ -29,6 +42,12 @@ public class UserApi {
         return userDetailsServiceImpl.getAll();
     }
 
+    /**
+     * Gets user by id.
+     *
+     * @param id the id
+     * @return the user by id
+     */
     @Operation(summary = "Find User by ID", description = "Show User by ID")
     @GetMapping("/{id}")
     @ResponseBody
@@ -36,6 +55,12 @@ public class UserApi {
         return userDetailsServiceImpl.getById(id);
     }
 
+    /**
+     * Gets user by name.
+     *
+     * @param name the name
+     * @return the user by name
+     */
     @Operation(summary = "Find Users by Name", description = " Show Users by Name ")
     @GetMapping("/name/{name}")
     @ResponseBody
@@ -43,6 +68,12 @@ public class UserApi {
         return userDetailsServiceImpl.findByName(name);
     }
 
+    /**
+     * Gets user by email.
+     *
+     * @param email the email
+     * @return the user by email
+     */
     @Operation(summary = "Find by Email", description = "Show User by Email")
     @GetMapping("/email/{email}")
     @ResponseBody
@@ -50,6 +81,11 @@ public class UserApi {
         return userDetailsServiceImpl.findByEmail(email);
     }
 
+    /**
+     * Delete user by id.
+     *
+     * @param id the id
+     */
     @Operation(summary = "Delete User", description = "Delete User")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
@@ -57,6 +93,16 @@ public class UserApi {
         userDetailsServiceImpl.deleteById(id);
     }
 
+    /**
+     * Add new user get user.
+     *
+     * @param firstName the first name
+     * @param lastName  the last name
+     * @param gender    the gender
+     * @param email     the email
+     * @param password  the password
+     * @return the user
+     */
     @Operation(summary = "New User", description = "Create the New User")
     @RequestMapping(value = "/new/{firstName}&{email}&{gender}&{lastName}&{password}", method = RequestMethod.POST)
     @ResponseBody
@@ -75,6 +121,17 @@ public class UserApi {
         return user;
     }
 
+    /**
+     * Update user get user.
+     *
+     * @param id        the id
+     * @param firstName the first name
+     * @param lastName  the last name
+     * @param gender    the gender
+     * @param email     the email
+     * @param password  the password
+     * @return the user
+     */
     @Operation(summary = "Update User ", description = "Update User By ID")
     @RequestMapping(value = "/update/{id}&{firstName}&{lastName}&{gender}&{email}&{password}", method = RequestMethod.PUT)
     @ResponseBody
