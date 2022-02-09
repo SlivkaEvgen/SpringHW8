@@ -14,9 +14,9 @@ ADD to Application.properties:
 
 #For example:
 
-* DB_USERNAME = root
+* DB_USERNAME = user
 
-* DB_PASSWORD = super_password
+* DB_PASSWORD = 123
 
 * DB_URL = jdbc:postgresql://localhost:5432/postgres
 
