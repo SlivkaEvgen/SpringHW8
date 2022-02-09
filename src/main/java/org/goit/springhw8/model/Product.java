@@ -40,7 +40,6 @@ public class Product implements BaseModel<String> {
     private Double price;
 
     @ManyToOne (fetch = FetchType.EAGER)
-//    @ToString.Exclude
     @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
 
